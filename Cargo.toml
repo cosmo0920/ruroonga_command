@@ -1,0 +1,7 @@
+[package]
+name = "ruroonga_command"
+version = "0.1.0"
+authors = ["Hiroshi Hatake <cosmo0920.oucc@gmail.com>"]
+
+[dependencies]
+url = "~0.5.2"
