@@ -1,4 +1,4 @@
-use super::command::Command;
+use super::command::{Command, Query};
 use super::command::Command::Select;
 use std::iter::IntoIterator;
 use std::collections::HashMap;
@@ -81,11 +81,20 @@ impl SelectCommand {
         self.arguments.insert("cache".to_string(), flag.to_string());
         self
     }
+
+    pub fn build(self) -> Query {
+        let mut query: Query = vec![("table".to_string(), self.table)];
+        for (key, value) in self.arguments.iter() {
+            query.push((key.to_owned(), value.to_owned()));
+        }
+        query
+    }
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
+    use command::Query;
     use command::Command::Select;
     use std::collections::HashMap;
 
@@ -208,5 +217,16 @@ mod test {
             arguments: arg_no,
         };
         assert_eq!(expected_no, select_no);
+    }
+
+    #[test]
+    fn test_build() {
+        let query = SelectCommand::new("test".to_string())
+            .filter("output_column @ \"type_safe\"".to_string()).build();
+        let expected: Query =
+            vec![("table".to_string(), "test".to_string()),
+                 ("filter".to_string(),
+                  "'output_column @ \"type_safe\"'".to_string())];
+        assert_eq!(expected, query);
     }
 }
