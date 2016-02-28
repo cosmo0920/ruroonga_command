@@ -36,6 +36,12 @@ impl SelectCommand {
         self
     }
 
+    pub fn query(mut self, query: String) -> SelectCommand {
+        let encoded = format!("'{}'", query);
+        self.arguments.insert("query".to_string(), encoded.clone());
+        self
+    }
+
     #[inline]
     fn split_columns_vec(&mut self, columns: Vec<String>) -> String {
         let string = columns.into_iter().collect::<Vec<String>>()
@@ -101,6 +107,21 @@ mod test {
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("filter".to_string(),
                    "'output_column @ \"type_safe\"'".to_string());
+        let expected = SelectCommand {
+            command: Select,
+            table: "test".to_string(),
+            arguments: arg,
+        };
+        assert_eq!(expected, select);
+    }
+
+    #[test]
+    fn test_query() {
+        let select = SelectCommand::new("test".to_string())
+            .query("_key:\"http://example.org/\"".to_string());
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("query".to_string(),
+                   "\'_key:\"http://example.org/\"\'".to_string());
         let expected = SelectCommand {
             command: Select,
             table: "test".to_string(),
