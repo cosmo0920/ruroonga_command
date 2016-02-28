@@ -90,11 +90,11 @@ impl Default for CommandQuery {
 }
 
 impl CommandQuery {
-    pub fn new(command: Command) -> CommandQuery {
+    pub fn new(command: Command, query: Query) -> CommandQuery {
         let default: CommandQuery = Default::default();
         CommandQuery {
             command: command,
-            arguments: default.arguments,
+            arguments: query,
             prefix: default.prefix,
         }
     }
@@ -129,6 +129,15 @@ impl CommandQuery {
     pub fn make_query(&mut self) -> String {
         form_urlencoded::serialize(self.arguments.clone().into_iter())
     }
+
+    ///
+    /// Create Groonga HTTP server query URL.
+    pub fn encode(&mut self) -> String {
+        format!("{}/{}?{}",
+                self.get_prefix(),
+                self.get_command(),
+                self.make_query())
+    }
 }
 
 #[cfg(test)]
@@ -137,6 +146,8 @@ mod test {
     use super::CommandError;
     use super::Command;
     use super::Command::{Select, Load, Status, Dump, Delete, Extension};
+    use super::CommandQuery;
+    use select::SelectCommand;
 
     #[test]
     fn test_from_str() {
@@ -166,5 +177,14 @@ mod test {
         assert_eq!(Status.as_ref(), "status");
         assert_eq!(Extension("added-command".to_owned()).as_ref(),
                    "added-command");
+    }
+
+    #[test]
+    fn test_select() {
+        let (command, query) = SelectCommand::new("Test".to_string())
+            .filter("output_column @ \"type_safe\"".to_string()).build();
+        let mut command = CommandQuery::new(command, query);
+        let url_encoded = "/d/select?table=Test&filter=%27output_column+%40+%22type_safe%22%27";
+        assert_eq!(url_encoded.to_string(), command.encode());
     }
 }
