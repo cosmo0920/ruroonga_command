@@ -6,16 +6,16 @@ use std::collections::HashMap;
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct SelectCommand {
     command: Command,
-    arguments: HashMap<String, String>,
     table: String,
+    arguments: HashMap<String, String>,
 }
 
 impl Default for SelectCommand {
     fn default() -> SelectCommand {
         SelectCommand {
             command: Select,
-            arguments: HashMap::new(),
             table: "".to_string(),
+            arguments: HashMap::new(),
         }
     }
 }
@@ -25,8 +25,8 @@ impl SelectCommand {
         let default: SelectCommand = Default::default();
         SelectCommand {
             command: default.command,
+            table: table,
             arguments: default.arguments,
-            table: table
         }
     }
 
@@ -88,8 +88,8 @@ mod test {
         let vanilla_select = SelectCommand::new("test".to_string());
         let expected = SelectCommand {
             command: Select,
-            arguments: HashMap::new(),
             table: "test".to_string(),
+            arguments: HashMap::new(),
         };
         assert_eq!(expected, vanilla_select);
     }
@@ -103,8 +103,8 @@ mod test {
                    "'output_column @ \"type_safe\"'".to_string());
         let expected = SelectCommand {
             command: Select,
-            arguments: arg,
             table: "test".to_string(),
+            arguments: arg,
         };
         assert_eq!(expected, select);
     }
@@ -117,8 +117,8 @@ mod test {
         arg.insert("match_columns".to_string(), "test,piyo".to_string());
         let expected = SelectCommand {
             command: Select,
-            arguments: arg,
             table: "test".to_string(),
+            arguments: arg,
         };
         assert_eq!(expected, select);
     }
@@ -131,8 +131,8 @@ mod test {
         arg.insert("output_columns".to_string(), "test,piyo".to_string());
         let expected = SelectCommand {
             command: Select,
-            arguments: arg,
             table: "test".to_string(),
+            arguments: arg,
         };
         assert_eq!(expected, select);
     }
@@ -159,8 +159,8 @@ mod test {
         arg.insert("limit".to_string(), "50".to_string());
         let expected = SelectCommand {
             command: Select,
-            arguments: arg,
             table: "test".to_string(),
+            arguments: arg,
         };
         assert_eq!(expected, select);
     }
@@ -173,8 +173,8 @@ mod test {
         arg_yes.insert("cache".to_string(), "yes".to_string());
         let expected_yes = SelectCommand {
             command: Select,
-            arguments: arg_yes,
             table: "test".to_string(),
+            arguments: arg_yes,
         };
         assert_eq!(expected_yes, select_yes);
         let select_no = SelectCommand::new("test".to_string())
@@ -183,8 +183,8 @@ mod test {
         arg_no.insert("cache".to_string(), "no".to_string());
         let expected_no = SelectCommand {
             command: Select,
-            arguments: arg_no,
             table: "test".to_string(),
+            arguments: arg_no,
         };
         assert_eq!(expected_no, select_no);
     }
