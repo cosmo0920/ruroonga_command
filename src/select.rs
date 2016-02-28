@@ -82,12 +82,12 @@ impl SelectCommand {
         self
     }
 
-    pub fn build(self) -> Query {
+    pub fn build(self) -> (Command, Query) {
         let mut query: Query = vec![("table".to_string(), self.table)];
         for (key, value) in self.arguments.iter() {
             query.push((key.to_owned(), value.to_owned()));
         }
-        query
+        (Select, query)
     }
 }
 
@@ -221,12 +221,13 @@ mod test {
 
     #[test]
     fn test_build() {
-        let query = SelectCommand::new("test".to_string())
+        let actual = SelectCommand::new("test".to_string())
             .filter("output_column @ \"type_safe\"".to_string()).build();
-        let expected: Query =
+        let expected_query: Query =
             vec![("table".to_string(), "test".to_string()),
                  ("filter".to_string(),
                   "'output_column @ \"type_safe\"'".to_string())];
-        assert_eq!(expected, query);
+        let expected = (Select, expected_query);
+        assert_eq!(expected, actual);
     }
 }
