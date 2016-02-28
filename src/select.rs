@@ -30,14 +30,27 @@ impl SelectCommand {
         }
     }
 
-    pub fn output_columns(mut self, columns: Vec<String>) -> SelectCommand {
-        fn split_columns_vec(columns: Vec<String>) -> String {
-            let string = columns.into_iter().collect::<Vec<String>>()
-                .join(",").to_owned();
-            string.clone()
-        }
+    pub fn filter(mut self, filter: String) -> SelectCommand {
+        let encoded = format!("'{}'", filter);
+        self.arguments.insert("filter".to_string(), encoded.clone());
+        self
+    }
 
-        let string = split_columns_vec(columns);
+    #[inline]
+    fn split_columns_vec(&mut self, columns: Vec<String>) -> String {
+        let string = columns.into_iter().collect::<Vec<String>>()
+            .join(",").to_owned();
+        string.clone()
+    }
+
+    pub fn match_columns(mut self, columns: Vec<String>) -> SelectCommand {
+        let string = self.split_columns_vec(columns);
+        self.arguments.insert("match_columns".to_string(), string.clone());
+        self
+    }
+
+    pub fn output_columns(mut self, columns: Vec<String>) -> SelectCommand {
+        let string = self.split_columns_vec(columns);
         self.arguments.insert("output_columns".to_string(), string.clone());
         self
     }
@@ -51,6 +64,15 @@ impl SelectCommand {
     pub fn limit(mut self, limit: u64) -> SelectCommand {
         let limit = format!("{}", limit);
         self.arguments.insert("limit".to_string(), limit.clone());
+        self
+    }
+
+    pub fn cache(mut self, cache: bool) -> SelectCommand {
+        let flag = match cache {
+            true => "yes",
+            false => "no"
+        };
+        self.arguments.insert("cache".to_string(), flag.to_string());
         self
     }
 }
@@ -70,6 +92,35 @@ mod test {
             table: "test".to_string(),
         };
         assert_eq!(expected, vanilla_select);
+    }
+
+    #[test]
+    fn test_filter() {
+        let select = SelectCommand::new("test".to_string())
+            .filter("output_column @ \"type_safe\"".to_string());
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("filter".to_string(),
+                   "'output_column @ \"type_safe\"'".to_string());
+        let expected = SelectCommand {
+            command: Select,
+            arguments: arg,
+            table: "test".to_string(),
+        };
+        assert_eq!(expected, select);
+    }
+
+    #[test]
+    fn test_match_columns() {
+        let select = SelectCommand::new("test".to_string())
+            .match_columns(vec!["test".to_string(), "piyo".to_string()]);
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("match_columns".to_string(), "test,piyo".to_string());
+        let expected = SelectCommand {
+            command: Select,
+            arguments: arg,
+            table: "test".to_string(),
+        };
+        assert_eq!(expected, select);
     }
 
     #[test]
@@ -112,5 +163,29 @@ mod test {
             table: "test".to_string(),
         };
         assert_eq!(expected, select);
+    }
+
+    #[test]
+    fn test_cache() {
+        let select_yes = SelectCommand::new("test".to_string())
+            .cache(true);
+        let mut arg_yes: HashMap<String, String> = HashMap::new();
+        arg_yes.insert("cache".to_string(), "yes".to_string());
+        let expected_yes = SelectCommand {
+            command: Select,
+            arguments: arg_yes,
+            table: "test".to_string(),
+        };
+        assert_eq!(expected_yes, select_yes);
+        let select_no = SelectCommand::new("test".to_string())
+            .cache(false);
+        let mut arg_no: HashMap<String, String> = HashMap::new();
+        arg_no.insert("cache".to_string(), "no".to_string());
+        let expected_no = SelectCommand {
+            command: Select,
+            arguments: arg_no,
+            table: "test".to_string(),
+        };
+        assert_eq!(expected_no, select_no);
     }
 }
