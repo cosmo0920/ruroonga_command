@@ -1,11 +1,12 @@
-use super::command::{Query, Command};
+use super::command::Command;
 use super::command::Command::Select;
 use std::iter::IntoIterator;
+use std::collections::HashMap;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct SelectCommand {
     command: Command,
-    arguments: Query,
+    arguments: HashMap<String, String>,
     table: String,
 }
 
@@ -13,7 +14,7 @@ impl Default for SelectCommand {
     fn default() -> SelectCommand {
         SelectCommand {
             command: Select,
-            arguments: vec![],
+            arguments: HashMap::new(),
             table: "".to_string(),
         }
     }
@@ -37,22 +38,19 @@ impl SelectCommand {
         }
 
         let string = split_columns_vec(columns);
-        let argument = ("output_columns".to_string(), string.clone());
-        self.arguments.push(argument.clone());
+        self.arguments.insert("output_columns".to_string(), string.clone());
         self
     }
 
     pub fn offset(mut self, offset: u64) -> SelectCommand {
         let offset = format!("{}", offset);
-        let argument = ("offset".to_string(), offset.clone());
-        self.arguments.push(argument.clone());
+        self.arguments.insert("offset".to_string(), offset.clone());
         self
     }
 
     pub fn limit(mut self, limit: u64) -> SelectCommand {
         let limit = format!("{}", limit);
-        let argument = ("limit".to_string(), limit.clone());
-        self.arguments.push(argument.clone());
+        self.arguments.insert("limit".to_string(), limit.clone());
         self
     }
 }
@@ -61,13 +59,14 @@ impl SelectCommand {
 mod test {
     use super::*;
     use command::Command::Select;
+    use std::collections::HashMap;
 
     #[test]
     fn test_new() {
         let vanilla_select = SelectCommand::new("test".to_string());
         let expected = SelectCommand {
             command: Select,
-            arguments: vec![],
+            arguments: HashMap::new(),
             table: "test".to_string(),
         };
         assert_eq!(expected, vanilla_select);
@@ -77,10 +76,11 @@ mod test {
     fn test_output_columns() {
         let select = SelectCommand::new("test".to_string())
             .output_columns(vec!["test".to_string(), "piyo".to_string()]);
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("output_columns".to_string(), "test,piyo".to_string());
         let expected = SelectCommand {
             command: Select,
-            arguments: vec![("output_columns".to_string(),
-                             "test,piyo".to_string())],
+            arguments: arg,
             table: "test".to_string(),
         };
         assert_eq!(expected, select);
@@ -90,10 +90,11 @@ mod test {
     fn test_offset() {
         let select = SelectCommand::new("test".to_string())
             .offset(100);
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("offset".to_string(), "100".to_string());
         let expected = SelectCommand {
             command: Select,
-            arguments: vec![("offset".to_string(),
-                             "100".to_string())],
+            arguments: arg,
             table: "test".to_string(),
         };
         assert_eq!(expected, select);
@@ -103,10 +104,11 @@ mod test {
     fn test_limit() {
         let select = SelectCommand::new("test".to_string())
             .limit(50);
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("limit".to_string(), "50".to_string());
         let expected = SelectCommand {
             command: Select,
-            arguments: vec![("limit".to_string(),
-                             "50".to_string())],
+            arguments: arg,
             table: "test".to_string(),
         };
         assert_eq!(expected, select);
