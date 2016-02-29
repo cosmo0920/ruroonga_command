@@ -148,6 +148,7 @@ mod test {
     use super::Command::{Select, Load, Status, Dump, Delete, Extension};
     use super::CommandQuery;
     use select::SelectCommand;
+    use load::{LoadCommand, InputType};
 
     #[test]
     fn test_from_str() {
@@ -186,5 +187,19 @@ mod test {
         let mut command = CommandQuery::new(command, query);
         let url_encoded = "/d/select?table=Test&filter=%27output_column+%40+%22type_safe%22%27";
         assert_eq!(url_encoded.to_string(), command.encode());
+    }
+
+    #[test]
+    fn test_load() {
+        let load_data: &'static str = r#"[
+{"_key":"http://example.org/","title":"This is test record 1!"},
+]"#;
+        let (command, query, values) =
+            LoadCommand::new("test".to_string(), load_data.to_string())
+            .input_type(InputType::JSON).build();
+        let mut command = CommandQuery::new(command, query);
+        let url_encoded = "/d/load?table=test&input_type=json";
+        assert_eq!(url_encoded.to_string(), command.encode());
+        assert_eq!(load_data.to_string(), values);
     }
 }
