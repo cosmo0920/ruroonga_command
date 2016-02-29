@@ -117,6 +117,33 @@ mod test {
     use command::Query;
     use command::Command::Load;
     use std::collections::HashMap;
+    use std::str::FromStr;
+
+    #[test]
+    fn test_from_str() {
+        assert_eq!(InputType::JSON, FromStr::from_str("json").unwrap());
+        assert_eq!(InputType::ExtInputType("added-type".to_owned()),
+                   FromStr::from_str("added-type").unwrap());
+        let x: Result<InputType, _> = FromStr::from_str("");
+        if let Err(InputTypeError::Empty) = x {
+        } else {
+            panic!("An empty input type is invalid!")
+        }
+    }
+
+    #[test]
+    fn test_fmt() {
+        assert_eq!("json".to_owned(), format!("{}", InputType::JSON));
+        assert_eq!("added-type".to_owned(),
+                   format!("{}", InputType::ExtInputType("added-type".to_owned())));
+    }
+
+    #[test]
+    fn test_as_str() {
+        assert_eq!(InputType::JSON.as_ref(), "json");
+        assert_eq!(InputType::ExtInputType("added-type".to_owned()).as_ref(),
+                   "added-type");
+    }
 
     const DATA: &'static str = r#"[
 {"_key":"http://example.org/","title":"This is test record 1!"},
