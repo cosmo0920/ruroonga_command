@@ -77,7 +77,7 @@ mod test {
     use load::{LoadCommand, InputType};
     use status::StatusCommand;
     use dump::DumpCommand;
-
+    use delete::DeleteCommand;
 
     #[test]
     fn test_select() {
@@ -117,6 +117,16 @@ mod test {
             .build();
         let mut command = CommandQuery::new(command, query);
         let url_encoded = "/d/dump?tables=Books%2CCategories";
+        assert_eq!(url_encoded.to_string(), command.encode());
+    }
+
+    #[test]
+    fn test_delete() {
+        let (command, query) = DeleteCommand::new("Books".to_string())
+            .filter("author == unknown".to_string())
+            .build();
+        let mut command = CommandQuery::new(command, query);
+        let url_encoded = "/d/delete?table=Books&filter=%27author+%3D%3D+unknown%27";
         assert_eq!(url_encoded.to_string(), command.encode());
     }
 }
