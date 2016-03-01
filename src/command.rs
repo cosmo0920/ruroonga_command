@@ -149,6 +149,7 @@ mod test {
     use super::CommandQuery;
     use select::SelectCommand;
     use load::{LoadCommand, InputType};
+    use status::StatusCommand;
 
     #[test]
     fn test_from_str() {
@@ -202,4 +203,13 @@ mod test {
         assert_eq!(url_encoded.to_string(), command.encode());
         assert_eq!(load_data.to_string(), values);
     }
+
+    #[test]
+    fn test_status() {
+        let (command, query) = StatusCommand::new().build();
+        let mut command = CommandQuery::new(command, query);
+        let url_encoded = "/d/status?";
+        assert_eq!(url_encoded.to_string(), command.encode());
+    }
+
 }
