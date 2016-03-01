@@ -1,7 +1,7 @@
 use super::command::{Command, Query};
 use super::command::Command::Select;
-use std::iter::IntoIterator;
 use std::collections::HashMap;
+use util;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct SelectCommand {
@@ -42,21 +42,14 @@ impl SelectCommand {
         self
     }
 
-    #[inline]
-    fn split_columns_vec(&mut self, columns: Vec<String>) -> String {
-        let string = columns.into_iter().collect::<Vec<String>>()
-            .join(",").to_owned();
-        string.clone()
-    }
-
     pub fn match_columns(mut self, columns: Vec<String>) -> SelectCommand {
-        let string = self.split_columns_vec(columns);
+        let string = util::split_values_vec(columns);
         self.arguments.insert("match_columns".to_string(), string.clone());
         self
     }
 
     pub fn output_columns(mut self, columns: Vec<String>) -> SelectCommand {
-        let string = self.split_columns_vec(columns);
+        let string = util::split_values_vec(columns);
         self.arguments.insert("output_columns".to_string(), string.clone());
         self
     }

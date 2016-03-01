@@ -1,11 +1,11 @@
 use super::command::{Command, Query};
 use super::command::Command::Load;
-use std::iter::IntoIterator;
 use std::collections::HashMap;
 use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
 use self::InputType::{JSON, ExtInputType};
+use util;
 
 pub type LoadValues = String;
 
@@ -81,15 +81,8 @@ impl LoadCommand {
         }
     }
 
-    #[inline]
-    fn split_columns_vec(&mut self, columns: Vec<String>) -> String {
-        let string = columns.into_iter().collect::<Vec<String>>()
-            .join(",").to_owned();
-        string.clone()
-    }
-
     pub fn columns(mut self, columns: Vec<String>) -> LoadCommand {
-        let string = self.split_columns_vec(columns);
+        let string = util::split_values_vec(columns);
         self.arguments.insert("columns".to_string(), string.clone());
         self
     }
