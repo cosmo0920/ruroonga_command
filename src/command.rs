@@ -150,6 +150,7 @@ mod test {
     use select::SelectCommand;
     use load::{LoadCommand, InputType};
     use status::StatusCommand;
+    use dump::DumpCommand;
 
     #[test]
     fn test_from_str() {
@@ -212,4 +213,13 @@ mod test {
         assert_eq!(url_encoded.to_string(), command.encode());
     }
 
+    #[test]
+    fn test_dump() {
+        let (command, query) = DumpCommand::new()
+            .tables(vec!["Books".to_string(), "Categories".to_string()])
+            .build();
+        let mut command = CommandQuery::new(command, query);
+        let url_encoded = "/d/dump?tables=Books%2CCategories";
+        assert_eq!(url_encoded.to_string(), command.encode());
+    }
 }
