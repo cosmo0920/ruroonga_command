@@ -4,7 +4,7 @@ use std::collections::HashMap;
 use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
-use self::InputType::{JSON, ExtInputType};
+use self::InputType::{Json, ExtInputType};
 use util;
 
 pub type LoadValues = String;
@@ -22,7 +22,7 @@ pub enum InputTypeError { Empty }
 
 #[derive (Clone, PartialEq, Eq, Debug)]
 pub enum InputType {
-    JSON,
+    Json,
     /// For future extensibility.
     ExtInputType(String),
 }
@@ -30,7 +30,7 @@ pub enum InputType {
 impl AsRef<str> for InputType {
     fn as_ref(&self) -> &str {
         match *self {
-            JSON => "json",
+            Json => "json",
             ExtInputType(ref s) => s.as_ref()
         }
     }
@@ -39,7 +39,7 @@ impl AsRef<str> for InputType {
 impl fmt::Display for InputType {
     fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
         fmt.write_str(match *self {
-            JSON => "json",
+            Json => "json",
             ExtInputType(ref s) => s.as_ref()
         })
     }
@@ -52,7 +52,7 @@ impl FromStr for InputType {
             Err(InputTypeError::Empty)
         } else {
             Ok(match s {
-                "json" => JSON,
+                "json" => Json,
                 _ => ExtInputType(s.to_owned())
             })
         }
@@ -114,7 +114,7 @@ mod test {
 
     #[test]
     fn test_from_str() {
-        assert_eq!(InputType::JSON, FromStr::from_str("json").unwrap());
+        assert_eq!(InputType::Json, FromStr::from_str("json").unwrap());
         assert_eq!(InputType::ExtInputType("added-type".to_owned()),
                    FromStr::from_str("added-type").unwrap());
         let x: Result<InputType, _> = FromStr::from_str("");
@@ -126,14 +126,14 @@ mod test {
 
     #[test]
     fn test_fmt() {
-        assert_eq!("json".to_owned(), format!("{}", InputType::JSON));
+        assert_eq!("json".to_owned(), format!("{}", InputType::Json));
         assert_eq!("added-type".to_owned(),
                    format!("{}", InputType::ExtInputType("added-type".to_owned())));
     }
 
     #[test]
     fn test_as_str() {
-        assert_eq!(InputType::JSON.as_ref(), "json");
+        assert_eq!(InputType::Json.as_ref(), "json");
         assert_eq!(InputType::ExtInputType("added-type".to_owned()).as_ref(),
                    "added-type");
     }
@@ -173,7 +173,7 @@ mod test {
     #[test]
     fn test_input_type() {
         let load = LoadCommand::new("test".to_string(), DATA.to_string())
-            .input_type(InputType::JSON);
+            .input_type(InputType::Json);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("input_type".to_string(), "json".to_string());
         let expected = LoadCommand {

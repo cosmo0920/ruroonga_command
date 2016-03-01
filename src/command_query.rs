@@ -95,7 +95,7 @@ mod test {
 ]"#;
         let (command, query, values) =
             LoadCommand::new("test".to_string(), load_data.to_string())
-            .input_type(InputType::JSON).build();
+            .input_type(InputType::Json).build();
         let mut command = CommandQuery::new(command, query);
         let url_encoded = "/d/load?table=test&input_type=json";
         assert_eq!(url_encoded.to_string(), command.encode());
