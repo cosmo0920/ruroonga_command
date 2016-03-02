@@ -1,6 +1,7 @@
 extern crate url;
 
 mod util;
+pub mod types;
 pub mod command;
 pub mod command_query;
 pub mod dump;
