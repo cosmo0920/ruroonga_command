@@ -1,7 +1,7 @@
 use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
-use self::FlagType::{NoKey, HashKey, PatKey, DatKey, ExtFlagType};
+use self::FlagType::{NoKey, HashKey, PatKey, DatKey, KeyWithSIS, ExtFlagType};
 
 #[derive (Clone, PartialEq, Eq, Debug)]
 pub enum FlagType {
@@ -9,6 +9,7 @@ pub enum FlagType {
     HashKey,
     PatKey,
     DatKey,
+    KeyWithSIS,
     /// For future extensibility.
     ExtFlagType(String),
 }
@@ -20,6 +21,7 @@ impl AsRef<str> for FlagType {
             HashKey => "TABLE_HASH_KEY",
             PatKey => "TABLE_PAT_KEY",
             DatKey => "TABLE_DAT_KEY",
+            KeyWithSIS => "TABLE_KEY_WITH_SIS",
             ExtFlagType(ref s) => s.as_ref()
         }
     }
@@ -39,6 +41,7 @@ impl FromStr for FlagType {
                 "TABLE_HASH_KEY" | "HASH_KEY" | "HashKey" => HashKey,
                 "TABLE_PAT_KEY" | "PAT_KEY" | "PatKey" => PatKey,
                 "TABLE_DAT_KEY" | "DAT_KEY" | "DatKey" => DatKey,
+                "TABLE_KEY_WITH_SIS" | "KEY_WITH_SIS" | "WithSIS" => KeyWithSIS,
                 _ => ExtFlagType(s.to_owned())
             })
         }
@@ -52,6 +55,7 @@ impl fmt::Display for FlagType {
             HashKey => "TABLE_HASH_KEY",
             PatKey => "TABLE_PAT_KEY",
             DatKey => "TABLE_DAT_KEY",
+            KeyWithSIS => "TABLE_KEY_WITH_SIS",
             ExtFlagType(ref s) => s.as_ref()
         })
     }
