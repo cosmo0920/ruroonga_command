@@ -9,3 +9,4 @@ pub mod select;
 pub mod load;
 pub mod status;
 pub mod delete;
+pub mod table_create;

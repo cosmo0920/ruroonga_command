@@ -1,7 +1,7 @@
 use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
-use self::Command::{Select, Load, Status, Dump, Delete, Extension};
+use self::Command::{Select, Load, Status, Dump, Delete, TableCreate, Extension};
 
 #[derive (Debug)]
 pub enum CommandError { Empty }
@@ -13,6 +13,7 @@ pub enum Command {
     Status,
     Dump,
     Delete,
+    TableCreate,
     /// Method extensions.
     ///
     /// An example would be:
@@ -33,6 +34,7 @@ impl AsRef<str> for Command {
             Status => "status",
             Dump => "dump",
             Delete => "delete",
+            TableCreate => "table_create",
             Extension(ref s) => s.as_ref()
         }
     }
@@ -50,6 +52,7 @@ impl FromStr for Command {
                 "status" => Status,
                 "dump" => Dump,
                 "delete" => Delete,
+                "table_create" => TableCreate,
                 _ => Extension(s.to_owned())
             })
         }
@@ -64,6 +67,7 @@ impl fmt::Display for Command {
             Status => "status",
             Dump => "dump",
             Delete => "delete",
+            TableCreate => "table_create",
             Extension(ref s) => s.as_ref()
         })
     }
@@ -77,7 +81,8 @@ mod test {
     use std::str::FromStr;
     use super::CommandError;
     use super::Command;
-    use super::Command::{Select, Load, Status, Dump, Delete, Extension};
+    use super::Command::{Select, Load, Status, Dump, Delete, TableCreate,
+                         Extension};
 
     #[test]
     fn test_from_str() {
@@ -94,6 +99,7 @@ mod test {
     #[test]
     fn test_fmt() {
         assert_eq!("load".to_owned(), format!("{}", Load));
+        assert_eq!("table_create".to_owned(), format!("{}", TableCreate));
         assert_eq!("added-command".to_owned(),
                    format!("{}", Extension("added-command".to_owned())));
     }
@@ -105,6 +111,7 @@ mod test {
         assert_eq!(Dump.as_ref(), "dump");
         assert_eq!(Delete.as_ref(), "delete");
         assert_eq!(Status.as_ref(), "status");
+        assert_eq!(TableCreate.as_ref(), "table_create");
         assert_eq!(Extension("added-command".to_owned()).as_ref(),
                    "added-command");
     }

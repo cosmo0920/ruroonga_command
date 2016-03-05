@@ -78,6 +78,8 @@ mod test {
     use status::StatusCommand;
     use dump::DumpCommand;
     use delete::DeleteCommand;
+    use table_create::TableCreateCommand;
+    use types::flag_type::FlagType;
 
     #[test]
     fn test_select() {
@@ -127,6 +129,16 @@ mod test {
             .build();
         let mut command = CommandQuery::new(command, query);
         let url_encoded = "/d/delete?table=Books&filter=%27author+%3D%3D+unknown%27";
+        assert_eq!(url_encoded.to_string(), command.encode());
+    }
+
+    #[test]
+    fn test_table_create() {
+        let (command, query) = TableCreateCommand::new("Test".to_string())
+            .flags(vec![(FlagType::PatKey), (FlagType::KeyWithSIS)])
+            .build();
+        let mut command = CommandQuery::new(command, query);
+        let url_encoded = "/d/table_create?name=Test&flags=TABLE_PAT_KEY%7CTABLE_KEY_WITH_SIS";
         assert_eq!(url_encoded.to_string(), command.encode());
     }
 }
