@@ -79,7 +79,7 @@ mod test {
     use dump::DumpCommand;
     use delete::DeleteCommand;
     use table_create::TableCreateCommand;
-    use types::flag_type::FlagType;
+    use types::table_flag_type::TableFlagType;
 
     #[test]
     fn test_select() {
@@ -135,7 +135,7 @@ mod test {
     #[test]
     fn test_table_create() {
         let (command, query) = TableCreateCommand::new("Test".to_string())
-            .flags(vec![(FlagType::PatKey), (FlagType::KeyWithSIS)])
+            .flags(vec![(TableFlagType::PatKey), (TableFlagType::KeyWithSIS)])
             .build();
         let mut command = CommandQuery::new(command, query);
         let url_encoded = "/d/table_create?name=Test&flags=TABLE_PAT_KEY%7CTABLE_KEY_WITH_SIS";

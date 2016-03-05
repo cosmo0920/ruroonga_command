@@ -1,7 +1,7 @@
 use super::command::{Command, Query};
 use super::command::Command::TableCreate;
 use std::collections::HashMap;
-use types::flag_type::FlagType;
+use types::table_flag_type::TableFlagType;
 use types::data_type::DataType;
 use types::tokenizer_type::TokenizerType;
 use types::normalizer_type::NormalizerType;
@@ -37,7 +37,7 @@ impl TableCreateCommand {
         }
     }
 
-    pub fn flags(mut self, flags: Vec<FlagType>) -> TableCreateCommand {
+    pub fn flags(mut self, flags: Vec<TableFlagType>) -> TableCreateCommand {
         let string = util::split_flags_vec(flags);
         self.arguments.insert("flags".to_string(), string.clone());
         self
@@ -81,7 +81,7 @@ mod test {
     use super::*;
     use command::Command::TableCreate;
     use std::collections::HashMap;
-    use types::flag_type::FlagType;
+    use types::table_flag_type::TableFlagType;
     use types::data_type::DataType;
     use types::tokenizer_type::TokenizerType;
     use types::normalizer_type::NormalizerType;
@@ -102,7 +102,7 @@ mod test {
     #[test]
     fn test_flags() {
         let table_create = TableCreateCommand::new("Test".to_string())
-            .flags(vec![(FlagType::PatKey), (FlagType::KeyWithSIS)]);
+            .flags(vec![(TableFlagType::PatKey), (TableFlagType::KeyWithSIS)]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("flags".to_string(),
                    "TABLE_PAT_KEY|TABLE_KEY_WITH_SIS".to_string());
@@ -176,7 +176,7 @@ mod test {
     #[test]
     fn test_build() {
         let actual = TableCreateCommand::new("Test".to_string())
-            .flags(vec![(FlagType::PatKey), (FlagType::KeyWithSIS)]).build();
+            .flags(vec![(TableFlagType::PatKey), (TableFlagType::KeyWithSIS)]).build();
         let expected_query: Query =
             vec![("name".to_string(), "Test".to_string()),
                  ("flags".to_string(),
