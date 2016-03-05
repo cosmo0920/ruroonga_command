@@ -2,6 +2,10 @@
 name = "ruroonga_command"
 version = "0.1.0"
 authors = ["Hiroshi Hatake <cosmo0920.oucc@gmail.com>"]
+keywords = ["groonga"]
+
+[features]
+normalizer_mysql = []
 
 [dependencies]
 url = "~0.5.2"
