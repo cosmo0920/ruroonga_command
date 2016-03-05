@@ -1,4 +1,4 @@
-use types::table_flag_type::TableFlagType;
+use std::convert::AsRef;
 
 #[inline]
 pub fn split_values_vec(values: Vec<String>) -> String {
@@ -8,7 +8,7 @@ pub fn split_values_vec(values: Vec<String>) -> String {
 }
 
 #[inline]
-pub fn split_flags_vec(values: Vec<TableFlagType>) -> String {
+pub fn split_flags_vec<T>(values: Vec<T>) -> String where T: AsRef<str> {
     let string = values.into_iter().map(|v| v.as_ref().to_string())
         .collect::<Vec<String>>().join("|").to_owned();
     string.clone()
