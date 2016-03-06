@@ -6,6 +6,7 @@ keywords = ["groonga"]
 
 [features]
 normalizer_mysql = []
+unstable = []
 
 [dependencies]
 url = "~0.5.2"
