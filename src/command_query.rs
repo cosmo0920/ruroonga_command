@@ -80,6 +80,8 @@ mod test {
     use delete::DeleteCommand;
     use table_create::TableCreateCommand;
     use types::table_flag_type::TableFlagType;
+    use column_create::ColumnCreateCommand;
+    use types::data_type::DataType;
 
     #[test]
     fn test_select() {
@@ -139,6 +141,16 @@ mod test {
             .build();
         let mut command = CommandQuery::new(command, query);
         let url_encoded = "/d/table_create?name=Test&flags=TABLE_PAT_KEY%7CTABLE_KEY_WITH_SIS";
+        assert_eq!(url_encoded.to_string(), command.encode());
+    }
+
+    #[test]
+    fn test_column_create() {
+        let (command, query) =
+            ColumnCreateCommand::new("Test".to_string(), "element".to_string())
+            .column_type(DataType::LongText).build();
+        let mut command = CommandQuery::new(command, query);
+        let url_encoded = "/d/column_create?table=Test&name=element&type=LongText";
         assert_eq!(url_encoded.to_string(), command.encode());
     }
 }
