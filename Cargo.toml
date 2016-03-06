@@ -3,6 +3,9 @@ name = "ruroonga_command"
 version = "0.1.0"
 authors = ["Hiroshi Hatake <cosmo0920.oucc@gmail.com>"]
 keywords = ["groonga"]
+description = "A tiny Groonga query builder and generator."
+license-file = "LICENSE"
+repository = "https://github.com/cosmo0920/ruroonga_command"
 
 [features]
 normalizer_mysql = []
