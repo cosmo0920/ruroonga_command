@@ -1,5 +1,9 @@
 extern crate url;
 
+trait Queryable {
+    fn to_query(self) -> String;
+}
+
 mod util;
 pub mod types;
 pub mod command;

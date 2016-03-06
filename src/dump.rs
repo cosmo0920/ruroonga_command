@@ -2,6 +2,8 @@ use super::command::{Command, Query};
 use super::command::Command::Dump;
 use std::collections::HashMap;
 use util;
+use command_query::CommandQuery;
+use Queryable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct DumpCommand {
@@ -74,12 +76,21 @@ impl DumpCommand {
     }
 }
 
+impl Queryable for DumpCommand {
+    fn to_query(self) -> String {
+        let (command, query) = self.build();
+        let mut command = CommandQuery::new(command, query);
+        command.encode()
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
     use command::Query;
     use command::Command::Dump;
     use std::collections::HashMap;
+    use Queryable;
 
     #[test]
     fn test_new() {
@@ -201,5 +212,14 @@ mod test {
             vec![("tables".to_string(), "Books,Categories".to_string())];
         let expected = (Dump, expected_query);
         assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_queryable() {
+        let query = DumpCommand::new()
+            .tables(vec!["Books".to_string(), "Categories".to_string()])
+            .to_query();
+        let url_encoded = "/d/dump?tables=Books%2CCategories";
+        assert_eq!(url_encoded.to_string(), query);
     }
 }

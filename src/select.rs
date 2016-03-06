@@ -2,6 +2,8 @@ use super::command::{Command, Query};
 use super::command::Command::Select;
 use std::collections::HashMap;
 use util;
+use command_query::CommandQuery;
+use Queryable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct SelectCommand {
@@ -84,12 +86,21 @@ impl SelectCommand {
     }
 }
 
+impl Queryable for SelectCommand {
+    fn to_query(self) -> String {
+        let (command, query) = self.build();
+        let mut command = CommandQuery::new(command, query);
+        command.encode()
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
     use command::Query;
     use command::Command::Select;
     use std::collections::HashMap;
+    use Queryable;
 
     #[test]
     fn test_new() {
@@ -222,5 +233,14 @@ mod test {
                   "'output_column @ \"type_safe\"'".to_string())];
         let expected = (Select, expected_query);
         assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_queryable() {
+        let query = SelectCommand::new("Test".to_string())
+            .filter("output_column @ \"type_safe\"".to_string())
+            .to_query();
+        let url_encoded = "/d/select?table=Test&filter=%27output_column+%40+%22type_safe%22%27";
+        assert_eq!(url_encoded.to_string(), query);
     }
 }

@@ -7,6 +7,8 @@ use types::tokenizer_type::TokenizerType;
 use types::normalizer_type::NormalizerType;
 use types::token_filters_type::TokenFiltersType;
 use util;
+use command_query::CommandQuery;
+use Queryable;
 
 pub type LoadValues = String;
 
@@ -76,6 +78,14 @@ impl TableCreateCommand {
     }
 }
 
+impl Queryable for TableCreateCommand {
+    fn to_query(self) -> String {
+        let (command, query) = self.build();
+        let mut command = CommandQuery::new(command, query);
+        command.encode()
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -87,6 +97,7 @@ mod test {
     use types::normalizer_type::NormalizerType;
     use types::token_filters_type::TokenFiltersType;
     use command::Query;
+    use Queryable;
 
     #[test]
     fn test_new() {
@@ -185,4 +196,12 @@ mod test {
         assert_eq!(expected, actual);
     }
 
+    #[test]
+    fn test_queryable() {
+        let query = TableCreateCommand::new("Test".to_string())
+            .flags(vec![(TableFlagType::PatKey), (TableFlagType::KeyWithSIS)])
+            .to_query();
+        let url_encoded = "/d/table_create?name=Test&flags=TABLE_PAT_KEY%7CTABLE_KEY_WITH_SIS";
+        assert_eq!(url_encoded.to_string(), query);
+    }
 }
