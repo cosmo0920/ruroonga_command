@@ -2,7 +2,7 @@ use super::command::{Command, Query};
 use super::command::Command::Delete;
 use std::collections::HashMap;
 use command_query::CommandQuery;
-use Queryable;
+use queryable::Queryable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct DeleteCommand {
@@ -72,7 +72,7 @@ mod test {
     use command::Query;
     use command::Command::Delete;
     use std::collections::HashMap;
-    use Queryable;
+    use queryable::Queryable;
 
     #[test]
     fn test_new() {

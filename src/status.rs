@@ -1,7 +1,7 @@
 use super::command::{Command, Query};
 use super::command::Command::Status;
 use command_query::CommandQuery;
-use Queryable;
+use queryable::Queryable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct StatusCommand {
@@ -39,7 +39,7 @@ impl Queryable for StatusCommand {
 mod test {
     use super::*;
     use command::Command::Status;
-    use Queryable;
+    use queryable::Queryable;
 
     #[test]
     fn test_new() {

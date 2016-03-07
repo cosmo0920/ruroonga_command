@@ -1,15 +1,7 @@
 extern crate url;
 
-pub trait Queryable {
-    fn to_query(self) -> String;
-}
-
-pub type LoadValues = String;
-pub trait PostQueryable {
-    fn to_post_query(self) -> (String, LoadValues);
-}
-
 mod util;
+pub mod queryable;
 pub mod types;
 pub mod command;
 pub mod command_query;

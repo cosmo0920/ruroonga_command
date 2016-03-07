@@ -5,7 +5,7 @@ use types::data_type::DataType;
 use types::column_flag_type::ColumnFlagType;
 use util;
 use command_query::CommandQuery;
-use Queryable;
+use queryable::Queryable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct ColumnCreateCommand {
@@ -81,7 +81,7 @@ mod test {
     use types::data_type::DataType;
     use types::column_flag_type::ColumnFlagType;
     use command::Query;
-    use Queryable;
+    use queryable::Queryable;
 
     #[test]
     fn test_new() {

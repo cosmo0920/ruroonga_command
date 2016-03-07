@@ -6,10 +6,10 @@ use std::str::FromStr;
 use std::convert::AsRef;
 use self::InputType::{Json, ExtInputType};
 use util;
-use LoadValues;
+use queryable::LoadValues;
 use command_query::CommandQuery;
-use Queryable;
-use PostQueryable;
+use queryable::Queryable;
+use queryable::PostQueryable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct LoadCommand {
@@ -129,8 +129,8 @@ mod test {
     use command::Command::Load;
     use std::collections::HashMap;
     use std::str::FromStr;
-    use Queryable;
-    use PostQueryable;
+    use queryable::Queryable;
+    use queryable::PostQueryable;
 
     #[test]
     fn test_from_str() {

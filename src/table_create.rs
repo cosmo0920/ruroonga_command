@@ -8,7 +8,7 @@ use types::normalizer_type::NormalizerType;
 use types::token_filters_type::TokenFiltersType;
 use util;
 use command_query::CommandQuery;
-use Queryable;
+use queryable::Queryable;
 
 pub type LoadValues = String;
 
@@ -97,7 +97,7 @@ mod test {
     use types::normalizer_type::NormalizerType;
     use types::token_filters_type::TokenFiltersType;
     use command::Query;
-    use Queryable;
+    use queryable::Queryable;
 
     #[test]
     fn test_new() {
