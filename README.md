@@ -1,6 +1,8 @@
 Ruroonga Command
 ===
 
+[![Build Status](https://travis-ci.org/cosmo0920/ruroonga_command.svg?branch=master)](https://travis-ci.org/cosmo0920/ruroonga_command)
+
 ## An extensible Groonga Query Builder for Rust.
 
 ruroonga_command provides extensible Groonga command query builder and generator. It reduces runtime errors about Groonga queries.
