@@ -8,8 +8,12 @@ use self::InputType::{Json, ExtInputType};
 use util;
 use queryable::LoadValues;
 use command_query::CommandQuery;
+use command_line::CommandLine;
 use queryable::Queryable;
 use queryable::PostQueryable;
+use commandable::Commandable;
+use commandable::PostCommandable;
+use commandable::DataValues;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct LoadCommand {
@@ -123,6 +127,22 @@ impl PostQueryable for LoadCommand {
     }
 }
 
+impl Commandable for LoadCommand {
+    fn to_command(self) -> String {
+        let (command, query, values) = self.build();
+        let mut command = CommandLine::new(command, query);
+        format!("{}\n{}", command.encode(), values)
+    }
+}
+
+impl PostCommandable for LoadCommand {
+    fn to_post_command(self) -> (String, DataValues) {
+        let (command, query, values) = self.build();
+        let mut command = CommandLine::new(command, query);
+        (command.encode(), values)
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -132,6 +152,8 @@ mod test {
     use std::str::FromStr;
     use queryable::Queryable;
     use queryable::PostQueryable;
+    use commandable::Commandable;
+    use commandable::PostCommandable;
 
     #[test]
     fn test_from_str() {
@@ -239,6 +261,33 @@ mod test {
                                   .to_post_query();
         let url_encoded = "/d/load?table=test&input_type=json";
         assert_eq!(url_encoded.to_string(), query);
+        assert_eq!(load_data.to_string(), values);
+    }
+
+    #[test]
+    fn test_commandable() {
+        let load_data: &'static str = r#"[
+{"_key":"http://example.org/","title":"This is test record 1!"},
+]"#;
+        let query = LoadCommand::new("test".to_string(), load_data.to_string())
+                        .input_type(InputType::Json)
+                        .to_command();
+        let cli_encoded = "load --table test --input_type \
+                           json\n[\n{\"_key\":\"http://example.org/\",\"title\":\"This is test \
+                           record 1!\"},\n]";
+        assert_eq!(cli_encoded.to_string(), query);
+    }
+
+    #[test]
+    fn test_post_commandable() {
+        let load_data: &'static str = r#"[
+{"_key":"http://example.org/","title":"This is test record 1!"},
+]"#;
+        let (query, values) = LoadCommand::new("test".to_string(), load_data.to_string())
+                                  .input_type(InputType::Json)
+                                  .to_post_command();
+        let cli_encoded = "load --table test --input_type json";
+        assert_eq!(cli_encoded.to_string(), query);
         assert_eq!(load_data.to_string(), values);
     }
 }
