@@ -49,10 +49,8 @@ impl CommandLine {
     ///
     /// Create Groonga command line style command.
     pub fn encode(&mut self) -> String {
-        format!("{} {}",
-                self.get_command(),
-                self.make_command())
-            .trim() // Remove trailing white space(s).
+        format!("{} {}", self.get_command(), self.make_command())
+            .trim()
             .to_owned()
     }
 }
