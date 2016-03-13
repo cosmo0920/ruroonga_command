@@ -2,6 +2,8 @@ use super::command::{Command, Query};
 use super::command::Command::Status;
 use command_query::CommandQuery;
 use queryable::Queryable;
+use command_line::CommandLine;
+use commandable::Commandable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct StatusCommand {
@@ -33,11 +35,20 @@ impl Queryable for StatusCommand {
     }
 }
 
+impl Commandable for StatusCommand {
+    fn to_command(self) -> String {
+        let (command, query) = self.build();
+        let mut command = CommandLine::new(command, query);
+        command.encode()
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
     use command::Command::Status;
     use queryable::Queryable;
+    use commandable::Commandable;
 
     #[test]
     fn test_new() {
@@ -57,6 +68,13 @@ mod test {
     fn test_queryable() {
         let query = StatusCommand::new().to_query();
         let url_encoded = "/d/status?";
+        assert_eq!(url_encoded.to_string(), query);
+    }
+
+    #[test]
+    fn test_commandable() {
+        let query = StatusCommand::new().to_command();
+        let url_encoded = "status";
         assert_eq!(url_encoded.to_string(), query);
     }
 }

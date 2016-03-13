@@ -3,6 +3,8 @@ use super::command::Command::Extension;
 use std::collections::HashMap;
 use command_query::CommandQuery;
 use queryable::Queryable;
+use command_line::CommandLine;
+use commandable::Commandable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct ExtensionCommand {
@@ -50,6 +52,14 @@ impl Queryable for ExtensionCommand {
     }
 }
 
+impl Commandable for ExtensionCommand {
+    fn to_command(self) -> String {
+        let (command, query) = self.build();
+        let mut command = CommandLine::new(command, query);
+        command.encode()
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -57,6 +67,7 @@ mod test {
     use command::Command::Extension;
     use std::collections::HashMap;
     use queryable::Queryable;
+    use commandable::Commandable;
 
     #[test]
     fn test_new() {
@@ -100,6 +111,17 @@ mod test {
                             .set_arguments(arg.clone())
                             .to_query();
         let expected = "/d/added?test=element";
+        assert_eq!(expected, extension);
+    }
+
+    #[test]
+    fn test_commandable() {
+        let mut arg = HashMap::new();
+        arg.insert("test".to_string(), "element".to_string());
+        let extension = ExtensionCommand::new("added".to_string())
+                            .set_arguments(arg.clone())
+                            .to_command();
+        let expected = "added --test element";
         assert_eq!(expected, extension);
     }
 }

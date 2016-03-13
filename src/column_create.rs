@@ -6,6 +6,8 @@ use types::column_flag_type::ColumnFlagType;
 use util;
 use command_query::CommandQuery;
 use queryable::Queryable;
+use command_line::CommandLine;
+use commandable::Commandable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct ColumnCreateCommand {
@@ -73,6 +75,14 @@ impl Queryable for ColumnCreateCommand {
     }
 }
 
+impl Commandable for ColumnCreateCommand {
+    fn to_command(self) -> String {
+        let (command, query) = self.build();
+        let mut command = CommandLine::new(command, query);
+        command.encode()
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -82,6 +92,7 @@ mod test {
     use types::column_flag_type::ColumnFlagType;
     use command::Query;
     use queryable::Queryable;
+    use commandable::Commandable;
 
     #[test]
     fn test_new() {
@@ -159,6 +170,15 @@ mod test {
                          .column_type(DataType::LongText)
                          .to_query();
         let expected = "/d/column_create?table=Test&name=element&type=LongText";
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_commandable() {
+        let actual = ColumnCreateCommand::new("Test".to_string(), "element".to_string())
+                         .column_type(DataType::LongText)
+                         .to_command();
+        let expected = "column_create --table Test --name element --type LongText";
         assert_eq!(expected, actual);
     }
 }

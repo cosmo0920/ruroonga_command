@@ -4,6 +4,8 @@ use std::collections::HashMap;
 use util;
 use command_query::CommandQuery;
 use queryable::Queryable;
+use command_line::CommandLine;
+use commandable::Commandable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct DumpCommand {
@@ -84,6 +86,14 @@ impl Queryable for DumpCommand {
     }
 }
 
+impl Commandable for DumpCommand {
+    fn to_command(self) -> String {
+        let (command, query) = self.build();
+        let mut command = CommandLine::new(command, query);
+        command.encode()
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -91,6 +101,7 @@ mod test {
     use command::Command::Dump;
     use std::collections::HashMap;
     use queryable::Queryable;
+    use commandable::Commandable;
 
     #[test]
     fn test_new() {
@@ -210,6 +221,15 @@ mod test {
                         .tables(vec!["Books".to_string(), "Categories".to_string()])
                         .to_query();
         let url_encoded = "/d/dump?tables=Books%2CCategories";
+        assert_eq!(url_encoded.to_string(), query);
+    }
+
+    #[test]
+    fn test_commandable() {
+        let query = DumpCommand::new()
+                        .tables(vec!["Books".to_string(), "Categories".to_string()])
+                        .to_command();
+        let url_encoded = "dump --tables Books,Categories";
         assert_eq!(url_encoded.to_string(), query);
     }
 }

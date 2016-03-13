@@ -9,6 +9,8 @@ use types::token_filters_type::TokenFiltersType;
 use util;
 use command_query::CommandQuery;
 use queryable::Queryable;
+use command_line::CommandLine;
+use commandable::Commandable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct TableCreateCommand {
@@ -84,6 +86,14 @@ impl Queryable for TableCreateCommand {
     }
 }
 
+impl Commandable for TableCreateCommand {
+    fn to_command(self) -> String {
+        let (command, query) = self.build();
+        let mut command = CommandLine::new(command, query);
+        command.encode()
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -96,6 +106,7 @@ mod test {
     use types::token_filters_type::TokenFiltersType;
     use command::Query;
     use queryable::Queryable;
+    use commandable::Commandable;
 
     #[test]
     fn test_new() {
@@ -200,5 +211,14 @@ mod test {
                         .to_query();
         let url_encoded = "/d/table_create?name=Test&flags=TABLE_PAT_KEY%7CKEY_WITH_SIS";
         assert_eq!(url_encoded.to_string(), query);
+    }
+
+    #[test]
+    fn test_commandable() {
+        let query = TableCreateCommand::new("Test".to_string())
+                        .flags(vec![(TableFlagType::PatKey), (TableFlagType::KeyWithSIS)])
+                        .to_command();
+        let cli_encoded = "table_create --name Test --flags TABLE_PAT_KEY|KEY_WITH_SIS";
+        assert_eq!(cli_encoded.to_string(), query);
     }
 }

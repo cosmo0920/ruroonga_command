@@ -3,6 +3,8 @@ use super::command::Command::Delete;
 use std::collections::HashMap;
 use command_query::CommandQuery;
 use queryable::Queryable;
+use command_line::CommandLine;
+use commandable::Commandable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct DeleteCommand {
@@ -20,7 +22,6 @@ impl Default for DeleteCommand {
         }
     }
 }
-
 
 impl DeleteCommand {
     pub fn new(table: String) -> DeleteCommand {
@@ -66,6 +67,14 @@ impl Queryable for DeleteCommand {
     }
 }
 
+impl Commandable for DeleteCommand {
+    fn to_command(self) -> String {
+        let (command, query) = self.build();
+        let mut command = CommandLine::new(command, query);
+        command.encode()
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -73,6 +82,7 @@ mod test {
     use command::Command::Delete;
     use std::collections::HashMap;
     use queryable::Queryable;
+    use commandable::Commandable;
 
     #[test]
     fn test_new() {
@@ -142,6 +152,15 @@ mod test {
                         .filter("author == unknown".to_string())
                         .to_query();
         let url_encoded = "/d/delete?table=Books&filter=%27author+%3D%3D+unknown%27";
+        assert_eq!(url_encoded.to_string(), query);
+    }
+
+    #[test]
+    fn test_commandable() {
+        let query = DeleteCommand::new("Books".to_string())
+                        .filter("author == unknown".to_string())
+                        .to_command();
+        let url_encoded = "delete --table Books --filter \'author == unknown\'";
         assert_eq!(url_encoded.to_string(), query);
     }
 }
