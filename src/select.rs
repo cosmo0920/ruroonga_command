@@ -7,7 +7,7 @@ use queryable::Queryable;
 use commandable::Commandable;
 use command_line::CommandLine;
 use selectable::fragmentable::Fragmentable;
-use selectable::fragmentable::QueryFragment;
+use selectable::fragmentable::{OrderedFragment, QueryFragment};
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct SelectCommand {
@@ -107,13 +107,13 @@ impl Commandable for SelectCommand {
 }
 
 impl Fragmentable for SelectCommand {
-    fn to_fragment(self) -> QueryFragment {
+    fn to_fragment(self) -> (OrderedFragment, QueryFragment) {
         let mut select_fragment = HashMap::new();
-        select_fragment.insert("table".to_string(), self.table);
+        let ordered_fragment = vec![("table".to_string(), self.table)];
         for (key, value) in self.arguments.clone() {
             select_fragment.insert(key, value);
         }
-        select_fragment
+        (ordered_fragment, select_fragment)
     }
 }
 
