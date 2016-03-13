@@ -3,6 +3,10 @@ use super::drilldown::Drilldown;
 use command::{Command, Query};
 use command::Command::Select;
 use selectable::fragmentable::Fragmentable;
+use command_query::CommandQuery;
+use queryable::Queryable;
+use commandable::Commandable;
+use command_line::CommandLine;
 
 pub struct DrilldownBuilder {
     select: SelectCommand,
@@ -31,5 +35,21 @@ impl DrilldownBuilder {
             query.push((key.to_owned(), value.to_owned()));
         }
         (Select, query)
+    }
+}
+
+impl Queryable for DrilldownBuilder {
+    fn to_query(self) -> String {
+        let (command, query) = self.build();
+        let mut command = CommandQuery::new(command, query);
+        command.encode()
+    }
+}
+
+impl Commandable for DrilldownBuilder {
+    fn to_command(self) -> String {
+        let (command, query) = self.build();
+        let mut command = CommandLine::new(command, query);
+        command.encode()
     }
 }
