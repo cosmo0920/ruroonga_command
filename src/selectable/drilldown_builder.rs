@@ -13,6 +13,22 @@ pub struct DrilldownBuilder {
     drilldown: Drilldown,
 }
 
+/// Drilldown builder.
+///
+/// ## Simple usage
+///
+/// ```
+/// extern crate ruroonga_command as ruroonga;
+/// let select = ruroonga::select::SelectCommand::new("Entries".to_string())
+///                  .filter("content @ \"fast\"".to_string());
+/// let drilldown = ruroonga::selectable::drilldown::Drilldown::new()
+///                  .drilldown("tag".to_string());
+/// let mut builder =
+///     ruroonga::selectable::drilldown_builder::DrilldownBuilder::new(select, drilldown);
+/// let _ = builder.build();
+/// ```
+/// In more practical example, please refer to drilldown_builder_xxx
+/// in [examples/drilldown_builder.rs](https://github.com/cosmo0920/ruroonga_command/examples/drilldown_builder.rs).
 impl DrilldownBuilder {
     pub fn new(select: SelectCommand, drilldown: Drilldown) -> DrilldownBuilder {
         DrilldownBuilder {
