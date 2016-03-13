@@ -29,9 +29,14 @@ impl CommandQuery {
         }
     }
 
-    /// Get vectorize `("key", "value")` pairs to construct url encoded query.
+    /// Get command enum constant to construct url encoded query.
     pub fn get_command(&mut self) -> Command {
         self.command.clone()
+    }
+
+    /// Get vectorize `("key", "value")` pairs to construct url encoded query.
+    pub fn get_argument(&mut self) -> Query {
+        self.arguments.clone()
     }
 
     /// Set vectorize `("key", "value")` pairs to construct url encoded query.
