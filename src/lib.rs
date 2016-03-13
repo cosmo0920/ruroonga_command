@@ -5,6 +5,7 @@ pub mod queryable;
 pub mod types;
 pub mod command;
 pub mod command_query;
+pub mod command_line;
 pub mod dump;
 pub mod select;
 pub mod load;
