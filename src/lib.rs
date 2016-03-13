@@ -9,6 +9,7 @@ pub mod command_query;
 pub mod command_line;
 pub mod dump;
 pub mod select;
+pub mod selectable;
 pub mod load;
 pub mod status;
 pub mod delete;

@@ -1,6 +1,8 @@
 use std::collections::HashMap;
 use command::Query;
 use util;
+use selectable::fragmentable::Fragmentable;
+use selectable::fragmentable::QueryFragment;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct Drilldown {
@@ -56,6 +58,12 @@ impl Drilldown {
             query.push((key.to_owned(), value.to_owned()));
         }
         query
+    }
+}
+
+impl Fragmentable for Drilldown {
+    fn to_fragment(self) -> QueryFragment {
+        self.arguments.clone()
     }
 }
 

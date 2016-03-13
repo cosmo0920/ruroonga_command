@@ -6,6 +6,8 @@ use command_query::CommandQuery;
 use queryable::Queryable;
 use commandable::Commandable;
 use command_line::CommandLine;
+use selectable::fragmentable::Fragmentable;
+use selectable::fragmentable::QueryFragment;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct SelectCommand {
@@ -101,6 +103,17 @@ impl Commandable for SelectCommand {
         let (command, query) = self.build();
         let mut command = CommandLine::new(command, query);
         command.encode()
+    }
+}
+
+impl Fragmentable for SelectCommand {
+    fn to_fragment(self) -> QueryFragment {
+        let mut select_fragment = HashMap::new();
+        select_fragment.insert("table".to_string(), self.table);
+        for (key, value) in self.arguments.clone() {
+            select_fragment.insert(key, value);
+        }
+        select_fragment
     }
 }
 
