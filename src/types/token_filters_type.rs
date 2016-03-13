@@ -16,13 +16,15 @@ impl AsRef<str> for TokenFiltersType {
         match *self {
             StopWord => "TokenFilterStopWord",
             Stem => "TokenFilterStem",
-            ExtTokenFiltersType(ref s) => s.as_ref()
+            ExtTokenFiltersType(ref s) => s.as_ref(),
         }
     }
 }
 
 #[derive (Debug)]
-pub enum TokenFiltersTypeError { Empty }
+pub enum TokenFiltersTypeError {
+    Empty,
+}
 
 impl FromStr for TokenFiltersType {
     type Err = TokenFiltersTypeError;
@@ -33,7 +35,7 @@ impl FromStr for TokenFiltersType {
             Ok(match s {
                 "StopWord" | "TokenFilterStopWord" => StopWord,
                 "Stem" | "TokenFilterStem" => Stem,
-                _ => ExtTokenFiltersType(s.to_owned())
+                _ => ExtTokenFiltersType(s.to_owned()),
             })
         }
     }
@@ -44,7 +46,7 @@ impl fmt::Display for TokenFiltersType {
         fmt.write_str(match *self {
             StopWord => "TokenFilterStopWord",
             Stem => "TokenFilterStem",
-            ExtTokenFiltersType(ref s) => s.as_ref()
+            ExtTokenFiltersType(ref s) => s.as_ref(),
         })
     }
 }
@@ -56,8 +58,10 @@ mod test {
 
     #[test]
     fn test_from_str() {
-        assert_eq!(TokenFiltersType::StopWord, FromStr::from_str("StopWord").unwrap());
-        assert_eq!(TokenFiltersType::StopWord, FromStr::from_str("TokenFilterStopWord").unwrap());
+        assert_eq!(TokenFiltersType::StopWord,
+                   FromStr::from_str("StopWord").unwrap());
+        assert_eq!(TokenFiltersType::StopWord,
+                   FromStr::from_str("TokenFilterStopWord").unwrap());
         assert_eq!(TokenFiltersType::ExtTokenFiltersType("AddedFilter".to_owned()),
                    FromStr::from_str("AddedFilter").unwrap());
         let x: Result<TokenFiltersType, _> = FromStr::from_str("");
@@ -69,9 +73,11 @@ mod test {
 
     #[test]
     fn test_fmt() {
-        assert_eq!("TokenFilterStem".to_owned(), format!("{}", TokenFiltersType::Stem));
+        assert_eq!("TokenFilterStem".to_owned(),
+                   format!("{}", TokenFiltersType::Stem));
         assert_eq!("AddedFilter".to_owned(),
-                   format!("{}", TokenFiltersType::ExtTokenFiltersType("AddedFilter".to_owned())));
+                   format!("{}",
+                           TokenFiltersType::ExtTokenFiltersType("AddedFilter".to_owned())));
     }
 
     #[test]

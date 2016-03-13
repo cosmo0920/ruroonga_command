@@ -87,11 +87,9 @@ mod test {
 
     #[test]
     fn test_key() {
-        let delete = DeleteCommand::new("Books".to_string())
-            .key("tutorial".to_string());
+        let delete = DeleteCommand::new("Books".to_string()).key("tutorial".to_string());
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert("key".to_string(),
-                   "tutorial".to_string());
+        arg.insert("key".to_string(), "tutorial".to_string());
         let expected = DeleteCommand {
             command: Delete,
             table: "Books".to_string(),
@@ -102,11 +100,9 @@ mod test {
 
     #[test]
     fn test_id() {
-        let delete = DeleteCommand::new("Books".to_string())
-            .id(30);
+        let delete = DeleteCommand::new("Books".to_string()).id(30);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert("id".to_string(),
-                   "30".to_string());
+        arg.insert("id".to_string(), "30".to_string());
         let expected = DeleteCommand {
             command: Delete,
             table: "Books".to_string(),
@@ -118,10 +114,9 @@ mod test {
     #[test]
     fn test_filter() {
         let delete = DeleteCommand::new("Books".to_string())
-            .filter("author == unknown".to_string());
+                         .filter("author == unknown".to_string());
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert("filter".to_string(),
-                   "'author == unknown'".to_string());
+        arg.insert("filter".to_string(), "'author == unknown'".to_string());
         let expected = DeleteCommand {
             command: Delete,
             table: "Books".to_string(),
@@ -133,11 +128,10 @@ mod test {
     #[test]
     fn test_build() {
         let actual = DeleteCommand::new("Books".to_string())
-            .filter("author == unknown".to_string()).build();
-        let expected_query: Query =
-            vec![("table".to_string(), "Books".to_string()),
-                 ("filter".to_string(),
-                  "'author == unknown'".to_string())];
+                         .filter("author == unknown".to_string())
+                         .build();
+        let expected_query: Query = vec![("table".to_string(), "Books".to_string()),
+                                         ("filter".to_string(), "'author == unknown'".to_string())];
         let expected = (Delete, expected_query);
         assert_eq!(expected, actual);
     }
@@ -145,8 +139,8 @@ mod test {
     #[test]
     fn test_queryable() {
         let query = DeleteCommand::new("Books".to_string())
-            .filter("author == unknown".to_string())
-            .to_query();
+                        .filter("author == unknown".to_string())
+                        .to_query();
         let url_encoded = "/d/delete?table=Books&filter=%27author+%3D%3D+unknown%27";
         assert_eq!(url_encoded.to_string(), query);
     }

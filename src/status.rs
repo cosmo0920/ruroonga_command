@@ -10,9 +10,7 @@ pub struct StatusCommand {
 
 impl Default for StatusCommand {
     fn default() -> StatusCommand {
-        StatusCommand {
-            command: Status,
-        }
+        StatusCommand { command: Status }
     }
 }
 
@@ -44,9 +42,7 @@ mod test {
     #[test]
     fn test_new() {
         let status = StatusCommand::new();
-        let expected = StatusCommand {
-            command: Status,
-        };
+        let expected = StatusCommand { command: Status };
         assert_eq!(expected, status);
     }
 

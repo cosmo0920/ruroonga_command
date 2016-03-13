@@ -71,7 +71,7 @@ impl SelectCommand {
     pub fn cache(mut self, cache: bool) -> SelectCommand {
         let flag = match cache {
             true => "yes",
-            false => "no"
+            false => "no",
         };
         self.arguments.insert("cache".to_string(), flag.to_string());
         self
@@ -116,7 +116,7 @@ mod test {
     #[test]
     fn test_filter() {
         let select = SelectCommand::new("test".to_string())
-            .filter("output_column @ \"type_safe\"".to_string());
+                         .filter("output_column @ \"type_safe\"".to_string());
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("filter".to_string(),
                    "'output_column @ \"type_safe\"'".to_string());
@@ -131,7 +131,7 @@ mod test {
     #[test]
     fn test_query() {
         let select = SelectCommand::new("test".to_string())
-            .query("_key:\"http://example.org/\"".to_string());
+                         .query("_key:\"http://example.org/\"".to_string());
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("query".to_string(),
                    "\'_key:\"http://example.org/\"\'".to_string());
@@ -146,7 +146,7 @@ mod test {
     #[test]
     fn test_match_columns() {
         let select = SelectCommand::new("test".to_string())
-            .match_columns(vec!["test".to_string(), "piyo".to_string()]);
+                         .match_columns(vec!["test".to_string(), "piyo".to_string()]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("match_columns".to_string(), "test,piyo".to_string());
         let expected = SelectCommand {
@@ -160,7 +160,7 @@ mod test {
     #[test]
     fn test_output_columns() {
         let select = SelectCommand::new("test".to_string())
-            .output_columns(vec!["test".to_string(), "piyo".to_string()]);
+                         .output_columns(vec!["test".to_string(), "piyo".to_string()]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("output_columns".to_string(), "test,piyo".to_string());
         let expected = SelectCommand {
@@ -173,8 +173,7 @@ mod test {
 
     #[test]
     fn test_offset() {
-        let select = SelectCommand::new("test".to_string())
-            .offset(100);
+        let select = SelectCommand::new("test".to_string()).offset(100);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("offset".to_string(), "100".to_string());
         let expected = SelectCommand {
@@ -187,8 +186,7 @@ mod test {
 
     #[test]
     fn test_limit() {
-        let select = SelectCommand::new("test".to_string())
-            .limit(50);
+        let select = SelectCommand::new("test".to_string()).limit(50);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("limit".to_string(), "50".to_string());
         let expected = SelectCommand {
@@ -201,8 +199,7 @@ mod test {
 
     #[test]
     fn test_cache() {
-        let select_yes = SelectCommand::new("test".to_string())
-            .cache(true);
+        let select_yes = SelectCommand::new("test".to_string()).cache(true);
         let mut arg_yes: HashMap<String, String> = HashMap::new();
         arg_yes.insert("cache".to_string(), "yes".to_string());
         let expected_yes = SelectCommand {
@@ -211,8 +208,7 @@ mod test {
             arguments: arg_yes,
         };
         assert_eq!(expected_yes, select_yes);
-        let select_no = SelectCommand::new("test".to_string())
-            .cache(false);
+        let select_no = SelectCommand::new("test".to_string()).cache(false);
         let mut arg_no: HashMap<String, String> = HashMap::new();
         arg_no.insert("cache".to_string(), "no".to_string());
         let expected_no = SelectCommand {
@@ -226,11 +222,11 @@ mod test {
     #[test]
     fn test_build() {
         let actual = SelectCommand::new("test".to_string())
-            .filter("output_column @ \"type_safe\"".to_string()).build();
-        let expected_query: Query =
-            vec![("table".to_string(), "test".to_string()),
-                 ("filter".to_string(),
-                  "'output_column @ \"type_safe\"'".to_string())];
+                         .filter("output_column @ \"type_safe\"".to_string())
+                         .build();
+        let expected_query: Query = vec![("table".to_string(), "test".to_string()),
+                                         ("filter".to_string(),
+                                          "'output_column @ \"type_safe\"'".to_string())];
         let expected = (Select, expected_query);
         assert_eq!(expected, actual);
     }
@@ -238,8 +234,8 @@ mod test {
     #[test]
     fn test_queryable() {
         let query = SelectCommand::new("Test".to_string())
-            .filter("output_column @ \"type_safe\"".to_string())
-            .to_query();
+                        .filter("output_column @ \"type_safe\"".to_string())
+                        .to_query();
         let url_encoded = "/d/select?table=Test&filter=%27output_column+%40+%22type_safe%22%27";
         assert_eq!(url_encoded.to_string(), query);
     }

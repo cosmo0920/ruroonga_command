@@ -111,7 +111,7 @@ mod test {
     #[test]
     fn test_flags() {
         let table_create = TableCreateCommand::new("Test".to_string())
-            .flags(vec![(TableFlagType::PatKey), (TableFlagType::KeyWithSIS)]);
+                               .flags(vec![(TableFlagType::PatKey), (TableFlagType::KeyWithSIS)]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("flags".to_string(),
                    "TABLE_PAT_KEY|TABLE_KEY_WITH_SIS".to_string());
@@ -126,7 +126,7 @@ mod test {
     #[test]
     fn test_key_type() {
         let table_create = TableCreateCommand::new("Test".to_string())
-            .key_type(DataType::TokyoGeoPoint);
+                               .key_type(DataType::TokyoGeoPoint);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("key_type".to_string(), "TokyoGeoPoint".to_string());
         let expected = TableCreateCommand {
@@ -140,7 +140,7 @@ mod test {
     #[test]
     fn test_default_tokenizer() {
         let table_create = TableCreateCommand::new("Test".to_string())
-            .default_tokenizer(TokenizerType::BigramSplitSymbolAlpha);
+                               .default_tokenizer(TokenizerType::BigramSplitSymbolAlpha);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("default_tokenizer".to_string(),
                    "TokenBigramSplitSymbolAlpha".to_string());
@@ -155,10 +155,9 @@ mod test {
     #[test]
     fn test_normalizer() {
         let table_create = TableCreateCommand::new("Test".to_string())
-            .normalizer(NormalizerType::Auto);
+                               .normalizer(NormalizerType::Auto);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert("normalizer".to_string(),
-                   "NormalizerAuto".to_string());
+        arg.insert("normalizer".to_string(), "NormalizerAuto".to_string());
         let expected = TableCreateCommand {
             command: TableCreate,
             name: "Test".to_string(),
@@ -170,7 +169,7 @@ mod test {
     #[test]
     fn test_token_filter() {
         let table_create = TableCreateCommand::new("Test".to_string())
-            .token_filter(TokenFiltersType::StopWord);
+                               .token_filter(TokenFiltersType::StopWord);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("token_filter".to_string(),
                    "TokenFilterStopWord".to_string());
@@ -185,11 +184,11 @@ mod test {
     #[test]
     fn test_build() {
         let actual = TableCreateCommand::new("Test".to_string())
-            .flags(vec![(TableFlagType::PatKey), (TableFlagType::KeyWithSIS)]).build();
-        let expected_query: Query =
-            vec![("name".to_string(), "Test".to_string()),
-                 ("flags".to_string(),
-                  "TABLE_PAT_KEY|TABLE_KEY_WITH_SIS".to_string())];
+                         .flags(vec![(TableFlagType::PatKey), (TableFlagType::KeyWithSIS)])
+                         .build();
+        let expected_query: Query = vec![("name".to_string(), "Test".to_string()),
+                                         ("flags".to_string(),
+                                          "TABLE_PAT_KEY|TABLE_KEY_WITH_SIS".to_string())];
         let expected = (TableCreate, expected_query);
         assert_eq!(expected, actual);
     }
@@ -197,8 +196,8 @@ mod test {
     #[test]
     fn test_queryable() {
         let query = TableCreateCommand::new("Test".to_string())
-            .flags(vec![(TableFlagType::PatKey), (TableFlagType::KeyWithSIS)])
-            .to_query();
+                        .flags(vec![(TableFlagType::PatKey), (TableFlagType::KeyWithSIS)])
+                        .to_query();
         let url_encoded = "/d/table_create?name=Test&flags=TABLE_PAT_KEY%7CTABLE_KEY_WITH_SIS";
         assert_eq!(url_encoded.to_string(), query);
     }

@@ -22,13 +22,15 @@ impl AsRef<str> for TableFlagType {
             PatKey => "TABLE_PAT_KEY",
             DatKey => "TABLE_DAT_KEY",
             KeyWithSIS => "TABLE_KEY_WITH_SIS",
-            ExtTableFlagType(ref s) => s.as_ref()
+            ExtTableFlagType(ref s) => s.as_ref(),
         }
     }
 }
 
 #[derive (Debug)]
-pub enum TableFlagTypeError { Empty }
+pub enum TableFlagTypeError {
+    Empty,
+}
 
 impl FromStr for TableFlagType {
     type Err = TableFlagTypeError;
@@ -42,7 +44,7 @@ impl FromStr for TableFlagType {
                 "TABLE_PAT_KEY" | "PAT_KEY" | "PatKey" => PatKey,
                 "TABLE_DAT_KEY" | "DAT_KEY" | "DatKey" => DatKey,
                 "TABLE_KEY_WITH_SIS" | "KEY_WITH_SIS" | "WithSIS" => KeyWithSIS,
-                _ => ExtTableFlagType(s.to_owned())
+                _ => ExtTableFlagType(s.to_owned()),
             })
         }
     }
@@ -56,7 +58,7 @@ impl fmt::Display for TableFlagType {
             PatKey => "TABLE_PAT_KEY",
             DatKey => "TABLE_DAT_KEY",
             KeyWithSIS => "TABLE_KEY_WITH_SIS",
-            ExtTableFlagType(ref s) => s.as_ref()
+            ExtTableFlagType(ref s) => s.as_ref(),
         })
     }
 }
@@ -70,7 +72,8 @@ mod test {
     fn test_from_str() {
         assert_eq!(TableFlagType::NoKey, FromStr::from_str("NoKey").unwrap());
         assert_eq!(TableFlagType::NoKey, FromStr::from_str("NO_KEY").unwrap());
-        assert_eq!(TableFlagType::NoKey, FromStr::from_str("TABLE_NO_KEY").unwrap());
+        assert_eq!(TableFlagType::NoKey,
+                   FromStr::from_str("TABLE_NO_KEY").unwrap());
         assert_eq!(TableFlagType::ExtTableFlagType("ADDED_TYPE".to_owned()),
                    FromStr::from_str("ADDED_TYPE").unwrap());
         let x: Result<TableFlagType, _> = FromStr::from_str("");
@@ -82,9 +85,11 @@ mod test {
 
     #[test]
     fn test_fmt() {
-        assert_eq!("TABLE_PAT_KEY".to_owned(), format!("{}", TableFlagType::PatKey));
+        assert_eq!("TABLE_PAT_KEY".to_owned(),
+                   format!("{}", TableFlagType::PatKey));
         assert_eq!("ADDED_TYPE".to_owned(),
-                   format!("{}", TableFlagType::ExtTableFlagType("ADDED_TYPE".to_owned())));
+                   format!("{}",
+                           TableFlagType::ExtTableFlagType("ADDED_TYPE".to_owned())));
     }
 
     #[test]

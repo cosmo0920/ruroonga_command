@@ -1,11 +1,8 @@
 use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
-use self::DataType::{Bool,
-                     Int8, UInt8, Int16, UInt16, Int32, UInt32, Int64, UInt64,
-                     Float, Time, ShortText, Text, LongText,
-                     TokyoGeoPoint, WGS84GeoPoint,
-                     ExtDataType};
+use self::DataType::{Bool, Int8, UInt8, Int16, UInt16, Int32, UInt32, Int64, UInt64, Float, Time,
+                     ShortText, Text, LongText, TokyoGeoPoint, WGS84GeoPoint, ExtDataType};
 
 #[derive (Clone, PartialEq, Eq, Debug)]
 pub enum DataType {
@@ -49,13 +46,15 @@ impl AsRef<str> for DataType {
             TokyoGeoPoint => "TokyoGeoPoint",
             WGS84GeoPoint => "WGS84GeoPoint",
             /// For future extensibility.
-            ExtDataType(ref s) => s.as_ref()
+            ExtDataType(ref s) => s.as_ref(),
         }
     }
 }
 
 #[derive (Debug)]
-pub enum DataTypeError { Empty }
+pub enum DataTypeError {
+    Empty,
+}
 
 impl FromStr for DataType {
     type Err = DataTypeError;
@@ -64,9 +63,9 @@ impl FromStr for DataType {
             Err(DataTypeError::Empty)
         } else {
             Ok(match s {
-                "bool"| "Bool" => Bool,
-                "i8"| "int8" | "Int8" => Int8,
-                "u8"| "uint8" | "UInt8" => UInt8,
+                "bool" | "Bool" => Bool,
+                "i8" | "int8" | "Int8" => Int8,
+                "u8" | "uint8" | "UInt8" => UInt8,
                 "i16" | "int16" | "Int16" => Int16,
                 "u16" | "uint16" | "UInt16" => UInt16,
                 "i32" | "int32" | "Int32" => Int32,
@@ -81,7 +80,7 @@ impl FromStr for DataType {
                 "TokyoGeoPoint" => TokyoGeoPoint,
                 "WGS84GeoPoint" => WGS84GeoPoint,
                 /// For future extensibility.
-                _ => ExtDataType(s.to_owned())
+                _ => ExtDataType(s.to_owned()),
             })
         }
     }
@@ -107,7 +106,7 @@ impl fmt::Display for DataType {
             TokyoGeoPoint => "TokyoGeoPoint",
             WGS84GeoPoint => "WGS84GeoPoint",
             /// For future extensibility.
-            ExtDataType(ref s) => s.as_ref()
+            ExtDataType(ref s) => s.as_ref(),
         })
     }
 }
@@ -133,7 +132,8 @@ mod test {
 
     #[test]
     fn test_fmt() {
-        assert_eq!("TokyoGeoPoint".to_owned(), format!("{}", DataType::TokyoGeoPoint));
+        assert_eq!("TokyoGeoPoint".to_owned(),
+                   format!("{}", DataType::TokyoGeoPoint));
         assert_eq!("AddedType".to_owned(),
                    format!("{}", DataType::ExtDataType("AddedType".to_owned())));
     }

@@ -34,7 +34,7 @@ impl DumpCommand {
     pub fn dump_plugins(mut self, include: bool) -> DumpCommand {
         let flag = match include {
             true => "yes",
-            false => "no"
+            false => "no",
         };
         self.arguments.insert("dump_plugins".to_string(), flag.to_string());
         self
@@ -43,7 +43,7 @@ impl DumpCommand {
     pub fn dump_schema(mut self, include: bool) -> DumpCommand {
         let flag = match include {
             true => "yes",
-            false => "no"
+            false => "no",
         };
         self.arguments.insert("dump_schema".to_string(), flag.to_string());
         self
@@ -52,7 +52,7 @@ impl DumpCommand {
     pub fn dump_records(mut self, include: bool) -> DumpCommand {
         let flag = match include {
             true => "yes",
-            false => "no"
+            false => "no",
         };
         self.arguments.insert("dump_records".to_string(), flag.to_string());
         self
@@ -61,7 +61,7 @@ impl DumpCommand {
     pub fn dump_indexes(mut self, include: bool) -> DumpCommand {
         let flag = match include {
             true => "yes",
-            false => "no"
+            false => "no",
         };
         self.arguments.insert("dump_indexes".to_string(), flag.to_string());
         self
@@ -104,8 +104,7 @@ mod test {
 
     #[test]
     fn test_tables() {
-        let dump = DumpCommand::new()
-            .tables(vec!["Books".to_string(), "Categories".to_string()]);
+        let dump = DumpCommand::new().tables(vec!["Books".to_string(), "Categories".to_string()]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("tables".to_string(), "Books,Categories".to_string());
         let expected = DumpCommand {
@@ -117,8 +116,7 @@ mod test {
 
     #[test]
     fn test_dump_plugins() {
-        let dump_yes = DumpCommand::new()
-            .dump_plugins(true);
+        let dump_yes = DumpCommand::new().dump_plugins(true);
         let mut arg_yes: HashMap<String, String> = HashMap::new();
         arg_yes.insert("dump_plugins".to_string(), "yes".to_string());
         let expected_yes = DumpCommand {
@@ -126,8 +124,7 @@ mod test {
             arguments: arg_yes,
         };
         assert_eq!(expected_yes, dump_yes);
-        let dump_no = DumpCommand::new()
-            .dump_plugins(false);
+        let dump_no = DumpCommand::new().dump_plugins(false);
         let mut arg_no: HashMap<String, String> = HashMap::new();
         arg_no.insert("dump_plugins".to_string(), "no".to_string());
         let expected_no = DumpCommand {
@@ -139,8 +136,7 @@ mod test {
 
     #[test]
     fn test_dump_schemas() {
-        let dump_yes = DumpCommand::new()
-            .dump_schema(true);
+        let dump_yes = DumpCommand::new().dump_schema(true);
         let mut arg_yes: HashMap<String, String> = HashMap::new();
         arg_yes.insert("dump_schema".to_string(), "yes".to_string());
         let expected_yes = DumpCommand {
@@ -148,8 +144,7 @@ mod test {
             arguments: arg_yes,
         };
         assert_eq!(expected_yes, dump_yes);
-        let dump_no = DumpCommand::new()
-            .dump_schema(false);
+        let dump_no = DumpCommand::new().dump_schema(false);
         let mut arg_no: HashMap<String, String> = HashMap::new();
         arg_no.insert("dump_schema".to_string(), "no".to_string());
         let expected_no = DumpCommand {
@@ -161,8 +156,7 @@ mod test {
 
     #[test]
     fn test_dump_records() {
-        let dump_yes = DumpCommand::new()
-            .dump_records(true);
+        let dump_yes = DumpCommand::new().dump_records(true);
         let mut arg_yes: HashMap<String, String> = HashMap::new();
         arg_yes.insert("dump_records".to_string(), "yes".to_string());
         let expected_yes = DumpCommand {
@@ -170,8 +164,7 @@ mod test {
             arguments: arg_yes,
         };
         assert_eq!(expected_yes, dump_yes);
-        let dump_no = DumpCommand::new()
-            .dump_records(false);
+        let dump_no = DumpCommand::new().dump_records(false);
         let mut arg_no: HashMap<String, String> = HashMap::new();
         arg_no.insert("dump_records".to_string(), "no".to_string());
         let expected_no = DumpCommand {
@@ -183,8 +176,7 @@ mod test {
 
     #[test]
     fn test_dump_indexes() {
-        let dump_yes = DumpCommand::new()
-            .dump_indexes(true);
+        let dump_yes = DumpCommand::new().dump_indexes(true);
         let mut arg_yes: HashMap<String, String> = HashMap::new();
         arg_yes.insert("dump_indexes".to_string(), "yes".to_string());
         let expected_yes = DumpCommand {
@@ -192,8 +184,7 @@ mod test {
             arguments: arg_yes,
         };
         assert_eq!(expected_yes, dump_yes);
-        let dump_no = DumpCommand::new()
-            .dump_indexes(false);
+        let dump_no = DumpCommand::new().dump_indexes(false);
         let mut arg_no: HashMap<String, String> = HashMap::new();
         arg_no.insert("dump_indexes".to_string(), "no".to_string());
         let expected_no = DumpCommand {
@@ -206,10 +197,9 @@ mod test {
     #[test]
     fn test_build() {
         let actual = DumpCommand::new()
-            .tables(vec!["Books".to_string(), "Categories".to_string()])
-            .build();
-        let expected_query: Query =
-            vec![("tables".to_string(), "Books,Categories".to_string())];
+                         .tables(vec!["Books".to_string(), "Categories".to_string()])
+                         .build();
+        let expected_query: Query = vec![("tables".to_string(), "Books,Categories".to_string())];
         let expected = (Dump, expected_query);
         assert_eq!(expected, actual);
     }
@@ -217,8 +207,8 @@ mod test {
     #[test]
     fn test_queryable() {
         let query = DumpCommand::new()
-            .tables(vec!["Books".to_string(), "Categories".to_string()])
-            .to_query();
+                        .tables(vec!["Books".to_string(), "Categories".to_string()])
+                        .to_query();
         let url_encoded = "/d/dump?tables=Books%2CCategories";
         assert_eq!(url_encoded.to_string(), query);
     }

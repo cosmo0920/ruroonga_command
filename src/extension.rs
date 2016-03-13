@@ -72,8 +72,7 @@ mod test {
     fn test_set_arguments() {
         let mut arg = HashMap::new();
         arg.insert("test".to_string(), "element".to_string());
-        let extension = ExtensionCommand::new("Added".to_string()).
-            set_arguments(arg.clone());
+        let extension = ExtensionCommand::new("Added".to_string()).set_arguments(arg.clone());
         let expected = ExtensionCommand {
             command: Extension("Added".to_string()),
             arguments: arg,
@@ -85,10 +84,10 @@ mod test {
     fn test_build() {
         let mut arg = HashMap::new();
         arg.insert("test".to_string(), "element".to_string());
-        let extension = ExtensionCommand::new("Added".to_string()).
-            set_arguments(arg.clone()).build();
-        let expected_query: Query =
-            vec![("test".to_string(), "element".to_string())];
+        let extension = ExtensionCommand::new("Added".to_string())
+                            .set_arguments(arg.clone())
+                            .build();
+        let expected_query: Query = vec![("test".to_string(), "element".to_string())];
         let expected = (Extension("Added".to_string()), expected_query);
         assert_eq!(expected, extension);
     }
@@ -97,8 +96,9 @@ mod test {
     fn test_queryable() {
         let mut arg = HashMap::new();
         arg.insert("test".to_string(), "element".to_string());
-        let extension = ExtensionCommand::new("added".to_string()).
-            set_arguments(arg.clone()).to_query();
+        let extension = ExtensionCommand::new("added".to_string())
+                            .set_arguments(arg.clone())
+                            .to_query();
         let expected = "/d/added?test=element";
         assert_eq!(expected, extension);
     }

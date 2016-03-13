@@ -1,8 +1,8 @@
 use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
-use self::ColumnFlagType::{Scalar, Vector, Index, WithSection, WithWeight,
-                           WithPosition, ExtColumnFlagType};
+use self::ColumnFlagType::{Scalar, Vector, Index, WithSection, WithWeight, WithPosition,
+                           ExtColumnFlagType};
 #[cfg(feature="unstable")]
 use self::ColumnFlagType::{CompressZlib, CompressLz4};
 
@@ -30,7 +30,7 @@ impl AsRef<str> for ColumnFlagType {
             Vector => "COLUMN_VECTOR",
             Index => "COLUMN_INDEX",
             WithSection => "WITH_SECTION",
-            WithWeight =>  "WITH_WEIGHT",
+            WithWeight => "WITH_WEIGHT",
             WithPosition => "WITH_POSITION",
             #[cfg(feature="unstable")]
             CompressZlib => "COMPRESS_ZLIB",
@@ -42,7 +42,9 @@ impl AsRef<str> for ColumnFlagType {
 }
 
 #[derive (Debug)]
-pub enum ColumnFlagTypeError { Empty }
+pub enum ColumnFlagTypeError {
+    Empty,
+}
 
 impl FromStr for ColumnFlagType {
     type Err = ColumnFlagTypeError;
@@ -61,7 +63,7 @@ impl FromStr for ColumnFlagType {
                 "Zlib" | "CompressZlib" | "COMPRESS_ZLIB" => CompressZlib,
                 #[cfg(feature="unstable")]
                 "Lz4" | "CompressLz4" | "COMPRESS_LZ4" => CompressLz4,
-                _ => ExtColumnFlagType(s.to_owned())
+                _ => ExtColumnFlagType(s.to_owned()),
             })
         }
     }
@@ -74,7 +76,7 @@ impl fmt::Display for ColumnFlagType {
             Vector => "COLUMN_VECTOR",
             Index => "COLUMN_INDEX",
             WithSection => "WITH_SECTION",
-            WithWeight =>  "WITH_WEIGHT",
+            WithWeight => "WITH_WEIGHT",
             WithPosition => "WITH_POSITION",
             #[cfg(feature="unstable")]
             CompressZlib => "COMPRESS_ZLIB",
@@ -93,7 +95,8 @@ mod test {
     #[test]
     fn test_from_str() {
         assert_eq!(ColumnFlagType::Scalar, FromStr::from_str("Scalar").unwrap());
-        assert_eq!(ColumnFlagType::Scalar, FromStr::from_str("ColumnScalar").unwrap());
+        assert_eq!(ColumnFlagType::Scalar,
+                   FromStr::from_str("ColumnScalar").unwrap());
         assert_eq!(ColumnFlagType::ExtColumnFlagType("AddedColumnFlag".to_owned()),
                    FromStr::from_str("AddedColumnFlag").unwrap());
         let x: Result<ColumnFlagType, _> = FromStr::from_str("");
@@ -114,9 +117,11 @@ mod test {
 
     #[test]
     fn test_fmt() {
-        assert_eq!("COLUMN_VECTOR".to_owned(), format!("{}", ColumnFlagType::Vector));
+        assert_eq!("COLUMN_VECTOR".to_owned(),
+                   format!("{}", ColumnFlagType::Vector));
         assert_eq!("AddedColumnFlag".to_owned(),
-                   format!("{}", ColumnFlagType::ExtColumnFlagType("AddedColumnFlag".to_owned())));
+                   format!("{}",
+                           ColumnFlagType::ExtColumnFlagType("AddedColumnFlag".to_owned())));
     }
 
     #[test]
@@ -136,7 +141,6 @@ mod test {
     #[test]
     #[cfg(feature="unstable")]
     fn test_as_str_unstable() {
-        assert_eq!(ColumnFlagType::CompressLz4.as_ref(),
-                   "COMPRESS_LZ4");
+        assert_eq!(ColumnFlagType::CompressLz4.as_ref(), "COMPRESS_LZ4");
     }
 }

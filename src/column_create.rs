@@ -85,8 +85,8 @@ mod test {
 
     #[test]
     fn test_new() {
-        let vanilla_column_create =
-            ColumnCreateCommand::new("Test".to_string(), "element".to_string());
+        let vanilla_column_create = ColumnCreateCommand::new("Test".to_string(),
+                                                             "element".to_string());
         let expected = ColumnCreateCommand {
             command: ColumnCreate,
             table: "Test".to_string(),
@@ -98,12 +98,10 @@ mod test {
 
     #[test]
     fn test_column_type() {
-        let column_create =
-            ColumnCreateCommand::new("Test".to_string(), "element".to_string())
-            .column_type(DataType::ShortText);
+        let column_create = ColumnCreateCommand::new("Test".to_string(), "element".to_string())
+                                .column_type(DataType::ShortText);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert("type".to_string(),
-                   "ShortText".to_string());
+        arg.insert("type".to_string(), "ShortText".to_string());
         let expected = ColumnCreateCommand {
             command: ColumnCreate,
             table: "Test".to_string(),
@@ -115,12 +113,10 @@ mod test {
 
     #[test]
     fn test_flags() {
-        let column_create =
-            ColumnCreateCommand::new("Test".to_string(), "element".to_string())
-            .flags(vec![(ColumnFlagType::Scalar)]);
+        let column_create = ColumnCreateCommand::new("Test".to_string(), "element".to_string())
+                                .flags(vec![(ColumnFlagType::Scalar)]);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert("flags".to_string(),
-                   "COLUMN_SCALAR".to_string());
+        arg.insert("flags".to_string(), "COLUMN_SCALAR".to_string());
         let expected = ColumnCreateCommand {
             command: ColumnCreate,
             table: "Test".to_string(),
@@ -132,12 +128,10 @@ mod test {
 
     #[test]
     fn test_source() {
-        let column_create =
-            ColumnCreateCommand::new("Test".to_string(), "element".to_string())
-            .source(vec![("Entry".to_string()), ("person".to_string())]);
+        let column_create = ColumnCreateCommand::new("Test".to_string(), "element".to_string())
+                                .source(vec![("Entry".to_string()), ("person".to_string())]);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert("source".to_string(),
-                   "Entry,person".to_string());
+        arg.insert("source".to_string(), "Entry,person".to_string());
         let expected = ColumnCreateCommand {
             command: ColumnCreate,
             table: "Test".to_string(),
@@ -149,22 +143,21 @@ mod test {
 
     #[test]
     fn test_build() {
-        let actual =
-            ColumnCreateCommand::new("Test".to_string(), "element".to_string())
-            .flags(vec![(ColumnFlagType::Scalar)]).build();
-        let expected_query: Query =
-            vec![("table".to_string(), "Test".to_string()),
-                 ("name".to_string(), "element".to_string()),
-                 ("flags".to_string(), "COLUMN_SCALAR".to_string())];
+        let actual = ColumnCreateCommand::new("Test".to_string(), "element".to_string())
+                         .flags(vec![(ColumnFlagType::Scalar)])
+                         .build();
+        let expected_query: Query = vec![("table".to_string(), "Test".to_string()),
+                                         ("name".to_string(), "element".to_string()),
+                                         ("flags".to_string(), "COLUMN_SCALAR".to_string())];
         let expected = (ColumnCreate, expected_query);
         assert_eq!(expected, actual);
     }
 
     #[test]
     fn test_queryable() {
-        let actual =
-            ColumnCreateCommand::new("Test".to_string(), "element".to_string())
-            .column_type(DataType::LongText).to_query();
+        let actual = ColumnCreateCommand::new("Test".to_string(), "element".to_string())
+                         .column_type(DataType::LongText)
+                         .to_query();
         let expected = "/d/column_create?table=Test&name=element&type=LongText";
         assert_eq!(expected, actual);
     }

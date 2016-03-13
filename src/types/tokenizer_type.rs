@@ -1,21 +1,11 @@
 use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
-use self::TokenizerType::{Bigram,
-                          BigramSplitSymbol,
-                          BigramSplitSymbolAlpha,
-                          BigramSplitSymbolAlphaDigit,
-                          BigramIgnoreBlank,
-                          BigramIgnoreBlankSplitSymbol,
-                          BigramIgnoreBlankSplitAlpha,
-                          BigramIgnoreBlankSplitAlphaDigit,
-                          Unigram,
-                          Trigram,
-                          Delimit,
-                          DelimitNull,
-                          Mecab,
-                          Regexp,
-                          ExtUserDefined};
+use self::TokenizerType::{Bigram, BigramSplitSymbol, BigramSplitSymbolAlpha,
+                          BigramSplitSymbolAlphaDigit, BigramIgnoreBlank,
+                          BigramIgnoreBlankSplitSymbol, BigramIgnoreBlankSplitAlpha,
+                          BigramIgnoreBlankSplitAlphaDigit, Unigram, Trigram, Delimit,
+                          DelimitNull, Mecab, Regexp, ExtUserDefined};
 
 #[derive (Clone, PartialEq, Eq, Debug)]
 pub enum TokenizerType {
@@ -60,7 +50,9 @@ impl AsRef<str> for TokenizerType {
 }
 
 #[derive(Debug)]
-pub enum TokenizerTypeError { Empty }
+pub enum TokenizerTypeError {
+    Empty,
+}
 
 impl FromStr for TokenizerType {
     type Err = TokenizerTypeError;
@@ -71,15 +63,23 @@ impl FromStr for TokenizerType {
             Ok(match s {
                 "TokenBigram" | "Bigram" => Bigram,
                 "TokenBigramSplitSymbol" | "BigramSplitSymbol" => BigramSplitSymbol,
-                "TokenBigramSplitSymbolAlpha" | "BigramSplitSymbolAlpha"  => BigramSplitSymbolAlpha,
-                "TokenBigramSplitSymbolAlphaDigit" | "BigramSplitSymbolAlphaDigit" => BigramSplitSymbolAlphaDigit,
+                "TokenBigramSplitSymbolAlpha" | "BigramSplitSymbolAlpha" => BigramSplitSymbolAlpha,
+                "TokenBigramSplitSymbolAlphaDigit" | "BigramSplitSymbolAlphaDigit" => {
+                    BigramSplitSymbolAlphaDigit
+                }
                 "TokenBigramIgnoreBlank" | "BigramIgnoreBlank" => BigramIgnoreBlank,
-                "TokenBigramIgnoreBlankSplitSymbol" | "BigramIgnoreBlankSplitSymbol" => BigramIgnoreBlankSplitSymbol,
-                "TokenBigramIgnoreBlankSplitAlpha" | "BigramIgnoreBlankSplitAlpha" => BigramIgnoreBlankSplitAlpha,
-                "TokenBigramIgnoreBlankSplitAlphaDigit" | "BigramIgnoreBlankSplitAlphaDigit" => BigramIgnoreBlankSplitAlphaDigit,
+                "TokenBigramIgnoreBlankSplitSymbol" | "BigramIgnoreBlankSplitSymbol" => {
+                    BigramIgnoreBlankSplitSymbol
+                }
+                "TokenBigramIgnoreBlankSplitAlpha" | "BigramIgnoreBlankSplitAlpha" => {
+                    BigramIgnoreBlankSplitAlpha
+                }
+                "TokenBigramIgnoreBlankSplitAlphaDigit" | "BigramIgnoreBlankSplitAlphaDigit" => {
+                    BigramIgnoreBlankSplitAlphaDigit
+                }
                 "TokenUnigram" | "Unigram" => Unigram,
                 "TokenTrigram" | "Trigram" => Trigram,
-                "TokenDelimit" | "Delimit" =>  Delimit,
+                "TokenDelimit" | "Delimit" => Delimit,
                 "TokenDelimitNull" | "DelimitNull" => DelimitNull,
                 "TokenMecab" | "Mecab" => Mecab,
                 "TokenRegexp" | "Regexp" => Regexp,
@@ -120,7 +120,8 @@ mod test {
     #[test]
     fn test_from_str() {
         assert_eq!(TokenizerType::Bigram, FromStr::from_str("Bigram").unwrap());
-        assert_eq!(TokenizerType::Bigram, FromStr::from_str("TokenBigram").unwrap());
+        assert_eq!(TokenizerType::Bigram,
+                   FromStr::from_str("TokenBigram").unwrap());
         assert_eq!(TokenizerType::ExtUserDefined("ADDED_TYPE".to_owned()),
                    FromStr::from_str("ADDED_TYPE").unwrap());
         let x: Result<TokenizerType, _> = FromStr::from_str("");

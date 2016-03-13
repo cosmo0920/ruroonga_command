@@ -1,11 +1,12 @@
 use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
-use self::Command::{Select, Load, Status, Dump, Delete, TableCreate,
-                    ColumnCreate, Extension};
+use self::Command::{Select, Load, Status, Dump, Delete, TableCreate, ColumnCreate, Extension};
 
 #[derive (Debug)]
-pub enum CommandError { Empty }
+pub enum CommandError {
+    Empty,
+}
 
 #[derive (Clone, PartialEq, Eq, Debug)]
 pub enum Command {
@@ -25,7 +26,7 @@ pub enum Command {
     /// let m =
     ///     ruroonga::command::Command::Extension("added-command".to_string());
     /// ```
-    Extension(String)
+    Extension(String),
 }
 
 impl AsRef<str> for Command {
@@ -38,7 +39,7 @@ impl AsRef<str> for Command {
             Delete => "delete",
             TableCreate => "table_create",
             ColumnCreate => "column_create",
-            Extension(ref s) => s.as_ref()
+            Extension(ref s) => s.as_ref(),
         }
     }
 }
@@ -57,7 +58,7 @@ impl FromStr for Command {
                 "delete" => Delete,
                 "table_create" => TableCreate,
                 "column_create" => ColumnCreate,
-                _ => Extension(s.to_owned())
+                _ => Extension(s.to_owned()),
             })
         }
     }
@@ -73,7 +74,7 @@ impl fmt::Display for Command {
             Delete => "delete",
             TableCreate => "table_create",
             ColumnCreate => "column_create",
-            Extension(ref s) => s.as_ref()
+            Extension(ref s) => s.as_ref(),
         })
     }
 }
@@ -86,8 +87,7 @@ mod test {
     use std::str::FromStr;
     use super::CommandError;
     use super::Command;
-    use super::Command::{Select, Load, Status, Dump, Delete, TableCreate,
-                         ColumnCreate, Extension};
+    use super::Command::{Select, Load, Status, Dump, Delete, TableCreate, ColumnCreate, Extension};
 
     #[test]
     fn test_from_str() {
