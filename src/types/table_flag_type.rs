@@ -21,7 +21,7 @@ impl AsRef<str> for TableFlagType {
             HashKey => "TABLE_HASH_KEY",
             PatKey => "TABLE_PAT_KEY",
             DatKey => "TABLE_DAT_KEY",
-            KeyWithSIS => "TABLE_KEY_WITH_SIS",
+            KeyWithSIS => "KEY_WITH_SIS",
             ExtTableFlagType(ref s) => s.as_ref(),
         }
     }
@@ -43,7 +43,7 @@ impl FromStr for TableFlagType {
                 "TABLE_HASH_KEY" | "HASH_KEY" | "HashKey" => HashKey,
                 "TABLE_PAT_KEY" | "PAT_KEY" | "PatKey" => PatKey,
                 "TABLE_DAT_KEY" | "DAT_KEY" | "DatKey" => DatKey,
-                "TABLE_KEY_WITH_SIS" | "KEY_WITH_SIS" | "WithSIS" => KeyWithSIS,
+                "KEY_WITH_SIS" | "WithSIS" => KeyWithSIS,
                 _ => ExtTableFlagType(s.to_owned()),
             })
         }
@@ -57,7 +57,7 @@ impl fmt::Display for TableFlagType {
             HashKey => "TABLE_HASH_KEY",
             PatKey => "TABLE_PAT_KEY",
             DatKey => "TABLE_DAT_KEY",
-            KeyWithSIS => "TABLE_KEY_WITH_SIS",
+            KeyWithSIS => "KEY_WITH_SIS",
             ExtTableFlagType(ref s) => s.as_ref(),
         })
     }

@@ -114,7 +114,7 @@ mod test {
                                .flags(vec![(TableFlagType::PatKey), (TableFlagType::KeyWithSIS)]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("flags".to_string(),
-                   "TABLE_PAT_KEY|TABLE_KEY_WITH_SIS".to_string());
+                   "TABLE_PAT_KEY|KEY_WITH_SIS".to_string());
         let expected = TableCreateCommand {
             command: TableCreate,
             name: "Test".to_string(),
@@ -188,7 +188,7 @@ mod test {
                          .build();
         let expected_query: Query = vec![("name".to_string(), "Test".to_string()),
                                          ("flags".to_string(),
-                                          "TABLE_PAT_KEY|TABLE_KEY_WITH_SIS".to_string())];
+                                          "TABLE_PAT_KEY|KEY_WITH_SIS".to_string())];
         let expected = (TableCreate, expected_query);
         assert_eq!(expected, actual);
     }
@@ -198,7 +198,7 @@ mod test {
         let query = TableCreateCommand::new("Test".to_string())
                         .flags(vec![(TableFlagType::PatKey), (TableFlagType::KeyWithSIS)])
                         .to_query();
-        let url_encoded = "/d/table_create?name=Test&flags=TABLE_PAT_KEY%7CTABLE_KEY_WITH_SIS";
+        let url_encoded = "/d/table_create?name=Test&flags=TABLE_PAT_KEY%7CKEY_WITH_SIS";
         assert_eq!(url_encoded.to_string(), query);
     }
 }

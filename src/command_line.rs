@@ -127,7 +127,7 @@ mod test {
                                                (TableFlagType::KeyWithSIS)])
                                    .build();
         let mut command = CommandLine::new(command, query);
-        let url_encoded = "table_create --name Test --flags TABLE_PAT_KEY|TABLE_KEY_WITH_SIS";
+        let url_encoded = "table_create --name Test --flags TABLE_PAT_KEY|KEY_WITH_SIS";
         assert_eq!(url_encoded.to_string(), command.encode());
     }
 
