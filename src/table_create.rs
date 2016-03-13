@@ -10,8 +10,6 @@ use util;
 use command_query::CommandQuery;
 use queryable::Queryable;
 
-pub type LoadValues = String;
-
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct TableCreateCommand {
     command: Command,
