@@ -11,9 +11,7 @@ pub struct Drilldown {
 
 impl Default for Drilldown {
     fn default() -> Drilldown {
-        Drilldown {
-            arguments: HashMap::new(),
-        }
+        Drilldown { arguments: HashMap::new() }
     }
 }
 
@@ -35,8 +33,7 @@ impl Drilldown {
 
     pub fn output_columns(mut self, columns: Vec<String>) -> Drilldown {
         let string = util::split_values_vec(columns);
-        self.arguments.insert("drilldown_output_columns".to_string(),
-                              string.clone());
+        self.arguments.insert("drilldown_output_columns".to_string(), string.clone());
         self
     }
 
@@ -76,9 +73,7 @@ mod test {
     #[test]
     fn test_new() {
         let vanilla_drilldown = Drilldown::new();
-        let expected = Drilldown {
-            arguments: HashMap::new(),
-        };
+        let expected = Drilldown { arguments: HashMap::new() };
         assert_eq!(expected, vanilla_drilldown);
     }
 
@@ -87,9 +82,7 @@ mod test {
         let drilldown = Drilldown::new().drilldown("tag".to_string());
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("drilldown".to_string(), "tag".to_string());
-        let expected = Drilldown {
-            arguments: arg,
-        };
+        let expected = Drilldown { arguments: arg };
         assert_eq!(expected, drilldown);
     }
 
@@ -98,23 +91,18 @@ mod test {
         let drilldown = Drilldown::new().sortby("tag".to_string());
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("drilldown_sortby".to_string(), "tag".to_string());
-        let expected = Drilldown {
-            arguments: arg,
-        };
+        let expected = Drilldown { arguments: arg };
         assert_eq!(expected, drilldown);
     }
 
     #[test]
     fn test_output_columns() {
         let drilldown = Drilldown::new()
-            .output_columns(vec![("tag".to_string()),
-                                 ("category".to_string())]);
+                            .output_columns(vec![("tag".to_string()), ("category".to_string())]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("drilldown_output_columns".to_string(),
                    "tag,category".to_string());
-        let expected = Drilldown {
-            arguments: arg,
-        };
+        let expected = Drilldown { arguments: arg };
         assert_eq!(expected, drilldown);
     }
 
@@ -123,9 +111,7 @@ mod test {
         let drilldown = Drilldown::new().offset(10);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("drilldown_offset".to_string(), "10".to_string());
-        let expected = Drilldown {
-            arguments: arg,
-        };
+        let expected = Drilldown { arguments: arg };
         assert_eq!(expected, drilldown);
     }
 
@@ -134,17 +120,14 @@ mod test {
         let drilldown = Drilldown::new().limit(30);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("drilldown_limit".to_string(), "30".to_string());
-        let expected = Drilldown {
-            arguments: arg,
-        };
+        let expected = Drilldown { arguments: arg };
         assert_eq!(expected, drilldown);
     }
 
     #[test]
     fn test_build() {
         let drilldown = Drilldown::new().limit(30).build();
-        let expected: Query = vec![("drilldown_limit".to_string(),
-                                    "30".to_string())];
+        let expected: Query = vec![("drilldown_limit".to_string(), "30".to_string())];
         assert_eq!(expected, drilldown);
     }
 }
