@@ -70,3 +70,34 @@ impl Commandable for DrilldownBuilder {
         command.encode()
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use queryable::Queryable;
+    use commandable::Commandable;
+    use select::SelectCommand;
+    use selectable::drilldown::Drilldown;
+
+    #[test]
+    fn test_to_query() {
+        let select = SelectCommand::new("Entries".to_string())
+                         .filter("content @ \"fast\"".to_string());
+        let drilldown = Drilldown::new().drilldown("tag".to_string());
+        let builder = DrilldownBuilder::new(select, drilldown).to_query();
+        let encoded = "/d/select?table=Entries&filter=%27content+%40+%22fast%22%27&drilldown=tag"
+                          .to_string();
+        assert_eq!(encoded, builder);
+    }
+
+    #[test]
+    fn test_to_command() {
+        let select = SelectCommand::new("Entries".to_string())
+                         .filter("content @ \"fast\"".to_string());
+        let drilldown = Drilldown::new().drilldown("tag".to_string());
+        let builder = DrilldownBuilder::new(select, drilldown).to_command();
+        let encoded = "select --table Entries --filter \'content @ \"fast\"\' --drilldown tag"
+                          .to_string();
+        assert_eq!(encoded, builder);
+    }
+}
