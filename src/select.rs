@@ -8,6 +8,9 @@ use commandable::Commandable;
 use command_line::CommandLine;
 use selectable::fragmentable::Fragmentable;
 use selectable::fragmentable::{OrderedFragment, QueryFragment};
+use selectable::drilldown::Drilldown;
+use selectable::drilldown_builder::DrilldownBuilder;
+use std::ops::Add;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct SelectCommand {
@@ -117,6 +120,15 @@ impl Fragmentable for SelectCommand {
     }
 }
 
+impl Add<Drilldown> for SelectCommand {
+    type Output = DrilldownBuilder;
+
+    fn add(self, rhs: Drilldown) -> DrilldownBuilder {
+        let drilldown_builder = DrilldownBuilder::new(self, rhs);
+        drilldown_builder
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -125,6 +137,8 @@ mod test {
     use std::collections::HashMap;
     use queryable::Queryable;
     use commandable::Commandable;
+    use selectable::drilldown::Drilldown;
+    use selectable::drilldown_builder::DrilldownBuilder;
 
     #[test]
     fn test_new() {
@@ -271,5 +285,15 @@ mod test {
                         .to_command();
         let url_encoded = "select --table Test --filter \'output_column @ \"type_safe\"\'";
         assert_eq!(url_encoded.to_string(), query);
+    }
+
+    #[test]
+    fn test_add_ops_drilldown() {
+        let select = SelectCommand::new("Entries".to_string())
+                         .filter("content @ \"fast\"".to_string());
+        let drilldown = Drilldown::new().drilldown("tag".to_string());
+        let ops_builder = (select.clone() + drilldown.clone()).build();
+        let drilldown_builder = DrilldownBuilder::new(select.clone(), drilldown.clone()).build();
+        assert_eq!(ops_builder, drilldown_builder);
     }
 }
