@@ -16,3 +16,4 @@ pub mod delete;
 pub mod table_create;
 pub mod column_create;
 pub mod extension;
+pub mod syntax;
