@@ -9,6 +9,7 @@ use command_line::CommandLine;
 use selectable::fragmentable::Fragmentable;
 use selectable::fragmentable::{OrderedFragment, QueryFragment};
 use selectable::drilldown::Drilldown;
+use selectable::drilldownable::Drilldownable;
 use selectable::drilldown_builder::DrilldownBuilder;
 use std::ops::Add;
 
@@ -129,6 +130,13 @@ impl Add<Drilldown> for SelectCommand {
     }
 }
 
+impl Drilldownable for SelectCommand {
+    fn with_drilldown(self, rhs: Drilldown) -> DrilldownBuilder {
+        let drilldown_builder = DrilldownBuilder::new(self, rhs);
+        drilldown_builder
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -138,6 +146,7 @@ mod test {
     use queryable::Queryable;
     use commandable::Commandable;
     use selectable::drilldown::Drilldown;
+    use selectable::drilldownable::Drilldownable;
     use selectable::drilldown_builder::DrilldownBuilder;
 
     #[test]
@@ -295,5 +304,15 @@ mod test {
         let ops_builder = (select.clone() + drilldown.clone()).build();
         let drilldown_builder = DrilldownBuilder::new(select.clone(), drilldown.clone()).build();
         assert_eq!(ops_builder, drilldown_builder);
+    }
+
+    #[test]
+    fn test_with_drilldown() {
+        let select = SelectCommand::new("Entries".to_string())
+                         .filter("content @ \"fast\"".to_string());
+        let drilldown = Drilldown::new().drilldown("tag".to_string());
+        let drilldownable = select.clone().with_drilldown(drilldown.clone()).build();
+        let drilldown_builder = DrilldownBuilder::new(select.clone(), drilldown.clone()).build();
+        assert_eq!(drilldownable, drilldown_builder);
     }
 }
