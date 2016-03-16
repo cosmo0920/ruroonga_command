@@ -94,21 +94,8 @@ impl SelectCommand {
     }
 }
 
-impl Queryable for SelectCommand {
-    fn to_query(self) -> String {
-        let (command, query) = self.build();
-        let mut command = CommandQuery::new(command, query);
-        command.encode()
-    }
-}
-
-impl Commandable for SelectCommand {
-    fn to_command(self) -> String {
-        let (command, query) = self.build();
-        let mut command = CommandLine::new(command, query);
-        command.encode()
-    }
-}
+queryable!(SelectCommand);
+commandable!(SelectCommand);
 
 impl Fragmentable for SelectCommand {
     fn to_fragment(self) -> (OrderedFragment, QueryFragment) {
