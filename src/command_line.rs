@@ -14,17 +14,17 @@ impl CommandLine {
         }
     }
 
-    /// Get command enum constant to construct url encoded query.
+    /// Get command enum constant to construct command line query.
     pub fn get_command(&mut self) -> Command {
         self.command.clone()
     }
 
-    /// Get vectorize `("key", "value")` pairs to construct url encoded query.
+    /// Get vectorize `("key", "value")` pairs to construct command line query.
     pub fn get_argument(&mut self) -> Query {
         self.arguments.clone()
     }
 
-    /// Set vectorize `("key", "value")` pairs to construct url encoded query.
+    /// Set vectorize `("key", "value")` pairs to construct command line query.
     pub fn set_argument(&mut self, arguments: Query) {
         self.arguments = arguments
     }
