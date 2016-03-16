@@ -3,6 +3,8 @@ extern crate url;
 mod util;
 pub mod queryable;
 pub mod commandable;
+#[macro_use]
+pub mod extendable;
 pub mod types;
 pub mod command;
 pub mod command_query;

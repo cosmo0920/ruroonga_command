@@ -11,6 +11,7 @@ use command_query::CommandQuery;
 use queryable::Queryable;
 use command_line::CommandLine;
 use commandable::Commandable;
+use extendable::Extendable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct TableCreateCommand {
@@ -94,6 +95,8 @@ impl Commandable for TableCreateCommand {
     }
 }
 
+extendable!(TableCreateCommand);
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -107,6 +110,7 @@ mod test {
     use command::Query;
     use queryable::Queryable;
     use commandable::Commandable;
+    use extendable::Extendable;
 
     #[test]
     fn test_new() {
@@ -220,5 +224,21 @@ mod test {
                         .to_command();
         let cli_encoded = "table_create --name Test --flags TABLE_PAT_KEY|KEY_WITH_SIS";
         assert_eq!(cli_encoded.to_string(), query);
+    }
+
+    #[test]
+    fn test_extendable() {
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("user".to_string(), "defined".to_string());
+        let expected = TableCreateCommand {
+            command: TableCreate,
+            name: "Test".to_string(),
+            arguments: arg.clone(),
+        };
+        let query = TableCreateCommand::new("Test".to_string());
+        unsafe {
+            let extended = query.set_arguments(arg.clone());
+            assert_eq!(expected, extended);
+        }
     }
 }

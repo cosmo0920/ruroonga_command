@@ -5,6 +5,7 @@ use command_query::CommandQuery;
 use queryable::Queryable;
 use command_line::CommandLine;
 use commandable::Commandable;
+use extendable::Extendable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct DeleteCommand {
@@ -75,6 +76,8 @@ impl Commandable for DeleteCommand {
     }
 }
 
+extendable!(DeleteCommand);
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -83,6 +86,7 @@ mod test {
     use std::collections::HashMap;
     use queryable::Queryable;
     use commandable::Commandable;
+    use extendable::Extendable;
 
     #[test]
     fn test_new() {
@@ -162,5 +166,21 @@ mod test {
                         .to_command();
         let url_encoded = "delete --table Books --filter \'author == unknown\'";
         assert_eq!(url_encoded.to_string(), query);
+    }
+
+    #[test]
+    fn test_extendable() {
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("user".to_string(), "defined".to_string());
+        let expected = DeleteCommand {
+            command: Delete,
+            table: "Test".to_string(),
+            arguments: arg.clone(),
+        };
+        let query = DeleteCommand::new("Test".to_string());
+        unsafe {
+            let extended = query.set_arguments(arg.clone());
+            assert_eq!(expected, extended);
+        }
     }
 }

@@ -6,6 +6,7 @@ use command_query::CommandQuery;
 use queryable::Queryable;
 use command_line::CommandLine;
 use commandable::Commandable;
+use extendable::Extendable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct DumpCommand {
@@ -94,6 +95,8 @@ impl Commandable for DumpCommand {
     }
 }
 
+extendable!(DumpCommand);
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -102,6 +105,7 @@ mod test {
     use std::collections::HashMap;
     use queryable::Queryable;
     use commandable::Commandable;
+    use extendable::Extendable;
 
     #[test]
     fn test_new() {
@@ -231,5 +235,20 @@ mod test {
                         .to_command();
         let url_encoded = "dump --tables Books,Categories";
         assert_eq!(url_encoded.to_string(), query);
+    }
+
+    #[test]
+    fn test_extendable() {
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("user".to_string(), "defined".to_string());
+        let expected = DumpCommand {
+            command: Dump,
+            arguments: arg.clone(),
+        };
+        let query = DumpCommand::new();
+        unsafe {
+            let extended = query.set_arguments(arg.clone());
+            assert_eq!(expected, extended);
+        }
     }
 }

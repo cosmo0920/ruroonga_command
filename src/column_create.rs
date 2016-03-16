@@ -8,6 +8,7 @@ use command_query::CommandQuery;
 use queryable::Queryable;
 use command_line::CommandLine;
 use commandable::Commandable;
+use extendable::Extendable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct ColumnCreateCommand {
@@ -83,6 +84,8 @@ impl Commandable for ColumnCreateCommand {
     }
 }
 
+extendable!(ColumnCreateCommand);
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -93,6 +96,7 @@ mod test {
     use command::Query;
     use queryable::Queryable;
     use commandable::Commandable;
+    use extendable::Extendable;
 
     #[test]
     fn test_new() {
@@ -180,5 +184,22 @@ mod test {
                          .to_command();
         let expected = "column_create --table Test --name element --type LongText";
         assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_extendable() {
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("user".to_string(), "defined".to_string());
+        let expected = ColumnCreateCommand {
+            command: ColumnCreate,
+            table: "Test".to_string(),
+            name: "element".to_string(),
+            arguments: arg.clone(),
+        };
+        let query = ColumnCreateCommand::new("Test".to_string(), "element".to_string());
+        unsafe {
+            let extended = query.set_arguments(arg.clone());
+            assert_eq!(expected, extended);
+        }
     }
 }

@@ -12,6 +12,7 @@ use selectable::drilldown::Drilldown;
 use selectable::drilldownable::Drilldownable;
 use selectable::drilldown_builder::DrilldownBuilder;
 use std::ops::Add;
+use extendable::Extendable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct SelectCommand {
@@ -137,6 +138,8 @@ impl Drilldownable for SelectCommand {
     }
 }
 
+extendable!(SelectCommand);
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -148,6 +151,7 @@ mod test {
     use selectable::drilldown::Drilldown;
     use selectable::drilldownable::Drilldownable;
     use selectable::drilldown_builder::DrilldownBuilder;
+    use extendable::Extendable;
 
     #[test]
     fn test_new() {
@@ -314,5 +318,21 @@ mod test {
         let drilldownable = select.clone().with_drilldown(drilldown.clone()).build();
         let drilldown_builder = DrilldownBuilder::new(select.clone(), drilldown.clone()).build();
         assert_eq!(drilldownable, drilldown_builder);
+    }
+
+    #[test]
+    fn test_extendable() {
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("user".to_string(), "defined".to_string());
+        let expected = SelectCommand {
+            command: Select,
+            table: "Test".to_string(),
+            arguments: arg.clone(),
+        };
+        let query = SelectCommand::new("Test".to_string());
+        unsafe {
+            let extended = query.set_arguments(arg.clone());
+            assert_eq!(expected, extended);
+        }
     }
 }
