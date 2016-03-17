@@ -5,6 +5,8 @@ pub mod queryable;
 pub mod commandable;
 #[macro_use]
 pub mod extendable;
+#[macro_use]
+pub mod request_cancellable;
 pub mod types;
 pub mod command;
 pub mod command_query;

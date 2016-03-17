@@ -9,6 +9,7 @@ use queryable::Queryable;
 use command_line::CommandLine;
 use commandable::Commandable;
 use extendable::Extendable;
+use request_cancellable::RequestCancellable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct ColumnCreateCommand {
@@ -85,6 +86,7 @@ impl Commandable for ColumnCreateCommand {
 }
 
 extendable!(ColumnCreateCommand);
+request_cancellable!(ColumnCreateCommand);
 
 #[cfg(test)]
 mod test {

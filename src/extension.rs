@@ -5,6 +5,7 @@ use command_query::CommandQuery;
 use queryable::Queryable;
 use command_line::CommandLine;
 use commandable::Commandable;
+use request_cancellable::RequestCancellable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct ExtensionCommand {
@@ -59,6 +60,8 @@ impl Commandable for ExtensionCommand {
         command.encode()
     }
 }
+
+request_cancellable!(ExtensionCommand);
 
 #[cfg(test)]
 mod test {

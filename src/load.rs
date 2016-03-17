@@ -14,6 +14,7 @@ use queryable::PostQueryable;
 use commandable::Commandable;
 use commandable::PostCommandable;
 use commandable::DataValues;
+use request_cancellable::RequestCancellable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct LoadCommand {
@@ -142,6 +143,8 @@ impl PostCommandable for LoadCommand {
         (command.encode(), values)
     }
 }
+
+request_cancellable!(LoadCommand);
 
 #[cfg(test)]
 mod test {

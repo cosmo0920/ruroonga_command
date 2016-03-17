@@ -12,6 +12,7 @@ use queryable::Queryable;
 use command_line::CommandLine;
 use commandable::Commandable;
 use extendable::Extendable;
+use request_cancellable::RequestCancellable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct TableCreateCommand {
@@ -96,6 +97,7 @@ impl Commandable for TableCreateCommand {
 }
 
 extendable!(TableCreateCommand);
+request_cancellable!(TableCreateCommand);
 
 #[cfg(test)]
 mod test {

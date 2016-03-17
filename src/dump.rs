@@ -7,6 +7,7 @@ use queryable::Queryable;
 use command_line::CommandLine;
 use commandable::Commandable;
 use extendable::Extendable;
+use request_cancellable::RequestCancellable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct DumpCommand {
@@ -96,6 +97,7 @@ impl Commandable for DumpCommand {
 }
 
 extendable!(DumpCommand);
+request_cancellable!(DumpCommand);
 
 #[cfg(test)]
 mod test {

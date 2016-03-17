@@ -13,6 +13,7 @@ use selectable::drilldownable::Drilldownable;
 use selectable::drilldown_builder::DrilldownBuilder;
 use std::ops::Add;
 use extendable::Extendable;
+use request_cancellable::RequestCancellable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct SelectCommand {
@@ -139,6 +140,7 @@ impl Drilldownable for SelectCommand {
 }
 
 extendable!(SelectCommand);
+request_cancellable!(SelectCommand);
 
 #[cfg(test)]
 mod test {

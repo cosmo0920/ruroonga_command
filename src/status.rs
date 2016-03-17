@@ -1,18 +1,24 @@
 use super::command::{Command, Query};
 use super::command::Command::Status;
+use std::collections::HashMap;
 use command_query::CommandQuery;
 use queryable::Queryable;
 use command_line::CommandLine;
 use commandable::Commandable;
+use request_cancellable::RequestCancellable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct StatusCommand {
     command: Command,
+    arguments: HashMap<String, String>,
 }
 
 impl Default for StatusCommand {
     fn default() -> StatusCommand {
-        StatusCommand { command: Status }
+        StatusCommand {
+            command: Status,
+            arguments: HashMap::new(),
+        }
     }
 }
 
@@ -22,8 +28,11 @@ impl StatusCommand {
     }
 
     pub fn build(self) -> (Command, Query) {
-        let query = vec![];
-        (Status, query)
+        let mut query: Query = vec![];
+        for (key, value) in self.arguments.iter() {
+            query.push((key.to_owned(), value.to_owned()));
+        }
+        (self.command, query)
     }
 }
 
@@ -43,9 +52,12 @@ impl Commandable for StatusCommand {
     }
 }
 
+request_cancellable!(StatusCommand);
+
 #[cfg(test)]
 mod test {
     use super::*;
+    use std::collections::HashMap;
     use command::Command::Status;
     use queryable::Queryable;
     use commandable::Commandable;
@@ -53,7 +65,10 @@ mod test {
     #[test]
     fn test_new() {
         let status = StatusCommand::new();
-        let expected = StatusCommand { command: Status };
+        let expected = StatusCommand {
+            command: Status,
+            arguments: HashMap::new(),
+        };
         assert_eq!(expected, status);
     }
 
