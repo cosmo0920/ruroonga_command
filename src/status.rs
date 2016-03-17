@@ -89,7 +89,7 @@ mod test {
     #[test]
     fn test_commandable() {
         let query = StatusCommand::new().to_command();
-        let url_encoded = "status";
-        assert_eq!(url_encoded.to_string(), query);
+        let cli_encoded = "status";
+        assert_eq!(cli_encoded.to_string(), query);
     }
 }
