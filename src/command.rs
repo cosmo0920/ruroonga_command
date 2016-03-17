@@ -1,7 +1,7 @@
 use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
-use self::Command::{Select, Load, Status, Dump, Delete, TableCreate, ColumnCreate, Extension};
+use self::Command::{Select, Load, Status, Dump, Delete, TableCreate, ColumnCreate, RequestCancel, Extension};
 
 #[derive (Debug)]
 pub enum CommandError {
@@ -17,6 +17,7 @@ pub enum Command {
     Delete,
     TableCreate,
     ColumnCreate,
+    RequestCancel,
     /// Method extensions.
     ///
     /// An example would be:
@@ -39,6 +40,7 @@ impl AsRef<str> for Command {
             Delete => "delete",
             TableCreate => "table_create",
             ColumnCreate => "column_create",
+            RequestCancel => "request_cancel",
             Extension(ref s) => s.as_ref(),
         }
     }
@@ -58,6 +60,7 @@ impl FromStr for Command {
                 "delete" => Delete,
                 "table_create" => TableCreate,
                 "column_create" => ColumnCreate,
+                "request_cancel" => RequestCancel,
                 _ => Extension(s.to_owned()),
             })
         }
@@ -74,6 +77,7 @@ impl fmt::Display for Command {
             Delete => "delete",
             TableCreate => "table_create",
             ColumnCreate => "column_create",
+            RequestCancel => "request_cancel",
             Extension(ref s) => s.as_ref(),
         })
     }
@@ -87,12 +91,13 @@ mod test {
     use std::str::FromStr;
     use super::CommandError;
     use super::Command;
-    use super::Command::{Select, Load, Status, Dump, Delete, TableCreate, ColumnCreate, Extension};
+    use super::Command::{Select, Load, Status, Dump, Delete, TableCreate, ColumnCreate, RequestCancel, Extension};
 
     #[test]
     fn test_from_str() {
         assert_eq!(Select, FromStr::from_str("select").unwrap());
         assert_eq!(ColumnCreate, FromStr::from_str("column_create").unwrap());
+        assert_eq!(RequestCancel, FromStr::from_str("request_cancel").unwrap());
         assert_eq!(Extension("added-command".to_owned()),
                    FromStr::from_str("added-command").unwrap());
         let x: Result<Command, _> = FromStr::from_str("");
@@ -107,6 +112,7 @@ mod test {
         assert_eq!("load".to_owned(), format!("{}", Load));
         assert_eq!("table_create".to_owned(), format!("{}", TableCreate));
         assert_eq!("column_create".to_owned(), format!("{}", ColumnCreate));
+        assert_eq!("request_cancel".to_owned(), format!("{}", RequestCancel));
         assert_eq!("added-command".to_owned(),
                    format!("{}", Extension("added-command".to_owned())));
     }
@@ -120,6 +126,7 @@ mod test {
         assert_eq!(Status.as_ref(), "status");
         assert_eq!(TableCreate.as_ref(), "table_create");
         assert_eq!(ColumnCreate.as_ref(), "column_create");
+        assert_eq!(RequestCancel.as_ref(), "request_cancel");
         assert_eq!(Extension("added-command".to_owned()).as_ref(),
                    "added-command");
     }
