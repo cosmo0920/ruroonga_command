@@ -18,6 +18,7 @@ pub mod load;
 pub mod status;
 pub mod delete;
 pub mod table_create;
+pub mod table_rename;
 pub mod column_create;
 pub mod request_cancel;
 pub mod extension;
