@@ -86,16 +86,14 @@ mod test {
 
     #[test]
     fn test_queryable() {
-        let query = TableListCommand::new()
-                        .to_query();
+        let query = TableListCommand::new().to_query();
         let url_encoded = "/d/table_list?";
         assert_eq!(url_encoded.to_string(), query);
     }
 
     #[test]
     fn test_commandable() {
-        let query = TableListCommand::new()
-                        .to_command();
+        let query = TableListCommand::new().to_command();
         let url_encoded = "table_list";
         assert_eq!(url_encoded.to_string(), query);
     }

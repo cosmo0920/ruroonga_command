@@ -104,9 +104,8 @@ mod test {
     use std::str::FromStr;
     use super::CommandError;
     use super::Command;
-    use super::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableList,
-                         TableRename, ColumnCreate, ColumnRename, RequestCancel,
-                         Extension};
+    use super::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableList, TableRename,
+                         ColumnCreate, ColumnRename, RequestCancel, Extension};
 
     #[test]
     fn test_from_str() {

@@ -100,16 +100,14 @@ mod test {
 
     #[test]
     fn test_queryable() {
-        let query = ColumnRenameCommand::new("old".to_string(), "new".to_string())
-                        .to_query();
+        let query = ColumnRenameCommand::new("old".to_string(), "new".to_string()).to_query();
         let url_encoded = "/d/column_rename?name=old&new_name=new";
         assert_eq!(url_encoded.to_string(), query);
     }
 
     #[test]
     fn test_commandable() {
-        let query = ColumnRenameCommand::new("old".to_string(), "new".to_string())
-                        .to_command();
+        let query = ColumnRenameCommand::new("old".to_string(), "new".to_string()).to_command();
         let url_encoded = "column_rename --name old --new_name new";
         assert_eq!(url_encoded.to_string(), query);
     }
