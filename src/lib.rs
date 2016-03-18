@@ -24,5 +24,6 @@ pub mod column_create;
 pub mod column_list;
 pub mod column_rename;
 pub mod request_cancel;
+pub mod truncate;
 pub mod extension;
 pub mod syntax;
