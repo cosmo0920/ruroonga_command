@@ -1,12 +1,12 @@
 extern crate ruroonga_command as ruroonga;
-use ruroonga::select::SelectCommand;
 use ruroonga::selectable::drilldown::Drilldown;
 use ruroonga::selectable::drilldown_builder::DrilldownBuilder;
 use ruroonga::commandable::Commandable;
 use ruroonga::queryable::Queryable;
+use ruroonga::dsl::*;
 
 fn simple_example() {
-    let select = SelectCommand::new("Entries".to_string())
+    let select = select("Entries".to_string())
                  .filter("content @ \"fast\"".to_string());
     let drilldown = Drilldown::new()
                  .drilldown("tag".to_string());
@@ -15,7 +15,7 @@ fn simple_example() {
 }
 
 fn to_query_example() {
-    let select = SelectCommand::new("Entries".to_string())
+    let select = select("Entries".to_string())
                  .filter("content @ \"fast\"".to_string());
     let drilldown = Drilldown::new()
                  .drilldown("tag".to_string());
@@ -24,7 +24,7 @@ fn to_query_example() {
 }
 
 fn to_command_example() {
-    let select = SelectCommand::new("Entries".to_string())
+    let select = select("Entries".to_string())
                  .filter("content @ \"fast\"".to_string());
     let drilldown = Drilldown::new()
                  .drilldown("tag".to_string());
