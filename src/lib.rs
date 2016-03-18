@@ -27,4 +27,4 @@ pub mod request_cancel;
 pub mod truncate;
 pub mod extension;
 pub mod schema;
-pub mod syntax;
+pub mod dsl;
