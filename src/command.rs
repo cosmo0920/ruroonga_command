@@ -2,7 +2,7 @@ use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
 use self::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableRename, TableList,
-                    ColumnCreate, RequestCancel, Extension};
+                    ColumnCreate, ColumnRename, RequestCancel, Extension};
 
 #[derive (Debug)]
 pub enum CommandError {
@@ -20,6 +20,7 @@ pub enum Command {
     TableList,
     TableRename,
     ColumnCreate,
+    ColumnRename,
     RequestCancel,
     /// Method extensions.
     ///
@@ -45,6 +46,7 @@ impl AsRef<str> for Command {
             TableList => "table_list",
             TableRename => "table_rename",
             ColumnCreate => "column_create",
+            ColumnRename => "column_rename",
             RequestCancel => "request_cancel",
             Extension(ref s) => s.as_ref(),
         }
@@ -67,6 +69,7 @@ impl FromStr for Command {
                 "table_list" => TableList,
                 "table_rename" => TableRename,
                 "column_create" => ColumnCreate,
+                "column_rename" => ColumnRename,
                 "request_cancel" => RequestCancel,
                 _ => Extension(s.to_owned()),
             })
@@ -86,6 +89,7 @@ impl fmt::Display for Command {
             TableList => "table_list",
             TableRename => "table_rename",
             ColumnCreate => "column_create",
+            ColumnRename => "column_rename",
             RequestCancel => "request_cancel",
             Extension(ref s) => s.as_ref(),
         })
@@ -101,12 +105,14 @@ mod test {
     use super::CommandError;
     use super::Command;
     use super::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableList,
-                         TableRename, ColumnCreate, RequestCancel, Extension};
+                         TableRename, ColumnCreate, ColumnRename, RequestCancel,
+                         Extension};
 
     #[test]
     fn test_from_str() {
         assert_eq!(Select, FromStr::from_str("select").unwrap());
         assert_eq!(ColumnCreate, FromStr::from_str("column_create").unwrap());
+        assert_eq!(ColumnRename, FromStr::from_str("column_rename").unwrap());
         assert_eq!(RequestCancel, FromStr::from_str("request_cancel").unwrap());
         assert_eq!(TableRename, FromStr::from_str("table_rename").unwrap());
         assert_eq!(TableList, FromStr::from_str("table_list").unwrap());
@@ -124,6 +130,7 @@ mod test {
         assert_eq!("load".to_owned(), format!("{}", Load));
         assert_eq!("table_create".to_owned(), format!("{}", TableCreate));
         assert_eq!("column_create".to_owned(), format!("{}", ColumnCreate));
+        assert_eq!("column_rename".to_owned(), format!("{}", ColumnRename));
         assert_eq!("request_cancel".to_owned(), format!("{}", RequestCancel));
         assert_eq!("table_list".to_owned(), format!("{}", TableList));
         assert_eq!("table_rename".to_owned(), format!("{}", TableRename));
@@ -142,6 +149,7 @@ mod test {
         assert_eq!(TableList.as_ref(), "table_list");
         assert_eq!(TableRename.as_ref(), "table_rename");
         assert_eq!(ColumnCreate.as_ref(), "column_create");
+        assert_eq!(ColumnRename.as_ref(), "column_rename");
         assert_eq!(RequestCancel.as_ref(), "request_cancel");
         assert_eq!(Extension("added-command".to_owned()).as_ref(),
                    "added-command");
