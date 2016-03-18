@@ -83,7 +83,8 @@ mod test {
     #[test]
     fn test_build() {
         let actual = RequestCancelCommand::new("cancel-id".to_string()).build();
-        let expected = (RequestCancel, vec![("id".to_string(),"cancel-id".to_string())]);
+        let expected = (RequestCancel,
+                        vec![("id".to_string(), "cancel-id".to_string())]);
         assert_eq!(expected, actual);
     }
 
