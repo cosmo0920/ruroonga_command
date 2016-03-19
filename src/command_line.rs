@@ -1,4 +1,5 @@
 use command::{Command, Query};
+use commandlinable::Escape;
 
 #[derive(Clone, Debug)]
 pub struct CommandLine {
@@ -40,7 +41,7 @@ impl CommandLine {
             if output.len() > 0 {
                 output.push_str(" ");
             }
-            let format_string = format!("--{} {}", &*key, &*value);
+            let format_string = format!("--{} {}", &*key, Escape(&*value));
             output.push_str(format_string.as_str());
         }
         output
