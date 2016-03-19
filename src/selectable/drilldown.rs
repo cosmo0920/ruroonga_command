@@ -101,23 +101,25 @@ impl Drilldown {
         }
     }
 
-    pub fn drilldown(mut self, target: String) -> Drilldown {
+    pub fn drilldown(mut self, targets: Vec<String>) -> Drilldown {
+        let string = format!("\'{}\'", util::split_values_vec(targets));
         let key = match self.label.clone() {
             Some(v) => format!("drilldown[{}].keys", v.clone()),
             None => "drilldown".to_string(),
         };
-        self.arguments.insert(key, target.clone());
+        self.arguments.insert(key, string.clone());
         self
     }
 
-    pub fn sortby(mut self, target: String) -> Drilldown {
+    pub fn sortby(mut self, targets: Vec<String>) -> Drilldown {
+        let string = format!("\'{}\'", util::split_values_vec(targets));
         let key = util::labeled_key(self.label.clone(), "sortby".to_string());
-        self.arguments.insert(key, target.clone());
+        self.arguments.insert(key, string.clone());
         self
     }
 
     pub fn output_columns(mut self, columns: Vec<String>) -> Drilldown {
-        let string = util::split_values_vec(columns);
+        let string = format!("\'{}\'", util::split_values_vec(columns));
         let key = util::labeled_key(self.label.clone(), "output_columns".to_string());
 
         self.arguments.insert(key, string.clone());
@@ -184,9 +186,9 @@ mod test {
 
     #[test]
     fn test_drilldown() {
-        let drilldown = Drilldown::new().drilldown("tag".to_string());
+        let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert("drilldown".to_string(), "tag".to_string());
+        arg.insert("drilldown".to_string(), "\'tag\'".to_string());
         let expected = Drilldown {
             label: None,
             arguments: arg
@@ -197,9 +199,9 @@ mod test {
     #[test]
     fn test_drilldown_with_label() {
         let label = "label1".to_string();
-        let drilldown = Drilldown::new_with_label(label.clone()).drilldown("tag".to_string());
+        let drilldown = Drilldown::new_with_label(label.clone()).drilldown(vec![("tag".to_string())]);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert(format!("drilldown[{}].keys", label.clone()), "tag".to_string());
+        arg.insert(format!("drilldown[{}].keys", label.clone()), "\'tag\'".to_string());
         let expected = Drilldown {
             label: Some(label.clone()),
             arguments: arg
@@ -209,9 +211,9 @@ mod test {
 
     #[test]
     fn test_sortby() {
-        let drilldown = Drilldown::new().sortby("tag".to_string());
+        let drilldown = Drilldown::new().sortby(vec![("tag".to_string())]);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert("drilldown_sortby".to_string(), "tag".to_string());
+        arg.insert("drilldown_sortby".to_string(), "\'tag\'".to_string());
         let expected = Drilldown {
             label: None,
             arguments: arg
@@ -225,7 +227,7 @@ mod test {
                             .output_columns(vec![("tag".to_string()), ("category".to_string())]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("drilldown_output_columns".to_string(),
-                   "tag,category".to_string());
+                   "\'tag,category\'".to_string());
         let expected = Drilldown {
             label: None,
             arguments: arg

@@ -306,7 +306,7 @@ mod test {
     fn test_add_ops_drilldown() {
         let select = SelectCommand::new("Entries".to_string())
                          .filter("content @ \"fast\"".to_string());
-        let drilldown = Drilldown::new().drilldown("tag".to_string());
+        let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
         let ops_builder = (select.clone() + drilldown.clone()).build();
         let drilldown_builder = DrilldownBuilder::new(select.clone(), drilldown.clone()).build();
         assert_eq!(ops_builder, drilldown_builder);
@@ -316,7 +316,7 @@ mod test {
     fn test_with_drilldown() {
         let select = SelectCommand::new("Entries".to_string())
                          .filter("content @ \"fast\"".to_string());
-        let drilldown = Drilldown::new().drilldown("tag".to_string());
+        let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
         let drilldownable = select.clone().with_drilldown(drilldown.clone()).build();
         let drilldown_builder = DrilldownBuilder::new(select.clone(), drilldown.clone()).build();
         assert_eq!(drilldownable, drilldown_builder);
