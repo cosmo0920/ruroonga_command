@@ -66,13 +66,13 @@ impl SelectCommand {
         self
     }
 
-    pub fn offset(mut self, offset: u64) -> SelectCommand {
+    pub fn offset(mut self, offset: i64) -> SelectCommand {
         let offset = format!("{}", offset);
         self.arguments.insert("offset".to_string(), offset.clone());
         self
     }
 
-    pub fn limit(mut self, limit: u64) -> SelectCommand {
+    pub fn limit(mut self, limit: i64) -> SelectCommand {
         let limit = format!("{}", limit);
         self.arguments.insert("limit".to_string(), limit.clone());
         self

@@ -124,14 +124,14 @@ impl Drilldown {
         self
     }
 
-    pub fn offset(mut self, offset: u64) -> Drilldown {
+    pub fn offset(mut self, offset: i64) -> Drilldown {
         let offset = format!("{}", offset);
         let key = util::labeled_key(self.label.clone(), "offset".to_string());
         self.arguments.insert(key, offset.clone());
         self
     }
 
-    pub fn limit(mut self, limit: u64) -> Drilldown {
+    pub fn limit(mut self, limit: i64) -> Drilldown {
         let limit = format!("{}", limit);
         let key = util::labeled_key(self.label.clone(), "limit".to_string());
         self.arguments.insert(key, limit.clone());
