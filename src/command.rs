@@ -2,8 +2,8 @@ use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
 use self::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableRename, TableList,
-                    ColumnCreate, ColumnList, ColumnRename, RequestCancel, Truncate, Schema,
-                    Extension};
+                    ColumnCreate, ColumnList, ColumnRename, ColumnRemove, RequestCancel, Truncate,
+                    Schema, Extension};
 
 #[derive (Debug)]
 pub enum CommandError {
@@ -23,6 +23,7 @@ pub enum Command {
     ColumnCreate,
     ColumnList,
     ColumnRename,
+    ColumnRemove,
     RequestCancel,
     Truncate,
     Schema,
@@ -52,6 +53,7 @@ impl AsRef<str> for Command {
             ColumnCreate => "column_create",
             ColumnList => "column_list",
             ColumnRename => "column_rename",
+            ColumnRemove => "column_remove",
             RequestCancel => "request_cancel",
             Truncate => "truncate",
             Schema => "schema",
@@ -78,6 +80,7 @@ impl FromStr for Command {
                 "column_create" => ColumnCreate,
                 "column_list" => ColumnList,
                 "column_rename" => ColumnRename,
+                "column_remove" => ColumnRemove,
                 "truncate" => Truncate,
                 "request_cancel" => RequestCancel,
                 "schema" => Schema,
@@ -101,6 +104,7 @@ impl fmt::Display for Command {
             ColumnCreate => "column_create",
             ColumnList => "column_list",
             ColumnRename => "column_rename",
+            ColumnRemove => "column_remove",
             RequestCancel => "request_cancel",
             Truncate => "truncate",
             Schema => "schema",
@@ -118,8 +122,8 @@ mod test {
     use super::CommandError;
     use super::Command;
     use super::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableList, TableRename,
-                         ColumnCreate, ColumnList, ColumnRename, RequestCancel, Truncate, Schema,
-                         Extension};
+                         ColumnCreate, ColumnList, ColumnRename, ColumnRemove, RequestCancel,
+                         Truncate, Schema, Extension};
 
     #[test]
     fn test_from_str() {
@@ -127,6 +131,7 @@ mod test {
         assert_eq!(ColumnCreate, FromStr::from_str("column_create").unwrap());
         assert_eq!(ColumnList, FromStr::from_str("column_list").unwrap());
         assert_eq!(ColumnRename, FromStr::from_str("column_rename").unwrap());
+        assert_eq!(ColumnRemove, FromStr::from_str("column_remove").unwrap());
         assert_eq!(RequestCancel, FromStr::from_str("request_cancel").unwrap());
         assert_eq!(TableRename, FromStr::from_str("table_rename").unwrap());
         assert_eq!(TableList, FromStr::from_str("table_list").unwrap());
@@ -148,6 +153,7 @@ mod test {
         assert_eq!("column_create".to_owned(), format!("{}", ColumnCreate));
         assert_eq!("column_list".to_owned(), format!("{}", ColumnList));
         assert_eq!("column_rename".to_owned(), format!("{}", ColumnRename));
+        assert_eq!("column_remove".to_owned(), format!("{}", ColumnRemove));
         assert_eq!("request_cancel".to_owned(), format!("{}", RequestCancel));
         assert_eq!("table_list".to_owned(), format!("{}", TableList));
         assert_eq!("table_rename".to_owned(), format!("{}", TableRename));
@@ -170,6 +176,7 @@ mod test {
         assert_eq!(ColumnCreate.as_ref(), "column_create");
         assert_eq!(ColumnList.as_ref(), "column_list");
         assert_eq!(ColumnRename.as_ref(), "column_rename");
+        assert_eq!(ColumnRemove.as_ref(), "column_remove");
         assert_eq!(RequestCancel.as_ref(), "request_cancel");
         assert_eq!(Truncate.as_ref(), "truncate");
         assert_eq!(Schema.as_ref(), "schema");

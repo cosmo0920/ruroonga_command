@@ -23,6 +23,7 @@ pub mod table_rename;
 pub mod column_create;
 pub mod column_list;
 pub mod column_rename;
+pub mod column_remove;
 pub mod request_cancel;
 pub mod truncate;
 pub mod extension;
