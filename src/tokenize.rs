@@ -138,7 +138,7 @@ impl TokenizeCommand {
         TokenizeCommand {
             command: default.command,
             tokenizer: tokenizer,
-            string: string,
+            string: format!("\"{}\"", string),
             arguments: default.arguments,
         }
     }
@@ -275,7 +275,7 @@ mod test {
         let expected = TokenizeCommand {
             command: Tokenize,
             tokenizer: TokenizerType::Bigram,
-            string: "element".to_string(),
+            string: "\"element\"".to_string(),
             arguments: HashMap::new(),
         };
         assert_eq!(expected, tokenize);
@@ -291,7 +291,7 @@ mod test {
         let expected = TokenizeCommand {
             command: Tokenize,
             tokenizer: TokenizerType::Bigram,
-            string: "element".to_string(),
+            string: "\"element\"".to_string(),
             arguments: arg.clone(),
         };
         assert_eq!(expected, column_create);
@@ -307,7 +307,7 @@ mod test {
         let expected = TokenizeCommand {
             command: Tokenize,
             tokenizer: TokenizerType::Bigram,
-            string: "element".to_string(),
+            string: "\"element\"".to_string(),
             arguments: arg.clone(),
         };
         assert_eq!(expected, token_filters);
@@ -323,7 +323,7 @@ mod test {
         let expected = TokenizeCommand {
             command: Tokenize,
             tokenizer: TokenizerType::Bigram,
-            string: "element".to_string(),
+            string: "\"element\"".to_string(),
             arguments: arg.clone(),
         };
         assert_eq!(expected, tokenize);
@@ -338,7 +338,7 @@ mod test {
         let expected = TokenizeCommand {
             command: Tokenize,
             tokenizer: TokenizerType::Bigram,
-            string: "element".to_string(),
+            string: "\"element\"".to_string(),
             arguments: arg.clone(),
         };
         assert_eq!(expected, tokenize);
@@ -349,7 +349,7 @@ mod test {
         let actual = TokenizeCommand::new(TokenizerType::Bigram, "element".to_string()).build();
         let expected_query: Query = vec![("tokenizer".to_string(),
                                           format!("{}", TokenizerType::Bigram)),
-                                         ("string".to_string(), "element".to_string())];
+                                         ("string".to_string(), "\"element\"".to_string())];
         let expected = (Tokenize, expected_query);
         assert_eq!(expected, actual);
     }
@@ -357,14 +357,14 @@ mod test {
     #[test]
     fn test_queryable() {
         let query = TokenizeCommand::new(TokenizerType::Bigram, "element".to_string()).to_query();
-        let url_encoded = "/d/tokenize?tokenizer=TokenBigram&string=element";
+        let url_encoded = "/d/tokenize?tokenizer=TokenBigram&string=%22element%22";
         assert_eq!(url_encoded.to_string(), query);
     }
 
     #[test]
     fn test_commandable() {
         let query = TokenizeCommand::new(TokenizerType::Bigram, "element".to_string()).to_command();
-        let url_encoded = "tokenize --tokenizer TokenBigram --string element";
+        let url_encoded = "tokenize --tokenizer TokenBigram --string \"element\"";
         assert_eq!(url_encoded.to_string(), query);
     }
 
@@ -375,7 +375,7 @@ mod test {
         let expected = TokenizeCommand {
             command: Tokenize,
             tokenizer: TokenizerType::Bigram,
-            string: "element".to_string(),
+            string: "\"element\"".to_string(),
             arguments: arg.clone(),
         };
         let query = TokenizeCommand::new(TokenizerType::Bigram, "element".to_string());
