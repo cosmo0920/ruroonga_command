@@ -1,9 +1,12 @@
 use std::collections::HashMap;
-use std::option::Option;
 use command::Query;
 use util;
 use selectable::fragmentable::Fragmentable;
 use selectable::fragmentable::{OrderedFragment, QueryFragment};
+use std::fmt;
+use std::str::FromStr;
+use std::convert::AsRef;
+use self::CalcType::{Nothing, Count, Max, Min, Sum, Avg, ExtCalcType};
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct Drilldown {
@@ -16,6 +19,70 @@ impl Default for Drilldown {
         Drilldown {
             label: None,
             arguments: HashMap::new()
+        }
+    }
+}
+
+#[derive (Debug)]
+pub enum CalcTypeError {
+    Empty,
+}
+
+#[derive (Clone, PartialEq, Eq, Debug)]
+pub enum CalcType {
+    Nothing,
+    Count,
+    Max,
+    Min,
+    Sum,
+    Avg,
+    /// For future extensibility.
+    ExtCalcType(String),
+}
+
+impl AsRef<str> for CalcType {
+    fn as_ref(&self) -> &str {
+        match *self {
+            Nothing => "NONE",
+            Count => "COUNT",
+            Max => "MAX",
+            Min => "MIN",
+            Sum => "SUM",
+            Avg => "AVG",
+            ExtCalcType(ref s) => s.as_ref(),
+        }
+    }
+}
+
+impl fmt::Display for CalcType {
+    fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
+        fmt.write_str(match *self {
+            Nothing => "NONE",
+            Count => "COUNT",
+            Max => "MAX",
+            Min => "MIN",
+            Sum => "SUM",
+            Avg => "AVG",
+            ExtCalcType(ref s) => s.as_ref(),
+        })
+    }
+}
+
+impl FromStr for CalcType {
+    type Err = CalcTypeError;
+    fn from_str(s: &str) -> Result<CalcType, CalcTypeError> {
+        if s == "" {
+            Err(CalcTypeError::Empty)
+        } else {
+            Ok(match s {
+                "None" | "NONE" => Nothing,
+                "Count" | "COUNT" => Count,
+                "Max" | "MAX" => Max,
+                "Min" | "MIN" => Min,
+                "Sum" | "SUM" => Sum,
+                "Avg" | "AVG" => Avg,
+                _ => ExtCalcType(s.to_owned()),
+            })
         }
     }
 }
@@ -68,6 +135,13 @@ impl Drilldown {
         let limit = format!("{}", limit);
         let key = util::labeled_key(self.label.clone(), "limit".to_string());
         self.arguments.insert(key, limit.clone());
+        self
+    }
+
+    pub fn calc_types(mut self, calc_types: CalcType) -> Drilldown {
+        let key = util::labeled_key(self.label.clone(), "calc_types".to_string());
+        let types = format!("{}", calc_types);
+        self.arguments.insert(key, types);
         self
     }
 
@@ -176,6 +250,30 @@ mod test {
         let drilldown = Drilldown::new().limit(30);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("drilldown_limit".to_string(), "30".to_string());
+        let expected = Drilldown {
+            label: None,
+            arguments: arg
+        };
+        assert_eq!(expected, drilldown);
+    }
+
+    #[test]
+    fn test_calc_target() {
+        let drilldown = Drilldown::new().calc_target("target".to_string());
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("drilldown_calc_target".to_string(), "target".to_string());
+        let expected = Drilldown {
+            label: None,
+            arguments: arg
+        };
+        assert_eq!(expected, drilldown);
+    }
+
+    #[test]
+    fn test_calc_types() {
+        let drilldown = Drilldown::new().calc_types(CalcType::Nothing);
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("drilldown_calc_types".to_string(), "NONE".to_string());
         let expected = Drilldown {
             label: None,
             arguments: arg
