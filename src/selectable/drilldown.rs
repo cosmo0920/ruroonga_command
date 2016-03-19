@@ -18,7 +18,7 @@ impl Default for Drilldown {
     fn default() -> Drilldown {
         Drilldown {
             label: None,
-            arguments: HashMap::new()
+            arguments: HashMap::new(),
         }
     }
 }
@@ -191,7 +191,7 @@ mod test {
         arg.insert("drilldown".to_string(), "\'tag\'".to_string());
         let expected = Drilldown {
             label: None,
-            arguments: arg
+            arguments: arg,
         };
         assert_eq!(expected, drilldown);
     }
@@ -199,12 +199,14 @@ mod test {
     #[test]
     fn test_drilldown_with_label() {
         let label = "label1".to_string();
-        let drilldown = Drilldown::new_with_label(label.clone()).drilldown(vec![("tag".to_string())]);
+        let drilldown = Drilldown::new_with_label(label.clone())
+                            .drilldown(vec![("tag".to_string())]);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert(format!("drilldown[{}].keys", label.clone()), "\'tag\'".to_string());
+        arg.insert(format!("drilldown[{}].keys", label.clone()),
+                   "\'tag\'".to_string());
         let expected = Drilldown {
             label: Some(label.clone()),
-            arguments: arg
+            arguments: arg,
         };
         assert_eq!(expected, drilldown);
     }
@@ -216,7 +218,7 @@ mod test {
         arg.insert("drilldown_sortby".to_string(), "\'tag\'".to_string());
         let expected = Drilldown {
             label: None,
-            arguments: arg
+            arguments: arg,
         };
         assert_eq!(expected, drilldown);
     }
@@ -230,7 +232,7 @@ mod test {
                    "\'tag,category\'".to_string());
         let expected = Drilldown {
             label: None,
-            arguments: arg
+            arguments: arg,
         };
         assert_eq!(expected, drilldown);
     }
@@ -242,7 +244,7 @@ mod test {
         arg.insert("drilldown_offset".to_string(), "10".to_string());
         let expected = Drilldown {
             label: None,
-            arguments: arg
+            arguments: arg,
         };
         assert_eq!(expected, drilldown);
     }
@@ -254,7 +256,7 @@ mod test {
         arg.insert("drilldown_limit".to_string(), "30".to_string());
         let expected = Drilldown {
             label: None,
-            arguments: arg
+            arguments: arg,
         };
         assert_eq!(expected, drilldown);
     }
@@ -266,7 +268,7 @@ mod test {
         arg.insert("drilldown_calc_target".to_string(), "target".to_string());
         let expected = Drilldown {
             label: None,
-            arguments: arg
+            arguments: arg,
         };
         assert_eq!(expected, drilldown);
     }
@@ -278,7 +280,7 @@ mod test {
         arg.insert("drilldown_calc_types".to_string(), "NONE".to_string());
         let expected = Drilldown {
             label: None,
-            arguments: arg
+            arguments: arg,
         };
         assert_eq!(expected, drilldown);
     }
