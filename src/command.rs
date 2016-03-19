@@ -3,7 +3,7 @@ use std::str::FromStr;
 use std::convert::AsRef;
 use self::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableRename, TableRemove,
                     TableList, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
-                    RequestCancel, Truncate, Schema, Extension};
+                    RequestCancel, TokenizerList, Truncate, Schema, Extension};
 
 #[derive (Debug)]
 pub enum CommandError {
@@ -26,6 +26,7 @@ pub enum Command {
     ColumnRename,
     ColumnRemove,
     RequestCancel,
+    TokenizerList,
     Truncate,
     Schema,
     /// Method extensions.
@@ -57,6 +58,7 @@ impl AsRef<str> for Command {
             ColumnRename => "column_rename",
             ColumnRemove => "column_remove",
             RequestCancel => "request_cancel",
+            TokenizerList => "tokenizer_list",
             Truncate => "truncate",
             Schema => "schema",
             Extension(ref s) => s.as_ref(),
@@ -84,6 +86,7 @@ impl FromStr for Command {
                 "column_list" => ColumnList,
                 "column_rename" => ColumnRename,
                 "column_remove" => ColumnRemove,
+                "tokenizer_list" => TokenizerList,
                 "truncate" => Truncate,
                 "request_cancel" => RequestCancel,
                 "schema" => Schema,
@@ -110,6 +113,7 @@ impl fmt::Display for Command {
             ColumnRename => "column_rename",
             ColumnRemove => "column_remove",
             RequestCancel => "request_cancel",
+            TokenizerList => "tokenizer_list",
             Truncate => "truncate",
             Schema => "schema",
             Extension(ref s) => s.as_ref(),
@@ -127,7 +131,7 @@ mod test {
     use super::Command;
     use super::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableList, TableRemove,
                          TableRename, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
-                         RequestCancel, Truncate, Schema, Extension};
+                         RequestCancel, TokenizerList, Truncate, Schema, Extension};
 
     #[test]
     fn test_from_str() {
@@ -141,6 +145,7 @@ mod test {
         assert_eq!(TableRename, FromStr::from_str("table_rename").unwrap());
         assert_eq!(TableRemove, FromStr::from_str("table_remove").unwrap());
         assert_eq!(TableList, FromStr::from_str("table_list").unwrap());
+        assert_eq!(TokenizerList, FromStr::from_str("tokenizer_list").unwrap());
         assert_eq!(Truncate, FromStr::from_str("truncate").unwrap());
         assert_eq!(Schema, FromStr::from_str("schema").unwrap());
         assert_eq!(Extension("added-command".to_owned()),
@@ -164,6 +169,7 @@ mod test {
         assert_eq!("table_list".to_owned(), format!("{}", TableList));
         assert_eq!("table_rename".to_owned(), format!("{}", TableRename));
         assert_eq!("table_remove".to_owned(), format!("{}", TableRemove));
+        assert_eq!("tokenizer_list".to_owned(), format!("{}", TokenizerList));
         assert_eq!("truncate".to_owned(), format!("{}", Truncate));
         assert_eq!("schema".to_owned(), format!("{}", Schema));
         assert_eq!("added-command".to_owned(),
@@ -186,6 +192,7 @@ mod test {
         assert_eq!(ColumnRename.as_ref(), "column_rename");
         assert_eq!(ColumnRemove.as_ref(), "column_remove");
         assert_eq!(RequestCancel.as_ref(), "request_cancel");
+        assert_eq!(TokenizerList.as_ref(), "tokenizer_list");
         assert_eq!(Truncate.as_ref(), "truncate");
         assert_eq!(Schema.as_ref(), "schema");
         assert_eq!(Extension("added-command".to_owned()).as_ref(),

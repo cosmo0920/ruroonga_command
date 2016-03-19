@@ -13,6 +13,7 @@ mod column_rename_dsl;
 mod column_remove_dsl;
 mod request_cancel_dsl;
 mod schema_dsl;
+mod tokenizer_list_dsl;
 mod truncate_dsl;
 
 pub use self::select_dsl::select;
@@ -30,4 +31,5 @@ pub use self::column_rename_dsl::column_rename;
 pub use self::column_remove_dsl::column_remove;
 pub use self::request_cancel_dsl::request_cancel;
 pub use self::schema_dsl::schema;
+pub use self::tokenizer_list_dsl::tokenizer_list;
 pub use self::truncate_dsl::truncate;

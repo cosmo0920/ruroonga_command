@@ -26,6 +26,7 @@ pub mod column_list;
 pub mod column_rename;
 pub mod column_remove;
 pub mod request_cancel;
+pub mod tokenizer_list;
 pub mod truncate;
 pub mod extension;
 pub mod schema;
