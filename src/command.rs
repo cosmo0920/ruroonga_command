@@ -38,9 +38,10 @@ pub enum Command {
     /// An example would be:
     ///
     /// ```
-    /// extern crate ruroonga_command as ruroonga;
-    /// let m =
-    ///     ruroonga::command::Command::Extension("added-command".to_string());
+    /// use std::str::FromStr;
+    /// use ruroonga_command::command::Command;
+    /// let added = Command::Extension("added-command".to_string());
+    /// assert!(added == FromStr::from_str("added-command").unwrap())
     /// ```
     Extension(String),
 }

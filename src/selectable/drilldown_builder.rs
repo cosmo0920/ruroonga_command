@@ -18,13 +18,14 @@ pub struct DrilldownBuilder {
 /// ## Simple usage
 ///
 /// ```
-/// extern crate ruroonga_command as ruroonga;
-/// let select = ruroonga::select::SelectCommand::new("Entries".to_string())
+/// use ruroonga_command::select::SelectCommand;
+/// use ruroonga_command::selectable::drilldown::Drilldown;
+/// use ruroonga_command::selectable::drilldown_builder::DrilldownBuilder;
+/// let select = SelectCommand::new("Entries".to_string())
 ///                  .filter("content @ \"fast\"".to_string());
-/// let drilldown = ruroonga::selectable::drilldown::Drilldown::new()
+/// let drilldown = Drilldown::new()
 ///                  .drilldown(vec![("tag".to_string())]);
-/// let mut builder =
-///     ruroonga::selectable::drilldown_builder::DrilldownBuilder::new(select, drilldown);
+/// let mut builder = DrilldownBuilder::new(select, drilldown);
 /// let _ = builder.build();
 /// ```
 /// In more practical example, please refer to drilldown_builder examples
