@@ -1,6 +1,5 @@
 extern crate ruroonga_command as ruroonga;
 use ruroonga::selectable::drilldown::Drilldown;
-use ruroonga::selectable::drilldown_builder::DrilldownBuilder;
 use ruroonga::commandable::Commandable;
 use ruroonga::queryable::Queryable;
 use ruroonga::dsl::*;
@@ -10,7 +9,7 @@ fn simple_example() {
                  .filter("content @ \"fast\"".to_string());
     let drilldown = Drilldown::new()
                  .drilldown("tag".to_string());
-    let builder = DrilldownBuilder::new(select, drilldown).build();
+    let builder = (select + drilldown).build();
     println!("simple: {:?}", builder);
 }
 
@@ -19,7 +18,7 @@ fn to_query_example() {
                  .filter("content @ \"fast\"".to_string());
     let drilldown = Drilldown::new()
                  .drilldown("tag".to_string());
-    let builder = DrilldownBuilder::new(select, drilldown).to_query();
+    let builder = (select + drilldown).to_query();
     println!("query: {}", builder);
 }
 
@@ -28,7 +27,7 @@ fn to_command_example() {
                  .filter("content @ \"fast\"".to_string());
     let drilldown = Drilldown::new()
                  .drilldown("tag".to_string());
-    let builder = DrilldownBuilder::new(select, drilldown).to_command();
+    let builder = (select + drilldown).to_command();
     println!("command line: {}", builder);
 }
 
