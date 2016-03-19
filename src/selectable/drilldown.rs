@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::option::Option;
 use command::Query;
 use util;
 use selectable::fragmentable::Fragmentable;
@@ -6,12 +7,16 @@ use selectable::fragmentable::{OrderedFragment, QueryFragment};
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct Drilldown {
+    label: Option<String>,
     arguments: HashMap<String, String>,
 }
 
 impl Default for Drilldown {
     fn default() -> Drilldown {
-        Drilldown { arguments: HashMap::new() }
+        Drilldown {
+            label: None,
+            arguments: HashMap::new()
+        }
     }
 }
 
@@ -21,31 +26,54 @@ impl Drilldown {
         default
     }
 
+    pub fn new_with_label(label: String) -> Drilldown {
+        let default: Drilldown = Default::default();
+        Drilldown {
+            label: Some(label),
+            arguments: default.arguments,
+        }
+    }
+
     pub fn drilldown(mut self, target: String) -> Drilldown {
-        self.arguments.insert("drilldown".to_string(), target.clone());
+        let key = match self.label.clone() {
+            Some(v) => format!("drilldown[{}].keys", v.clone()),
+            None => "drilldown".to_string(),
+        };
+        self.arguments.insert(key, target.clone());
         self
     }
 
     pub fn sortby(mut self, target: String) -> Drilldown {
-        self.arguments.insert("drilldown_sortby".to_string(), target.clone());
+        let key = util::labeled_key(self.label.clone(), "sortby".to_string());
+        self.arguments.insert(key, target.clone());
         self
     }
 
     pub fn output_columns(mut self, columns: Vec<String>) -> Drilldown {
         let string = util::split_values_vec(columns);
-        self.arguments.insert("drilldown_output_columns".to_string(), string.clone());
+        let key = util::labeled_key(self.label.clone(), "output_columns".to_string());
+
+        self.arguments.insert(key, string.clone());
         self
     }
 
     pub fn offset(mut self, offset: u64) -> Drilldown {
         let offset = format!("{}", offset);
-        self.arguments.insert("drilldown_offset".to_string(), offset.clone());
+        let key = util::labeled_key(self.label.clone(), "offset".to_string());
+        self.arguments.insert(key, offset.clone());
         self
     }
 
     pub fn limit(mut self, limit: u64) -> Drilldown {
         let limit = format!("{}", limit);
-        self.arguments.insert("drilldown_limit".to_string(), limit.clone());
+        let key = util::labeled_key(self.label.clone(), "limit".to_string());
+        self.arguments.insert(key, limit.clone());
+        self
+    }
+
+    pub fn calc_target(mut self, target: String) -> Drilldown {
+        let key = util::labeled_key(self.label.clone(), "calc_target".to_string());
+        self.arguments.insert(key, target.clone());
         self
     }
 
@@ -73,7 +101,10 @@ mod test {
     #[test]
     fn test_new() {
         let vanilla_drilldown = Drilldown::new();
-        let expected = Drilldown { arguments: HashMap::new() };
+        let expected = Drilldown {
+            label: None,
+            arguments: HashMap::new(),
+        };
         assert_eq!(expected, vanilla_drilldown);
     }
 
@@ -82,7 +113,23 @@ mod test {
         let drilldown = Drilldown::new().drilldown("tag".to_string());
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("drilldown".to_string(), "tag".to_string());
-        let expected = Drilldown { arguments: arg };
+        let expected = Drilldown {
+            label: None,
+            arguments: arg
+        };
+        assert_eq!(expected, drilldown);
+    }
+
+    #[test]
+    fn test_drilldown_with_label() {
+        let label = "label1".to_string();
+        let drilldown = Drilldown::new_with_label(label.clone()).drilldown("tag".to_string());
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert(format!("drilldown[{}].keys", label.clone()), "tag".to_string());
+        let expected = Drilldown {
+            label: Some(label.clone()),
+            arguments: arg
+        };
         assert_eq!(expected, drilldown);
     }
 
@@ -91,7 +138,10 @@ mod test {
         let drilldown = Drilldown::new().sortby("tag".to_string());
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("drilldown_sortby".to_string(), "tag".to_string());
-        let expected = Drilldown { arguments: arg };
+        let expected = Drilldown {
+            label: None,
+            arguments: arg
+        };
         assert_eq!(expected, drilldown);
     }
 
@@ -102,7 +152,10 @@ mod test {
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("drilldown_output_columns".to_string(),
                    "tag,category".to_string());
-        let expected = Drilldown { arguments: arg };
+        let expected = Drilldown {
+            label: None,
+            arguments: arg
+        };
         assert_eq!(expected, drilldown);
     }
 
@@ -111,7 +164,10 @@ mod test {
         let drilldown = Drilldown::new().offset(10);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("drilldown_offset".to_string(), "10".to_string());
-        let expected = Drilldown { arguments: arg };
+        let expected = Drilldown {
+            label: None,
+            arguments: arg
+        };
         assert_eq!(expected, drilldown);
     }
 
@@ -120,7 +176,10 @@ mod test {
         let drilldown = Drilldown::new().limit(30);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("drilldown_limit".to_string(), "30".to_string());
-        let expected = Drilldown { arguments: arg };
+        let expected = Drilldown {
+            label: None,
+            arguments: arg
+        };
         assert_eq!(expected, drilldown);
     }
 

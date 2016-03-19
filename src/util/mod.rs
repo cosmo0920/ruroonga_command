@@ -20,3 +20,11 @@ pub fn split_flags_vec<T>(values: Vec<T>) -> String
                        .to_owned();
     string.clone()
 }
+
+#[inline]
+pub fn labeled_key(label: Option<String>, key: String) -> String {
+    match label.clone() {
+        Some(v) => return format!("drilldown[{}].{}", key.clone(), v.clone()),
+        None => return format!("drilldown_{}", key.clone()),
+    };
+}
