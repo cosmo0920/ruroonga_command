@@ -1,9 +1,9 @@
 use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
-use self::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableRename, TableList,
-                    ColumnCreate, ColumnList, ColumnRename, ColumnRemove, RequestCancel, Truncate,
-                    Schema, Extension};
+use self::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableRename, TableRemove,
+                    TableList, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
+                    RequestCancel, Truncate, Schema, Extension};
 
 #[derive (Debug)]
 pub enum CommandError {
@@ -20,6 +20,7 @@ pub enum Command {
     TableCreate,
     TableList,
     TableRename,
+    TableRemove,
     ColumnCreate,
     ColumnList,
     ColumnRename,
@@ -50,6 +51,7 @@ impl AsRef<str> for Command {
             TableCreate => "table_create",
             TableList => "table_list",
             TableRename => "table_rename",
+            TableRemove => "table_remove",
             ColumnCreate => "column_create",
             ColumnList => "column_list",
             ColumnRename => "column_rename",
@@ -77,6 +79,7 @@ impl FromStr for Command {
                 "table_create" => TableCreate,
                 "table_list" => TableList,
                 "table_rename" => TableRename,
+                "table_remove" => TableRemove,
                 "column_create" => ColumnCreate,
                 "column_list" => ColumnList,
                 "column_rename" => ColumnRename,
@@ -101,6 +104,7 @@ impl fmt::Display for Command {
             TableCreate => "table_create",
             TableList => "table_list",
             TableRename => "table_rename",
+            TableRemove => "table_remove",
             ColumnCreate => "column_create",
             ColumnList => "column_list",
             ColumnRename => "column_rename",
@@ -121,9 +125,9 @@ mod test {
     use std::str::FromStr;
     use super::CommandError;
     use super::Command;
-    use super::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableList, TableRename,
-                         ColumnCreate, ColumnList, ColumnRename, ColumnRemove, RequestCancel,
-                         Truncate, Schema, Extension};
+    use super::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableList, TableRemove,
+                         TableRename, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
+                         RequestCancel, Truncate, Schema, Extension};
 
     #[test]
     fn test_from_str() {
@@ -133,7 +137,9 @@ mod test {
         assert_eq!(ColumnRename, FromStr::from_str("column_rename").unwrap());
         assert_eq!(ColumnRemove, FromStr::from_str("column_remove").unwrap());
         assert_eq!(RequestCancel, FromStr::from_str("request_cancel").unwrap());
+        assert_eq!(TableCreate, FromStr::from_str("table_create").unwrap());
         assert_eq!(TableRename, FromStr::from_str("table_rename").unwrap());
+        assert_eq!(TableRemove, FromStr::from_str("table_remove").unwrap());
         assert_eq!(TableList, FromStr::from_str("table_list").unwrap());
         assert_eq!(Truncate, FromStr::from_str("truncate").unwrap());
         assert_eq!(Schema, FromStr::from_str("schema").unwrap());
@@ -157,6 +163,7 @@ mod test {
         assert_eq!("request_cancel".to_owned(), format!("{}", RequestCancel));
         assert_eq!("table_list".to_owned(), format!("{}", TableList));
         assert_eq!("table_rename".to_owned(), format!("{}", TableRename));
+        assert_eq!("table_remove".to_owned(), format!("{}", TableRemove));
         assert_eq!("truncate".to_owned(), format!("{}", Truncate));
         assert_eq!("schema".to_owned(), format!("{}", Schema));
         assert_eq!("added-command".to_owned(),
@@ -173,6 +180,7 @@ mod test {
         assert_eq!(TableCreate.as_ref(), "table_create");
         assert_eq!(TableList.as_ref(), "table_list");
         assert_eq!(TableRename.as_ref(), "table_rename");
+        assert_eq!(TableRemove.as_ref(), "table_remove");
         assert_eq!(ColumnCreate.as_ref(), "column_create");
         assert_eq!(ColumnList.as_ref(), "column_list");
         assert_eq!(ColumnRename.as_ref(), "column_rename");
