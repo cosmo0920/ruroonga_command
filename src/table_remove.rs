@@ -94,7 +94,7 @@ mod test {
     }
 
     #[test]
-    fn test_dependent_plugins() {
+    fn test_dependent() {
         let dependent_yes = TableRemoveCommand::new("Table".to_string()).dependent(true);
         let mut arg_yes: HashMap<String, String> = HashMap::new();
         arg_yes.insert("dependent".to_string(), "yes".to_string());
