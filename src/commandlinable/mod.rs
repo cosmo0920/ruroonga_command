@@ -27,12 +27,12 @@ impl<'a> fmt::Display for Escape<'a> {
                 // TODO: Verify escaping (\") is neccesary?
                 /// It should escape aginst special characters (\n, \\)
                 /// for creating command line style command.
-                '\n' | '\\'  => {
-                    try!(fmt.write_str(&pile_o_bits[last.. i]));
+                '\n' | '\\' => {
+                    try!(fmt.write_str(&pile_o_bits[last..i]));
                     let s = match ch as char {
                         '\n' => "\\n",
                         '\\' => "\\\\",
-                        _ => unreachable!()
+                        _ => unreachable!(),
                     };
                     try!(fmt.write_str(s));
                     last = i + 1;
