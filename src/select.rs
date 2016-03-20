@@ -12,6 +12,7 @@ use selectable::drilldown::Drilldown;
 use selectable::drilldownable::Drilldownable;
 use selectable::drilldown_builder::DrilldownBuilder;
 use selectable::labeled_drilldown::LabeledDrilldown;
+use selectable::labeled_drilldownable::LabeledDrilldownable;
 use selectable::labeled_drilldown_builder::LabeledDrilldownBuilder;
 use std::ops::Add;
 use extendable::Extendable;
@@ -150,6 +151,13 @@ impl Drilldownable for SelectCommand {
     }
 }
 
+impl LabeledDrilldownable for SelectCommand {
+    fn with_labeled_drilldown(self, rhs: LabeledDrilldown) -> LabeledDrilldownBuilder {
+        let labeled_drilldown_builder = LabeledDrilldownBuilder::new(self, rhs);
+        labeled_drilldown_builder
+    }
+}
+
 extendable!(SelectCommand);
 request_cancellable!(SelectCommand);
 
@@ -165,6 +173,7 @@ mod test {
     use selectable::drilldownable::Drilldownable;
     use selectable::drilldown_builder::DrilldownBuilder;
     use selectable::labeled_drilldown::LabeledDrilldown;
+    use selectable::labeled_drilldownable::LabeledDrilldownable;
     use selectable::labeled_drilldown_builder::LabeledDrilldownBuilder;
     use extendable::Extendable;
 
@@ -344,6 +353,17 @@ mod test {
         let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
         let drilldownable = select.clone().with_drilldown(drilldown.clone()).build();
         let drilldown_builder = DrilldownBuilder::new(select.clone(), drilldown.clone()).build();
+        assert_eq!(drilldownable, drilldown_builder);
+    }
+
+    #[test]
+    fn test_with_labeled_drilldown() {
+        let select = SelectCommand::new("Entries".to_string())
+                         .filter("content @ \"fast\"".to_string());
+        let drilldown = LabeledDrilldown::new("label".to_string()).keys(vec![("tag".to_string())]);
+        let drilldownable = select.clone().with_labeled_drilldown(drilldown.clone()).build();
+        let drilldown_builder = LabeledDrilldownBuilder::new(select.clone(), drilldown.clone())
+                                    .build();
         assert_eq!(drilldownable, drilldown_builder);
     }
 
