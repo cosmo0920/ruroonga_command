@@ -3,8 +3,8 @@ use std::str::FromStr;
 use std::convert::AsRef;
 use self::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableRename, TableRemove,
                     TableList, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
-                    RequestCancel, Normalize, NormalizerList, Tokenize, TokenizerList, Truncate,
-                    Schema, Extension};
+                    RequestCancel, Normalize, NormalizerList, PluginRegister, Tokenize,
+                    TokenizerList, Truncate, Schema, Extension};
 
 #[derive (Debug)]
 pub enum CommandError {
@@ -29,6 +29,7 @@ pub enum Command {
     RequestCancel,
     Normalize,
     NormalizerList,
+    PluginRegister,
     Tokenize,
     TokenizerList,
     Truncate,
@@ -65,6 +66,7 @@ impl AsRef<str> for Command {
             RequestCancel => "request_cancel",
             Normalize => "normalize",
             NormalizerList => "normalizer_list",
+            PluginRegister => "plugin_register",
             Tokenize => "tokenize",
             TokenizerList => "tokenizer_list",
             Truncate => "truncate",
@@ -96,6 +98,7 @@ impl FromStr for Command {
                 "column_remove" => ColumnRemove,
                 "normalize" => Normalize,
                 "normalizer_list" => NormalizerList,
+                "plugin_register" => PluginRegister,
                 "tokenize" => Tokenize,
                 "tokenizer_list" => TokenizerList,
                 "truncate" => Truncate,
@@ -126,6 +129,7 @@ impl fmt::Display for Command {
             RequestCancel => "request_cancel",
             Normalize => "normalize",
             NormalizerList => "normalizer_list",
+            PluginRegister => "plugin_register",
             Tokenize => "tokenize",
             TokenizerList => "tokenizer_list",
             Truncate => "truncate",
@@ -145,8 +149,8 @@ mod test {
     use super::Command;
     use super::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableList, TableRemove,
                          TableRename, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
-                         RequestCancel, Normalize, NormalizerList, Tokenize, TokenizerList,
-                         Truncate, Schema, Extension};
+                         RequestCancel, Normalize, NormalizerList, PluginRegister, Tokenize,
+                         TokenizerList, Truncate, Schema, Extension};
 
     #[test]
     fn test_from_str() {
@@ -163,6 +167,8 @@ mod test {
         assert_eq!(Normalize, FromStr::from_str("normalize").unwrap());
         assert_eq!(NormalizerList,
                    FromStr::from_str("normalizer_list").unwrap());
+        assert_eq!(PluginRegister,
+                   FromStr::from_str("plugin_register").unwrap());
         assert_eq!(Tokenize, FromStr::from_str("tokenize").unwrap());
         assert_eq!(TokenizerList, FromStr::from_str("tokenizer_list").unwrap());
         assert_eq!(Truncate, FromStr::from_str("truncate").unwrap());
@@ -190,6 +196,7 @@ mod test {
         assert_eq!("table_remove".to_owned(), format!("{}", TableRemove));
         assert_eq!("normalize".to_owned(), format!("{}", Normalize));
         assert_eq!("normalizer_list".to_owned(), format!("{}", NormalizerList));
+        assert_eq!("plugin_register".to_owned(), format!("{}", PluginRegister));
         assert_eq!("tokenize".to_owned(), format!("{}", Tokenize));
         assert_eq!("tokenizer_list".to_owned(), format!("{}", TokenizerList));
         assert_eq!("truncate".to_owned(), format!("{}", Truncate));
@@ -216,6 +223,7 @@ mod test {
         assert_eq!(RequestCancel.as_ref(), "request_cancel");
         assert_eq!(Normalize.as_ref(), "normalize");
         assert_eq!(NormalizerList.as_ref(), "normalizer_list");
+        assert_eq!(PluginRegister.as_ref(), "plugin_register");
         assert_eq!(Tokenize.as_ref(), "tokenize");
         assert_eq!(TokenizerList.as_ref(), "tokenizer_list");
         assert_eq!(Truncate.as_ref(), "truncate");
