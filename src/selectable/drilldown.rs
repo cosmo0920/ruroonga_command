@@ -3,10 +3,7 @@ use command::Query;
 use util;
 use selectable::fragmentable::Fragmentable;
 use selectable::fragmentable::{OrderedFragment, QueryFragment};
-use std::fmt;
-use std::str::FromStr;
-use std::convert::AsRef;
-use self::CalcType::{Nothing, Count, Max, Min, Sum, Avg, ExtCalcType};
+use types::drilldown_calc_type::CalcType;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct Drilldown {
@@ -22,71 +19,6 @@ impl Default for Drilldown {
         }
     }
 }
-
-#[derive (Debug)]
-pub enum CalcTypeError {
-    Empty,
-}
-
-#[derive (Clone, PartialEq, Eq, Debug)]
-pub enum CalcType {
-    Nothing,
-    Count,
-    Max,
-    Min,
-    Sum,
-    Avg,
-    /// For future extensibility.
-    ExtCalcType(String),
-}
-
-impl AsRef<str> for CalcType {
-    fn as_ref(&self) -> &str {
-        match *self {
-            Nothing => "NONE",
-            Count => "COUNT",
-            Max => "MAX",
-            Min => "MIN",
-            Sum => "SUM",
-            Avg => "AVG",
-            ExtCalcType(ref s) => s.as_ref(),
-        }
-    }
-}
-
-impl fmt::Display for CalcType {
-    fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
-        fmt.write_str(match *self {
-            Nothing => "NONE",
-            Count => "COUNT",
-            Max => "MAX",
-            Min => "MIN",
-            Sum => "SUM",
-            Avg => "AVG",
-            ExtCalcType(ref s) => s.as_ref(),
-        })
-    }
-}
-
-impl FromStr for CalcType {
-    type Err = CalcTypeError;
-    fn from_str(s: &str) -> Result<CalcType, CalcTypeError> {
-        if s == "" {
-            Err(CalcTypeError::Empty)
-        } else {
-            Ok(match s {
-                "None" | "NONE" => Nothing,
-                "Count" | "COUNT" => Count,
-                "Max" | "MAX" => Max,
-                "Min" | "MIN" => Min,
-                "Sum" | "SUM" => Sum,
-                "Avg" | "AVG" => Avg,
-                _ => ExtCalcType(s.to_owned()),
-            })
-        }
-    }
-}
-
 impl Drilldown {
     pub fn new() -> Drilldown {
         let default: Drilldown = Default::default();
@@ -173,6 +105,7 @@ mod test {
     use super::*;
     use std::collections::HashMap;
     use command::Query;
+    use types::drilldown_calc_type::CalcType;
 
     #[test]
     fn test_new() {
@@ -275,7 +208,7 @@ mod test {
 
     #[test]
     fn test_calc_types() {
-        let drilldown = Drilldown::new().calc_types(CalcType::Nothing);
+        let drilldown = Drilldown::new().calc_types(CalcType::None);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("drilldown_calc_types".to_string(), "NONE".to_string());
         let expected = Drilldown {
