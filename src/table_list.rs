@@ -94,8 +94,8 @@ mod test {
     #[test]
     fn test_commandable() {
         let query = TableListCommand::new().to_command();
-        let url_encoded = "table_list";
-        assert_eq!(url_encoded.to_string(), query);
+        let cli_encoded = "table_list";
+        assert_eq!(cli_encoded.to_string(), query);
     }
 
     #[test]

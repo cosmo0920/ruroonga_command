@@ -235,8 +235,8 @@ mod test {
         let query = DumpCommand::new()
                         .tables(vec!["Books".to_string(), "Categories".to_string()])
                         .to_command();
-        let url_encoded = "dump --tables Books,Categories";
-        assert_eq!(url_encoded.to_string(), query);
+        let cli_encoded = "dump --tables Books,Categories";
+        assert_eq!(cli_encoded.to_string(), query);
     }
 
     #[test]

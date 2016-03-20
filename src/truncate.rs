@@ -102,8 +102,8 @@ mod test {
     #[test]
     fn test_commandable() {
         let query = TruncateCommand::new("burdened".to_string()).to_command();
-        let url_encoded = "truncate --target_name burdened";
-        assert_eq!(url_encoded.to_string(), query);
+        let cli_encoded = "truncate --target_name burdened";
+        assert_eq!(cli_encoded.to_string(), query);
     }
 
     #[test]

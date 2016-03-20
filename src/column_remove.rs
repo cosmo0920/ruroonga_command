@@ -110,8 +110,8 @@ mod test {
     fn test_commandable() {
         let query = ColumnRemoveCommand::new("Books".to_string(), "category".to_string())
                         .to_command();
-        let url_encoded = "column_remove --table Books --name category";
-        assert_eq!(url_encoded.to_string(), query);
+        let cli_encoded = "column_remove --table Books --name category";
+        assert_eq!(cli_encoded.to_string(), query);
     }
 
     #[test]

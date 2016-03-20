@@ -133,8 +133,8 @@ mod test {
     #[test]
     fn test_commandable() {
         let query = TableRemoveCommand::new("Table".to_string()).to_command();
-        let url_encoded = "table_remove --name Table";
-        assert_eq!(url_encoded.to_string(), query);
+        let cli_encoded = "table_remove --name Table";
+        assert_eq!(cli_encoded.to_string(), query);
     }
 
     #[test]

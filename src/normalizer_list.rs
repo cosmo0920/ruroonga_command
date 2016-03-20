@@ -94,8 +94,8 @@ mod test {
     #[test]
     fn test_commandable() {
         let query = NormalizerListCommand::new().to_command();
-        let url_encoded = "normalizer_list";
-        assert_eq!(url_encoded.to_string(), query);
+        let cli_encoded = "normalizer_list";
+        assert_eq!(cli_encoded.to_string(), query);
     }
 
     #[test]

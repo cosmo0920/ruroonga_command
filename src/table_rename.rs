@@ -110,8 +110,8 @@ mod test {
     fn test_commandable() {
         let query = TableRenameCommand::new("Books".to_string(), "SoldBooks".to_string())
                         .to_command();
-        let url_encoded = "table_rename --name Books --new_name SoldBooks";
-        assert_eq!(url_encoded.to_string(), query);
+        let cli_encoded = "table_rename --name Books --new_name SoldBooks";
+        assert_eq!(cli_encoded.to_string(), query);
     }
 
     #[test]

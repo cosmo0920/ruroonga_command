@@ -364,8 +364,8 @@ mod test {
     #[test]
     fn test_commandable() {
         let query = TokenizeCommand::new(TokenizerType::Bigram, "element".to_string()).to_command();
-        let url_encoded = "tokenize --tokenizer TokenBigram --string \"element\"";
-        assert_eq!(url_encoded.to_string(), query);
+        let cli_encoded = "tokenize --tokenizer TokenBigram --string \"element\"";
+        assert_eq!(cli_encoded.to_string(), query);
     }
 
     #[test]

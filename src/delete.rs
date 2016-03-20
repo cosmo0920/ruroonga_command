@@ -166,8 +166,8 @@ mod test {
         let query = DeleteCommand::new("Books".to_string())
                         .filter("author == unknown".to_string())
                         .to_command();
-        let url_encoded = "delete --table Books --filter \'author == unknown\'";
-        assert_eq!(url_encoded.to_string(), query);
+        let cli_encoded = "delete --table Books --filter \'author == unknown\'";
+        assert_eq!(cli_encoded.to_string(), query);
     }
 
     #[test]
