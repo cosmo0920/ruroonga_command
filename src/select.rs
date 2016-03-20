@@ -11,6 +11,8 @@ use selectable::fragmentable::{OrderedFragment, QueryFragment};
 use selectable::drilldown::Drilldown;
 use selectable::drilldownable::Drilldownable;
 use selectable::drilldown_builder::DrilldownBuilder;
+use selectable::labeled_drilldown::LabeledDrilldown;
+use selectable::labeled_drilldown_builder::LabeledDrilldownBuilder;
 use std::ops::Add;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
@@ -132,6 +134,15 @@ impl Add<Drilldown> for SelectCommand {
     }
 }
 
+impl Add<LabeledDrilldown> for SelectCommand {
+    type Output = LabeledDrilldownBuilder;
+
+    fn add(self, rhs: LabeledDrilldown) -> LabeledDrilldownBuilder {
+        let labeled_drilldown_builder = LabeledDrilldownBuilder::new(self, rhs);
+        labeled_drilldown_builder
+    }
+}
+
 impl Drilldownable for SelectCommand {
     fn with_drilldown(self, rhs: Drilldown) -> DrilldownBuilder {
         let drilldown_builder = DrilldownBuilder::new(self, rhs);
@@ -153,6 +164,8 @@ mod test {
     use selectable::drilldown::Drilldown;
     use selectable::drilldownable::Drilldownable;
     use selectable::drilldown_builder::DrilldownBuilder;
+    use selectable::labeled_drilldown::LabeledDrilldown;
+    use selectable::labeled_drilldown_builder::LabeledDrilldownBuilder;
     use extendable::Extendable;
 
     #[test]
@@ -309,6 +322,18 @@ mod test {
         let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
         let ops_builder = (select.clone() + drilldown.clone()).build();
         let drilldown_builder = DrilldownBuilder::new(select.clone(), drilldown.clone()).build();
+        assert_eq!(ops_builder, drilldown_builder);
+    }
+
+    #[test]
+    fn test_add_ops_labedled_drilldown() {
+        let select = SelectCommand::new("Entries".to_string())
+                         .filter("content @ \"fast\"".to_string());
+        let drilldown = LabeledDrilldown::new("labeled".to_string())
+                            .keys(vec![("tag".to_string())]);
+        let ops_builder = (select.clone() + drilldown.clone()).build();
+        let drilldown_builder = LabeledDrilldownBuilder::new(select.clone(), drilldown.clone())
+                                    .build();
         assert_eq!(ops_builder, drilldown_builder);
     }
 
