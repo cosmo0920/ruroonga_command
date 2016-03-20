@@ -50,6 +50,7 @@ pub mod request_cancel;
 pub mod normalize;
 pub mod normalizer_list;
 pub mod plugin_register;
+pub mod plugin_unregister;
 pub mod tokenize;
 pub mod tokenizer_list;
 pub mod truncate;
