@@ -58,6 +58,25 @@ impl SelectCommand {
         self
     }
 
+    pub fn scorer(mut self, scorer: String) -> SelectCommand {
+        let encoded = format!("'{}'", scorer);
+        self.arguments.insert("scorer".to_string(), encoded.clone());
+        self
+    }
+
+    pub fn sortby(mut self, targets: Vec<String>) -> SelectCommand {
+        let string = util::split_values_vec(targets);
+        let encoded = format!("'{}'", string);
+        self.arguments.insert("sortby".to_string(), encoded.clone());
+        self
+    }
+
+    pub fn adjuster(mut self, adjust_expr: String) -> SelectCommand {
+        let encoded = format!("'{}'", adjust_expr);
+        self.arguments.insert("adjuster".to_string(), encoded.clone());
+        self
+    }
+
     pub fn match_columns(mut self, columns: Vec<String>) -> SelectCommand {
         let string = util::split_values_vec(columns);
         self.arguments.insert("match_columns".to_string(), string.clone());
@@ -218,6 +237,48 @@ mod test {
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("query".to_string(),
                    "\'_key:\"http://example.org/\"\'".to_string());
+        let expected = SelectCommand {
+            command: Select,
+            table: "test".to_string(),
+            arguments: arg,
+        };
+        assert_eq!(expected, select);
+    }
+
+    #[test]
+    fn test_scorer() {
+        let select = SelectCommand::new("test".to_string()).scorer("_score := rust".to_string());
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("scorer".to_string(), "\'_score := rust\'".to_string());
+        let expected = SelectCommand {
+            command: Select,
+            table: "test".to_string(),
+            arguments: arg,
+        };
+        assert_eq!(expected, select);
+    }
+
+    #[test]
+    fn test_sortby() {
+        let select = SelectCommand::new("test".to_string())
+                         .sortby(vec!["test".to_string(), "piyo".to_string()]);
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("sortby".to_string(), "\'test,piyo\'".to_string());
+        let expected = SelectCommand {
+            command: Select,
+            table: "test".to_string(),
+            arguments: arg,
+        };
+        assert_eq!(expected, select);
+    }
+
+    #[test]
+    fn test_adjuster() {
+        let select = SelectCommand::new("test".to_string())
+                         .adjuster("content @ \"ruroonga\"".to_string());
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("adjuster".to_string(),
+                   "\'content @ \"ruroonga\"\'".to_string());
         let expected = SelectCommand {
             command: Select,
             table: "test".to_string(),
