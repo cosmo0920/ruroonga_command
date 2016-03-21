@@ -1,5 +1,6 @@
 mod select_dsl;
 mod dump_dsl;
+mod database_unmap_dsl;
 mod load_dsl;
 mod status_dsl;
 mod delete_dsl;
@@ -24,6 +25,7 @@ mod truncate_dsl;
 
 pub use self::select_dsl::select;
 pub use self::dump_dsl::dump;
+pub use self::database_unmap_dsl::database_unmap;
 pub use self::load_dsl::load;
 pub use self::status_dsl::status;
 pub use self::delete_dsl::delete;

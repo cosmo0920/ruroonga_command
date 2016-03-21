@@ -1,8 +1,8 @@
 use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
-use self::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableRename, TableRemove,
-                    TableList, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
+use self::Command::{Select, Load, Status, Dump, DatabaseUnmap, Delete, TableCreate, TableRename,
+                    TableRemove, TableList, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
                     RequestCancel, Normalize, NormalizerList, PluginRegister, PluginUnregister,
                     ThreadLimit, Tokenize, TokenizerList, Truncate, Schema, Extension};
 
@@ -17,6 +17,7 @@ pub enum Command {
     Load,
     Status,
     Dump,
+    DatabaseUnmap,
     Delete,
     TableCreate,
     TableList,
@@ -56,6 +57,7 @@ impl AsRef<str> for Command {
             Load => "load",
             Status => "status",
             Dump => "dump",
+            DatabaseUnmap => "database_unmap",
             Delete => "delete",
             TableCreate => "table_create",
             TableList => "table_list",
@@ -91,6 +93,7 @@ impl FromStr for Command {
                 "load" => Load,
                 "status" => Status,
                 "dump" => Dump,
+                "database_unmap" => DatabaseUnmap,
                 "delete" => Delete,
                 "table_create" => TableCreate,
                 "table_list" => TableList,
@@ -123,6 +126,7 @@ impl fmt::Display for Command {
             Load => "load",
             Status => "status",
             Dump => "dump",
+            DatabaseUnmap => "database_unmap",
             Delete => "delete",
             TableCreate => "table_create",
             TableList => "table_list",
@@ -155,15 +159,16 @@ mod test {
     use std::str::FromStr;
     use super::CommandError;
     use super::Command;
-    use super::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableList, TableRemove,
-                         TableRename, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
-                         RequestCancel, Normalize, NormalizerList, PluginRegister,
-                         PluginUnregister, ThreadLimit, Tokenize, TokenizerList, Truncate, Schema,
-                         Extension};
+    use super::Command::{Select, Load, Status, Dump, DatabaseUnmap, Delete, TableCreate,
+                         TableList, TableRemove, TableRename, ColumnCreate, ColumnList,
+                         ColumnRename, ColumnRemove, RequestCancel, Normalize, NormalizerList,
+                         PluginRegister, PluginUnregister, ThreadLimit, Tokenize, TokenizerList,
+                         Truncate, Schema, Extension};
 
     #[test]
     fn test_from_str() {
         assert_eq!(Select, FromStr::from_str("select").unwrap());
+        assert_eq!(DatabaseUnmap, FromStr::from_str("database_unmap").unwrap());
         assert_eq!(ColumnCreate, FromStr::from_str("column_create").unwrap());
         assert_eq!(ColumnList, FromStr::from_str("column_list").unwrap());
         assert_eq!(ColumnRename, FromStr::from_str("column_rename").unwrap());
@@ -197,6 +202,7 @@ mod test {
     #[test]
     fn test_fmt() {
         assert_eq!("load".to_owned(), format!("{}", Load));
+        assert_eq!("database_unmap".to_owned(), format!("{}", DatabaseUnmap));
         assert_eq!("table_create".to_owned(), format!("{}", TableCreate));
         assert_eq!("column_create".to_owned(), format!("{}", ColumnCreate));
         assert_eq!("column_list".to_owned(), format!("{}", ColumnList));
@@ -225,6 +231,7 @@ mod test {
         assert_eq!(Select.as_ref(), "select");
         assert_eq!(Load.as_ref(), "load");
         assert_eq!(Dump.as_ref(), "dump");
+        assert_eq!(DatabaseUnmap.as_ref(), "database_unmap");
         assert_eq!(Delete.as_ref(), "delete");
         assert_eq!(Status.as_ref(), "status");
         assert_eq!(TableCreate.as_ref(), "table_create");
