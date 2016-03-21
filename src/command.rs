@@ -4,7 +4,7 @@ use std::convert::AsRef;
 use self::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableRename, TableRemove,
                     TableList, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
                     RequestCancel, Normalize, NormalizerList, PluginRegister, PluginUnregister,
-                    Tokenize, TokenizerList, Truncate, Schema, Extension};
+                    ThreadLimit, Tokenize, TokenizerList, Truncate, Schema, Extension};
 
 #[derive (Debug)]
 pub enum CommandError {
@@ -31,6 +31,7 @@ pub enum Command {
     NormalizerList,
     PluginRegister,
     PluginUnregister,
+    ThreadLimit,
     Tokenize,
     TokenizerList,
     Truncate,
@@ -69,6 +70,7 @@ impl AsRef<str> for Command {
             NormalizerList => "normalizer_list",
             PluginRegister => "plugin_register",
             PluginUnregister => "plugin_unregister",
+            ThreadLimit => "thread_limit",
             Tokenize => "tokenize",
             TokenizerList => "tokenizer_list",
             Truncate => "truncate",
@@ -102,6 +104,7 @@ impl FromStr for Command {
                 "normalizer_list" => NormalizerList,
                 "plugin_register" => PluginRegister,
                 "plugin_unregister" => PluginUnregister,
+                "thread_limit" => ThreadLimit,
                 "tokenize" => Tokenize,
                 "tokenizer_list" => TokenizerList,
                 "truncate" => Truncate,
@@ -134,6 +137,7 @@ impl fmt::Display for Command {
             NormalizerList => "normalizer_list",
             PluginRegister => "plugin_register",
             PluginUnregister => "plugin_unregister",
+            ThreadLimit => "thread_limit",
             Tokenize => "tokenize",
             TokenizerList => "tokenizer_list",
             Truncate => "truncate",
@@ -154,7 +158,8 @@ mod test {
     use super::Command::{Select, Load, Status, Dump, Delete, TableCreate, TableList, TableRemove,
                          TableRename, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
                          RequestCancel, Normalize, NormalizerList, PluginRegister,
-                         PluginUnregister, Tokenize, TokenizerList, Truncate, Schema, Extension};
+                         PluginUnregister, ThreadLimit, Tokenize, TokenizerList, Truncate, Schema,
+                         Extension};
 
     #[test]
     fn test_from_str() {
@@ -175,6 +180,7 @@ mod test {
                    FromStr::from_str("plugin_register").unwrap());
         assert_eq!(PluginUnregister,
                    FromStr::from_str("plugin_unregister").unwrap());
+        assert_eq!(ThreadLimit, FromStr::from_str("thread_limit").unwrap());
         assert_eq!(Tokenize, FromStr::from_str("tokenize").unwrap());
         assert_eq!(TokenizerList, FromStr::from_str("tokenizer_list").unwrap());
         assert_eq!(Truncate, FromStr::from_str("truncate").unwrap());
@@ -205,6 +211,7 @@ mod test {
         assert_eq!("plugin_register".to_owned(), format!("{}", PluginRegister));
         assert_eq!("plugin_unregister".to_owned(),
                    format!("{}", PluginUnregister));
+        assert_eq!("thread_limit".to_owned(), format!("{}", ThreadLimit));
         assert_eq!("tokenize".to_owned(), format!("{}", Tokenize));
         assert_eq!("tokenizer_list".to_owned(), format!("{}", TokenizerList));
         assert_eq!("truncate".to_owned(), format!("{}", Truncate));
@@ -233,6 +240,7 @@ mod test {
         assert_eq!(NormalizerList.as_ref(), "normalizer_list");
         assert_eq!(PluginRegister.as_ref(), "plugin_register");
         assert_eq!(PluginUnregister.as_ref(), "plugin_unregister");
+        assert_eq!(ThreadLimit.as_ref(), "thread_limit");
         assert_eq!(Tokenize.as_ref(), "tokenize");
         assert_eq!(TokenizerList.as_ref(), "tokenizer_list");
         assert_eq!(Truncate.as_ref(), "truncate");
