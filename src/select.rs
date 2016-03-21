@@ -2,6 +2,7 @@ use super::command::{Command, Query};
 use super::command::Command::Select;
 use std::collections::HashMap;
 use util;
+use types::select_query_flags::QueryFlagsType;
 use command_query::CommandQuery;
 use queryable::Queryable;
 use commandable::Commandable;
@@ -90,6 +91,12 @@ impl SelectCommand {
         self
     }
 
+    pub fn query_flags(mut self, flags: Vec<QueryFlagsType>) -> SelectCommand {
+        let string = util::split_flags_vec(flags);
+        self.arguments.insert("query_flags".to_string(), string.clone());
+        self
+    }
+
     pub fn build(self) -> (Command, Query) {
         let mut query: Query = vec![("table".to_string(), self.table)];
         for (key, value) in self.arguments.iter() {
@@ -167,6 +174,7 @@ mod test {
     use command::Query;
     use command::Command::Select;
     use std::collections::HashMap;
+    use types::select_query_flags::QueryFlagsType;
     use queryable::Queryable;
     use commandable::Commandable;
     use selectable::drilldown::Drilldown;
@@ -292,6 +300,22 @@ mod test {
             arguments: arg_no,
         };
         assert_eq!(expected_no, select_no);
+    }
+
+    #[test]
+    fn test_query_flags() {
+        let select = SelectCommand::new("test".to_string())
+                         .query_flags(vec![(QueryFlagsType::AllowColumn),
+                                           (QueryFlagsType::AllowUpdate)]);
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("query_flags".to_string(),
+                   "ALLOW_COLUMN|ALLOW_UPDATE".to_string());
+        let expected = SelectCommand {
+            command: Select,
+            table: "test".to_string(),
+            arguments: arg,
+        };
+        assert_eq!(expected, select);
     }
 
     #[test]
