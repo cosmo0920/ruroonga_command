@@ -155,13 +155,13 @@ impl Commandable for SelectCommand {
 }
 
 impl Fragmentable for SelectCommand {
-    fn to_fragment(self) -> (OrderedFragment, QueryFragment) {
+    fn to_fragment(self) -> (Command, OrderedFragment, QueryFragment) {
         let mut select_fragment = HashMap::new();
         let ordered_fragment = vec![("table".to_string(), self.table)];
         for (key, value) in self.arguments.clone() {
             select_fragment.insert(key, value);
         }
-        (ordered_fragment, select_fragment)
+        (Select, ordered_fragment, select_fragment)
     }
 }
 

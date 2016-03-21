@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use command::Query;
+use command::{Command, Query};
 use util;
 use selectable::fragmentable::Fragmentable;
 use selectable::fragmentable::{OrderedFragment, QueryFragment};
@@ -88,8 +88,11 @@ impl LabeledDrilldown {
 }
 
 impl Fragmentable for LabeledDrilldown {
-    fn to_fragment(self) -> (OrderedFragment, QueryFragment) {
-        (vec![], self.arguments.clone())
+    fn to_fragment(self) -> (Command, OrderedFragment, QueryFragment) {
+        // Command::Extension is `Command` type requirement. It should be ignored.
+        (Command::Extension("labeled_drilldown".to_string()),
+         vec![],
+         self.arguments.clone())
     }
 }
 
