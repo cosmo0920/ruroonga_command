@@ -110,9 +110,22 @@ impl SelectCommand {
         self
     }
 
+    pub fn match_escalation_threshold(mut self, threshold: i64) -> SelectCommand {
+        let string = format!("{}", threshold);
+        self.arguments.insert("match_escalation_threshold".to_string(), string.clone());
+        self
+    }
+
     pub fn query_flags(mut self, flags: Vec<QueryFlagsType>) -> SelectCommand {
         let string = util::split_flags_vec(flags);
         self.arguments.insert("query_flags".to_string(), string.clone());
+        self
+    }
+
+    pub fn query_expander(mut self, synonym: (String, String)) -> SelectCommand {
+        let (table, column) = synonym;
+        let string = format!("{}.{}", table, column);
+        self.arguments.insert("query_expander".to_string(), string.clone());
         self
     }
 
@@ -364,6 +377,19 @@ mod test {
     }
 
     #[test]
+    fn test_match_escalation_threshold() {
+        let select = SelectCommand::new("test".to_string()).match_escalation_threshold(-1);
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("match_escalation_threshold".to_string(), "-1".to_string());
+        let expected = SelectCommand {
+            command: Select,
+            table: "test".to_string(),
+            arguments: arg,
+        };
+        assert_eq!(expected, select);
+    }
+
+    #[test]
     fn test_query_flags() {
         let select = SelectCommand::new("test".to_string())
                          .query_flags(vec![(QueryFlagsType::AllowColumn),
@@ -371,6 +397,20 @@ mod test {
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("query_flags".to_string(),
                    "ALLOW_COLUMN|ALLOW_UPDATE".to_string());
+        let expected = SelectCommand {
+            command: Select,
+            table: "test".to_string(),
+            arguments: arg,
+        };
+        assert_eq!(expected, select);
+    }
+
+    #[test]
+    fn test_query_expander() {
+        let select = SelectCommand::new("test".to_string())
+                         .query_expander(("Terms".to_string(), "synonym".to_string()));
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("query_expander".to_string(), "Terms.synonym".to_string());
         let expected = SelectCommand {
             command: Select,
             table: "test".to_string(),
