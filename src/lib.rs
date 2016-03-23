@@ -35,6 +35,7 @@ pub mod selectable;
 pub mod load;
 pub mod status;
 pub mod delete;
+pub mod log_level;
 pub mod table_create;
 pub mod table_list;
 pub mod table_rename;

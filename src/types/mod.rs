@@ -6,3 +6,4 @@ pub mod token_filters_type;
 pub mod column_flag_type;
 pub mod drilldown_calc_type;
 pub mod select_query_flags;
+pub mod log_level_type;

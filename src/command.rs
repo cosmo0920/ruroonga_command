@@ -1,10 +1,11 @@
 use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
-use self::Command::{Select, Load, Status, Dump, DatabaseUnmap, Delete, TableCreate, TableRename,
-                    TableRemove, TableList, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
-                    RequestCancel, Normalize, NormalizerList, PluginRegister, PluginUnregister,
-                    ThreadLimit, Tokenize, TokenizerList, Truncate, Schema, Extension};
+use self::Command::{Select, Load, Status, Dump, DatabaseUnmap, Delete, LogLevel, TableCreate,
+                    TableRename, TableRemove, TableList, ColumnCreate, ColumnList, ColumnRename,
+                    ColumnRemove, RequestCancel, Normalize, NormalizerList, PluginRegister,
+                    PluginUnregister, ThreadLimit, Tokenize, TokenizerList, Truncate, Schema,
+                    Extension};
 
 #[derive (Debug)]
 pub enum CommandError {
@@ -19,6 +20,7 @@ pub enum Command {
     Dump,
     DatabaseUnmap,
     Delete,
+    LogLevel,
     TableCreate,
     TableList,
     TableRename,
@@ -59,6 +61,7 @@ impl AsRef<str> for Command {
             Dump => "dump",
             DatabaseUnmap => "database_unmap",
             Delete => "delete",
+            LogLevel => "log_level",
             TableCreate => "table_create",
             TableList => "table_list",
             TableRename => "table_rename",
@@ -95,6 +98,7 @@ impl FromStr for Command {
                 "dump" => Dump,
                 "database_unmap" => DatabaseUnmap,
                 "delete" => Delete,
+                "log_level" => LogLevel,
                 "table_create" => TableCreate,
                 "table_list" => TableList,
                 "table_rename" => TableRename,
@@ -128,6 +132,7 @@ impl fmt::Display for Command {
             Dump => "dump",
             DatabaseUnmap => "database_unmap",
             Delete => "delete",
+            LogLevel => "log_level",
             TableCreate => "table_create",
             TableList => "table_list",
             TableRename => "table_rename",
@@ -159,7 +164,7 @@ mod test {
     use std::str::FromStr;
     use super::CommandError;
     use super::Command;
-    use super::Command::{Select, Load, Status, Dump, DatabaseUnmap, Delete, TableCreate,
+    use super::Command::{Select, Load, Status, Dump, DatabaseUnmap, Delete, LogLevel, TableCreate,
                          TableList, TableRemove, TableRename, ColumnCreate, ColumnList,
                          ColumnRename, ColumnRemove, RequestCancel, Normalize, NormalizerList,
                          PluginRegister, PluginUnregister, ThreadLimit, Tokenize, TokenizerList,
@@ -173,6 +178,7 @@ mod test {
         assert_eq!(ColumnList, FromStr::from_str("column_list").unwrap());
         assert_eq!(ColumnRename, FromStr::from_str("column_rename").unwrap());
         assert_eq!(ColumnRemove, FromStr::from_str("column_remove").unwrap());
+        assert_eq!(LogLevel, FromStr::from_str("log_level").unwrap());
         assert_eq!(RequestCancel, FromStr::from_str("request_cancel").unwrap());
         assert_eq!(TableCreate, FromStr::from_str("table_create").unwrap());
         assert_eq!(TableRename, FromStr::from_str("table_rename").unwrap());
@@ -208,6 +214,7 @@ mod test {
         assert_eq!("column_list".to_owned(), format!("{}", ColumnList));
         assert_eq!("column_rename".to_owned(), format!("{}", ColumnRename));
         assert_eq!("column_remove".to_owned(), format!("{}", ColumnRemove));
+        assert_eq!("log_level".to_owned(), format!("{}", LogLevel));
         assert_eq!("request_cancel".to_owned(), format!("{}", RequestCancel));
         assert_eq!("table_list".to_owned(), format!("{}", TableList));
         assert_eq!("table_rename".to_owned(), format!("{}", TableRename));
@@ -234,6 +241,7 @@ mod test {
         assert_eq!(DatabaseUnmap.as_ref(), "database_unmap");
         assert_eq!(Delete.as_ref(), "delete");
         assert_eq!(Status.as_ref(), "status");
+        assert_eq!(LogLevel.as_ref(), "log_level");
         assert_eq!(TableCreate.as_ref(), "table_create");
         assert_eq!(TableList.as_ref(), "table_list");
         assert_eq!(TableRename.as_ref(), "table_rename");
