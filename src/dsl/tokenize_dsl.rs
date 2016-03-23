@@ -1,4 +1,4 @@
-use super::super::tokenize::TokenizeCommand;
+use tokenize::TokenizeCommand;
 use types::tokenizer_type::TokenizerType;
 
 pub fn tokenize(tokenizer: TokenizerType, string: String) -> TokenizeCommand {

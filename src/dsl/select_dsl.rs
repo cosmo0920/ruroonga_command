@@ -1,4 +1,4 @@
-use super::super::select::SelectCommand;
+use select::SelectCommand;
 
 pub fn select(table: String) -> SelectCommand {
     SelectCommand::new(table)

@@ -1,4 +1,4 @@
-use super::super::table_list::TableListCommand;
+use table_list::TableListCommand;
 
 pub fn table_list() -> TableListCommand {
     TableListCommand::new()

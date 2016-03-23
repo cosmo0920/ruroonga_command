@@ -1,4 +1,4 @@
-use super::super::thread_limit::ThreadLimitCommand;
+use thread_limit::ThreadLimitCommand;
 
 pub fn thread_limit() -> ThreadLimitCommand {
     ThreadLimitCommand::new()

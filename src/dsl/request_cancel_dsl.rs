@@ -1,4 +1,4 @@
-use super::super::request_cancel::RequestCancelCommand;
+use request_cancel::RequestCancelCommand;
 
 pub fn request_cancel(id: String) -> RequestCancelCommand {
     RequestCancelCommand::new(id)

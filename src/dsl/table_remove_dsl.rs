@@ -1,4 +1,4 @@
-use super::super::table_remove::TableRemoveCommand;
+use table_remove::TableRemoveCommand;
 
 pub fn table_remove(name: String) -> TableRemoveCommand {
     TableRemoveCommand::new(name)

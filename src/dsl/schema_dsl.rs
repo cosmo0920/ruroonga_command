@@ -1,4 +1,4 @@
-use super::super::schema::SchemaCommand;
+use schema::SchemaCommand;
 
 pub fn schema() -> SchemaCommand {
     SchemaCommand::new()

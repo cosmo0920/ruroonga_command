@@ -1,4 +1,4 @@
-use super::super::normalizer_list::NormalizerListCommand;
+use normalizer_list::NormalizerListCommand;
 
 pub fn normalizer_list() -> NormalizerListCommand {
     NormalizerListCommand::new()

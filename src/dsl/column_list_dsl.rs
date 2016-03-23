@@ -1,4 +1,4 @@
-use super::super::column_list::ColumnListCommand;
+use column_list::ColumnListCommand;
 
 pub fn column_list() -> ColumnListCommand {
     ColumnListCommand::new()

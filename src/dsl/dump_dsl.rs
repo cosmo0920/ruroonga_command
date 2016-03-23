@@ -1,4 +1,4 @@
-use super::super::dump::DumpCommand;
+use dump::DumpCommand;
 
 pub fn dump() -> DumpCommand {
     DumpCommand::new()

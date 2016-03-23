@@ -1,4 +1,4 @@
-use super::super::database_unmap::DatabaseUnmapCommand;
+use database_unmap::DatabaseUnmapCommand;
 
 pub fn database_unmap() -> DatabaseUnmapCommand {
     DatabaseUnmapCommand::new()

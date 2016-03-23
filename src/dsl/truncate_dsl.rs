@@ -1,4 +1,4 @@
-use super::super::truncate::TruncateCommand;
+use truncate::TruncateCommand;
 
 pub fn truncate(target_name: String) -> TruncateCommand {
     TruncateCommand::new(target_name)

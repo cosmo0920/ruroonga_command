@@ -1,4 +1,4 @@
-use super::super::plugin_unregister::PluginUnregisterCommand;
+use plugin_unregister::PluginUnregisterCommand;
 
 pub fn plugin_unregister(name: String) -> PluginUnregisterCommand {
     PluginUnregisterCommand::new(name)

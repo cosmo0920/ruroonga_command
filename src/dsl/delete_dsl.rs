@@ -1,4 +1,4 @@
-use super::super::delete::DeleteCommand;
+use delete::DeleteCommand;
 
 pub fn delete(table: String) -> DeleteCommand {
     DeleteCommand::new(table)

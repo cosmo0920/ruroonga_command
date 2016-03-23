@@ -1,4 +1,4 @@
-use super::super::column_create::ColumnCreateCommand;
+use column_create::ColumnCreateCommand;
 
 pub fn column_create(table: String, name: String) -> ColumnCreateCommand {
     ColumnCreateCommand::new(table, name)

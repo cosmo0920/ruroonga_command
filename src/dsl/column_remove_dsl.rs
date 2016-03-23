@@ -1,4 +1,4 @@
-use super::super::column_remove::ColumnRemoveCommand;
+use column_remove::ColumnRemoveCommand;
 
 pub fn column_remove(table: String, name: String) -> ColumnRemoveCommand {
     ColumnRemoveCommand::new(table, name)

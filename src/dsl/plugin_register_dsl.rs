@@ -1,4 +1,4 @@
-use super::super::plugin_register::PluginRegisterCommand;
+use plugin_register::PluginRegisterCommand;
 
 pub fn plugin_register(name: String) -> PluginRegisterCommand {
     PluginRegisterCommand::new(name)

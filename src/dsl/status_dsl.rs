@@ -1,4 +1,4 @@
-use super::super::status::StatusCommand;
+use status::StatusCommand;
 
 pub fn status() -> StatusCommand {
     StatusCommand::new()

@@ -1,4 +1,4 @@
-use super::super::load::LoadCommand;
+use load::LoadCommand;
 
 pub fn load(table: String, data: String) -> LoadCommand {
     LoadCommand::new(table, data)

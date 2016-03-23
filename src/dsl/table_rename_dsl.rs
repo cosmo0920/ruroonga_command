@@ -1,4 +1,4 @@
-use super::super::table_rename::TableRenameCommand;
+use table_rename::TableRenameCommand;
 
 pub fn table_rename(name: String, new_name: String) -> TableRenameCommand {
     TableRenameCommand::new(name, new_name)

@@ -1,4 +1,4 @@
-use super::super::table_create::TableCreateCommand;
+use table_create::TableCreateCommand;
 
 pub fn table_create(name: String) -> TableCreateCommand {
     TableCreateCommand::new(name)

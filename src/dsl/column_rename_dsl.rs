@@ -1,4 +1,4 @@
-use super::super::column_rename::ColumnRenameCommand;
+use column_rename::ColumnRenameCommand;
 
 pub fn column_rename(name: String, new_name: String) -> ColumnRenameCommand {
     ColumnRenameCommand::new(name, new_name)

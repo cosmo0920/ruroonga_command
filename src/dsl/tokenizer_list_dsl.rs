@@ -1,4 +1,4 @@
-use super::super::tokenizer_list::TokenizerListCommand;
+use tokenizer_list::TokenizerListCommand;
 
 pub fn tokenizer_list() -> TokenizerListCommand {
     TokenizerListCommand::new()

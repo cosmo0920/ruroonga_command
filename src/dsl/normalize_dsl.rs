@@ -1,4 +1,4 @@
-use super::super::normalize::NormalizeCommand;
+use normalize::NormalizeCommand;
 use types::normalizer_type::NormalizerType;
 
 pub fn normalize(normalizer: NormalizerType, string: String) -> NormalizeCommand {
