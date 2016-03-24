@@ -2,10 +2,10 @@ use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
 use self::Command::{Select, Load, Status, Dump, DatabaseUnmap, Delete, LogLevel, LogPut,
-                    TableCreate, TableRename, TableRemove, TableList, ColumnCreate, ColumnList,
-                    ColumnRename, ColumnRemove, RequestCancel, Normalize, NormalizerList,
-                    PluginRegister, PluginUnregister, ThreadLimit, Tokenize, TokenizerList,
-                    Truncate, Schema, Extension};
+                    LogReopen, TableCreate, TableRename, TableRemove, TableList, ColumnCreate,
+                    ColumnList, ColumnRename, ColumnRemove, RequestCancel, Normalize,
+                    NormalizerList, PluginRegister, PluginUnregister, ThreadLimit, Tokenize,
+                    TokenizerList, Truncate, Schema, Extension};
 
 #[derive (Debug)]
 pub enum CommandError {
@@ -22,6 +22,7 @@ pub enum Command {
     Delete,
     LogLevel,
     LogPut,
+    LogReopen,
     TableCreate,
     TableList,
     TableRename,
@@ -64,6 +65,7 @@ impl AsRef<str> for Command {
             Delete => "delete",
             LogLevel => "log_level",
             LogPut => "log_put",
+            LogReopen => "log_reopen",
             TableCreate => "table_create",
             TableList => "table_list",
             TableRename => "table_rename",
@@ -102,6 +104,7 @@ impl FromStr for Command {
                 "delete" => Delete,
                 "log_level" => LogLevel,
                 "log_put" => LogPut,
+                "log_reopen" => LogReopen,
                 "table_create" => TableCreate,
                 "table_list" => TableList,
                 "table_rename" => TableRename,
@@ -137,6 +140,7 @@ impl fmt::Display for Command {
             Delete => "delete",
             LogLevel => "log_level",
             LogPut => "log_put",
+            LogReopen => "log_reopen",
             TableCreate => "table_create",
             TableList => "table_list",
             TableRename => "table_rename",
@@ -169,10 +173,10 @@ mod test {
     use super::CommandError;
     use super::Command;
     use super::Command::{Select, Load, Status, Dump, DatabaseUnmap, Delete, LogLevel, LogPut,
-                         TableCreate, TableList, TableRemove, TableRename, ColumnCreate,
-                         ColumnList, ColumnRename, ColumnRemove, RequestCancel, Normalize,
-                         NormalizerList, PluginRegister, PluginUnregister, ThreadLimit, Tokenize,
-                         TokenizerList, Truncate, Schema, Extension};
+                         LogReopen, TableCreate, TableList, TableRemove, TableRename,
+                         ColumnCreate, ColumnList, ColumnRename, ColumnRemove, RequestCancel,
+                         Normalize, NormalizerList, PluginRegister, PluginUnregister, ThreadLimit,
+                         Tokenize, TokenizerList, Truncate, Schema, Extension};
 
     #[test]
     fn test_from_str() {
@@ -184,6 +188,7 @@ mod test {
         assert_eq!(ColumnRemove, FromStr::from_str("column_remove").unwrap());
         assert_eq!(LogLevel, FromStr::from_str("log_level").unwrap());
         assert_eq!(LogPut, FromStr::from_str("log_put").unwrap());
+        assert_eq!(LogReopen, FromStr::from_str("log_reopen").unwrap());
         assert_eq!(RequestCancel, FromStr::from_str("request_cancel").unwrap());
         assert_eq!(TableCreate, FromStr::from_str("table_create").unwrap());
         assert_eq!(TableRename, FromStr::from_str("table_rename").unwrap());
@@ -221,6 +226,7 @@ mod test {
         assert_eq!("column_remove".to_owned(), format!("{}", ColumnRemove));
         assert_eq!("log_level".to_owned(), format!("{}", LogLevel));
         assert_eq!("log_put".to_owned(), format!("{}", LogPut));
+        assert_eq!("log_reopen".to_owned(), format!("{}", LogReopen));
         assert_eq!("request_cancel".to_owned(), format!("{}", RequestCancel));
         assert_eq!("table_list".to_owned(), format!("{}", TableList));
         assert_eq!("table_rename".to_owned(), format!("{}", TableRename));
@@ -249,6 +255,7 @@ mod test {
         assert_eq!(Status.as_ref(), "status");
         assert_eq!(LogLevel.as_ref(), "log_level");
         assert_eq!(LogPut.as_ref(), "log_put");
+        assert_eq!(LogReopen.as_ref(), "log_reopen");
         assert_eq!(TableCreate.as_ref(), "table_create");
         assert_eq!(TableList.as_ref(), "table_list");
         assert_eq!(TableRename.as_ref(), "table_rename");

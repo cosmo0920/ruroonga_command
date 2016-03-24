@@ -37,6 +37,7 @@ pub mod status;
 pub mod delete;
 pub mod log_level;
 pub mod log_put;
+pub mod log_reopen;
 pub mod table_create;
 pub mod table_list;
 pub mod table_rename;
