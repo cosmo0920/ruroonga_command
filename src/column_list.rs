@@ -68,12 +68,12 @@ mod test {
 
     #[test]
     fn test_new() {
-        let table_rename = ColumnListCommand::new();
+        let column_list = ColumnListCommand::new();
         let expected = ColumnListCommand {
             command: ColumnList,
             arguments: HashMap::new(),
         };
-        assert_eq!(expected, table_rename);
+        assert_eq!(expected, column_list);
     }
 
     #[test]

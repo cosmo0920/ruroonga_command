@@ -84,13 +84,13 @@ mod test {
 
     #[test]
     fn test_new() {
-        let table_rename = TableRemoveCommand::new("Table".to_string());
+        let table_remove = TableRemoveCommand::new("Table".to_string());
         let expected = TableRemoveCommand {
             command: TableRemove,
             name: "Table".to_string(),
             arguments: HashMap::new(),
         };
-        assert_eq!(expected, table_rename);
+        assert_eq!(expected, table_remove);
     }
 
     #[test]

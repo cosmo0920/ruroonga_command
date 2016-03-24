@@ -75,13 +75,13 @@ mod test {
 
     #[test]
     fn test_new() {
-        let table_rename = PluginUnregisterCommand::new("test_plugin".to_string());
+        let plugin_unregister = PluginUnregisterCommand::new("test_plugin".to_string());
         let expected = PluginUnregisterCommand {
             command: PluginUnregister,
             name: "test_plugin".to_string(),
             arguments: HashMap::new(),
         };
-        assert_eq!(expected, table_rename);
+        assert_eq!(expected, plugin_unregister);
     }
 
     #[test]

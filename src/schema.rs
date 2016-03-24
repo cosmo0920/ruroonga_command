@@ -64,12 +64,12 @@ mod test {
 
     #[test]
     fn test_new() {
-        let status = SchemaCommand::new();
+        let schema = SchemaCommand::new();
         let expected = SchemaCommand {
             command: Schema,
             arguments: HashMap::new(),
         };
-        assert_eq!(expected, status);
+        assert_eq!(expected, schema);
     }
 
     #[test]

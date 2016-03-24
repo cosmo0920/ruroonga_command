@@ -68,12 +68,12 @@ mod test {
 
     #[test]
     fn test_new() {
-        let table_rename = TokenizerListCommand::new();
+        let tokenizer_list = TokenizerListCommand::new();
         let expected = TokenizerListCommand {
             command: TokenizerList,
             arguments: HashMap::new(),
         };
-        assert_eq!(expected, table_rename);
+        assert_eq!(expected, tokenizer_list);
     }
 
     #[test]

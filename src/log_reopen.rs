@@ -64,12 +64,12 @@ mod test {
 
     #[test]
     fn test_new() {
-        let status = LogReopenCommand::new();
+        let log_reopen = LogReopenCommand::new();
         let expected = LogReopenCommand {
             command: LogReopen,
             arguments: HashMap::new(),
         };
-        assert_eq!(expected, status);
+        assert_eq!(expected, log_reopen);
     }
 
     #[test]

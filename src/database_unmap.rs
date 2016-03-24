@@ -68,12 +68,12 @@ mod test {
 
     #[test]
     fn test_new() {
-        let table_rename = DatabaseUnmapCommand::new();
+        let database_unmap = DatabaseUnmapCommand::new();
         let expected = DatabaseUnmapCommand {
             command: DatabaseUnmap,
             arguments: HashMap::new(),
         };
-        assert_eq!(expected, table_rename);
+        assert_eq!(expected, database_unmap);
     }
 
     #[test]

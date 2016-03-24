@@ -75,13 +75,13 @@ mod test {
 
     #[test]
     fn test_new() {
-        let table_rename = TruncateCommand::new("truncated".to_string());
+        let truncate = TruncateCommand::new("truncated".to_string());
         let expected = TruncateCommand {
             command: Truncate,
             target_name: "truncated".to_string(),
             arguments: HashMap::new(),
         };
-        assert_eq!(expected, table_rename);
+        assert_eq!(expected, truncate);
     }
 
     #[test]

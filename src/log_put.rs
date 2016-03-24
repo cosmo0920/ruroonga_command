@@ -81,14 +81,14 @@ mod test {
 
     #[test]
     fn test_new() {
-        let log_level = LogPutCommand::new(LogLevelType::Info, "Hi, Ruroonga!".to_string());
+        let log_put = LogPutCommand::new(LogLevelType::Info, "Hi, Ruroonga!".to_string());
         let expected = LogPutCommand {
             command: LogPut,
             level: LogLevelType::Info,
             message: "Hi, Ruroonga!".to_string(),
             arguments: HashMap::new(),
         };
-        assert_eq!(expected, log_level);
+        assert_eq!(expected, log_put);
     }
 
     #[test]
