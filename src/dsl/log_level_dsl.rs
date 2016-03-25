@@ -1,4 +1,4 @@
-use super::super::log_level::LogLevelCommand;
+use log_level::LogLevelCommand;
 use types::log_level_type::LogLevelType;
 
 pub fn log_level(level: LogLevelType) -> LogLevelCommand {
