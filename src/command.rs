@@ -1,11 +1,11 @@
 use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
-use self::Command::{Select, Load, Status, Dump, DatabaseUnmap, Delete, LogLevel, LogPut,
-                    LogReopen, TableCreate, TableRename, TableRemove, TableList, ColumnCreate,
-                    ColumnList, ColumnRename, ColumnRemove, RequestCancel, Normalize,
-                    NormalizerList, ObjectExist, PluginRegister, PluginUnregister, ThreadLimit,
-                    Tokenize, TokenizerList, Truncate, Schema, Extension};
+use self::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delete, LogLevel,
+                    LogPut, LogReopen, TableCreate, TableRename, TableRemove, TableList,
+                    ColumnCreate, ColumnList, ColumnRename, ColumnRemove, RequestCancel,
+                    Normalize, NormalizerList, ObjectExist, PluginRegister, PluginUnregister,
+                    ThreadLimit, Tokenize, TokenizerList, Truncate, Schema, Extension};
 
 #[derive (Debug)]
 pub enum CommandError {
@@ -17,6 +17,7 @@ pub enum Command {
     Select,
     Load,
     Status,
+    CacheLimit,
     Dump,
     DatabaseUnmap,
     Delete,
@@ -61,6 +62,7 @@ impl AsRef<str> for Command {
             Select => "select",
             Load => "load",
             Status => "status",
+            CacheLimit => "cache_limit",
             Dump => "dump",
             DatabaseUnmap => "database_unmap",
             Delete => "delete",
@@ -101,6 +103,7 @@ impl FromStr for Command {
                 "select" => Select,
                 "load" => Load,
                 "status" => Status,
+                "cache_limit" => CacheLimit,
                 "dump" => Dump,
                 "database_unmap" => DatabaseUnmap,
                 "delete" => Delete,
@@ -138,6 +141,7 @@ impl fmt::Display for Command {
             Select => "select",
             Load => "load",
             Status => "status",
+            CacheLimit => "cache_limit",
             Dump => "dump",
             DatabaseUnmap => "database_unmap",
             Delete => "delete",
@@ -176,8 +180,8 @@ mod test {
     use std::str::FromStr;
     use super::CommandError;
     use super::Command;
-    use super::Command::{Select, Load, Status, Dump, DatabaseUnmap, Delete, LogLevel, LogPut,
-                         LogReopen, TableCreate, TableList, TableRemove, TableRename,
+    use super::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delete, LogLevel,
+                         LogPut, LogReopen, TableCreate, TableList, TableRemove, TableRename,
                          ColumnCreate, ColumnList, ColumnRename, ColumnRemove, RequestCancel,
                          ObjectExist, Normalize, NormalizerList, PluginRegister, PluginUnregister,
                          ThreadLimit, Tokenize, TokenizerList, Truncate, Schema, Extension};
@@ -185,6 +189,7 @@ mod test {
     #[test]
     fn test_from_str() {
         assert_eq!(Select, FromStr::from_str("select").unwrap());
+        assert_eq!(CacheLimit, FromStr::from_str("cache_limit").unwrap());
         assert_eq!(DatabaseUnmap, FromStr::from_str("database_unmap").unwrap());
         assert_eq!(ColumnCreate, FromStr::from_str("column_create").unwrap());
         assert_eq!(ColumnList, FromStr::from_str("column_list").unwrap());
@@ -223,6 +228,7 @@ mod test {
     #[test]
     fn test_fmt() {
         assert_eq!("load".to_owned(), format!("{}", Load));
+        assert_eq!("cache_limit".to_owned(), format!("{}", CacheLimit));
         assert_eq!("database_unmap".to_owned(), format!("{}", DatabaseUnmap));
         assert_eq!("table_create".to_owned(), format!("{}", TableCreate));
         assert_eq!("column_create".to_owned(), format!("{}", ColumnCreate));
@@ -256,6 +262,7 @@ mod test {
         assert_eq!(Select.as_ref(), "select");
         assert_eq!(Load.as_ref(), "load");
         assert_eq!(Dump.as_ref(), "dump");
+        assert_eq!(CacheLimit.as_ref(), "cache_limit");
         assert_eq!(DatabaseUnmap.as_ref(), "database_unmap");
         assert_eq!(Delete.as_ref(), "delete");
         assert_eq!(Status.as_ref(), "status");

@@ -1,4 +1,5 @@
 mod select_dsl;
+mod cache_limit_dsl;
 mod dump_dsl;
 mod database_unmap_dsl;
 mod load_dsl;
@@ -28,6 +29,7 @@ mod tokenizer_list_dsl;
 mod truncate_dsl;
 
 pub use self::select_dsl::select;
+pub use self::cache_limit_dsl::cache_limit;
 pub use self::dump_dsl::dump;
 pub use self::database_unmap_dsl::database_unmap;
 pub use self::load_dsl::load;

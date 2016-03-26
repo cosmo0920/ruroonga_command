@@ -34,6 +34,7 @@ pub mod select;
 pub mod selectable;
 pub mod load;
 pub mod status;
+pub mod cache_limit;
 pub mod delete;
 pub mod log_level;
 pub mod log_put;
