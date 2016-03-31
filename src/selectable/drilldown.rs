@@ -75,9 +75,7 @@ impl Drilldown {
 impl Fragmentable for Drilldown {
     fn to_fragment(self) -> (Command, OrderedFragment, QueryFragment) {
         // Command::Extension is `Command` type requirement. It should be ignored.
-        (Command::Extension("drilldown".to_string()),
-         vec![],
-         self.arguments.clone())
+        (Command::Extension("drilldown".to_string()), vec![], self.arguments.clone())
     }
 }
 
