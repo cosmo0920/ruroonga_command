@@ -6,10 +6,19 @@ keywords = ["groonga"]
 description = "A tiny Groonga query builder and generator."
 license-file = "LICENSE"
 repository = "https://github.com/cosmo0920/ruroonga_command"
+build = "build.rs"
 
 [features]
 normalizer_mysql = []
 unstable = []
+
+[build-dependencies.skeptic]
+version = "~0.4"
+default-features = false
+
+[dev-dependencies.skeptic]
+version = "~0.4"
+default-features = false
 
 [dependencies]
 url = "~0.5.2"
