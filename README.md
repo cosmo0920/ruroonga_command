@@ -18,10 +18,26 @@ ruroonga_command = "*"
 
 and following lines to your crate root:
 
-```rust
+```rust,ignore
 extern crate ruroonga_command;
+```
 
-use ruroonga_command as command;
+### A complete example
+
+```rust
+extern crate ruroonga_command as ruroonga;
+
+use ruroonga::dsl::*;
+use ruroonga::commandable::Commandable;
+
+fn select_cli_example() {
+    let select = select("Entries".to_string())
+                 .filter("content @ \"fast\"".to_string()).to_command();
+    println!("command: {:?}", select);
+}
+fn main() {
+    select_cli_example();
+}
 ```
 
 ## LICENSE
