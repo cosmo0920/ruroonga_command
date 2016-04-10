@@ -13,7 +13,7 @@ Add following lines to your Cargo.toml:
 
 ```toml
 [dependencies]
-ruroonga_command = "*"
+ruroonga_command = "~0.2.0"
 ```
 
 and following lines to your crate root:
