@@ -53,6 +53,7 @@ pub mod database_unmap;
 /// you should use `request_cancellable` trait to add `request_id` into each request.
 pub mod request_cancel;
 pub mod object_exist;
+pub mod object_inspect;
 pub mod normalize;
 pub mod normalizer_list;
 pub mod plugin_register;

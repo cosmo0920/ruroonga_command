@@ -4,8 +4,9 @@ use std::convert::AsRef;
 use self::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delete, LogLevel,
                     LogPut, LogReopen, TableCreate, TableRename, TableRemove, TableList,
                     ColumnCreate, ColumnList, ColumnRename, ColumnRemove, RequestCancel,
-                    Normalize, NormalizerList, ObjectExist, PluginRegister, PluginUnregister,
-                    ThreadLimit, Tokenize, TokenizerList, Truncate, Schema, Extension};
+                    Normalize, NormalizerList, ObjectExist, ObjectInspect, PluginRegister,
+                    PluginUnregister, ThreadLimit, Tokenize, TokenizerList, Truncate, Schema,
+                    Extension};
 
 #[derive (Debug)]
 pub enum CommandError {
@@ -36,6 +37,7 @@ pub enum Command {
     Normalize,
     NormalizerList,
     ObjectExist,
+    ObjectInspect,
     PluginRegister,
     PluginUnregister,
     ThreadLimit,
@@ -79,6 +81,7 @@ impl AsRef<str> for Command {
             ColumnRemove => "column_remove",
             RequestCancel => "request_cancel",
             ObjectExist => "object_exist",
+            ObjectInspect => "object_inspect",
             Normalize => "normalize",
             NormalizerList => "normalizer_list",
             PluginRegister => "plugin_register",
@@ -119,6 +122,7 @@ impl FromStr for Command {
                 "column_rename" => ColumnRename,
                 "column_remove" => ColumnRemove,
                 "object_exist" => ObjectExist,
+                "object_inspect" => ObjectInspect,
                 "normalize" => Normalize,
                 "normalizer_list" => NormalizerList,
                 "plugin_register" => PluginRegister,
@@ -158,6 +162,7 @@ impl fmt::Display for Command {
             ColumnRemove => "column_remove",
             RequestCancel => "request_cancel",
             ObjectExist => "object_exist",
+            ObjectInspect => "object_inspect",
             Normalize => "normalize",
             NormalizerList => "normalizer_list",
             PluginRegister => "plugin_register",
@@ -183,8 +188,9 @@ mod test {
     use super::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delete, LogLevel,
                          LogPut, LogReopen, TableCreate, TableList, TableRemove, TableRename,
                          ColumnCreate, ColumnList, ColumnRename, ColumnRemove, RequestCancel,
-                         ObjectExist, Normalize, NormalizerList, PluginRegister, PluginUnregister,
-                         ThreadLimit, Tokenize, TokenizerList, Truncate, Schema, Extension};
+                         ObjectExist, ObjectInspect, Normalize, NormalizerList, PluginRegister,
+                         PluginUnregister, ThreadLimit, Tokenize, TokenizerList, Truncate, Schema,
+                         Extension};
 
     #[test]
     fn test_from_str() {
@@ -204,6 +210,7 @@ mod test {
         assert_eq!(TableRemove, FromStr::from_str("table_remove").unwrap());
         assert_eq!(TableList, FromStr::from_str("table_list").unwrap());
         assert_eq!(ObjectExist, FromStr::from_str("object_exist").unwrap());
+        assert_eq!(ObjectInspect, FromStr::from_str("object_inspect").unwrap());
         assert_eq!(Normalize, FromStr::from_str("normalize").unwrap());
         assert_eq!(NormalizerList,
                    FromStr::from_str("normalizer_list").unwrap());
@@ -243,6 +250,7 @@ mod test {
         assert_eq!("table_rename".to_owned(), format!("{}", TableRename));
         assert_eq!("table_remove".to_owned(), format!("{}", TableRemove));
         assert_eq!("object_exist".to_owned(), format!("{}", ObjectExist));
+        assert_eq!("object_inspect".to_owned(), format!("{}", ObjectInspect));
         assert_eq!("normalize".to_owned(), format!("{}", Normalize));
         assert_eq!("normalizer_list".to_owned(), format!("{}", NormalizerList));
         assert_eq!("plugin_register".to_owned(), format!("{}", PluginRegister));
@@ -279,6 +287,7 @@ mod test {
         assert_eq!(ColumnRemove.as_ref(), "column_remove");
         assert_eq!(RequestCancel.as_ref(), "request_cancel");
         assert_eq!(ObjectExist.as_ref(), "object_exist");
+        assert_eq!(ObjectInspect.as_ref(), "object_inspect");
         assert_eq!(Normalize.as_ref(), "normalize");
         assert_eq!(NormalizerList.as_ref(), "normalizer_list");
         assert_eq!(PluginRegister.as_ref(), "plugin_register");
