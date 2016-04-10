@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ruroonga_command` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ruroonga_command">
+
+    <title>ruroonga_command - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'></p><script>window.sidebarCurrent = {name: 'ruroonga_command', ty: 'mod', relpath: '../'};</script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>ruroonga_command</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-0' class='srclink' href='../src/ruroonga_command/lib.rs.html#1-79' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p><code>ruroonga_command</code> provides extensible Groonga command query builder and
+generator. It reduces runtime errors about Groonga queries.</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='cache_limit/index.html'
+                               title='ruroonga_command::cache_limit'>cache_limit</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='column_create/index.html'
+                               title='ruroonga_command::column_create'>column_create</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='column_list/index.html'
+                               title='ruroonga_command::column_list'>column_list</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='column_remove/index.html'
+                               title='ruroonga_command::column_remove'>column_remove</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='column_rename/index.html'
+                               title='ruroonga_command::column_rename'>column_rename</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='command/index.html'
+                               title='ruroonga_command::command'>command</a></td>
+                        <td class='docblock short'>
+                             <p>Type variant definitions for Groonga commands.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='command_line/index.html'
+                               title='ruroonga_command::command_line'>command_line</a></td>
+                        <td class='docblock short'>
+                             <p>An entity type for <code>commandable</code> trait.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='command_query/index.html'
+                               title='ruroonga_command::command_query'>command_query</a></td>
+                        <td class='docblock short'>
+                             <p>An entity type for <code>queryable</code> trait.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='commandable/index.html'
+                               title='ruroonga_command::commandable'>commandable</a></td>
+                        <td class='docblock short'>
+                             <p><code>commandable</code> provides a shortcut to create command line Groonga query.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='database_unmap/index.html'
+                               title='ruroonga_command::database_unmap'>database_unmap</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='delete/index.html'
+                               title='ruroonga_command::delete'>delete</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='dsl/index.html'
+                               title='ruroonga_command::dsl'>dsl</a></td>
+                        <td class='docblock short'>
+                             <p><code>dsl</code> provides its XXXCommand returning dsl syntax like this:</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='dump/index.html'
+                               title='ruroonga_command::dump'>dump</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='extendable/index.html'
+                               title='ruroonga_command::extendable'>extendable</a></td>
+                        <td class='docblock short'>
+                             <p><code>extendable</code> provides appending user-defined key-value pair query functionality trait.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='extension/index.html'
+                               title='ruroonga_command::extension'>extension</a></td>
+                        <td class='docblock short'>
+                             <p>This module provides fully user-defined query creation mechanism.
+This module is only provided for funture extensibility.
+You should use this module <strong>at your own risk</strong>.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='load/index.html'
+                               title='ruroonga_command::load'>load</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='log_level/index.html'
+                               title='ruroonga_command::log_level'>log_level</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='log_put/index.html'
+                               title='ruroonga_command::log_put'>log_put</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='log_reopen/index.html'
+                               title='ruroonga_command::log_reopen'>log_reopen</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='normalize/index.html'
+                               title='ruroonga_command::normalize'>normalize</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='normalizer_list/index.html'
+                               title='ruroonga_command::normalizer_list'>normalizer_list</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='object_exist/index.html'
+                               title='ruroonga_command::object_exist'>object_exist</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='object_inspect/index.html'
+                               title='ruroonga_command::object_inspect'>object_inspect</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='plugin_register/index.html'
+                               title='ruroonga_command::plugin_register'>plugin_register</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='plugin_unregister/index.html'
+                               title='ruroonga_command::plugin_unregister'>plugin_unregister</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='queryable/index.html'
+                               title='ruroonga_command::queryable'>queryable</a></td>
+                        <td class='docblock short'>
+                             <p><code>queryable</code> provides a shortcut to create URI style Groonga query.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='request_cancel/index.html'
+                               title='ruroonga_command::request_cancel'>request_cancel</a></td>
+                        <td class='docblock short'>
+                             <p>Using request cancel mechanism.
+If you use this cancal feature,
+you should use <code>request_cancellable</code> trait to add <code>request_id</code> into each request.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='request_cancellable/index.html'
+                               title='ruroonga_command::request_cancellable'>request_cancellable</a></td>
+                        <td class='docblock short'>
+                             <p><code>request_cancellable</code> provides appending <code>request_id</code> functionality trait.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='schema/index.html'
+                               title='ruroonga_command::schema'>schema</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='select/index.html'
+                               title='ruroonga_command::select'>select</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='selectable/index.html'
+                               title='ruroonga_command::selectable'>selectable</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='status/index.html'
+                               title='ruroonga_command::status'>status</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='table_create/index.html'
+                               title='ruroonga_command::table_create'>table_create</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='table_list/index.html'
+                               title='ruroonga_command::table_list'>table_list</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='table_remove/index.html'
+                               title='ruroonga_command::table_remove'>table_remove</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='table_rename/index.html'
+                               title='ruroonga_command::table_rename'>table_rename</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='thread_limit/index.html'
+                               title='ruroonga_command::thread_limit'>thread_limit</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='tokenize/index.html'
+                               title='ruroonga_command::tokenize'>tokenize</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='tokenizer_list/index.html'
+                               title='ruroonga_command::tokenizer_list'>tokenizer_list</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='truncate/index.html'
+                               title='ruroonga_command::truncate'>truncate</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='types/index.html'
+                               title='ruroonga_command::types'>types</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "ruroonga_command";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

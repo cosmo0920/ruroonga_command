@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `CacheLimitCommand` struct in crate `ruroonga_command`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, CacheLimitCommand">
+
+    <title>ruroonga_command::cache_limit::CacheLimitCommand - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>ruroonga_command</a>::<wbr><a href='index.html'>cache_limit</a></p><script>window.sidebarCurrent = {name: 'CacheLimitCommand', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>ruroonga_command</a>::<wbr><a href='index.html'>cache_limit</a>::<wbr><a class='struct' href=''>CacheLimitCommand</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-2066' class='srclink' href='../../src/ruroonga_command/cache_limit.rs.html#12-15' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct CacheLimitCommand {
+    // some fields omitted
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></h4>
+<h4 id='method.max' class='method'><code>fn <a href='#method.max' class='fnname'>max</a>(self, max: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u64.html'>u64</a>) -&gt; <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></h4>
+<h4 id='method.build' class='method'><code>fn <a href='#method.build' class='fnname'>build</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='enum' href='../../ruroonga_command/command/enum.Command.html' title='ruroonga_command::command::Command'>Command</a>, <a class='type' href='../../ruroonga_command/command/type.Query.html' title='ruroonga_command::command::Query'>Query</a>)</a></code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></h3><div class='impl-items'><h4 id='method.default' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#method.default' class='fnname'>default</a>() -&gt; <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='../../ruroonga_command/queryable/trait.Queryable.html' title='ruroonga_command::queryable::Queryable'>Queryable</a> for <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></h3><div class='impl-items'><h4 id='method.to_query' class='method'><code>fn <a href='../../ruroonga_command/queryable/trait.Queryable.html#method.to_query' class='fnname'>to_query</a>(self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='../../ruroonga_command/commandable/trait.Commandable.html' title='ruroonga_command::commandable::Commandable'>Commandable</a> for <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></h3><div class='impl-items'><h4 id='method.to_command' class='method'><code>fn <a href='../../ruroonga_command/commandable/trait.Commandable.html#method.to_command' class='fnname'>to_command</a>(self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='../../ruroonga_command/extendable/trait.Extendable.html' title='ruroonga_command::extendable::Extendable'>Extendable</a> for <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><code>type Output = <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></h4>
+<h4 id='method.set_arguments' class='method'><code>unsafe fn <a href='../../ruroonga_command/extendable/trait.Extendable.html#method.set_arguments' class='fnname'>set_arguments</a>(self, arguments: <a class='struct' href='https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html' title='std::collections::hash::map::HashMap'>HashMap</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;) -&gt; Self::<a class='trait' href='../../ruroonga_command/extendable/trait.Extendable.html' title='ruroonga_command::extendable::Extendable'>Output</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='../../ruroonga_command/request_cancellable/trait.RequestCancellable.html' title='ruroonga_command::request_cancellable::RequestCancellable'>RequestCancellable</a> for <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output-1' class='type'><code>type Output = <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></h4>
+<h4 id='method.append_request_id' class='method'><code>fn <a href='../../ruroonga_command/request_cancellable/trait.RequestCancellable.html#method.append_request_id' class='fnname'>append_request_id</a>(self, request_id: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>) -&gt; Self::<a class='trait' href='../../ruroonga_command/request_cancellable/trait.RequestCancellable.html' title='ruroonga_command::request_cancellable::RequestCancellable'>Output</a></code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></h4>
+<h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "ruroonga_command";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>
