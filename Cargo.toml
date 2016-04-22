@@ -21,4 +21,4 @@ version = "~0.4"
 default-features = false
 
 [dependencies]
-url = "~0.5.2"
+url = "~1.0.0"
