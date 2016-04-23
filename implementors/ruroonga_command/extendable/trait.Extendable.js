@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors['ruroonga_command'] = [];
+implementors['ruroonga_command'] = [];implementors['ruroonga_command'] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

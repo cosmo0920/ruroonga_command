@@ -46,7 +46,7 @@
             <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                 [<span class='inner'>&#x2212;</span>]
             </a>
-        </span><a id='src-0' class='srclink' href='../src/ruroonga_command/lib.rs.html#1-79' title='goto source code'>[src]</a></span></h1>
+        </span><a id='src-0' class='srclink' href='../src/ruroonga_command/src/lib.rs.html#1-79' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p><code>ruroonga_command</code> provides extensible Groonga command query builder and
 generator. It reduces runtime errors about Groonga queries.</p>
 </div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
@@ -96,7 +96,6 @@ generator. It reduces runtime errors about Groonga queries.</p>
                                title='ruroonga_command::command'>command</a></td>
                         <td class='docblock short'>
                              <p>Type variant definitions for Groonga commands.</p>
-
                         </td>
                     </tr>
                 
@@ -105,7 +104,6 @@ generator. It reduces runtime errors about Groonga queries.</p>
                                title='ruroonga_command::command_line'>command_line</a></td>
                         <td class='docblock short'>
                              <p>An entity type for <code>commandable</code> trait.</p>
-
                         </td>
                     </tr>
                 
@@ -114,7 +112,6 @@ generator. It reduces runtime errors about Groonga queries.</p>
                                title='ruroonga_command::command_query'>command_query</a></td>
                         <td class='docblock short'>
                              <p>An entity type for <code>queryable</code> trait.</p>
-
                         </td>
                     </tr>
                 
@@ -123,7 +120,6 @@ generator. It reduces runtime errors about Groonga queries.</p>
                                title='ruroonga_command::commandable'>commandable</a></td>
                         <td class='docblock short'>
                              <p><code>commandable</code> provides a shortcut to create command line Groonga query.</p>
-
                         </td>
                     </tr>
                 
@@ -148,7 +144,6 @@ generator. It reduces runtime errors about Groonga queries.</p>
                                title='ruroonga_command::dsl'>dsl</a></td>
                         <td class='docblock short'>
                              <p><code>dsl</code> provides its XXXCommand returning dsl syntax like this:</p>
-
                         </td>
                     </tr>
                 
@@ -165,7 +160,6 @@ generator. It reduces runtime errors about Groonga queries.</p>
                                title='ruroonga_command::extendable'>extendable</a></td>
                         <td class='docblock short'>
                              <p><code>extendable</code> provides appending user-defined key-value pair query functionality trait.</p>
-
                         </td>
                     </tr>
                 
@@ -176,7 +170,6 @@ generator. It reduces runtime errors about Groonga queries.</p>
                              <p>This module provides fully user-defined query creation mechanism.
 This module is only provided for funture extensibility.
 You should use this module <strong>at your own risk</strong>.</p>
-
                         </td>
                     </tr>
                 
@@ -265,7 +258,6 @@ You should use this module <strong>at your own risk</strong>.</p>
                                title='ruroonga_command::queryable'>queryable</a></td>
                         <td class='docblock short'>
                              <p><code>queryable</code> provides a shortcut to create URI style Groonga query.</p>
-
                         </td>
                     </tr>
                 
@@ -274,9 +266,8 @@ You should use this module <strong>at your own risk</strong>.</p>
                                title='ruroonga_command::request_cancel'>request_cancel</a></td>
                         <td class='docblock short'>
                              <p>Using request cancel mechanism.
-If you use this cancal feature,
+If you use this cancel feature,
 you should use <code>request_cancellable</code> trait to add <code>request_id</code> into each request.</p>
-
                         </td>
                     </tr>
                 
@@ -285,7 +276,6 @@ you should use <code>request_cancellable</code> trait to add <code>request_id</c
                                title='ruroonga_command::request_cancellable'>request_cancellable</a></td>
                         <td class='docblock short'>
                              <p><code>request_cancellable</code> provides appending <code>request_id</code> functionality trait.</p>
-
                         </td>
                     </tr>
                 
@@ -435,7 +425,7 @@ you should use <code>request_cancellable</code> trait to add <code>request_id</c
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
