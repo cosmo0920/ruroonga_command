@@ -7,6 +7,7 @@ use command_line::CommandLine;
 use commandable::Commandable;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
+use request_timeoutable::RequestTimeoutable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct ThreadLimitCommand {
@@ -65,6 +66,7 @@ impl Commandable for ThreadLimitCommand {
 
 extendable!(ThreadLimitCommand);
 request_cancellable!(ThreadLimitCommand);
+request_timeoutable!(ThreadLimitCommand);
 
 #[cfg(test)]
 mod test {

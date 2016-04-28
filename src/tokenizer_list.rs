@@ -7,6 +7,7 @@ use command_line::CommandLine;
 use commandable::Commandable;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
+use request_timeoutable::RequestTimeoutable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct TokenizerListCommand {
@@ -55,6 +56,7 @@ impl Commandable for TokenizerListCommand {
 
 extendable!(TokenizerListCommand);
 request_cancellable!(TokenizerListCommand);
+request_timeoutable!(TokenizerListCommand);
 
 #[cfg(test)]
 mod test {

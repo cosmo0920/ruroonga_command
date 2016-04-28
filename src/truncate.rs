@@ -7,6 +7,7 @@ use command_line::CommandLine;
 use commandable::Commandable;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
+use request_timeoutable::RequestTimeoutable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct TruncateCommand {
@@ -62,6 +63,7 @@ impl Commandable for TruncateCommand {
 
 extendable!(TruncateCommand);
 request_cancellable!(TruncateCommand);
+request_timeoutable!(TruncateCommand);
 
 #[cfg(test)]
 mod test {

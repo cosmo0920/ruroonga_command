@@ -18,6 +18,7 @@ use selectable::labeled_drilldown_builder::LabeledDrilldownBuilder;
 use std::ops::Add;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
+use request_timeoutable::RequestTimeoutable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct SelectCommand {
@@ -199,6 +200,7 @@ impl LabeledDrilldownable for SelectCommand {
 
 extendable!(SelectCommand);
 request_cancellable!(SelectCommand);
+request_timeoutable!(SelectCommand);
 
 #[cfg(test)]
 mod test {

@@ -7,6 +7,7 @@ use command_line::CommandLine;
 use commandable::Commandable;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
+use request_timeoutable::RequestTimeoutable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct DatabaseUnmapCommand {
@@ -55,6 +56,7 @@ impl Commandable for DatabaseUnmapCommand {
 
 extendable!(DatabaseUnmapCommand);
 request_cancellable!(DatabaseUnmapCommand);
+request_timeoutable!(DatabaseUnmapCommand);
 
 #[cfg(test)]
 mod test {

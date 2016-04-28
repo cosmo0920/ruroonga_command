@@ -7,6 +7,7 @@ use command_line::CommandLine;
 use commandable::Commandable;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
+use request_timeoutable::RequestTimeoutable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct TableRemoveCommand {
@@ -71,6 +72,7 @@ impl Commandable for TableRemoveCommand {
 
 extendable!(TableRemoveCommand);
 request_cancellable!(TableRemoveCommand);
+request_timeoutable!(TableRemoveCommand);
 
 #[cfg(test)]
 mod test {

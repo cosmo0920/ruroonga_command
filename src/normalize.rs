@@ -7,6 +7,7 @@ use queryable::Queryable;
 use command_line::CommandLine;
 use commandable::Commandable;
 use request_cancellable::RequestCancellable;
+use request_timeoutable::RequestTimeoutable;
 use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
@@ -139,6 +140,7 @@ impl Commandable for NormalizeCommand {
 }
 
 request_cancellable!(NormalizeCommand);
+request_timeoutable!(NormalizeCommand);
 
 #[cfg(test)]
 mod test {

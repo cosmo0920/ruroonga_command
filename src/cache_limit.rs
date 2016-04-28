@@ -7,6 +7,7 @@ use command_line::CommandLine;
 use commandable::Commandable;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
+use request_timeoutable::RequestTimeoutable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct CacheLimitCommand {
@@ -65,6 +66,7 @@ impl Commandable for CacheLimitCommand {
 
 extendable!(CacheLimitCommand);
 request_cancellable!(CacheLimitCommand);
+request_timeoutable!(CacheLimitCommand);
 
 #[cfg(test)]
 mod test {

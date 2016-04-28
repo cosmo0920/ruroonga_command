@@ -8,6 +8,7 @@ use command_line::CommandLine;
 use commandable::Commandable;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
+use request_timeoutable::RequestTimeoutable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct DumpCommand {
@@ -98,6 +99,7 @@ impl Commandable for DumpCommand {
 
 extendable!(DumpCommand);
 request_cancellable!(DumpCommand);
+request_timeoutable!(DumpCommand);
 
 #[cfg(test)]
 mod test {

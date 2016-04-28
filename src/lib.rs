@@ -22,6 +22,9 @@ pub mod extendable;
 /// `request_cancellable` provides appending `request_id` functionality trait.
 #[macro_use]
 pub mod request_cancellable;
+/// `request_timeoutable` provides appending `timeout` functionality trait.
+#[macro_use]
+pub mod request_timeoutable;
 pub mod types;
 /// Type variant definitions for Groonga commands.
 pub mod command;

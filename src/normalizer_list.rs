@@ -7,6 +7,7 @@ use command_line::CommandLine;
 use commandable::Commandable;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
+use request_timeoutable::RequestTimeoutable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct NormalizerListCommand {
@@ -55,6 +56,7 @@ impl Commandable for NormalizerListCommand {
 
 extendable!(NormalizerListCommand);
 request_cancellable!(NormalizerListCommand);
+request_timeoutable!(NormalizerListCommand);
 
 #[cfg(test)]
 mod test {

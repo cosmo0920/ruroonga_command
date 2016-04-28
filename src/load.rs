@@ -15,6 +15,7 @@ use commandable::Commandable;
 use commandable::PostCommandable;
 use commandable::DataValues;
 use request_cancellable::RequestCancellable;
+use request_timeoutable::RequestTimeoutable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct LoadCommand {
@@ -145,6 +146,7 @@ impl PostCommandable for LoadCommand {
 }
 
 request_cancellable!(LoadCommand);
+request_timeoutable!(LoadCommand);
 
 #[cfg(test)]
 mod test {

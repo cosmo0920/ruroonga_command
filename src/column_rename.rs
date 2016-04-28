@@ -7,6 +7,7 @@ use command_line::CommandLine;
 use commandable::Commandable;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
+use request_timeoutable::RequestTimeoutable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct ColumnRenameCommand {
@@ -66,6 +67,7 @@ impl Commandable for ColumnRenameCommand {
 
 extendable!(ColumnRenameCommand);
 request_cancellable!(ColumnRenameCommand);
+request_timeoutable!(ColumnRenameCommand);
 
 #[cfg(test)]
 mod test {

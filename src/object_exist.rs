@@ -7,6 +7,7 @@ use command_line::CommandLine;
 use commandable::Commandable;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
+use request_timeoutable::RequestTimeoutable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct ObjectExistCommand {
@@ -62,6 +63,7 @@ impl Commandable for ObjectExistCommand {
 
 extendable!(ObjectExistCommand);
 request_cancellable!(ObjectExistCommand);
+request_timeoutable!(ObjectExistCommand);
 
 #[cfg(test)]
 mod test {

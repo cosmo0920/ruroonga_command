@@ -13,6 +13,7 @@ use command_line::CommandLine;
 use commandable::Commandable;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
+use request_timeoutable::RequestTimeoutable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct TableCreateCommand {
@@ -98,6 +99,7 @@ impl Commandable for TableCreateCommand {
 
 extendable!(TableCreateCommand);
 request_cancellable!(TableCreateCommand);
+request_timeoutable!(TableCreateCommand);
 
 #[cfg(test)]
 mod test {

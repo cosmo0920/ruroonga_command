@@ -7,6 +7,7 @@ use command_line::CommandLine;
 use commandable::Commandable;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
+use request_timeoutable::RequestTimeoutable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct TableRenameCommand {
@@ -66,6 +67,7 @@ impl Commandable for TableRenameCommand {
 
 extendable!(TableRenameCommand);
 request_cancellable!(TableRenameCommand);
+request_timeoutable!(TableRenameCommand);
 
 #[cfg(test)]
 mod test {

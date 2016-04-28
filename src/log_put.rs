@@ -7,6 +7,7 @@ use command_line::CommandLine;
 use commandable::Commandable;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
+use request_timeoutable::RequestTimeoutable;
 use types::log_level_type::LogLevelType;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
@@ -67,6 +68,7 @@ impl Commandable for LogPutCommand {
 
 extendable!(LogPutCommand);
 request_cancellable!(LogPutCommand);
+request_timeoutable!(LogPutCommand);
 
 #[cfg(test)]
 mod test {
