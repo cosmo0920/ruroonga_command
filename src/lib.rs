@@ -57,6 +57,7 @@ pub mod database_unmap;
 pub mod request_cancel;
 pub mod object_exist;
 pub mod object_inspect;
+pub mod object_remove;
 pub mod normalize;
 pub mod normalizer_list;
 pub mod plugin_register;
