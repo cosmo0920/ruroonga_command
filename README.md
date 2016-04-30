@@ -26,6 +26,8 @@ extern crate ruroonga_command;
 
 ### A complete example
 
+#### For generating CLI Groonga command
+
 ```rust
 extern crate ruroonga_command as ruroonga;
 
@@ -39,6 +41,24 @@ fn select_cli_example() {
 }
 fn main() {
     select_cli_example();
+}
+```
+
+#### For generating HTTP Groonga command
+
+```rust
+extern crate ruroonga_command as ruroonga;
+
+use ruroonga::dsl::*;
+use ruroonga::queryable::Queryable;
+
+fn select_query_example() {
+    let select = select("Entries".to_string())
+                 .filter("content @ \"fast\"".to_string()).to_query();
+    println!("query: {:?}", select);
+}
+fn main() {
+    select_query_example();
 }
 ```
 
