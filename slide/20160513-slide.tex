@@ -1,0 +1,44 @@
+\documentclass[12pt, unicode]{beamer}
+\usetheme{Warsaw}
+\usepackage{luatexja}
+\usepackage{listings}
+
+\title{Groonga query specification}
+\subtitle{How to represent Commandline and HTTP query?}
+\author{Hiroshi Hatake}
+\date[2016/03/12]{Technical information sharing seminar}
+
+\begin{document}
+
+\frame{\maketitle}
+
+\begin{frame}{Introduction}
+\begin{block}{What is Groonga?}
+Groonga is a fully free open-source full-text serach engine and column store.
+\end{block}
+\onslide<1->
+\begin{itemize}
+\item<2-> Full-text search engine based on inverted index
+\item<3-> Various tokenizers
+\item<4-> Sharable storage and read lock-free
+\item<5-> Basic funcitonality is privided from libgroonga
+\item<6-> Query syntax to do full-text search
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Query syntax}
+\begin{block}{Summary of query syntax}
+Groonga has a query which is used by full-text search.
+\end{block}
+\onslide<1->
+\begin{itemize}
+\item<2-> It requires mandatory command name parameter(s) (e.g. select, load... etc.)
+\item<3-> It requires mandatory parameter(s) if they exist
+\item<4-> It may require optional parameter(s) if they can specify
+\item<5-> It may append optional parameter(s) if they are defined (e.g. request\_id and request\_timeout like parameters)
+\item<6-> It requires to convert Commandline query
+\item<7-> It requires to convert to HTTP query
+\end{itemize}
+\end{frame}
+
+\end{document}
