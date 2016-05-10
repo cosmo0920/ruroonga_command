@@ -41,4 +41,20 @@ Groonga has a query which is used by full-text search.
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Groonga query structure}
+\begin{block}{Query structure}
+Groonga query has multiple parts.
+\end{block}
+\begin{table}[htb]
+\resizebox{\textwidth}{!}{%
+    \begin{tabular}{l | c | c } \hline
+      part & content & mandatory? \\ \hline \hline
+      command & command name & yes \\ \hline
+      mandatory parameter(s) & pairs of keys and value & yes \\ \hline
+      optional parameter(s) & pairs of keys and values & no \\ \hline
+      additional parameter(s) & pairs of keys and values & no \\ \hline
+    \end{tabular}}
+\end{table}
+\end{frame}
+
 \end{document}
