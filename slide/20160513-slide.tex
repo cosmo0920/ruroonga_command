@@ -68,4 +68,21 @@ Groonga query MUST keep query parameters order except for using \textbf {named q
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Groonga query basics --example}
+\begin{block}{Query order}
+Groonga query MUST keep query parameters order except for using \textbf {named query}.
+\end{block}
+\onslide<1->
+\begin{table}[htb]
+\resizebox{\textwidth}{!}{%
+  \begin{tabular}{l | c | c } \hline
+      query type & content & valid/invalid \\ \hline \hline
+      non-named query & table\_create {\color{orange}Site} {\color{red}TABLE\_HASH\_KEY} {\color{blue}ShortText} & valid \\ \hline
+      non-named query & table\_create {\color{orange}Site} {\color{blue}ShortText} {\color{red}TABLE\_HASH\_KEY} & invalid \\ \hline
+      named query & table\_create {\color{red}--flags TABLE\_HASH\_KEY} {\color{blue}--key\_type ShortText} {\color{orange}--name Site} & valid \\ \hline
+      named query & table\_create {\color{blue}--key\_type ShortText} {\color{red}--flags TABLE\_HASH\_KEY} {\color{orange}--name Site} & valid \\ \hline
+    \end{tabular}}
+\end{table}
+\end{frame}
+
 \end{document}
