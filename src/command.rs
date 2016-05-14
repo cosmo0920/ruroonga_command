@@ -3,10 +3,10 @@ use std::str::FromStr;
 use std::convert::AsRef;
 use self::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delete, LogLevel,
                     LogPut, LogReopen, TableCreate, TableRename, TableRemove, TableList,
-                    ColumnCreate, ColumnList, ColumnRename, ColumnRemove, RequestCancel,
-                    Normalize, NormalizerList, ObjectExist, ObjectInspect, ObjectRemove,
-                    PluginRegister, PluginUnregister, ThreadLimit, Tokenize, TokenizerList,
-                    Truncate, Schema, Extension};
+                    ColumnCopy, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
+                    RequestCancel, Normalize, NormalizerList, ObjectExist, ObjectInspect,
+                    ObjectRemove, PluginRegister, PluginUnregister, ThreadLimit, Tokenize,
+                    TokenizerList, Truncate, Schema, Extension};
 
 #[derive (Debug)]
 pub enum CommandError {
@@ -29,6 +29,7 @@ pub enum Command {
     TableList,
     TableRename,
     TableRemove,
+    ColumnCopy,
     ColumnCreate,
     ColumnList,
     ColumnRename,
@@ -76,6 +77,7 @@ impl AsRef<str> for Command {
             TableList => "table_list",
             TableRename => "table_rename",
             TableRemove => "table_remove",
+            ColumnCopy => "column_copy",
             ColumnCreate => "column_create",
             ColumnList => "column_list",
             ColumnRename => "column_rename",
@@ -119,6 +121,7 @@ impl FromStr for Command {
                 "table_list" => TableList,
                 "table_rename" => TableRename,
                 "table_remove" => TableRemove,
+                "column_copy" => ColumnCopy,
                 "column_create" => ColumnCreate,
                 "column_list" => ColumnList,
                 "column_rename" => ColumnRename,
@@ -159,6 +162,7 @@ impl fmt::Display for Command {
             TableList => "table_list",
             TableRename => "table_rename",
             TableRemove => "table_remove",
+            ColumnCopy => "column_copy",
             ColumnCreate => "column_create",
             ColumnList => "column_list",
             ColumnRename => "column_rename",
@@ -191,16 +195,17 @@ mod test {
     use super::Command;
     use super::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delete, LogLevel,
                          LogPut, LogReopen, TableCreate, TableList, TableRemove, TableRename,
-                         ColumnCreate, ColumnList, ColumnRename, ColumnRemove, RequestCancel,
-                         ObjectExist, ObjectInspect, ObjectRemove, Normalize, NormalizerList,
-                         PluginRegister, PluginUnregister, ThreadLimit, Tokenize, TokenizerList,
-                         Truncate, Schema, Extension};
+                         ColumnCopy, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
+                         RequestCancel, ObjectExist, ObjectInspect, ObjectRemove, Normalize,
+                         NormalizerList, PluginRegister, PluginUnregister, ThreadLimit, Tokenize,
+                         TokenizerList, Truncate, Schema, Extension};
 
     #[test]
     fn test_from_str() {
         assert_eq!(Select, FromStr::from_str("select").unwrap());
         assert_eq!(CacheLimit, FromStr::from_str("cache_limit").unwrap());
         assert_eq!(DatabaseUnmap, FromStr::from_str("database_unmap").unwrap());
+        assert_eq!(ColumnCopy, FromStr::from_str("column_copy").unwrap());
         assert_eq!(ColumnCreate, FromStr::from_str("column_create").unwrap());
         assert_eq!(ColumnList, FromStr::from_str("column_list").unwrap());
         assert_eq!(ColumnRename, FromStr::from_str("column_rename").unwrap());
@@ -242,6 +247,7 @@ mod test {
         assert_eq!("cache_limit".to_owned(), format!("{}", CacheLimit));
         assert_eq!("database_unmap".to_owned(), format!("{}", DatabaseUnmap));
         assert_eq!("table_create".to_owned(), format!("{}", TableCreate));
+        assert_eq!("column_copy".to_owned(), format!("{}", ColumnCopy));
         assert_eq!("column_create".to_owned(), format!("{}", ColumnCreate));
         assert_eq!("column_list".to_owned(), format!("{}", ColumnList));
         assert_eq!("column_rename".to_owned(), format!("{}", ColumnRename));
@@ -286,6 +292,7 @@ mod test {
         assert_eq!(TableList.as_ref(), "table_list");
         assert_eq!(TableRename.as_ref(), "table_rename");
         assert_eq!(TableRemove.as_ref(), "table_remove");
+        assert_eq!(ColumnCopy.as_ref(), "column_copy");
         assert_eq!(ColumnCreate.as_ref(), "column_create");
         assert_eq!(ColumnList.as_ref(), "column_list");
         assert_eq!(ColumnRename.as_ref(), "column_rename");

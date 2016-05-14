@@ -46,6 +46,7 @@ pub mod table_create;
 pub mod table_list;
 pub mod table_rename;
 pub mod table_remove;
+pub mod column_copy;
 pub mod column_create;
 pub mod column_list;
 pub mod column_rename;
