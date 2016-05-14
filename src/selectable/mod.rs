@@ -2,6 +2,8 @@ pub mod drilldown;
 pub mod labeled_drilldown;
 pub mod drilldownable;
 pub mod labeled_drilldownable;
+pub mod labeled_drilldown_sequencable;
 pub mod drilldown_builder;
 pub mod labeled_drilldown_builder;
+pub mod labeled_drilldown_sequence_builder;
 pub mod fragmentable;

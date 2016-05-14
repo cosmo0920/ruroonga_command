@@ -15,6 +15,8 @@ use selectable::drilldown_builder::DrilldownBuilder;
 use selectable::labeled_drilldown::LabeledDrilldown;
 use selectable::labeled_drilldownable::LabeledDrilldownable;
 use selectable::labeled_drilldown_builder::LabeledDrilldownBuilder;
+use selectable::labeled_drilldown_sequencable::LabeledDrilldownSequencable;
+use selectable::labeled_drilldown_sequence_builder::LabeledDrilldownSequenceBuilder;
 use std::ops::Add;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
@@ -184,6 +186,15 @@ impl Add<LabeledDrilldown> for SelectCommand {
     }
 }
 
+impl Add<Vec<LabeledDrilldown>> for SelectCommand {
+    type Output = LabeledDrilldownSequenceBuilder;
+
+    fn add(self, rhs: Vec<LabeledDrilldown>) -> LabeledDrilldownSequenceBuilder {
+        let labeled_drilldown_sequence_builder = LabeledDrilldownSequenceBuilder::new(self, rhs);
+        labeled_drilldown_sequence_builder
+    }
+}
+
 impl Drilldownable for SelectCommand {
     fn with_drilldown(self, rhs: Drilldown) -> DrilldownBuilder {
         let drilldown_builder = DrilldownBuilder::new(self, rhs);
@@ -195,6 +206,14 @@ impl LabeledDrilldownable for SelectCommand {
     fn with_labeled_drilldown(self, rhs: LabeledDrilldown) -> LabeledDrilldownBuilder {
         let labeled_drilldown_builder = LabeledDrilldownBuilder::new(self, rhs);
         labeled_drilldown_builder
+    }
+}
+
+
+impl LabeledDrilldownSequencable for SelectCommand {
+    fn with_labeled_drilldown_sequence(self, rhs: Vec<LabeledDrilldown>) -> LabeledDrilldownSequenceBuilder {
+        let labeled_drilldown_sequence_builder = LabeledDrilldownSequenceBuilder::new(self, rhs);
+        labeled_drilldown_sequence_builder
     }
 }
 
