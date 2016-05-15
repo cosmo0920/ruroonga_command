@@ -211,7 +211,9 @@ impl LabeledDrilldownable for SelectCommand {
 
 
 impl LabeledDrilldownSequencable for SelectCommand {
-    fn with_labeled_drilldown_sequence(self, rhs: Vec<LabeledDrilldown>) -> LabeledDrilldownSequenceBuilder {
+    fn with_labeled_drilldown_sequence(self,
+                                       rhs: Vec<LabeledDrilldown>)
+                                       -> LabeledDrilldownSequenceBuilder {
         let labeled_drilldown_sequence_builder = LabeledDrilldownSequenceBuilder::new(self, rhs);
         labeled_drilldown_sequence_builder
     }

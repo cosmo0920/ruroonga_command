@@ -19,7 +19,7 @@ pub struct LabeledDrilldownSequenceBuilder {
 /// ```
 /// use ruroonga_command::select::SelectCommand;
 /// use ruroonga_command::selectable::labeled_drilldown::LabeledDrilldown;
-/// use ruroonga_command::selectable::labeled_drilldown_sequence_builder::LabeledDrilldownSequenceBuilder;
+/// use ruroonga_command::selectable::labeled_drilldown_sequence_builder as seq;
 /// let select = SelectCommand::new("Memos".to_string());
 /// let drilldown_label1 = LabeledDrilldown::new("label1".to_string())
 ///                  .table("label2".to_string())
@@ -31,9 +31,10 @@ pub struct LabeledDrilldownSequenceBuilder {
 ///                  .output_columns(vec![("_key".to_string()),
 ///                                       ("_nsubrecs".to_string()),
 ///                                       ("category".to_string())]);
-/// let mut builder = LabeledDrilldownSequenceBuilder::new(select,
-///                                                        vec![(drilldown_label1),
-///                                                             (drilldown_label2)]);
+/// let mut builder =
+///     seq::LabeledDrilldownSequenceBuilder::new(select,
+///                                               vec![(drilldown_label1),
+///                                                    (drilldown_label2)]);
 /// let _ = builder.build();
 /// ```
 /// In more practical example, please refer to drilldown_builder examples
@@ -41,7 +42,9 @@ pub struct LabeledDrilldownSequenceBuilder {
 /// (https://github.com/cosmo0920/ruroonga_command/blob/master/examples/advanced_drilldown.rs).
 
 impl LabeledDrilldownSequenceBuilder {
-    pub fn new(select: SelectCommand, drilldowns: Vec<LabeledDrilldown>) -> LabeledDrilldownSequenceBuilder {
+    pub fn new(select: SelectCommand,
+               drilldowns: Vec<LabeledDrilldown>)
+               -> LabeledDrilldownSequenceBuilder {
         LabeledDrilldownSequenceBuilder {
             select: select,
             drilldowns: drilldowns,
