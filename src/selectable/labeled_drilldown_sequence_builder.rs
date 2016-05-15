@@ -37,7 +37,7 @@ pub struct LabeledDrilldownSequenceBuilder {
 ///                                                    (drilldown_label2)]);
 /// let _ = builder.build();
 /// ```
-/// In more practical example, please refer to drilldown_builder examples
+/// In more practical example, please refer to advanced_drilldown_to_command example
 /// in [examples/advanced_drilldown.rs]
 /// (https://github.com/cosmo0920/ruroonga_command/blob/master/examples/advanced_drilldown.rs).
 
