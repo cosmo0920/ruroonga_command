@@ -61,7 +61,7 @@ impl LabeledDrilldownSequenceBuilder {
             query.push((key.to_owned(), value.to_owned()));
         }
         for drilldown in self.drilldowns.iter() {
-            let (_, _, drilldown) = drilldown.clone().to_fragment();
+            let (_, _, drilldown) = drilldown.to_owned().to_fragment();
             for (key, value) in drilldown.iter() {
                 query.push((key.to_owned(), value.to_owned()));
             }
