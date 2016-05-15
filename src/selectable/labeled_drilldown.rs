@@ -78,6 +78,12 @@ impl LabeledDrilldown {
         self
     }
 
+    pub fn table(mut self, table: String) -> LabeledDrilldown {
+        let key = util::labeled_key(self.label.clone(), "table".to_string());
+        self.arguments.insert(key, table.clone());
+        self
+    }
+
     pub fn build(self) -> Query {
         let mut query: Query = vec![];
         for (key, value) in self.arguments.iter() {
