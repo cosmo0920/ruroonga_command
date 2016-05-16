@@ -78,6 +78,7 @@ impl LabeledDrilldown {
         self
     }
 
+    // TODO: where is the right place for pseudo-table?
     pub fn table(mut self, table: String) -> LabeledDrilldown {
         let key = util::labeled_key(self.label.clone(), "table".to_string());
         self.arguments.insert(key, table.clone());
