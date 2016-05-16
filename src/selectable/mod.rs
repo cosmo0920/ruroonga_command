@@ -7,3 +7,4 @@ pub mod drilldown_builder;
 pub mod labeled_drilldown_builder;
 pub mod labeled_drilldown_sequence_builder;
 pub mod fragmentable;
+pub mod pseudo_table;

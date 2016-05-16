@@ -3,6 +3,7 @@ use command::{Command, Query};
 use util;
 use selectable::fragmentable::Fragmentable;
 use selectable::fragmentable::{OrderedFragment, QueryFragment};
+use selectable::pseudo_table::PseudoTable;
 use types::drilldown_calc_type::CalcType;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
@@ -78,13 +79,6 @@ impl LabeledDrilldown {
         self
     }
 
-    // TODO: where is the right place for pseudo-table?
-    pub fn table(mut self, table: String) -> LabeledDrilldown {
-        let key = util::labeled_key(self.label.clone(), "table".to_string());
-        self.arguments.insert(key, table.clone());
-        self
-    }
-
     pub fn build(self) -> Query {
         let mut query: Query = vec![];
         for (key, value) in self.arguments.iter() {
@@ -98,6 +92,17 @@ impl Fragmentable for LabeledDrilldown {
     fn to_fragment(self) -> (Command, OrderedFragment, QueryFragment) {
         // Command::Extension is `Command` type requirement. It should be ignored.
         (Command::Extension("labeled_drilldown".to_string()), vec![], self.arguments.clone())
+    }
+}
+
+impl PseudoTable for LabeledDrilldown {
+    type Output = LabeledDrilldown;
+
+    fn table(mut self, table: String) -> LabeledDrilldown {
+        let key = util::labeled_key(self.label.clone(), "table".to_string());
+
+        self.arguments.insert(key, table.clone());
+        self
     }
 }
 

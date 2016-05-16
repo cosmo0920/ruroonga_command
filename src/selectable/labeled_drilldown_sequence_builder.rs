@@ -18,6 +18,7 @@ pub struct LabeledDrilldownSequenceBuilder {
 ///
 /// ```
 /// use ruroonga_command::select::SelectCommand;
+/// use ruroonga_command::selectable::pseudo_table::PseudoTable;
 /// use ruroonga_command::selectable::labeled_drilldown::LabeledDrilldown;
 /// use ruroonga_command::selectable::labeled_drilldown_sequence_builder as seq;
 /// let select = SelectCommand::new("Memos".to_string());

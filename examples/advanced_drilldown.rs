@@ -2,6 +2,7 @@ extern crate ruroonga_command as ruroonga;
 use ruroonga::selectable::labeled_drilldown::LabeledDrilldown;
 use ruroonga::commandable::Commandable;
 use ruroonga::dsl::*;
+use ruroonga::selectable::pseudo_table::PseudoTable;
 
 fn advanced_drilldown_to_command() {
     let select = select("Memos".to_string());
