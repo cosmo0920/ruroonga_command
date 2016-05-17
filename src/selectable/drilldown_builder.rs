@@ -27,7 +27,7 @@ pub struct DrilldownBuilder {
 /// let mut builder = DrilldownBuilder::new(select, drilldown);
 /// let _ = builder.build();
 /// ```
-/// In more practical example, please refer to drilldown_builder examples
+/// In more practical example, please refer to `drilldown_builder` examples
 /// in [examples/drilldown_builder.rs]
 /// (https://github.com/cosmo0920/ruroonga_command/blob/master/examples/drilldown_builder.rs).
 impl DrilldownBuilder {

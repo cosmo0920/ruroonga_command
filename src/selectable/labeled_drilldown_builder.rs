@@ -12,7 +12,7 @@ pub struct LabeledDrilldownBuilder {
     drilldown: LabeledDrilldown,
 }
 
-/// LabeledDrilldown builder.
+/// `LabeledDrilldown` builder.
 ///
 /// ## Simple usage
 ///

@@ -75,7 +75,7 @@ pub mod truncate;
 /// You should use this module **at your own risk**.
 pub mod extension;
 pub mod schema;
-/// `dsl` provides its XXXCommand returning dsl syntax like this:
+/// `dsl` provides its `XXXCommand` returning dsl syntax like this:
 ///
 /// ## DSL Example
 ///
