@@ -41,8 +41,8 @@ impl LogPutCommand {
     }
 
     pub fn build(self) -> (Command, Query) {
-        let mut query: Query = vec![("level".to_string(), format!("{}", self.level)),
-                                    ("message".to_string(), format!("{}", self.message))];
+        let mut query: Query = vec![("level".to_string(), self.level.to_string()),
+                                    ("message".to_string(), self.message.to_string())];
         for (key, value) in &self.arguments {
             query.push((key.to_owned(), value.to_owned()));
         }
