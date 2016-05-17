@@ -37,10 +37,7 @@ impl TableRemoveCommand {
     }
 
     pub fn dependent(mut self, dependent: bool) -> TableRemoveCommand {
-        let flag = match dependent {
-            true => "yes",
-            false => "no",
-        };
+        let flag = if dependent { "yes" } else { "no" };
         self.arguments.insert("dependent".to_string(), flag.to_string());
         self
     }
