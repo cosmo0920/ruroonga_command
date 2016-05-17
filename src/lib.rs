@@ -1,3 +1,6 @@
+#![cfg_attr(feature = "dev", feature(plugin))]
+#![cfg_attr(feature = "dev", plugin(clippy))]
+
 //! `ruroonga_command` provides extensible Groonga command query builder and
 //! generator. It reduces runtime errors about Groonga queries.
 
