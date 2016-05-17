@@ -52,7 +52,7 @@ impl CommandLine {
     pub fn encode(&mut self) -> String {
         format!("{} {}", self.get_command(), self.make_command())
             .trim()
-            .clone()
+            .to_string()
     }
 }
 
