@@ -37,7 +37,7 @@ impl RequestCancelCommand {
 
     pub fn build(self) -> (Command, Query) {
         let mut query: Query = vec![("id".to_string(), self.id)];
-        for (key, value) in self.arguments.iter() {
+        for (key, value) in &self.arguments {
             query.push((key.to_owned(), value.to_owned()));
         }
         (self.command, query)

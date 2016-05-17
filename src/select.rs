@@ -134,7 +134,7 @@ impl SelectCommand {
 
     pub fn build(self) -> (Command, Query) {
         let mut query: Query = vec![("table".to_string(), self.table)];
-        for (key, value) in self.arguments.iter() {
+        for (key, value) in &self.arguments {
             query.push((key.to_owned(), value.to_owned()));
         }
         (Select, query)
@@ -161,8 +161,8 @@ impl Fragmentable for SelectCommand {
     fn to_fragment(self) -> (Command, OrderedFragment, QueryFragment) {
         let mut select_fragment = HashMap::new();
         let ordered_fragment = vec![("table".to_string(), self.table)];
-        for (key, value) in self.arguments.to_owned() {
-            select_fragment.insert(key, value);
+        for (key, value) in &self.arguments {
+            select_fragment.insert(key.to_owned(), value.to_owned());
         }
         (Select, ordered_fragment, select_fragment)
     }

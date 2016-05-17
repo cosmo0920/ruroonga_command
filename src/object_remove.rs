@@ -47,7 +47,7 @@ impl ObjectRemoveCommand {
 
     pub fn build(self) -> (Command, Query) {
         let mut query: Query = vec![("name".to_string(), self.name)];
-        for (key, value) in self.arguments.iter() {
+        for (key, value) in &self.arguments {
             query.push((key.to_owned(), value.to_owned()));
         }
         (ObjectRemove, query)

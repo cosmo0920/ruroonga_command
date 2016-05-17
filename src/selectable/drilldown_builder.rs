@@ -41,14 +41,14 @@ impl DrilldownBuilder {
     pub fn build(self) -> (Command, Query) {
         let mut query: Query = vec![];
         let (command, ordered_select, select) = self.select.to_fragment();
-        for ordered in ordered_select.iter() {
+        for ordered in &ordered_select {
             query.push(ordered.to_owned());
         }
-        for (key, value) in select.iter() {
+        for (key, value) in &select {
             query.push((key.to_owned(), value.to_owned()));
         }
         let (_, _, drilldown) = self.drilldown.to_fragment();
-        for (key, value) in drilldown.iter() {
+        for (key, value) in &drilldown {
             query.push((key.to_owned(), value.to_owned()));
         }
         (command, query)

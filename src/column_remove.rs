@@ -42,7 +42,7 @@ impl ColumnRemoveCommand {
     pub fn build(self) -> (Command, Query) {
         let mut query: Query = vec![("table".to_string(), self.table),
                                     ("name".to_string(), self.name)];
-        for (key, value) in self.arguments.iter() {
+        for (key, value) in &self.arguments {
             query.push((key.to_owned(), value.to_owned()));
         }
         (ColumnRemove, query)
