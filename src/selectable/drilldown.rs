@@ -18,8 +18,7 @@ impl Default for Drilldown {
 }
 impl Drilldown {
     pub fn new() -> Drilldown {
-        let default: Drilldown = Default::default();
-        default
+        Default::default()
     }
 
     pub fn drilldown(mut self, targets: Vec<String>) -> Drilldown {
@@ -65,7 +64,7 @@ impl Drilldown {
 
     pub fn build(self) -> Query {
         let mut query: Query = vec![];
-        for (key, value) in self.arguments.iter() {
+        for (key, value) in &self.arguments {
             query.push((key.to_owned(), value.to_owned()));
         }
         query

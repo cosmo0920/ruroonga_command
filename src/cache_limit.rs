@@ -41,7 +41,7 @@ impl CacheLimitCommand {
 
     pub fn build(self) -> (Command, Query) {
         let mut query: Query = vec![];
-        for (key, value) in self.arguments.iter() {
+        for (key, value) in &self.arguments {
             query.push((key.to_owned(), value.to_owned()));
         }
         (CacheLimit, query)

@@ -38,7 +38,7 @@ impl CommandLine {
         let mut output = String::new();
         for query in self.arguments.to_owned() {
             let (key, value) = query;
-            if output.len() > 0 {
+            if output.len() >= 1 {
                 output.push_str(" ");
             }
             let format_string = format!("--{} {}", &*key, Escape(&*value));

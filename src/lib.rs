@@ -1,3 +1,6 @@
+#![cfg_attr(feature = "dev", feature(plugin))]
+#![cfg_attr(feature = "dev", plugin(clippy))]
+
 //! `ruroonga_command` provides extensible Groonga command query builder and
 //! generator. It reduces runtime errors about Groonga queries.
 
@@ -72,7 +75,7 @@ pub mod truncate;
 /// You should use this module **at your own risk**.
 pub mod extension;
 pub mod schema;
-/// `dsl` provides its XXXCommand returning dsl syntax like this:
+/// `dsl` provides its `XXXCommand` returning dsl syntax like this:
 ///
 /// ## DSL Example
 ///

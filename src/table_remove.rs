@@ -37,17 +37,14 @@ impl TableRemoveCommand {
     }
 
     pub fn dependent(mut self, dependent: bool) -> TableRemoveCommand {
-        let flag = match dependent {
-            true => "yes",
-            false => "no",
-        };
+        let flag = if dependent { "yes" } else { "no" };
         self.arguments.insert("dependent".to_string(), flag.to_string());
         self
     }
 
     pub fn build(self) -> (Command, Query) {
         let mut query: Query = vec![("name".to_string(), self.name)];
-        for (key, value) in self.arguments.iter() {
+        for (key, value) in &self.arguments {
             query.push((key.to_owned(), value.to_owned()));
         }
         (TableRemove, query)

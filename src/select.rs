@@ -105,10 +105,7 @@ impl SelectCommand {
     }
 
     pub fn cache(mut self, cache: bool) -> SelectCommand {
-        let flag = match cache {
-            true => "yes",
-            false => "no",
-        };
+        let flag = if cache { "yes" } else { "no" };
         self.arguments.insert("cache".to_string(), flag.to_string());
         self
     }
@@ -134,7 +131,7 @@ impl SelectCommand {
 
     pub fn build(self) -> (Command, Query) {
         let mut query: Query = vec![("table".to_string(), self.table)];
-        for (key, value) in self.arguments.iter() {
+        for (key, value) in &self.arguments {
             query.push((key.to_owned(), value.to_owned()));
         }
         (Select, query)
@@ -161,8 +158,8 @@ impl Fragmentable for SelectCommand {
     fn to_fragment(self) -> (Command, OrderedFragment, QueryFragment) {
         let mut select_fragment = HashMap::new();
         let ordered_fragment = vec![("table".to_string(), self.table)];
-        for (key, value) in self.arguments.to_owned() {
-            select_fragment.insert(key, value);
+        for (key, value) in &self.arguments {
+            select_fragment.insert(key.to_owned(), value.to_owned());
         }
         (Select, ordered_fragment, select_fragment)
     }
@@ -172,8 +169,7 @@ impl Add<Drilldown> for SelectCommand {
     type Output = DrilldownBuilder;
 
     fn add(self, rhs: Drilldown) -> DrilldownBuilder {
-        let drilldown_builder = DrilldownBuilder::new(self, rhs);
-        drilldown_builder
+        DrilldownBuilder::new(self, rhs)
     }
 }
 
@@ -181,8 +177,7 @@ impl Add<LabeledDrilldown> for SelectCommand {
     type Output = LabeledDrilldownBuilder;
 
     fn add(self, rhs: LabeledDrilldown) -> LabeledDrilldownBuilder {
-        let labeled_drilldown_builder = LabeledDrilldownBuilder::new(self, rhs);
-        labeled_drilldown_builder
+        LabeledDrilldownBuilder::new(self, rhs)
     }
 }
 
@@ -190,22 +185,19 @@ impl Add<Vec<LabeledDrilldown>> for SelectCommand {
     type Output = LabeledDrilldownSequenceBuilder;
 
     fn add(self, rhs: Vec<LabeledDrilldown>) -> LabeledDrilldownSequenceBuilder {
-        let labeled_drilldown_sequence_builder = LabeledDrilldownSequenceBuilder::new(self, rhs);
-        labeled_drilldown_sequence_builder
+        LabeledDrilldownSequenceBuilder::new(self, rhs)
     }
 }
 
 impl Drilldownable for SelectCommand {
     fn with_drilldown(self, rhs: Drilldown) -> DrilldownBuilder {
-        let drilldown_builder = DrilldownBuilder::new(self, rhs);
-        drilldown_builder
+        DrilldownBuilder::new(self, rhs)
     }
 }
 
 impl LabeledDrilldownable for SelectCommand {
     fn with_labeled_drilldown(self, rhs: LabeledDrilldown) -> LabeledDrilldownBuilder {
-        let labeled_drilldown_builder = LabeledDrilldownBuilder::new(self, rhs);
-        labeled_drilldown_builder
+        LabeledDrilldownBuilder::new(self, rhs)
     }
 }
 
@@ -214,8 +206,7 @@ impl LabeledDrilldownSequencable for SelectCommand {
     fn with_labeled_drilldown_sequence(self,
                                        rhs: Vec<LabeledDrilldown>)
                                        -> LabeledDrilldownSequenceBuilder {
-        let labeled_drilldown_sequence_builder = LabeledDrilldownSequenceBuilder::new(self, rhs);
-        labeled_drilldown_sequence_builder
+        LabeledDrilldownSequenceBuilder::new(self, rhs)
     }
 }
 

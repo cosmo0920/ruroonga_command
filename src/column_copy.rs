@@ -54,7 +54,7 @@ impl ColumnCopyCommand {
                                     ("from_name".to_string(), self.from_name),
                                     ("to_table".to_string(), self.to_table),
                                     ("to_name".to_string(), self.to_name)];
-        for (key, value) in self.arguments.iter() {
+        for (key, value) in &self.arguments {
             query.push((key.to_owned(), value.to_owned()));
         }
         (ColumnCopy, query)

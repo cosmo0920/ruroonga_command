@@ -37,17 +37,14 @@ impl ObjectRemoveCommand {
     }
 
     pub fn force(mut self, force: bool) -> ObjectRemoveCommand {
-        let flag = match force {
-            true => "yes",
-            false => "no",
-        };
+        let flag = if force { "yes" } else { "no" };
         self.arguments.insert("force".to_string(), flag.to_string());
         self
     }
 
     pub fn build(self) -> (Command, Query) {
         let mut query: Query = vec![("name".to_string(), self.name)];
-        for (key, value) in self.arguments.iter() {
+        for (key, value) in &self.arguments {
             query.push((key.to_owned(), value.to_owned()));
         }
         (ObjectRemove, query)
