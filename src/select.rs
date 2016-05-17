@@ -172,8 +172,7 @@ impl Add<Drilldown> for SelectCommand {
     type Output = DrilldownBuilder;
 
     fn add(self, rhs: Drilldown) -> DrilldownBuilder {
-        let drilldown_builder = DrilldownBuilder::new(self, rhs);
-        drilldown_builder
+        DrilldownBuilder::new(self, rhs)
     }
 }
 
@@ -181,8 +180,7 @@ impl Add<LabeledDrilldown> for SelectCommand {
     type Output = LabeledDrilldownBuilder;
 
     fn add(self, rhs: LabeledDrilldown) -> LabeledDrilldownBuilder {
-        let labeled_drilldown_builder = LabeledDrilldownBuilder::new(self, rhs);
-        labeled_drilldown_builder
+        LabeledDrilldownBuilder::new(self, rhs)
     }
 }
 
@@ -190,22 +188,19 @@ impl Add<Vec<LabeledDrilldown>> for SelectCommand {
     type Output = LabeledDrilldownSequenceBuilder;
 
     fn add(self, rhs: Vec<LabeledDrilldown>) -> LabeledDrilldownSequenceBuilder {
-        let labeled_drilldown_sequence_builder = LabeledDrilldownSequenceBuilder::new(self, rhs);
-        labeled_drilldown_sequence_builder
+        LabeledDrilldownSequenceBuilder::new(self, rhs)
     }
 }
 
 impl Drilldownable for SelectCommand {
     fn with_drilldown(self, rhs: Drilldown) -> DrilldownBuilder {
-        let drilldown_builder = DrilldownBuilder::new(self, rhs);
-        drilldown_builder
+        DrilldownBuilder::new(self, rhs)
     }
 }
 
 impl LabeledDrilldownable for SelectCommand {
     fn with_labeled_drilldown(self, rhs: LabeledDrilldown) -> LabeledDrilldownBuilder {
-        let labeled_drilldown_builder = LabeledDrilldownBuilder::new(self, rhs);
-        labeled_drilldown_builder
+        LabeledDrilldownBuilder::new(self, rhs)
     }
 }
 
@@ -214,8 +209,7 @@ impl LabeledDrilldownSequencable for SelectCommand {
     fn with_labeled_drilldown_sequence(self,
                                        rhs: Vec<LabeledDrilldown>)
                                        -> LabeledDrilldownSequenceBuilder {
-        let labeled_drilldown_sequence_builder = LabeledDrilldownSequenceBuilder::new(self, rhs);
-        labeled_drilldown_sequence_builder
+        LabeledDrilldownSequenceBuilder::new(self, rhs)
     }
 }
 

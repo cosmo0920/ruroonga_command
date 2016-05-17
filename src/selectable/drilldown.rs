@@ -18,8 +18,7 @@ impl Default for Drilldown {
 }
 impl Drilldown {
     pub fn new() -> Drilldown {
-        let default: Drilldown = Default::default();
-        default
+        Default::default()
     }
 
     pub fn drilldown(mut self, targets: Vec<String>) -> Drilldown {
