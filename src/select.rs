@@ -478,7 +478,8 @@ mod test {
                          .filter("content @ \"fast\"".to_string());
         let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
         let ops_builder = (select.to_owned() + drilldown.to_owned()).build();
-        let drilldown_builder = DrilldownBuilder::new(select.to_owned(), drilldown.to_owned()).build();
+        let drilldown_builder = DrilldownBuilder::new(select.to_owned(), drilldown.to_owned())
+                                    .build();
         assert_eq!(ops_builder, drilldown_builder);
     }
 
@@ -489,7 +490,8 @@ mod test {
         let drilldown = LabeledDrilldown::new("labeled".to_string())
                             .keys(vec![("tag".to_string())]);
         let ops_builder = (select.to_owned() + drilldown.to_owned()).build();
-        let drilldown_builder = LabeledDrilldownBuilder::new(select.to_owned(), drilldown.to_owned())
+        let drilldown_builder = LabeledDrilldownBuilder::new(select.to_owned(),
+                                                             drilldown.to_owned())
                                     .build();
         assert_eq!(ops_builder, drilldown_builder);
     }
@@ -500,7 +502,8 @@ mod test {
                          .filter("content @ \"fast\"".to_string());
         let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
         let drilldownable = select.to_owned().with_drilldown(drilldown.to_owned()).build();
-        let drilldown_builder = DrilldownBuilder::new(select.to_owned(), drilldown.to_owned()).build();
+        let drilldown_builder = DrilldownBuilder::new(select.to_owned(), drilldown.to_owned())
+                                    .build();
         assert_eq!(drilldownable, drilldown_builder);
     }
 
@@ -510,7 +513,8 @@ mod test {
                          .filter("content @ \"fast\"".to_string());
         let drilldown = LabeledDrilldown::new("label".to_string()).keys(vec![("tag".to_string())]);
         let drilldownable = select.to_owned().with_labeled_drilldown(drilldown.to_owned()).build();
-        let drilldown_builder = LabeledDrilldownBuilder::new(select.to_owned(), drilldown.to_owned())
+        let drilldown_builder = LabeledDrilldownBuilder::new(select.to_owned(),
+                                                             drilldown.to_owned())
                                     .build();
         assert_eq!(drilldownable, drilldown_builder);
     }
