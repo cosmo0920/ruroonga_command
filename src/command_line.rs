@@ -36,7 +36,7 @@ impl CommandLine {
     /// And two or more value pair are concatinate with ` `(a space).
     pub fn make_command(&mut self) -> String {
         let mut output = String::new();
-        for query in self.arguments.clone() {
+        for query in self.arguments.to_owned() {
             let (key, value) = query;
             if output.len() > 0 {
                 output.push_str(" ");
@@ -52,7 +52,7 @@ impl CommandLine {
     pub fn encode(&mut self) -> String {
         format!("{} {}", self.get_command(), self.make_command())
             .trim()
-            .to_owned()
+            .clone()
     }
 }
 

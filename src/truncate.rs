@@ -115,11 +115,11 @@ mod test {
         let expected = TruncateCommand {
             command: Truncate,
             target_name: "deleting".to_string(),
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         let query = TruncateCommand::new("deleting".to_string());
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

@@ -146,26 +146,26 @@ impl TokenizeCommand {
 
     pub fn normalizer(mut self, normalizer_type: NormalizerType) -> TokenizeCommand {
         let string = format!("{}", normalizer_type);
-        self.arguments.insert("normalizer".to_string(), string.clone());
+        self.arguments.insert("normalizer".to_string(), string.to_owned());
         self
     }
 
     pub fn token_filters(mut self, token_filters: TokenFiltersType) -> TokenizeCommand {
 
         let string = format!("{}", token_filters);
-        self.arguments.insert("token_filters".to_string(), string.clone());
+        self.arguments.insert("token_filters".to_string(), string.to_owned());
         self
     }
 
     pub fn flags(mut self, flags: Vec<FlagType>) -> TokenizeCommand {
         let string = util::split_flags_vec(flags);
-        self.arguments.insert("flags".to_string(), string.clone());
+        self.arguments.insert("flags".to_string(), string.to_owned());
         self
     }
 
     pub fn mode(mut self, mode: ModeType) -> TokenizeCommand {
         let string = format!("{}", mode);
-        self.arguments.insert("mode".to_string(), string.clone());
+        self.arguments.insert("mode".to_string(), string.to_owned());
         self
     }
 
@@ -294,7 +294,7 @@ mod test {
             command: Tokenize,
             tokenizer: TokenizerType::Bigram,
             string: "\"element\"".to_string(),
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         assert_eq!(expected, column_create);
     }
@@ -310,7 +310,7 @@ mod test {
             command: Tokenize,
             tokenizer: TokenizerType::Bigram,
             string: "\"element\"".to_string(),
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         assert_eq!(expected, token_filters);
     }
@@ -326,7 +326,7 @@ mod test {
             command: Tokenize,
             tokenizer: TokenizerType::Bigram,
             string: "\"element\"".to_string(),
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         assert_eq!(expected, tokenize);
     }
@@ -341,7 +341,7 @@ mod test {
             command: Tokenize,
             tokenizer: TokenizerType::Bigram,
             string: "\"element\"".to_string(),
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         assert_eq!(expected, tokenize);
     }
@@ -378,11 +378,11 @@ mod test {
             command: Tokenize,
             tokenizer: TokenizerType::Bigram,
             string: "\"element\"".to_string(),
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         let query = TokenizeCommand::new(TokenizerType::Bigram, "element".to_string());
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

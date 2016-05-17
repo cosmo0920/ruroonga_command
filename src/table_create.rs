@@ -44,31 +44,31 @@ impl TableCreateCommand {
 
     pub fn flags(mut self, flags: Vec<TableFlagType>) -> TableCreateCommand {
         let string = util::split_flags_vec(flags);
-        self.arguments.insert("flags".to_string(), string.clone());
+        self.arguments.insert("flags".to_string(), string.to_owned());
         self
     }
 
     pub fn key_type(mut self, key_type: DataType) -> TableCreateCommand {
         let string = format!("{}", key_type);
-        self.arguments.insert("key_type".to_string(), string.clone());
+        self.arguments.insert("key_type".to_string(), string.to_owned());
         self
     }
 
     pub fn default_tokenizer(mut self, tokenizer: TokenizerType) -> TableCreateCommand {
         let string = format!("{}", tokenizer);
-        self.arguments.insert("default_tokenizer".to_string(), string.clone());
+        self.arguments.insert("default_tokenizer".to_string(), string.to_owned());
         self
     }
 
     pub fn normalizer(mut self, normalizer: NormalizerType) -> TableCreateCommand {
         let string = format!("{}", normalizer);
-        self.arguments.insert("normalizer".to_string(), string.clone());
+        self.arguments.insert("normalizer".to_string(), string.to_owned());
         self
     }
 
     pub fn token_filter(mut self, token_filter: TokenFiltersType) -> TableCreateCommand {
         let string = format!("{}", token_filter);
-        self.arguments.insert("token_filter".to_string(), string.clone());
+        self.arguments.insert("token_filter".to_string(), string.to_owned());
         self
     }
 
@@ -237,11 +237,11 @@ mod test {
         let expected = TableCreateCommand {
             command: TableCreate,
             name: "Test".to_string(),
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         let query = TableCreateCommand::new("Test".to_string());
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

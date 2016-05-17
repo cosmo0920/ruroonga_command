@@ -157,14 +157,14 @@ mod test {
             from_name: "element".to_string(),
             to_table: "NewTest".to_string(),
             to_name: "new_element".to_string(),
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         let query = ColumnCopyCommand::new("Test".to_string(),
                                            "element".to_string(),
                                            "NewTest".to_string(),
                                            "new_element".to_string());
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

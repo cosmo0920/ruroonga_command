@@ -35,7 +35,7 @@ impl CacheLimitCommand {
 
     pub fn max(mut self, max: u64) -> CacheLimitCommand {
         let string = format!("{}", max);
-        self.arguments.insert("max".to_string(), string.clone());
+        self.arguments.insert("max".to_string(), string.to_owned());
         self
     }
 
@@ -95,7 +95,7 @@ mod test {
         arg.insert("max".to_string(), "4".to_string());
         let expected = CacheLimitCommand {
             command: CacheLimit,
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         assert_eq!(expected, cache_limit);
     }
@@ -128,11 +128,11 @@ mod test {
         arg.insert("user".to_string(), "defined".to_string());
         let expected = CacheLimitCommand {
             command: CacheLimit,
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         let query = CacheLimitCommand::new();
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

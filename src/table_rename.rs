@@ -124,11 +124,11 @@ mod test {
             command: TableRename,
             name: "Books".to_string(),
             new_name: "SoldBooks".to_string(),
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         let query = TableRenameCommand::new("Books".to_string(), "SoldBooks".to_string());
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

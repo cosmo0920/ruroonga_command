@@ -122,11 +122,11 @@ mod test {
             command: ColumnRename,
             name: "old".to_string(),
             new_name: "new".to_string(),
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         let query = ColumnRenameCommand::new("old".to_string(), "new".to_string());
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

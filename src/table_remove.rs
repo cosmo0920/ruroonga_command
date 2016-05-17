@@ -146,11 +146,11 @@ mod test {
         let expected = TableRemoveCommand {
             command: TableRemove,
             name: "Table".to_string(),
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         let query = TableRemoveCommand::new("Table".to_string());
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

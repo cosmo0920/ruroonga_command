@@ -78,10 +78,10 @@ mod test {
     #[test]
     fn test_new() {
         let object = "object".to_string();
-        let object_exist = ObjectExistCommand::new(object.clone());
+        let object_exist = ObjectExistCommand::new(object.to_owned());
         let expected = ObjectExistCommand {
             command: ObjectExist,
-            name: object.clone(),
+            name: object.to_owned(),
             arguments: HashMap::new(),
         };
         assert_eq!(expected, object_exist);
@@ -90,8 +90,8 @@ mod test {
     #[test]
     fn test_build() {
         let object = "object".to_string();
-        let actual = ObjectExistCommand::new(object.clone()).build();
-        let expected_query: Query = vec![("name".to_string(), object.clone())];
+        let actual = ObjectExistCommand::new(object.to_owned()).build();
+        let expected_query: Query = vec![("name".to_string(), object.to_owned())];
         let expected = (ObjectExist, expected_query);
         assert_eq!(expected, actual);
     }
@@ -119,12 +119,12 @@ mod test {
         arg.insert("user".to_string(), "defined".to_string());
         let expected = ObjectExistCommand {
             command: ObjectExist,
-            name: object.clone(),
-            arguments: arg.clone(),
+            name: object.to_owned(),
+            arguments: arg.to_owned(),
         };
-        let query = ObjectExistCommand::new(object.clone());
+        let query = ObjectExistCommand::new(object.to_owned());
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

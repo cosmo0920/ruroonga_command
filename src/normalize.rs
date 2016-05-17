@@ -109,7 +109,7 @@ impl NormalizeCommand {
 
     pub fn flags(mut self, flags: Vec<FlagType>) -> NormalizeCommand {
         let string = util::split_flags_vec(flags);
-        self.arguments.insert("flags".to_string(), string.clone());
+        self.arguments.insert("flags".to_string(), string.to_owned());
         self
     }
 
@@ -212,7 +212,7 @@ mod test {
             command: Normalize,
             normalizer: NormalizerType::Auto,
             string: "\"element\"".to_string(),
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         assert_eq!(expected, normalize);
     }

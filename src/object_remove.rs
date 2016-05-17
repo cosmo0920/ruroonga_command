@@ -87,10 +87,10 @@ mod test {
     #[test]
     fn test_new() {
         let object = "object".to_string();
-        let object_remove = ObjectRemoveCommand::new(object.clone());
+        let object_remove = ObjectRemoveCommand::new(object.to_owned());
         let expected = ObjectRemoveCommand {
             command: ObjectRemove,
-            name: object.clone(),
+            name: object.to_owned(),
             arguments: HashMap::new(),
         };
         assert_eq!(expected, object_remove);
@@ -121,8 +121,8 @@ mod test {
     #[test]
     fn test_build() {
         let object = "object".to_string();
-        let actual = ObjectRemoveCommand::new(object.clone()).build();
-        let expected_query: Query = vec![("name".to_string(), object.clone())];
+        let actual = ObjectRemoveCommand::new(object.to_owned()).build();
+        let expected_query: Query = vec![("name".to_string(), object.to_owned())];
         let expected = (ObjectRemove, expected_query);
         assert_eq!(expected, actual);
     }
@@ -150,12 +150,12 @@ mod test {
         arg.insert("user".to_string(), "defined".to_string());
         let expected = ObjectRemoveCommand {
             command: ObjectRemove,
-            name: object.clone(),
-            arguments: arg.clone(),
+            name: object.to_owned(),
+            arguments: arg.to_owned(),
         };
-        let query = ObjectRemoveCommand::new(object.clone());
+        let query = ObjectRemoveCommand::new(object.to_owned());
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

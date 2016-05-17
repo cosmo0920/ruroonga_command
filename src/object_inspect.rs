@@ -34,7 +34,7 @@ impl ObjectInspectCommand {
     }
 
     pub fn name(mut self, name: String) -> ObjectInspectCommand {
-        self.arguments.insert("name".to_string(), name.clone());
+        self.arguments.insert("name".to_string(), name.to_owned());
         self
     }
 
@@ -123,11 +123,11 @@ mod test {
         arg.insert("user".to_string(), "defined".to_string());
         let expected = ObjectInspectCommand {
             command: ObjectInspect,
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         let query = ObjectInspectCommand::new();
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

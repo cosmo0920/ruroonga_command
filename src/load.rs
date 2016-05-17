@@ -93,13 +93,13 @@ impl LoadCommand {
 
     pub fn columns(mut self, columns: Vec<String>) -> LoadCommand {
         let string = util::split_values_vec(columns);
-        self.arguments.insert("columns".to_string(), string.clone());
+        self.arguments.insert("columns".to_string(), string.to_owned());
         self
     }
 
     pub fn input_type(mut self, input_type: InputType) -> LoadCommand {
         let input_type_str = format!("{}", input_type);
-        self.arguments.insert("input_type".to_string(), input_type_str.clone());
+        self.arguments.insert("input_type".to_string(), input_type_str.to_owned());
         self
     }
 
@@ -108,7 +108,7 @@ impl LoadCommand {
         for (key, value) in self.arguments.iter() {
             query.push((key.to_owned(), value.to_owned()));
         }
-        let values = self.values.clone();
+        let values = self.values.to_owned();
         (Load, query, values)
     }
 }

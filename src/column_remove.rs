@@ -124,11 +124,11 @@ mod test {
             command: ColumnRemove,
             table: "Books".to_string(),
             name: "category".to_string(),
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         let query = ColumnRemoveCommand::new("Books".to_string(), "category".to_string());
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

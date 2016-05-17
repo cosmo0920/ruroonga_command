@@ -44,19 +44,19 @@ impl ColumnCreateCommand {
 
     pub fn column_type(mut self, column_type: DataType) -> ColumnCreateCommand {
         let string = format!("{}", column_type);
-        self.arguments.insert("type".to_string(), string.clone());
+        self.arguments.insert("type".to_string(), string.to_owned());
         self
     }
 
     pub fn flags(mut self, flags: Vec<ColumnFlagType>) -> ColumnCreateCommand {
         let string = util::split_flags_vec(flags);
-        self.arguments.insert("flags".to_string(), string.clone());
+        self.arguments.insert("flags".to_string(), string.to_owned());
         self
     }
 
     pub fn source(mut self, source: Vec<String>) -> ColumnCreateCommand {
         let string = util::split_values_vec(source);
-        self.arguments.insert("source".to_string(), string.clone());
+        self.arguments.insert("source".to_string(), string.to_owned());
         self
     }
 
@@ -198,11 +198,11 @@ mod test {
             command: ColumnCreate,
             table: "Test".to_string(),
             name: "element".to_string(),
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         let query = ColumnCreateCommand::new("Test".to_string(), "element".to_string());
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

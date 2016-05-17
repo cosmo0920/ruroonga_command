@@ -24,31 +24,31 @@ impl Drilldown {
 
     pub fn drilldown(mut self, targets: Vec<String>) -> Drilldown {
         let string = format!("\'{}\'", util::split_values_vec(targets));
-        self.arguments.insert("drilldown".to_string(), string.clone());
+        self.arguments.insert("drilldown".to_string(), string.to_owned());
         self
     }
 
     pub fn sortby(mut self, targets: Vec<String>) -> Drilldown {
         let string = format!("\'{}\'", util::split_values_vec(targets));
-        self.arguments.insert("drilldown_sortby".to_string(), string.clone());
+        self.arguments.insert("drilldown_sortby".to_string(), string.to_owned());
         self
     }
 
     pub fn output_columns(mut self, columns: Vec<String>) -> Drilldown {
         let string = format!("\'{}\'", util::split_values_vec(columns));
-        self.arguments.insert("drilldown_output_columns".to_string(), string.clone());
+        self.arguments.insert("drilldown_output_columns".to_string(), string.to_owned());
         self
     }
 
     pub fn offset(mut self, offset: i64) -> Drilldown {
         let offset = format!("{}", offset);
-        self.arguments.insert("drilldown_offset".to_string(), offset.clone());
+        self.arguments.insert("drilldown_offset".to_string(), offset.to_owned());
         self
     }
 
     pub fn limit(mut self, limit: i64) -> Drilldown {
         let limit = format!("{}", limit);
-        self.arguments.insert("drilldown_limit".to_string(), limit.clone());
+        self.arguments.insert("drilldown_limit".to_string(), limit.to_owned());
         self
     }
 
@@ -59,7 +59,7 @@ impl Drilldown {
     }
 
     pub fn calc_target(mut self, target: String) -> Drilldown {
-        self.arguments.insert("drilldown_calc_target".to_string(), target.clone());
+        self.arguments.insert("drilldown_calc_target".to_string(), target.to_owned());
         self
     }
 
@@ -75,7 +75,7 @@ impl Drilldown {
 impl Fragmentable for Drilldown {
     fn to_fragment(self) -> (Command, OrderedFragment, QueryFragment) {
         // Command::Extension is `Command` type requirement. It should be ignored.
-        (Command::Extension("drilldown".to_string()), vec![], self.arguments.clone())
+        (Command::Extension("drilldown".to_string()), vec![], self.arguments.to_owned())
     }
 }
 

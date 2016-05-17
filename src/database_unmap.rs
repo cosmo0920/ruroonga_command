@@ -106,11 +106,11 @@ mod test {
         arg.insert("user".to_string(), "defined".to_string());
         let expected = DatabaseUnmapCommand {
             command: DatabaseUnmap,
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         let query = DatabaseUnmapCommand::new();
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

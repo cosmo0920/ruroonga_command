@@ -17,7 +17,7 @@ macro_rules! request_timeoutable {
                     panic!("`timeout` should be positive 64bit float number.")
                 }
                 let string = format!("{}", timeout);
-                self.arguments.insert("request_timeout".to_string(), string.clone());
+                self.arguments.insert("request_timeout".to_string(), string.to_owned());
                 self
             }
         })+

@@ -51,56 +51,56 @@ impl SelectCommand {
 
     pub fn filter(mut self, filter: String) -> SelectCommand {
         let encoded = format!("'{}'", filter);
-        self.arguments.insert("filter".to_string(), encoded.clone());
+        self.arguments.insert("filter".to_string(), encoded.to_owned());
         self
     }
 
     pub fn query(mut self, query: String) -> SelectCommand {
         let encoded = format!("'{}'", query);
-        self.arguments.insert("query".to_string(), encoded.clone());
+        self.arguments.insert("query".to_string(), encoded.to_owned());
         self
     }
 
     pub fn scorer(mut self, scorer: String) -> SelectCommand {
         let encoded = format!("'{}'", scorer);
-        self.arguments.insert("scorer".to_string(), encoded.clone());
+        self.arguments.insert("scorer".to_string(), encoded.to_owned());
         self
     }
 
     pub fn sortby(mut self, targets: Vec<String>) -> SelectCommand {
         let string = util::split_values_vec(targets);
         let encoded = format!("'{}'", string);
-        self.arguments.insert("sortby".to_string(), encoded.clone());
+        self.arguments.insert("sortby".to_string(), encoded.to_owned());
         self
     }
 
     pub fn adjuster(mut self, adjust_expr: String) -> SelectCommand {
         let encoded = format!("'{}'", adjust_expr);
-        self.arguments.insert("adjuster".to_string(), encoded.clone());
+        self.arguments.insert("adjuster".to_string(), encoded.to_owned());
         self
     }
 
     pub fn match_columns(mut self, columns: Vec<String>) -> SelectCommand {
         let string = util::split_values_vec(columns);
-        self.arguments.insert("match_columns".to_string(), string.clone());
+        self.arguments.insert("match_columns".to_string(), string.to_owned());
         self
     }
 
     pub fn output_columns(mut self, columns: Vec<String>) -> SelectCommand {
         let string = util::split_values_vec(columns);
-        self.arguments.insert("output_columns".to_string(), string.clone());
+        self.arguments.insert("output_columns".to_string(), string.to_owned());
         self
     }
 
     pub fn offset(mut self, offset: i64) -> SelectCommand {
         let offset = format!("{}", offset);
-        self.arguments.insert("offset".to_string(), offset.clone());
+        self.arguments.insert("offset".to_string(), offset.to_owned());
         self
     }
 
     pub fn limit(mut self, limit: i64) -> SelectCommand {
         let limit = format!("{}", limit);
-        self.arguments.insert("limit".to_string(), limit.clone());
+        self.arguments.insert("limit".to_string(), limit.to_owned());
         self
     }
 
@@ -115,20 +115,20 @@ impl SelectCommand {
 
     pub fn match_escalation_threshold(mut self, threshold: i64) -> SelectCommand {
         let string = format!("{}", threshold);
-        self.arguments.insert("match_escalation_threshold".to_string(), string.clone());
+        self.arguments.insert("match_escalation_threshold".to_string(), string.to_owned());
         self
     }
 
     pub fn query_flags(mut self, flags: Vec<QueryFlagsType>) -> SelectCommand {
         let string = util::split_flags_vec(flags);
-        self.arguments.insert("query_flags".to_string(), string.clone());
+        self.arguments.insert("query_flags".to_string(), string.to_owned());
         self
     }
 
     pub fn query_expander(mut self, synonym: (String, String)) -> SelectCommand {
         let (table, column) = synonym;
         let string = format!("{}.{}", table, column);
-        self.arguments.insert("query_expander".to_string(), string.clone());
+        self.arguments.insert("query_expander".to_string(), string.to_owned());
         self
     }
 
@@ -161,7 +161,7 @@ impl Fragmentable for SelectCommand {
     fn to_fragment(self) -> (Command, OrderedFragment, QueryFragment) {
         let mut select_fragment = HashMap::new();
         let ordered_fragment = vec![("table".to_string(), self.table)];
-        for (key, value) in self.arguments.clone() {
+        for (key, value) in self.arguments.to_owned() {
             select_fragment.insert(key, value);
         }
         (Select, ordered_fragment, select_fragment)
@@ -477,8 +477,8 @@ mod test {
         let select = SelectCommand::new("Entries".to_string())
                          .filter("content @ \"fast\"".to_string());
         let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
-        let ops_builder = (select.clone() + drilldown.clone()).build();
-        let drilldown_builder = DrilldownBuilder::new(select.clone(), drilldown.clone()).build();
+        let ops_builder = (select.to_owned() + drilldown.to_owned()).build();
+        let drilldown_builder = DrilldownBuilder::new(select.to_owned(), drilldown.to_owned()).build();
         assert_eq!(ops_builder, drilldown_builder);
     }
 
@@ -488,8 +488,8 @@ mod test {
                          .filter("content @ \"fast\"".to_string());
         let drilldown = LabeledDrilldown::new("labeled".to_string())
                             .keys(vec![("tag".to_string())]);
-        let ops_builder = (select.clone() + drilldown.clone()).build();
-        let drilldown_builder = LabeledDrilldownBuilder::new(select.clone(), drilldown.clone())
+        let ops_builder = (select.to_owned() + drilldown.to_owned()).build();
+        let drilldown_builder = LabeledDrilldownBuilder::new(select.to_owned(), drilldown.to_owned())
                                     .build();
         assert_eq!(ops_builder, drilldown_builder);
     }
@@ -499,8 +499,8 @@ mod test {
         let select = SelectCommand::new("Entries".to_string())
                          .filter("content @ \"fast\"".to_string());
         let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
-        let drilldownable = select.clone().with_drilldown(drilldown.clone()).build();
-        let drilldown_builder = DrilldownBuilder::new(select.clone(), drilldown.clone()).build();
+        let drilldownable = select.to_owned().with_drilldown(drilldown.to_owned()).build();
+        let drilldown_builder = DrilldownBuilder::new(select.to_owned(), drilldown.to_owned()).build();
         assert_eq!(drilldownable, drilldown_builder);
     }
 
@@ -509,8 +509,8 @@ mod test {
         let select = SelectCommand::new("Entries".to_string())
                          .filter("content @ \"fast\"".to_string());
         let drilldown = LabeledDrilldown::new("label".to_string()).keys(vec![("tag".to_string())]);
-        let drilldownable = select.clone().with_labeled_drilldown(drilldown.clone()).build();
-        let drilldown_builder = LabeledDrilldownBuilder::new(select.clone(), drilldown.clone())
+        let drilldownable = select.to_owned().with_labeled_drilldown(drilldown.to_owned()).build();
+        let drilldown_builder = LabeledDrilldownBuilder::new(select.to_owned(), drilldown.to_owned())
                                     .build();
         assert_eq!(drilldownable, drilldown_builder);
     }
@@ -522,11 +522,11 @@ mod test {
         let expected = SelectCommand {
             command: Select,
             table: "Test".to_string(),
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         let query = SelectCommand::new("Test".to_string());
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

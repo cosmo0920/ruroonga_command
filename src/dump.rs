@@ -32,7 +32,7 @@ impl DumpCommand {
 
     pub fn tables(mut self, tables: Vec<String>) -> DumpCommand {
         let string = util::split_values_vec(tables);
-        self.arguments.insert("tables".to_string(), string.clone());
+        self.arguments.insert("tables".to_string(), string.to_owned());
         self
     }
 
@@ -247,11 +247,11 @@ mod test {
         arg.insert("user".to_string(), "defined".to_string());
         let expected = DumpCommand {
             command: Dump,
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         let query = DumpCommand::new();
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

@@ -12,8 +12,8 @@ mod test {
     #[test]
     fn test_object_exist() {
         let object = "object".to_string();
-        let syntax = object_exist(object.clone());
-        let actual = ObjectExistCommand::new(object.clone());
+        let syntax = object_exist(object.to_owned());
+        let actual = ObjectExistCommand::new(object.to_owned());
         assert_eq!(syntax, actual);
     }
 }

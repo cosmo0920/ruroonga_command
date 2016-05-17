@@ -63,7 +63,7 @@ impl CommandQuery {
     /// And two or more value pair are concatinate with `&`.
     pub fn make_query(&mut self) -> String {
         form_urlencoded::Serializer::new(String::new())
-            .extend_pairs(self.arguments.clone())
+            .extend_pairs(self.arguments.to_owned())
             .finish()
     }
 

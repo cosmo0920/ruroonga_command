@@ -43,13 +43,13 @@ impl DeleteCommand {
 
     pub fn id(mut self, id: u64) -> DeleteCommand {
         let id_str = format!("{}", id);
-        self.arguments.insert("id".to_string(), id_str.clone());
+        self.arguments.insert("id".to_string(), id_str.to_owned());
         self
     }
 
     pub fn filter(mut self, filter: String) -> DeleteCommand {
         let encoded = format!("'{}'", filter);
-        self.arguments.insert("filter".to_string(), encoded.clone());
+        self.arguments.insert("filter".to_string(), encoded.to_owned());
         self
     }
 
@@ -179,11 +179,11 @@ mod test {
         let expected = DeleteCommand {
             command: Delete,
             table: "Test".to_string(),
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         let query = DeleteCommand::new("Test".to_string());
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

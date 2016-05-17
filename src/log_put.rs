@@ -127,11 +127,11 @@ mod test {
             command: LogPut,
             level: LogLevelType::Warn,
             message: "Hi, Ruroonga!".to_string(),
-            arguments: arg.clone(),
+            arguments: arg.to_owned(),
         };
         let query = LogPutCommand::new(LogLevelType::Warn, "Hi, Ruroonga!".to_string());
         unsafe {
-            let extended = query.set_arguments(arg.clone());
+            let extended = query.set_arguments(arg.to_owned());
             assert_eq!(expected, extended);
         }
     }

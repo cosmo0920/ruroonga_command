@@ -12,8 +12,8 @@ mod test {
     #[test]
     fn test_object_remove() {
         let object = "object".to_string();
-        let syntax = object_remove(object.clone());
-        let actual = ObjectRemoveCommand::new(object.clone());
+        let syntax = object_remove(object.to_owned());
+        let actual = ObjectRemoveCommand::new(object.to_owned());
         assert_eq!(syntax, actual);
     }
 }
