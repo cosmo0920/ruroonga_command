@@ -1,3 +1,6 @@
+//! Provides drilldown related procedures.
+//! This module will be used with `SelectCommand` type by `+` operation
+//! to concatinate `select` and `drilldown` queries.
 pub mod drilldown;
 pub mod labeled_drilldown;
 pub mod drilldownable;
