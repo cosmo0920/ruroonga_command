@@ -36,7 +36,7 @@ pub mod command_query;
 /// An entity type for `commandable` trait.
 pub mod command_line;
 pub mod dump;
-/// `SelectCommand` type to create `select` query.
+/// `SelectCommand` type creates `select` query.
 ///
 /// This type is **one of the most important type** in this crate.
 /// Because this type is to be able to combine with `drilldown` related types.
