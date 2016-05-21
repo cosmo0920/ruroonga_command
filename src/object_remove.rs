@@ -37,7 +37,11 @@ impl ObjectRemoveCommand {
     }
 
     pub fn force(mut self, force: bool) -> ObjectRemoveCommand {
-        let flag = if force { "yes" } else { "no" };
+        let flag = if force {
+            "yes"
+        } else {
+            "no"
+        };
         self.arguments.insert("force".to_string(), flag.to_string());
         self
     }

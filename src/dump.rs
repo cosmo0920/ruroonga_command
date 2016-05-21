@@ -37,25 +37,41 @@ impl DumpCommand {
     }
 
     pub fn dump_plugins(mut self, include: bool) -> DumpCommand {
-        let flag = if include { "yes" } else { "no" };
+        let flag = if include {
+            "yes"
+        } else {
+            "no"
+        };
         self.arguments.insert("dump_plugins".to_string(), flag.to_string());
         self
     }
 
     pub fn dump_schema(mut self, include: bool) -> DumpCommand {
-        let flag = if include { "yes" } else { "no" };
+        let flag = if include {
+            "yes"
+        } else {
+            "no"
+        };
         self.arguments.insert("dump_schema".to_string(), flag.to_string());
         self
     }
 
     pub fn dump_records(mut self, include: bool) -> DumpCommand {
-        let flag = if include { "yes" } else { "no" };
+        let flag = if include {
+            "yes"
+        } else {
+            "no"
+        };
         self.arguments.insert("dump_records".to_string(), flag.to_string());
         self
     }
 
     pub fn dump_indexes(mut self, include: bool) -> DumpCommand {
-        let flag = if include { "yes" } else { "no" };
+        let flag = if include {
+            "yes"
+        } else {
+            "no"
+        };
         self.arguments.insert("dump_indexes".to_string(), flag.to_string());
         self
     }
