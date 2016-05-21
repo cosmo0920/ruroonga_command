@@ -48,6 +48,7 @@ pub mod load;
 pub mod status;
 pub mod cache_limit;
 pub mod delete;
+pub mod io_flush;
 pub mod log_level;
 pub mod log_put;
 pub mod log_reopen;

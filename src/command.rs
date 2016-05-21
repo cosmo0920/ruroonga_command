@@ -1,8 +1,8 @@
 use std::fmt;
 use std::str::FromStr;
 use std::convert::AsRef;
-use self::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delete, LogLevel,
-                    LogPut, LogReopen, TableCreate, TableRename, TableRemove, TableList,
+use self::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delete, IoFlush,
+                    LogLevel, LogPut, LogReopen, TableCreate, TableRename, TableRemove, TableList,
                     ColumnCopy, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
                     RequestCancel, Normalize, NormalizerList, ObjectExist, ObjectInspect,
                     ObjectRemove, PluginRegister, PluginUnregister, ThreadLimit, Tokenize,
@@ -22,6 +22,7 @@ pub enum Command {
     Dump,
     DatabaseUnmap,
     Delete,
+    IoFlush,
     LogLevel,
     LogPut,
     LogReopen,
@@ -70,6 +71,7 @@ impl AsRef<str> for Command {
             Dump => "dump",
             DatabaseUnmap => "database_unmap",
             Delete => "delete",
+            IoFlush => "io_flush",
             LogLevel => "log_level",
             LogPut => "log_put",
             LogReopen => "log_reopen",
@@ -114,6 +116,7 @@ impl FromStr for Command {
                 "dump" => Dump,
                 "database_unmap" => DatabaseUnmap,
                 "delete" => Delete,
+                "io_flush" => IoFlush,
                 "log_level" => LogLevel,
                 "log_put" => LogPut,
                 "log_reopen" => LogReopen,
@@ -155,6 +158,7 @@ impl fmt::Display for Command {
             Dump => "dump",
             DatabaseUnmap => "database_unmap",
             Delete => "delete",
+            IoFlush => "io_flush",
             LogLevel => "log_level",
             LogPut => "log_put",
             LogReopen => "log_reopen",
@@ -193,12 +197,12 @@ mod test {
     use std::str::FromStr;
     use super::CommandError;
     use super::Command;
-    use super::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delete, LogLevel,
-                         LogPut, LogReopen, TableCreate, TableList, TableRemove, TableRename,
-                         ColumnCopy, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
-                         RequestCancel, ObjectExist, ObjectInspect, ObjectRemove, Normalize,
-                         NormalizerList, PluginRegister, PluginUnregister, ThreadLimit, Tokenize,
-                         TokenizerList, Truncate, Schema, Extension};
+    use super::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delete, IoFlush,
+                         LogLevel, LogPut, LogReopen, TableCreate, TableList, TableRemove,
+                         TableRename, ColumnCopy, ColumnCreate, ColumnList, ColumnRename,
+                         ColumnRemove, RequestCancel, ObjectExist, ObjectInspect, ObjectRemove,
+                         Normalize, NormalizerList, PluginRegister, PluginUnregister, ThreadLimit,
+                         Tokenize, TokenizerList, Truncate, Schema, Extension};
 
     #[test]
     fn test_from_str() {
@@ -210,6 +214,7 @@ mod test {
         assert_eq!(ColumnList, FromStr::from_str("column_list").unwrap());
         assert_eq!(ColumnRename, FromStr::from_str("column_rename").unwrap());
         assert_eq!(ColumnRemove, FromStr::from_str("column_remove").unwrap());
+        assert_eq!(IoFlush, FromStr::from_str("io_flush").unwrap());
         assert_eq!(LogLevel, FromStr::from_str("log_level").unwrap());
         assert_eq!(LogPut, FromStr::from_str("log_put").unwrap());
         assert_eq!(LogReopen, FromStr::from_str("log_reopen").unwrap());
@@ -252,6 +257,7 @@ mod test {
         assert_eq!("column_list".to_owned(), format!("{}", ColumnList));
         assert_eq!("column_rename".to_owned(), format!("{}", ColumnRename));
         assert_eq!("column_remove".to_owned(), format!("{}", ColumnRemove));
+        assert_eq!("io_flush".to_owned(), format!("{}", IoFlush));
         assert_eq!("log_level".to_owned(), format!("{}", LogLevel));
         assert_eq!("log_put".to_owned(), format!("{}", LogPut));
         assert_eq!("log_reopen".to_owned(), format!("{}", LogReopen));
@@ -285,6 +291,7 @@ mod test {
         assert_eq!(DatabaseUnmap.as_ref(), "database_unmap");
         assert_eq!(Delete.as_ref(), "delete");
         assert_eq!(Status.as_ref(), "status");
+        assert_eq!(IoFlush.as_ref(), "io_flush");
         assert_eq!(LogLevel.as_ref(), "log_level");
         assert_eq!(LogPut.as_ref(), "log_put");
         assert_eq!(LogReopen.as_ref(), "log_reopen");
