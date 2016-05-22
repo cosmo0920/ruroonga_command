@@ -82,6 +82,7 @@ pub mod truncate;
 /// You should use this module **at your own risk**.
 pub mod extension;
 pub mod schema;
+pub mod shutdown;
 /// `dsl` provides its `XXXCommand` returning dsl syntax like this:
 ///
 /// ## DSL Example

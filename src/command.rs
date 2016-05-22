@@ -6,7 +6,7 @@ use self::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delet
                     ColumnCopy, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
                     RequestCancel, Normalize, NormalizerList, ObjectExist, ObjectInspect,
                     ObjectRemove, PluginRegister, PluginUnregister, ThreadLimit, Tokenize,
-                    TokenizerList, Truncate, Schema, Extension};
+                    TokenizerList, Truncate, Schema, Shutdown, Extension};
 
 #[derive (Debug)]
 pub enum CommandError {
@@ -48,6 +48,7 @@ pub enum Command {
     TokenizerList,
     Truncate,
     Schema,
+    Shutdown,
     /// Method extensions.
     ///
     /// An example would be:
@@ -97,6 +98,7 @@ impl AsRef<str> for Command {
             TokenizerList => "tokenizer_list",
             Truncate => "truncate",
             Schema => "schema",
+            Shutdown => "shutdown",
             Extension(ref s) => s.as_ref(),
         }
     }
@@ -142,6 +144,7 @@ impl FromStr for Command {
                 "truncate" => Truncate,
                 "request_cancel" => RequestCancel,
                 "schema" => Schema,
+                "shutdown" => Shutdown,
                 _ => Extension(s.to_owned()),
             })
         }
@@ -184,6 +187,7 @@ impl fmt::Display for Command {
             TokenizerList => "tokenizer_list",
             Truncate => "truncate",
             Schema => "schema",
+            Shutdown => "shutdown",
             Extension(ref s) => s.as_ref(),
         })
     }
@@ -202,7 +206,7 @@ mod test {
                          TableRename, ColumnCopy, ColumnCreate, ColumnList, ColumnRename,
                          ColumnRemove, RequestCancel, ObjectExist, ObjectInspect, ObjectRemove,
                          Normalize, NormalizerList, PluginRegister, PluginUnregister, ThreadLimit,
-                         Tokenize, TokenizerList, Truncate, Schema, Extension};
+                         Tokenize, TokenizerList, Truncate, Schema, Shutdown, Extension};
 
     #[test]
     fn test_from_str() {
@@ -237,6 +241,7 @@ mod test {
         assert_eq!(TokenizerList, FromStr::from_str("tokenizer_list").unwrap());
         assert_eq!(Truncate, FromStr::from_str("truncate").unwrap());
         assert_eq!(Schema, FromStr::from_str("schema").unwrap());
+        assert_eq!(Shutdown, FromStr::from_str("shutdown").unwrap());
         assert_eq!(Extension("added-command".to_owned()),
                    FromStr::from_str("added-command").unwrap());
         let x: Result<Command, _> = FromStr::from_str("");
@@ -278,6 +283,7 @@ mod test {
         assert_eq!("tokenizer_list".to_owned(), format!("{}", TokenizerList));
         assert_eq!("truncate".to_owned(), format!("{}", Truncate));
         assert_eq!("schema".to_owned(), format!("{}", Schema));
+        assert_eq!("shutdown".to_owned(), format!("{}", Shutdown));
         assert_eq!("added-command".to_owned(),
                    format!("{}", Extension("added-command".to_owned())));
     }
@@ -317,6 +323,7 @@ mod test {
         assert_eq!(TokenizerList.as_ref(), "tokenizer_list");
         assert_eq!(Truncate.as_ref(), "truncate");
         assert_eq!(Schema.as_ref(), "schema");
+        assert_eq!(Shutdown.as_ref(), "shutdown");
         assert_eq!(Extension("added-command".to_owned()).as_ref(),
                    "added-command");
     }
