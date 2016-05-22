@@ -7,3 +7,4 @@ pub mod column_flag_type;
 pub mod drilldown_calc_type;
 pub mod select_query_flags;
 pub mod log_level_type;
+pub mod shutdown_mode_type;
