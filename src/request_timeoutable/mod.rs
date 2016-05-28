@@ -1,7 +1,7 @@
 pub trait RequestTimeoutable {
     type Output;
 
-    /// Specify `timeout` value. Unit: second
+    /// Specify `timeout` value. Unit: `seconds`
     ///
     /// Panics if specified negative float value.
     fn append_request_timeout(self, timeout: f64) -> Self::Output;
