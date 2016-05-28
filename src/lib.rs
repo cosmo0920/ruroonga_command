@@ -13,6 +13,8 @@ mod util;
 /// you have to use `CommandQuery` directly and
 /// specify it with `set_prefix` in `CommandQuery`.
 pub mod queryable;
+// This module is used internally.
+// To escape operation against raw query string to be valid query.
 mod commandlinable;
 /// `commandable` provides a shortcut to create command line Groonga query.
 pub mod commandable;
