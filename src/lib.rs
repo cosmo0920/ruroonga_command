@@ -28,6 +28,7 @@ pub mod request_cancellable;
 /// `request_timeoutable` provides appending `timeout` functionality trait.
 #[macro_use]
 pub mod request_timeoutable;
+/// Provides types for Query builders.
 pub mod types;
 /// Type variant definitions for Groonga commands.
 pub mod command;
@@ -43,6 +44,7 @@ pub mod dump;
 ///
 /// It recommends to refer to the documents under `selectable` module.
 pub mod select;
+/// Provides manupilation way to construct and concatinate drilldown with select query.
 pub mod selectable;
 pub mod load;
 pub mod status;
