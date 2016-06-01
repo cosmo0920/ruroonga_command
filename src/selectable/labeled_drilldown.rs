@@ -165,7 +165,8 @@ mod test {
     #[test]
     fn test_sort_keys() {
         let label = "label1".to_string();
-        let drilldown = LabeledDrilldown::new(label.to_owned()).sort_keys(vec![("tag".to_string())]);
+        let drilldown = LabeledDrilldown::new(label.to_owned())
+                            .sort_keys(vec![("tag".to_string())]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert(format!("drilldowns[{}].sort_keys", label),
                    "\'tag\'".to_string());
