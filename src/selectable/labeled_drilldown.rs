@@ -75,10 +75,10 @@ impl LabeledDrilldown {
         self
     }
 
-    pub fn calc_types(mut self, calc_types: CalcType) -> LabeledDrilldown {
+    pub fn calc_types(mut self, calc_types: Vec<CalcType>) -> LabeledDrilldown {
+        let string = format!("\'{}\'", util::split_flags_vec(calc_types));
         let key = util::labeled_key(self.label.to_owned(), "calc_types".to_string());
-        let types = format!("{}", calc_types);
-        self.arguments.insert(key, types);
+        self.arguments.insert(key, string.to_owned());
         self
     }
 
@@ -236,10 +236,10 @@ mod test {
     #[test]
     fn test_calc_types() {
         let label = "label1".to_string();
-        let drilldown = LabeledDrilldown::new(label.to_owned()).calc_types(CalcType::None);
+        let drilldown = LabeledDrilldown::new(label.to_owned()).calc_types(vec![(CalcType::None)]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert(format!("drilldowns[{}].calc_types", label.to_owned()),
-                   "NONE".to_string());
+                   "\'NONE\'".to_string());
         let expected = LabeledDrilldown {
             label: label.to_owned(),
             arguments: arg,

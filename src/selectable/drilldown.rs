@@ -59,9 +59,9 @@ impl Drilldown {
         self
     }
 
-    pub fn calc_types(mut self, calc_types: CalcType) -> Drilldown {
-        let types = format!("{}", calc_types);
-        self.arguments.insert("drilldown_calc_types".to_string(), types);
+    pub fn calc_types(mut self, calc_types: Vec<CalcType>) -> Drilldown {
+        let string = format!("\'{}\'", util::split_flags_vec(calc_types));
+        self.arguments.insert("drilldown_calc_types".to_string(), string.to_owned());
         self
     }
 
@@ -168,9 +168,9 @@ mod test {
 
     #[test]
     fn test_calc_types() {
-        let drilldown = Drilldown::new().calc_types(CalcType::None);
+        let drilldown = Drilldown::new().calc_types(vec![(CalcType::None)]);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert("drilldown_calc_types".to_string(), "NONE".to_string());
+        arg.insert("drilldown_calc_types".to_string(), "\'NONE\'".to_string());
         let expected = Drilldown { arguments: arg };
         assert_eq!(expected, drilldown);
     }
