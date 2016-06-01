@@ -76,6 +76,13 @@ impl SelectCommand {
         self
     }
 
+    pub fn sort_keys(mut self, targets: Vec<String>) -> SelectCommand {
+        let string = util::split_values_vec(targets);
+        let encoded = format!("'{}'", string);
+        self.arguments.insert("sort_keys".to_string(), encoded.to_owned());
+        self
+    }
+
     pub fn adjuster(mut self, adjust_expr: String) -> SelectCommand {
         let encoded = format!("'{}'", adjust_expr);
         self.arguments.insert("adjuster".to_string(), encoded.to_owned());
@@ -298,6 +305,20 @@ mod test {
                          .sortby(vec!["test".to_string(), "piyo".to_string()]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("sortby".to_string(), "\'test,piyo\'".to_string());
+        let expected = SelectCommand {
+            command: Select,
+            table: "test".to_string(),
+            arguments: arg,
+        };
+        assert_eq!(expected, select);
+    }
+
+    #[test]
+    fn test_sort_keys() {
+        let select = SelectCommand::new("test".to_string())
+                         .sort_keys(vec!["test".to_string(), "piyo".to_string()]);
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("sort_keys".to_string(), "\'test,piyo\'".to_string());
         let expected = SelectCommand {
             command: Select,
             table: "test".to_string(),
