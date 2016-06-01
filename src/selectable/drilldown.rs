@@ -27,9 +27,17 @@ impl Drilldown {
         self
     }
 
+    #[deprecated]
+    #[allow(deprecated)]
     pub fn sortby(mut self, targets: Vec<String>) -> Drilldown {
         let string = format!("\'{}\'", util::split_values_vec(targets));
         self.arguments.insert("drilldown_sortby".to_string(), string.to_owned());
+        self
+    }
+
+    pub fn sort_keys(mut self, targets: Vec<String>) -> Drilldown {
+        let string = format!("\'{}\'", util::split_values_vec(targets));
+        self.arguments.insert("drilldown_sort_keys".to_string(), string.to_owned());
         self
     }
 
@@ -102,10 +110,20 @@ mod test {
     }
 
     #[test]
+    #[allow(deprecated)]
     fn test_sortby() {
         let drilldown = Drilldown::new().sortby(vec![("tag".to_string())]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("drilldown_sortby".to_string(), "\'tag\'".to_string());
+        let expected = Drilldown { arguments: arg };
+        assert_eq!(expected, drilldown);
+    }
+
+    #[test]
+    fn test_sort_keys() {
+        let drilldown = Drilldown::new().sort_keys(vec![("tag".to_string())]);
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("drilldown_sort_keys".to_string(), "\'tag\'".to_string());
         let expected = Drilldown { arguments: arg };
         assert_eq!(expected, drilldown);
     }

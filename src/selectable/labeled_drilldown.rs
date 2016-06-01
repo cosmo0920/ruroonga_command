@@ -37,9 +37,18 @@ impl LabeledDrilldown {
         self
     }
 
+    #[deprecated]
+    #[allow(deprecated)]
     pub fn sortby(mut self, targets: Vec<String>) -> LabeledDrilldown {
         let string = format!("\'{}\'", util::split_values_vec(targets));
         let key = util::labeled_key(self.label.to_owned(), "sortby".to_string());
+        self.arguments.insert(key, string.to_owned());
+        self
+    }
+
+    pub fn sort_keys(mut self, targets: Vec<String>) -> LabeledDrilldown {
+        let string = format!("\'{}\'", util::split_values_vec(targets));
+        let key = util::labeled_key(self.label.to_owned(), "sort_keys".to_string());
         self.arguments.insert(key, string.to_owned());
         self
     }
@@ -139,11 +148,26 @@ mod test {
     }
 
     #[test]
+    #[allow(deprecated)]
     fn test_sortby() {
         let label = "label1".to_string();
         let drilldown = LabeledDrilldown::new(label.to_owned()).sortby(vec![("tag".to_string())]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert(format!("drilldown[{}].sortby", label),
+                   "\'tag\'".to_string());
+        let expected = LabeledDrilldown {
+            label: label.to_owned(),
+            arguments: arg,
+        };
+        assert_eq!(expected, drilldown);
+    }
+
+    #[test]
+    fn test_sort_keys() {
+        let label = "label1".to_string();
+        let drilldown = LabeledDrilldown::new(label.to_owned()).sort_keys(vec![("tag".to_string())]);
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert(format!("drilldown[{}].sort_keys", label),
                    "\'tag\'".to_string());
         let expected = LabeledDrilldown {
             label: label.to_owned(),
