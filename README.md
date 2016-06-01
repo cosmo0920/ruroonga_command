@@ -63,6 +63,10 @@ fn main() {
 }
 ```
 
+### Minimum required Groonga Version
+
+6.0.3 or later.
+
 ## LICENSE
 
 [MIT](LICENSE).
