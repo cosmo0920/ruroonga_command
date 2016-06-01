@@ -85,7 +85,7 @@ mod test {
                          .filter("content @ \"fast\"".to_string());
         let drilldown = LabeledDrilldown::new("label".to_string()).keys(vec![("tag".to_string())]);
         let builder = LabeledDrilldownBuilder::new(select, drilldown).to_query();
-        let encoded = "/d/select?table=Entries&filter=%27content+%40+%22fast%22%27&drilldown%5Blab\
+        let encoded = "/d/select?table=Entries&filter=%27content+%40+%22fast%22%27&drilldowns%5Blab\
                        el%5D.keys=%27tag%27"
                           .to_string();
         assert_eq!(encoded, builder);
@@ -98,7 +98,7 @@ mod test {
         let drilldown = LabeledDrilldown::new("label".to_string()).keys(vec![("tag".to_string())]);
         let builder = LabeledDrilldownBuilder::new(select, drilldown).to_command();
         let encoded = "select --table Entries --filter \'content @ \"fast\"\' \
-                       --drilldown[label].keys \'tag\'"
+                       --drilldowns[label].keys \'tag\'"
                           .to_string();
         assert_eq!(encoded, builder);
     }

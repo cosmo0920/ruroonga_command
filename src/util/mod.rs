@@ -21,6 +21,6 @@ pub fn split_flags_vec<T>(values: Vec<T>) -> String
 
 #[inline]
 pub fn labeled_key(label: String, key: String) -> String {
-    let string = format!("drilldown[{}].{}", label.to_owned(), key.to_owned());
+    let string = format!("drilldowns[{}].{}", label.to_owned(), key.to_owned());
     string.clone()
 }

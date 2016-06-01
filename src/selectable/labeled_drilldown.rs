@@ -138,7 +138,7 @@ mod test {
         let label = "label1".to_string();
         let drilldown = LabeledDrilldown::new(label.to_owned()).keys(vec![("tag".to_string())]);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert(format!("drilldown[{}].keys", label.to_owned()),
+        arg.insert(format!("drilldowns[{}].keys", label.to_owned()),
                    "\'tag\'".to_string());
         let expected = LabeledDrilldown {
             label: label.to_owned(),
@@ -153,7 +153,7 @@ mod test {
         let label = "label1".to_string();
         let drilldown = LabeledDrilldown::new(label.to_owned()).sortby(vec![("tag".to_string())]);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert(format!("drilldown[{}].sortby", label),
+        arg.insert(format!("drilldowns[{}].sortby", label),
                    "\'tag\'".to_string());
         let expected = LabeledDrilldown {
             label: label.to_owned(),
@@ -167,7 +167,7 @@ mod test {
         let label = "label1".to_string();
         let drilldown = LabeledDrilldown::new(label.to_owned()).sort_keys(vec![("tag".to_string())]);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert(format!("drilldown[{}].sort_keys", label),
+        arg.insert(format!("drilldowns[{}].sort_keys", label),
                    "\'tag\'".to_string());
         let expected = LabeledDrilldown {
             label: label.to_owned(),
@@ -182,7 +182,7 @@ mod test {
         let drilldown = LabeledDrilldown::new(label.to_owned())
                             .output_columns(vec![("tag".to_string()), ("category".to_string())]);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert(format!("drilldown[{}].output_columns", label.to_owned()),
+        arg.insert(format!("drilldowns[{}].output_columns", label.to_owned()),
                    "\'tag,category\'".to_string());
         let expected = LabeledDrilldown {
             label: label.to_owned(),
@@ -196,7 +196,7 @@ mod test {
         let label = "label1".to_string();
         let drilldown = LabeledDrilldown::new(label.to_owned()).offset(10);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert(format!("drilldown[{}].offset", label.to_owned()),
+        arg.insert(format!("drilldowns[{}].offset", label.to_owned()),
                    "10".to_string());
         let expected = LabeledDrilldown {
             label: label.to_owned(),
@@ -210,7 +210,7 @@ mod test {
         let label = "label1".to_string();
         let drilldown = LabeledDrilldown::new(label.to_owned()).limit(30);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert(format!("drilldown[{}].limit", label.to_owned()),
+        arg.insert(format!("drilldowns[{}].limit", label.to_owned()),
                    "30".to_string());
         let expected = LabeledDrilldown {
             label: label.to_owned(),
@@ -224,7 +224,7 @@ mod test {
         let label = "label1".to_string();
         let drilldown = LabeledDrilldown::new(label.to_owned()).calc_target("target".to_string());
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert(format!("drilldown[{}].calc_target", label.to_owned()),
+        arg.insert(format!("drilldowns[{}].calc_target", label.to_owned()),
                    "target".to_string());
         let expected = LabeledDrilldown {
             label: label.to_owned(),
@@ -238,7 +238,7 @@ mod test {
         let label = "label1".to_string();
         let drilldown = LabeledDrilldown::new(label.to_owned()).calc_types(CalcType::None);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert(format!("drilldown[{}].calc_types", label.to_owned()),
+        arg.insert(format!("drilldowns[{}].calc_types", label.to_owned()),
                    "NONE".to_string());
         let expected = LabeledDrilldown {
             label: label.to_owned(),
@@ -251,7 +251,7 @@ mod test {
     fn test_build() {
         let label = "label1".to_string();
         let drilldown = LabeledDrilldown::new(label.to_owned()).limit(30).build();
-        let expected: Query = vec![(format!("drilldown[{}].limit", label.to_owned()),
+        let expected: Query = vec![(format!("drilldowns[{}].limit", label.to_owned()),
                                     "30".to_string())];
         assert_eq!(expected, drilldown);
     }
