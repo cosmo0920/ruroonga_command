@@ -67,6 +67,8 @@ impl SelectCommand {
         self
     }
 
+    #[deprecated]
+    #[allow(deprecated)]
     pub fn sortby(mut self, targets: Vec<String>) -> SelectCommand {
         let string = util::split_values_vec(targets);
         let encoded = format!("'{}'", string);
@@ -290,6 +292,7 @@ mod test {
     }
 
     #[test]
+    #[allow(deprecated)]
     fn test_sortby() {
         let select = SelectCommand::new("test".to_string())
                          .sortby(vec!["test".to_string(), "piyo".to_string()]);
