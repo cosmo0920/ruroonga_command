@@ -63,6 +63,10 @@ fn main() {
 }
 ```
 
+### Target Rust Version
+
+1.9.0 or later.
+
 ### Minimum required Groonga Version
 
 6.0.3 or later.
