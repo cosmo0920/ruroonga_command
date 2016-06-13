@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../../main.css">
+    
 
     
     
@@ -67,7 +68,7 @@
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Extendable</span> {
     <span class='kw'>type</span> <span class='ident'>Output</span>;
 
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>set_arguments</span>(<span class='self'>self</span>, <span class='ident'>arguments</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>Self</span>::<span class='ident'>Output</span>;
+    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>set_arguments</span>(<span class='self'>self</span>, <span class='ident'>arguments</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span>::<span class='ident'>Output</span>;
 }
 
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>extendable</span> {
@@ -75,7 +76,7 @@
         $(<span class='kw'>impl</span> <span class='ident'>Extendable</span> <span class='kw'>for</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span> {
             <span class='kw'>type</span> <span class='ident'>Output</span> <span class='op'>=</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>t</span>;
 
-            <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>set_arguments</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>arguments</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>Self</span>::<span class='ident'>Output</span> {
+            <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>set_arguments</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>arguments</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='self'>Self</span>::<span class='ident'>Output</span> {
                 <span class='self'>self</span>.<span class='ident'>arguments</span> <span class='op'>=</span> <span class='ident'>arguments</span>;
                 <span class='self'>self</span>
             }

@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -224,9 +225,9 @@
     <span class='doccomment'>/// And two or more value pair are concatinate with ` `(a space).</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>make_command</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>output</span> <span class='op'>=</span> <span class='ident'>String</span>::<span class='ident'>new</span>();
-        <span class='kw'>for</span> <span class='ident'>query</span> <span class='kw'>in</span> <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>clone</span>() {
+        <span class='kw'>for</span> <span class='ident'>query</span> <span class='kw'>in</span> <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>to_owned</span>() {
             <span class='kw'>let</span> (<span class='ident'>key</span>, <span class='ident'>value</span>) <span class='op'>=</span> <span class='ident'>query</span>;
-            <span class='kw'>if</span> <span class='ident'>output</span>.<span class='ident'>len</span>() <span class='op'>&gt;</span> <span class='number'>0</span> {
+            <span class='kw'>if</span> <span class='ident'>output</span>.<span class='ident'>len</span>() <span class='op'>&gt;=</span> <span class='number'>1</span> {
                 <span class='ident'>output</span>.<span class='ident'>push_str</span>(<span class='string'>&quot; &quot;</span>);
             }
             <span class='kw'>let</span> <span class='ident'>format_string</span> <span class='op'>=</span> <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;--{} {}&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>key</span>, <span class='ident'>Escape</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>value</span>));
@@ -240,13 +241,13 @@
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>encode</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
         <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{} {}&quot;</span>, <span class='self'>self</span>.<span class='ident'>get_command</span>(), <span class='self'>self</span>.<span class='ident'>make_command</span>())
             .<span class='ident'>trim</span>()
-            .<span class='ident'>to_owned</span>()
+            .<span class='ident'>to_string</span>()
     }
 }
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>test</span> {
-    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>CommandLine</span>;
+    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>CommandLine</span>;
     <span class='kw'>use</span> <span class='ident'>select</span>::<span class='ident'>SelectCommand</span>;
     <span class='kw'>use</span> <span class='ident'>load</span>::{<span class='ident'>LoadCommand</span>, <span class='ident'>InputType</span>};
     <span class='kw'>use</span> <span class='ident'>status</span>::<span class='ident'>StatusCommand</span>;

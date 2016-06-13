@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["column_create_syntax",""],["delete_syntax",""],["dump_syntax",""],["load_syntax",""],["select_syntax",""],["status_syntax",""],["table_create_syntax",""]]});

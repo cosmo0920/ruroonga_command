@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `RequestTimeoutable` trait in crate `ruroonga_command`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, RequestTimeoutable">
+
+    <title>ruroonga_command::request_timeoutable::RequestTimeoutable - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>ruroonga_command</a>::<wbr><a href='index.html'>request_timeoutable</a></p><script>window.sidebarCurrent = {name: 'RequestTimeoutable', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>ruroonga_command</a>::<wbr><a href='index.html'>request_timeoutable</a>::<wbr><a class='trait' href=''>RequestTimeoutable</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-84' class='srclink' href='../../src/ruroonga_command/src/request_timeoutable/mod.rs.html#1-8' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait RequestTimeoutable {
+    type <a href='#associatedtype.Output' class='type'>Output</a>;
+    fn <a href='#tymethod.append_request_timeout' class='fnname'>append_request_timeout</a>(self, timeout: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; Self::<a class='trait' href='../../ruroonga_command/request_timeoutable/trait.RequestTimeoutable.html' title='ruroonga_command::request_timeoutable::RequestTimeoutable'>Output</a>;
+}</pre>
+            <h2 id='associated-types'>Associated Types</h2>
+            <div class='methods'>
+        <h3 id='associatedtype.Output' class='method stab '><code>type <a href='#associatedtype.Output' class='type'>Output</a></code></h3></div>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.append_request_timeout' class='method stab '><code>fn <a href='#tymethod.append_request_timeout' class='fnname'>append_request_timeout</a>(self, timeout: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; Self::<a class='trait' href='../../ruroonga_command/request_timeoutable/trait.RequestTimeoutable.html' title='ruroonga_command::request_timeoutable::RequestTimeoutable'>Output</a></code></h3><div class='docblock'><p>Specify <code>timeout</code> value. Unit: <code>seconds</code></p>
+
+<p>Panics if specified negative float value.</p>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/dump/struct.DumpCommand.html' title='ruroonga_command::dump::DumpCommand'>DumpCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/select/struct.SelectCommand.html' title='ruroonga_command::select::SelectCommand'>SelectCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/load/struct.LoadCommand.html' title='ruroonga_command::load::LoadCommand'>LoadCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/status/struct.StatusCommand.html' title='ruroonga_command::status::StatusCommand'>StatusCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/delete/struct.DeleteCommand.html' title='ruroonga_command::delete::DeleteCommand'>DeleteCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/io_flush/struct.IoFlushCommand.html' title='ruroonga_command::io_flush::IoFlushCommand'>IoFlushCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/log_level/struct.LogLevelCommand.html' title='ruroonga_command::log_level::LogLevelCommand'>LogLevelCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/log_put/struct.LogPutCommand.html' title='ruroonga_command::log_put::LogPutCommand'>LogPutCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/log_reopen/struct.LogReopenCommand.html' title='ruroonga_command::log_reopen::LogReopenCommand'>LogReopenCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/table_create/struct.TableCreateCommand.html' title='ruroonga_command::table_create::TableCreateCommand'>TableCreateCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/table_list/struct.TableListCommand.html' title='ruroonga_command::table_list::TableListCommand'>TableListCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/table_rename/struct.TableRenameCommand.html' title='ruroonga_command::table_rename::TableRenameCommand'>TableRenameCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/table_remove/struct.TableRemoveCommand.html' title='ruroonga_command::table_remove::TableRemoveCommand'>TableRemoveCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/column_copy/struct.ColumnCopyCommand.html' title='ruroonga_command::column_copy::ColumnCopyCommand'>ColumnCopyCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/column_create/struct.ColumnCreateCommand.html' title='ruroonga_command::column_create::ColumnCreateCommand'>ColumnCreateCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/column_list/struct.ColumnListCommand.html' title='ruroonga_command::column_list::ColumnListCommand'>ColumnListCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/column_rename/struct.ColumnRenameCommand.html' title='ruroonga_command::column_rename::ColumnRenameCommand'>ColumnRenameCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/column_remove/struct.ColumnRemoveCommand.html' title='ruroonga_command::column_remove::ColumnRemoveCommand'>ColumnRemoveCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/database_unmap/struct.DatabaseUnmapCommand.html' title='ruroonga_command::database_unmap::DatabaseUnmapCommand'>DatabaseUnmapCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/request_cancel/struct.RequestCancelCommand.html' title='ruroonga_command::request_cancel::RequestCancelCommand'>RequestCancelCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/object_exist/struct.ObjectExistCommand.html' title='ruroonga_command::object_exist::ObjectExistCommand'>ObjectExistCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/object_inspect/struct.ObjectInspectCommand.html' title='ruroonga_command::object_inspect::ObjectInspectCommand'>ObjectInspectCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/object_remove/struct.ObjectRemoveCommand.html' title='ruroonga_command::object_remove::ObjectRemoveCommand'>ObjectRemoveCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/normalize/struct.NormalizeCommand.html' title='ruroonga_command::normalize::NormalizeCommand'>NormalizeCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/normalizer_list/struct.NormalizerListCommand.html' title='ruroonga_command::normalizer_list::NormalizerListCommand'>NormalizerListCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/plugin_register/struct.PluginRegisterCommand.html' title='ruroonga_command::plugin_register::PluginRegisterCommand'>PluginRegisterCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/plugin_unregister/struct.PluginUnregisterCommand.html' title='ruroonga_command::plugin_unregister::PluginUnregisterCommand'>PluginUnregisterCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/thread_limit/struct.ThreadLimitCommand.html' title='ruroonga_command::thread_limit::ThreadLimitCommand'>ThreadLimitCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/tokenize/struct.TokenizeCommand.html' title='ruroonga_command::tokenize::TokenizeCommand'>TokenizeCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/tokenizer_list/struct.TokenizerListCommand.html' title='ruroonga_command::tokenizer_list::TokenizerListCommand'>TokenizerListCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/truncate/struct.TruncateCommand.html' title='ruroonga_command::truncate::TruncateCommand'>TruncateCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/schema/struct.SchemaCommand.html' title='ruroonga_command::schema::SchemaCommand'>SchemaCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/shutdown/struct.ShutdownCommand.html' title='ruroonga_command::shutdown::ShutdownCommand'>ShutdownCommand</a></code></li>
+</ul><script type="text/javascript" async
+                         src="../../implementors/ruroonga_command/request_timeoutable/trait.RequestTimeoutable.js">
+                 </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "ruroonga_command";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

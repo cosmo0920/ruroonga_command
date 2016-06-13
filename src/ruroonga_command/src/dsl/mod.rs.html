@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../../main.css">
+    
 
     
     
@@ -102,6 +103,14 @@
 <span id="59">59</span>
 <span id="60">60</span>
 <span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
 </pre><pre class='rust '>
 <span class='kw'>mod</span> <span class='ident'>select_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>cache_limit_dsl</span>;
@@ -110,6 +119,7 @@
 <span class='kw'>mod</span> <span class='ident'>load_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>status_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>delete_dsl</span>;
+<span class='kw'>mod</span> <span class='ident'>io_flush_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>log_level_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>log_put_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>log_reopen_dsl</span>;
@@ -117,14 +127,17 @@
 <span class='kw'>mod</span> <span class='ident'>table_list_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>table_rename_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>table_remove_dsl</span>;
+<span class='kw'>mod</span> <span class='ident'>column_copy_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>column_create_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>column_list_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>column_rename_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>column_remove_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>request_cancel_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>schema_dsl</span>;
+<span class='kw'>mod</span> <span class='ident'>shutdown_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>object_exist_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>object_inspect_dsl</span>;
+<span class='kw'>mod</span> <span class='ident'>object_remove_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>normalize_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>normalizer_list_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>plugin_register_dsl</span>;
@@ -141,6 +154,7 @@
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>load_dsl</span>::<span class='ident'>load</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>status_dsl</span>::<span class='ident'>status</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>delete_dsl</span>::<span class='ident'>delete</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>io_flush_dsl</span>::<span class='ident'>io_flush</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>log_level_dsl</span>::<span class='ident'>log_level</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>log_put_dsl</span>::<span class='ident'>log_put</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>log_reopen_dsl</span>::<span class='ident'>log_reopen</span>;
@@ -148,14 +162,17 @@
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>table_list_dsl</span>::<span class='ident'>table_list</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>table_rename_dsl</span>::<span class='ident'>table_rename</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>table_remove_dsl</span>::<span class='ident'>table_remove</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>column_copy_dsl</span>::<span class='ident'>column_copy</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>column_create_dsl</span>::<span class='ident'>column_create</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>column_list_dsl</span>::<span class='ident'>column_list</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>column_rename_dsl</span>::<span class='ident'>column_rename</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>column_remove_dsl</span>::<span class='ident'>column_remove</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>request_cancel_dsl</span>::<span class='ident'>request_cancel</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>schema_dsl</span>::<span class='ident'>schema</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>shutdown_dsl</span>::<span class='ident'>shutdown</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>object_exist_dsl</span>::<span class='ident'>object_exist</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>object_inspect_dsl</span>::<span class='ident'>object_inspect</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>object_remove_dsl</span>::<span class='ident'>object_remove</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>normalize_dsl</span>::<span class='ident'>normalize</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>normalizer_list_dsl</span>::<span class='ident'>normalizer_list</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>plugin_register_dsl</span>::<span class='ident'>plugin_register</span>;

@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,13 +44,14 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>ruroonga_command</a>::<wbr><a href='../index.html'>selectable</a>::<wbr><a href='index.html'>labeled_drilldown_builder</a>::<wbr><a class='struct' href=''>LabeledDrilldownBuilder</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1745' class='srclink' href='../../../src/ruroonga_command/src/selectable/labeled_drilldown_builder.rs.html#10-13' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1875' class='srclink' href='../../../src/ruroonga_command/src/selectable/labeled_drilldown_builder.rs.html#10-13' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct LabeledDrilldownBuilder {
     // some fields omitted
-}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../../ruroonga_command/selectable/labeled_drilldown_builder/struct.LabeledDrilldownBuilder.html' title='ruroonga_command::selectable::labeled_drilldown_builder::LabeledDrilldownBuilder'>LabeledDrilldownBuilder</a></code></h3><div class='docblock'><p>LabeledDrilldown builder.</p>
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../../ruroonga_command/selectable/labeled_drilldown_builder/struct.LabeledDrilldownBuilder.html' title='ruroonga_command::selectable::labeled_drilldown_builder::LabeledDrilldownBuilder'>LabeledDrilldownBuilder</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1878' class='srclink' href='../../../src/ruroonga_command/src/selectable/labeled_drilldown_builder.rs.html#33-56' title='goto source code'>[src]</a></span></h3>
+<div class='docblock'><p><code>LabeledDrilldown</code> builder.</p>
 
 <h2 id='simple-usage' class='section-header'><a href='#simple-usage'>Simple usage</a></h2>
 <pre class='rust rust-example-rendered'>
@@ -67,8 +69,10 @@
 in <a href="https://github.com/cosmo0920/ruroonga_command/blob/master/examples/drilldown_builder.rs">examples/drilldown_builder.rs</a>.</p>
 </div><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(select: <a class='struct' href='../../../ruroonga_command/select/struct.SelectCommand.html' title='ruroonga_command::select::SelectCommand'>SelectCommand</a>, drilldown: <a class='struct' href='../../../ruroonga_command/selectable/labeled_drilldown/struct.LabeledDrilldown.html' title='ruroonga_command::selectable::labeled_drilldown::LabeledDrilldown'>LabeledDrilldown</a>) -&gt; <a class='struct' href='../../../ruroonga_command/selectable/labeled_drilldown_builder/struct.LabeledDrilldownBuilder.html' title='ruroonga_command::selectable::labeled_drilldown_builder::LabeledDrilldownBuilder'>LabeledDrilldownBuilder</a></code></h4>
 <h4 id='method.build' class='method'><code>fn <a href='#method.build' class='fnname'>build</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='enum' href='../../../ruroonga_command/command/enum.Command.html' title='ruroonga_command::command::Command'>Command</a>, <a class='type' href='../../../ruroonga_command/command/type.Query.html' title='ruroonga_command::command::Query'>Query</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></code></h4>
-</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../../ruroonga_command/queryable/trait.Queryable.html' title='ruroonga_command::queryable::Queryable'>Queryable</a> for <a class='struct' href='../../../ruroonga_command/selectable/labeled_drilldown_builder/struct.LabeledDrilldownBuilder.html' title='ruroonga_command::selectable::labeled_drilldown_builder::LabeledDrilldownBuilder'>LabeledDrilldownBuilder</a></code></h3><div class='impl-items'><h4 id='method.to_query' class='method'><code>fn <a href='../../../ruroonga_command/queryable/trait.Queryable.html#method.to_query' class='fnname'>to_query</a>(self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='../../../ruroonga_command/commandable/trait.Commandable.html' title='ruroonga_command::commandable::Commandable'>Commandable</a> for <a class='struct' href='../../../ruroonga_command/selectable/labeled_drilldown_builder/struct.LabeledDrilldownBuilder.html' title='ruroonga_command::selectable::labeled_drilldown_builder::LabeledDrilldownBuilder'>LabeledDrilldownBuilder</a></code></h3><div class='impl-items'><h4 id='method.to_command' class='method'><code>fn <a href='../../../ruroonga_command/commandable/trait.Commandable.html#method.to_command' class='fnname'>to_command</a>(self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../ruroonga_command/queryable/trait.Queryable.html' title='ruroonga_command::queryable::Queryable'>Queryable</a> for <a class='struct' href='../../../ruroonga_command/selectable/labeled_drilldown_builder/struct.LabeledDrilldownBuilder.html' title='ruroonga_command::selectable::labeled_drilldown_builder::LabeledDrilldownBuilder'>LabeledDrilldownBuilder</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1894' class='srclink' href='../../../src/ruroonga_command/src/selectable/labeled_drilldown_builder.rs.html#58-64' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.to_query' class='method'><code>fn <a href='../../../ruroonga_command/queryable/trait.Queryable.html#tymethod.to_query' class='fnname'>to_query</a>(self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
+</div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../ruroonga_command/commandable/trait.Commandable.html' title='ruroonga_command::commandable::Commandable'>Commandable</a> for <a class='struct' href='../../../ruroonga_command/selectable/labeled_drilldown_builder/struct.LabeledDrilldownBuilder.html' title='ruroonga_command::selectable::labeled_drilldown_builder::LabeledDrilldownBuilder'>LabeledDrilldownBuilder</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1900' class='srclink' href='../../../src/ruroonga_command/src/selectable/labeled_drilldown_builder.rs.html#66-72' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.to_command' class='method'><code>fn <a href='../../../ruroonga_command/commandable/trait.Commandable.html#tymethod.to_command' class='fnname'>to_command</a>(self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 

@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -344,16 +345,43 @@
 <span id="301">301</span>
 <span id="302">302</span>
 <span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
+<span id="313">313</span>
+<span id="314">314</span>
+<span id="315">315</span>
+<span id="316">316</span>
+<span id="317">317</span>
+<span id="318">318</span>
+<span id="319">319</span>
+<span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>str</span>::<span class='ident'>FromStr</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>convert</span>::<span class='ident'>AsRef</span>;
-<span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>Command</span>::{<span class='ident'>Select</span>, <span class='ident'>Load</span>, <span class='ident'>Status</span>, <span class='ident'>CacheLimit</span>, <span class='ident'>Dump</span>, <span class='ident'>DatabaseUnmap</span>, <span class='ident'>Delete</span>, <span class='ident'>LogLevel</span>,
-                    <span class='ident'>LogPut</span>, <span class='ident'>LogReopen</span>, <span class='ident'>TableCreate</span>, <span class='ident'>TableRename</span>, <span class='ident'>TableRemove</span>, <span class='ident'>TableList</span>,
-                    <span class='ident'>ColumnCreate</span>, <span class='ident'>ColumnList</span>, <span class='ident'>ColumnRename</span>, <span class='ident'>ColumnRemove</span>, <span class='ident'>RequestCancel</span>,
-                    <span class='ident'>Normalize</span>, <span class='ident'>NormalizerList</span>, <span class='ident'>ObjectExist</span>, <span class='ident'>ObjectInspect</span>, <span class='ident'>PluginRegister</span>,
-                    <span class='ident'>PluginUnregister</span>, <span class='ident'>ThreadLimit</span>, <span class='ident'>Tokenize</span>, <span class='ident'>TokenizerList</span>, <span class='ident'>Truncate</span>, <span class='ident'>Schema</span>,
-                    <span class='ident'>Extension</span>};
+<span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>Command</span>::{<span class='ident'>Select</span>, <span class='ident'>Load</span>, <span class='ident'>Status</span>, <span class='ident'>CacheLimit</span>, <span class='ident'>Dump</span>, <span class='ident'>DatabaseUnmap</span>, <span class='ident'>Delete</span>, <span class='ident'>IoFlush</span>,
+                    <span class='ident'>LogLevel</span>, <span class='ident'>LogPut</span>, <span class='ident'>LogReopen</span>, <span class='ident'>TableCreate</span>, <span class='ident'>TableRename</span>, <span class='ident'>TableRemove</span>, <span class='ident'>TableList</span>,
+                    <span class='ident'>ColumnCopy</span>, <span class='ident'>ColumnCreate</span>, <span class='ident'>ColumnList</span>, <span class='ident'>ColumnRename</span>, <span class='ident'>ColumnRemove</span>,
+                    <span class='ident'>RequestCancel</span>, <span class='ident'>Normalize</span>, <span class='ident'>NormalizerList</span>, <span class='ident'>ObjectExist</span>, <span class='ident'>ObjectInspect</span>,
+                    <span class='ident'>ObjectRemove</span>, <span class='ident'>PluginRegister</span>, <span class='ident'>PluginUnregister</span>, <span class='ident'>ThreadLimit</span>, <span class='ident'>Tokenize</span>,
+                    <span class='ident'>TokenizerList</span>, <span class='ident'>Truncate</span>, <span class='ident'>Schema</span>, <span class='ident'>Shutdown</span>, <span class='ident'>Extension</span>};
 
 <span class='attribute'>#[<span class='ident'>derive</span> (<span class='ident'>Debug</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>CommandError</span> {
@@ -369,6 +397,7 @@
     <span class='ident'>Dump</span>,
     <span class='ident'>DatabaseUnmap</span>,
     <span class='ident'>Delete</span>,
+    <span class='ident'>IoFlush</span>,
     <span class='ident'>LogLevel</span>,
     <span class='ident'>LogPut</span>,
     <span class='ident'>LogReopen</span>,
@@ -376,6 +405,7 @@
     <span class='ident'>TableList</span>,
     <span class='ident'>TableRename</span>,
     <span class='ident'>TableRemove</span>,
+    <span class='ident'>ColumnCopy</span>,
     <span class='ident'>ColumnCreate</span>,
     <span class='ident'>ColumnList</span>,
     <span class='ident'>ColumnRename</span>,
@@ -385,6 +415,7 @@
     <span class='ident'>NormalizerList</span>,
     <span class='ident'>ObjectExist</span>,
     <span class='ident'>ObjectInspect</span>,
+    <span class='ident'>ObjectRemove</span>,
     <span class='ident'>PluginRegister</span>,
     <span class='ident'>PluginUnregister</span>,
     <span class='ident'>ThreadLimit</span>,
@@ -392,6 +423,7 @@
     <span class='ident'>TokenizerList</span>,
     <span class='ident'>Truncate</span>,
     <span class='ident'>Schema</span>,
+    <span class='ident'>Shutdown</span>,
     <span class='doccomment'>/// Method extensions.</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// An example would be:</span>
@@ -415,6 +447,7 @@
             <span class='ident'>Dump</span> <span class='op'>=&gt;</span> <span class='string'>&quot;dump&quot;</span>,
             <span class='ident'>DatabaseUnmap</span> <span class='op'>=&gt;</span> <span class='string'>&quot;database_unmap&quot;</span>,
             <span class='ident'>Delete</span> <span class='op'>=&gt;</span> <span class='string'>&quot;delete&quot;</span>,
+            <span class='ident'>IoFlush</span> <span class='op'>=&gt;</span> <span class='string'>&quot;io_flush&quot;</span>,
             <span class='ident'>LogLevel</span> <span class='op'>=&gt;</span> <span class='string'>&quot;log_level&quot;</span>,
             <span class='ident'>LogPut</span> <span class='op'>=&gt;</span> <span class='string'>&quot;log_put&quot;</span>,
             <span class='ident'>LogReopen</span> <span class='op'>=&gt;</span> <span class='string'>&quot;log_reopen&quot;</span>,
@@ -422,6 +455,7 @@
             <span class='ident'>TableList</span> <span class='op'>=&gt;</span> <span class='string'>&quot;table_list&quot;</span>,
             <span class='ident'>TableRename</span> <span class='op'>=&gt;</span> <span class='string'>&quot;table_rename&quot;</span>,
             <span class='ident'>TableRemove</span> <span class='op'>=&gt;</span> <span class='string'>&quot;table_remove&quot;</span>,
+            <span class='ident'>ColumnCopy</span> <span class='op'>=&gt;</span> <span class='string'>&quot;column_copy&quot;</span>,
             <span class='ident'>ColumnCreate</span> <span class='op'>=&gt;</span> <span class='string'>&quot;column_create&quot;</span>,
             <span class='ident'>ColumnList</span> <span class='op'>=&gt;</span> <span class='string'>&quot;column_list&quot;</span>,
             <span class='ident'>ColumnRename</span> <span class='op'>=&gt;</span> <span class='string'>&quot;column_rename&quot;</span>,
@@ -429,6 +463,7 @@
             <span class='ident'>RequestCancel</span> <span class='op'>=&gt;</span> <span class='string'>&quot;request_cancel&quot;</span>,
             <span class='ident'>ObjectExist</span> <span class='op'>=&gt;</span> <span class='string'>&quot;object_exist&quot;</span>,
             <span class='ident'>ObjectInspect</span> <span class='op'>=&gt;</span> <span class='string'>&quot;object_inspect&quot;</span>,
+            <span class='ident'>ObjectRemove</span> <span class='op'>=&gt;</span> <span class='string'>&quot;object_remove&quot;</span>,
             <span class='ident'>Normalize</span> <span class='op'>=&gt;</span> <span class='string'>&quot;normalize&quot;</span>,
             <span class='ident'>NormalizerList</span> <span class='op'>=&gt;</span> <span class='string'>&quot;normalizer_list&quot;</span>,
             <span class='ident'>PluginRegister</span> <span class='op'>=&gt;</span> <span class='string'>&quot;plugin_register&quot;</span>,
@@ -438,6 +473,7 @@
             <span class='ident'>TokenizerList</span> <span class='op'>=&gt;</span> <span class='string'>&quot;tokenizer_list&quot;</span>,
             <span class='ident'>Truncate</span> <span class='op'>=&gt;</span> <span class='string'>&quot;truncate&quot;</span>,
             <span class='ident'>Schema</span> <span class='op'>=&gt;</span> <span class='string'>&quot;schema&quot;</span>,
+            <span class='ident'>Shutdown</span> <span class='op'>=&gt;</span> <span class='string'>&quot;shutdown&quot;</span>,
             <span class='ident'>Extension</span>(<span class='kw-2'>ref</span> <span class='ident'>s</span>) <span class='op'>=&gt;</span> <span class='ident'>s</span>.<span class='ident'>as_ref</span>(),
         }
     }
@@ -457,6 +493,7 @@
                 <span class='string'>&quot;dump&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>Dump</span>,
                 <span class='string'>&quot;database_unmap&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>DatabaseUnmap</span>,
                 <span class='string'>&quot;delete&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>Delete</span>,
+                <span class='string'>&quot;io_flush&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>IoFlush</span>,
                 <span class='string'>&quot;log_level&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>LogLevel</span>,
                 <span class='string'>&quot;log_put&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>LogPut</span>,
                 <span class='string'>&quot;log_reopen&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>LogReopen</span>,
@@ -464,12 +501,14 @@
                 <span class='string'>&quot;table_list&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>TableList</span>,
                 <span class='string'>&quot;table_rename&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>TableRename</span>,
                 <span class='string'>&quot;table_remove&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>TableRemove</span>,
+                <span class='string'>&quot;column_copy&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>ColumnCopy</span>,
                 <span class='string'>&quot;column_create&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>ColumnCreate</span>,
                 <span class='string'>&quot;column_list&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>ColumnList</span>,
                 <span class='string'>&quot;column_rename&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>ColumnRename</span>,
                 <span class='string'>&quot;column_remove&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>ColumnRemove</span>,
                 <span class='string'>&quot;object_exist&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>ObjectExist</span>,
                 <span class='string'>&quot;object_inspect&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>ObjectInspect</span>,
+                <span class='string'>&quot;object_remove&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>ObjectRemove</span>,
                 <span class='string'>&quot;normalize&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>Normalize</span>,
                 <span class='string'>&quot;normalizer_list&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>NormalizerList</span>,
                 <span class='string'>&quot;plugin_register&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>PluginRegister</span>,
@@ -480,6 +519,7 @@
                 <span class='string'>&quot;truncate&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>Truncate</span>,
                 <span class='string'>&quot;request_cancel&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>RequestCancel</span>,
                 <span class='string'>&quot;schema&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>Schema</span>,
+                <span class='string'>&quot;shutdown&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>Shutdown</span>,
                 _ <span class='op'>=&gt;</span> <span class='ident'>Extension</span>(<span class='ident'>s</span>.<span class='ident'>to_owned</span>()),
             })
         }
@@ -496,6 +536,7 @@
             <span class='ident'>Dump</span> <span class='op'>=&gt;</span> <span class='string'>&quot;dump&quot;</span>,
             <span class='ident'>DatabaseUnmap</span> <span class='op'>=&gt;</span> <span class='string'>&quot;database_unmap&quot;</span>,
             <span class='ident'>Delete</span> <span class='op'>=&gt;</span> <span class='string'>&quot;delete&quot;</span>,
+            <span class='ident'>IoFlush</span> <span class='op'>=&gt;</span> <span class='string'>&quot;io_flush&quot;</span>,
             <span class='ident'>LogLevel</span> <span class='op'>=&gt;</span> <span class='string'>&quot;log_level&quot;</span>,
             <span class='ident'>LogPut</span> <span class='op'>=&gt;</span> <span class='string'>&quot;log_put&quot;</span>,
             <span class='ident'>LogReopen</span> <span class='op'>=&gt;</span> <span class='string'>&quot;log_reopen&quot;</span>,
@@ -503,6 +544,7 @@
             <span class='ident'>TableList</span> <span class='op'>=&gt;</span> <span class='string'>&quot;table_list&quot;</span>,
             <span class='ident'>TableRename</span> <span class='op'>=&gt;</span> <span class='string'>&quot;table_rename&quot;</span>,
             <span class='ident'>TableRemove</span> <span class='op'>=&gt;</span> <span class='string'>&quot;table_remove&quot;</span>,
+            <span class='ident'>ColumnCopy</span> <span class='op'>=&gt;</span> <span class='string'>&quot;column_copy&quot;</span>,
             <span class='ident'>ColumnCreate</span> <span class='op'>=&gt;</span> <span class='string'>&quot;column_create&quot;</span>,
             <span class='ident'>ColumnList</span> <span class='op'>=&gt;</span> <span class='string'>&quot;column_list&quot;</span>,
             <span class='ident'>ColumnRename</span> <span class='op'>=&gt;</span> <span class='string'>&quot;column_rename&quot;</span>,
@@ -510,6 +552,7 @@
             <span class='ident'>RequestCancel</span> <span class='op'>=&gt;</span> <span class='string'>&quot;request_cancel&quot;</span>,
             <span class='ident'>ObjectExist</span> <span class='op'>=&gt;</span> <span class='string'>&quot;object_exist&quot;</span>,
             <span class='ident'>ObjectInspect</span> <span class='op'>=&gt;</span> <span class='string'>&quot;object_inspect&quot;</span>,
+            <span class='ident'>ObjectRemove</span> <span class='op'>=&gt;</span> <span class='string'>&quot;object_remove&quot;</span>,
             <span class='ident'>Normalize</span> <span class='op'>=&gt;</span> <span class='string'>&quot;normalize&quot;</span>,
             <span class='ident'>NormalizerList</span> <span class='op'>=&gt;</span> <span class='string'>&quot;normalizer_list&quot;</span>,
             <span class='ident'>PluginRegister</span> <span class='op'>=&gt;</span> <span class='string'>&quot;plugin_register&quot;</span>,
@@ -519,6 +562,7 @@
             <span class='ident'>TokenizerList</span> <span class='op'>=&gt;</span> <span class='string'>&quot;tokenizer_list&quot;</span>,
             <span class='ident'>Truncate</span> <span class='op'>=&gt;</span> <span class='string'>&quot;truncate&quot;</span>,
             <span class='ident'>Schema</span> <span class='op'>=&gt;</span> <span class='string'>&quot;schema&quot;</span>,
+            <span class='ident'>Shutdown</span> <span class='op'>=&gt;</span> <span class='string'>&quot;shutdown&quot;</span>,
             <span class='ident'>Extension</span>(<span class='kw-2'>ref</span> <span class='ident'>s</span>) <span class='op'>=&gt;</span> <span class='ident'>s</span>.<span class='ident'>as_ref</span>(),
         })
     }
@@ -530,24 +574,26 @@
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>test</span> {
     <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>str</span>::<span class='ident'>FromStr</span>;
-    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>CommandError</span>;
-    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>Command</span>;
-    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>Command</span>::{<span class='ident'>Select</span>, <span class='ident'>Load</span>, <span class='ident'>Status</span>, <span class='ident'>CacheLimit</span>, <span class='ident'>Dump</span>, <span class='ident'>DatabaseUnmap</span>, <span class='ident'>Delete</span>, <span class='ident'>LogLevel</span>,
-                         <span class='ident'>LogPut</span>, <span class='ident'>LogReopen</span>, <span class='ident'>TableCreate</span>, <span class='ident'>TableList</span>, <span class='ident'>TableRemove</span>, <span class='ident'>TableRename</span>,
-                         <span class='ident'>ColumnCreate</span>, <span class='ident'>ColumnList</span>, <span class='ident'>ColumnRename</span>, <span class='ident'>ColumnRemove</span>, <span class='ident'>RequestCancel</span>,
-                         <span class='ident'>ObjectExist</span>, <span class='ident'>ObjectInspect</span>, <span class='ident'>Normalize</span>, <span class='ident'>NormalizerList</span>, <span class='ident'>PluginRegister</span>,
-                         <span class='ident'>PluginUnregister</span>, <span class='ident'>ThreadLimit</span>, <span class='ident'>Tokenize</span>, <span class='ident'>TokenizerList</span>, <span class='ident'>Truncate</span>, <span class='ident'>Schema</span>,
-                         <span class='ident'>Extension</span>};
+    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>CommandError</span>;
+    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>Command</span>;
+    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>Command</span>::{<span class='ident'>Select</span>, <span class='ident'>Load</span>, <span class='ident'>Status</span>, <span class='ident'>CacheLimit</span>, <span class='ident'>Dump</span>, <span class='ident'>DatabaseUnmap</span>, <span class='ident'>Delete</span>, <span class='ident'>IoFlush</span>,
+                         <span class='ident'>LogLevel</span>, <span class='ident'>LogPut</span>, <span class='ident'>LogReopen</span>, <span class='ident'>TableCreate</span>, <span class='ident'>TableList</span>, <span class='ident'>TableRemove</span>,
+                         <span class='ident'>TableRename</span>, <span class='ident'>ColumnCopy</span>, <span class='ident'>ColumnCreate</span>, <span class='ident'>ColumnList</span>, <span class='ident'>ColumnRename</span>,
+                         <span class='ident'>ColumnRemove</span>, <span class='ident'>RequestCancel</span>, <span class='ident'>ObjectExist</span>, <span class='ident'>ObjectInspect</span>, <span class='ident'>ObjectRemove</span>,
+                         <span class='ident'>Normalize</span>, <span class='ident'>NormalizerList</span>, <span class='ident'>PluginRegister</span>, <span class='ident'>PluginUnregister</span>, <span class='ident'>ThreadLimit</span>,
+                         <span class='ident'>Tokenize</span>, <span class='ident'>TokenizerList</span>, <span class='ident'>Truncate</span>, <span class='ident'>Schema</span>, <span class='ident'>Shutdown</span>, <span class='ident'>Extension</span>};
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_from_str</span>() {
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Select</span>, <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;select&quot;</span>).<span class='ident'>unwrap</span>());
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>CacheLimit</span>, <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;cache_limit&quot;</span>).<span class='ident'>unwrap</span>());
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>DatabaseUnmap</span>, <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;database_unmap&quot;</span>).<span class='ident'>unwrap</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ColumnCopy</span>, <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;column_copy&quot;</span>).<span class='ident'>unwrap</span>());
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ColumnCreate</span>, <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;column_create&quot;</span>).<span class='ident'>unwrap</span>());
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ColumnList</span>, <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;column_list&quot;</span>).<span class='ident'>unwrap</span>());
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ColumnRename</span>, <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;column_rename&quot;</span>).<span class='ident'>unwrap</span>());
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ColumnRemove</span>, <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;column_remove&quot;</span>).<span class='ident'>unwrap</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>IoFlush</span>, <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;io_flush&quot;</span>).<span class='ident'>unwrap</span>());
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>LogLevel</span>, <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;log_level&quot;</span>).<span class='ident'>unwrap</span>());
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>LogPut</span>, <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;log_put&quot;</span>).<span class='ident'>unwrap</span>());
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>LogReopen</span>, <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;log_reopen&quot;</span>).<span class='ident'>unwrap</span>());
@@ -570,6 +616,7 @@
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>TokenizerList</span>, <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;tokenizer_list&quot;</span>).<span class='ident'>unwrap</span>());
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Truncate</span>, <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;truncate&quot;</span>).<span class='ident'>unwrap</span>());
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Schema</span>, <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;schema&quot;</span>).<span class='ident'>unwrap</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Shutdown</span>, <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;shutdown&quot;</span>).<span class='ident'>unwrap</span>());
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Extension</span>(<span class='string'>&quot;added-command&quot;</span>.<span class='ident'>to_owned</span>()),
                    <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;added-command&quot;</span>).<span class='ident'>unwrap</span>());
         <span class='kw'>let</span> <span class='ident'>x</span>: <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Command</span>, _<span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;&quot;</span>);
@@ -585,10 +632,12 @@
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;cache_limit&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>CacheLimit</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;database_unmap&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>DatabaseUnmap</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;table_create&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>TableCreate</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;column_copy&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>ColumnCopy</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;column_create&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>ColumnCreate</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;column_list&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>ColumnList</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;column_rename&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>ColumnRename</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;column_remove&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>ColumnRemove</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;io_flush&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>IoFlush</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;log_level&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>LogLevel</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;log_put&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>LogPut</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;log_reopen&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>LogReopen</span>));
@@ -598,6 +647,7 @@
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;table_remove&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>TableRemove</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;object_exist&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>ObjectExist</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;object_inspect&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>ObjectInspect</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;object_remove&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>ObjectRemove</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;normalize&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>Normalize</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;normalizer_list&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>NormalizerList</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;plugin_register&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>PluginRegister</span>));
@@ -608,6 +658,7 @@
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;tokenizer_list&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>TokenizerList</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;truncate&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>Truncate</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;schema&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>Schema</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;shutdown&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>Shutdown</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;added-command&quot;</span>.<span class='ident'>to_owned</span>(),
                    <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>Extension</span>(<span class='string'>&quot;added-command&quot;</span>.<span class='ident'>to_owned</span>())));
     }
@@ -621,6 +672,7 @@
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>DatabaseUnmap</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;database_unmap&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Delete</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;delete&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Status</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;status&quot;</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>IoFlush</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;io_flush&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>LogLevel</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;log_level&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>LogPut</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;log_put&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>LogReopen</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;log_reopen&quot;</span>);
@@ -628,6 +680,7 @@
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>TableList</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;table_list&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>TableRename</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;table_rename&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>TableRemove</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;table_remove&quot;</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ColumnCopy</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;column_copy&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ColumnCreate</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;column_create&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ColumnList</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;column_list&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ColumnRename</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;column_rename&quot;</span>);
@@ -635,6 +688,7 @@
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>RequestCancel</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;request_cancel&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ObjectExist</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;object_exist&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ObjectInspect</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;object_inspect&quot;</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ObjectRemove</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;object_remove&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Normalize</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;normalize&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>NormalizerList</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;normalizer_list&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>PluginRegister</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;plugin_register&quot;</span>);
@@ -644,6 +698,7 @@
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>TokenizerList</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;tokenizer_list&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Truncate</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;truncate&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Schema</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;schema&quot;</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Shutdown</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;shutdown&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Extension</span>(<span class='string'>&quot;added-command&quot;</span>.<span class='ident'>to_owned</span>()).<span class='ident'>as_ref</span>(),
                    <span class='string'>&quot;added-command&quot;</span>);
     }

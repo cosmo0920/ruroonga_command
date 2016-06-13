@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../../main.css">
+    
 
     
     
@@ -48,8 +49,8 @@
 <span id="5">5</span>
 <span id="6">6</span>
 </pre><pre class='rust '>
-<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>drilldown</span>::<span class='ident'>Drilldown</span>;
-<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>drilldown_builder</span>::<span class='ident'>DrilldownBuilder</span>;
+<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>drilldown</span>::<span class='ident'>Drilldown</span>;
+<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>drilldown_builder</span>::<span class='ident'>DrilldownBuilder</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Drilldownable</span> {
     <span class='kw'>fn</span> <span class='ident'>with_drilldown</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='ident'>Drilldown</span>) <span class='op'>-&gt;</span> <span class='ident'>DrilldownBuilder</span>;

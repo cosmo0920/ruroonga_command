@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -282,9 +283,11 @@
 <span id="239">239</span>
 <span id="240">240</span>
 <span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
 </pre><pre class='rust '>
-<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
-<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>Normalize</span>;
+<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
+<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>Normalize</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
 <span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>normalizer_type</span>::<span class='ident'>NormalizerType</span>;
 <span class='kw'>use</span> <span class='ident'>command_query</span>::<span class='ident'>CommandQuery</span>;
@@ -292,6 +295,7 @@
 <span class='kw'>use</span> <span class='ident'>command_line</span>::<span class='ident'>CommandLine</span>;
 <span class='kw'>use</span> <span class='ident'>commandable</span>::<span class='ident'>Commandable</span>;
 <span class='kw'>use</span> <span class='ident'>request_cancellable</span>::<span class='ident'>RequestCancellable</span>;
+<span class='kw'>use</span> <span class='ident'>request_timeoutable</span>::<span class='ident'>RequestTimeoutable</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>str</span>::<span class='ident'>FromStr</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>convert</span>::<span class='ident'>AsRef</span>;
@@ -393,14 +397,14 @@
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>flags</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>flags</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>FlagType</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>NormalizeCommand</span> {
         <span class='kw'>let</span> <span class='ident'>string</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>split_flags_vec</span>(<span class='ident'>flags</span>);
-        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='string'>&quot;flags&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>string</span>.<span class='ident'>clone</span>());
+        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='string'>&quot;flags&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>string</span>.<span class='ident'>to_owned</span>());
         <span class='self'>self</span>
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>build</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> (<span class='ident'>Command</span>, <span class='ident'>Query</span>) {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>query</span>: <span class='ident'>Query</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;normalizer&quot;</span>.<span class='ident'>to_string</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='self'>self</span>.<span class='ident'>normalizer</span>)),
                                     (<span class='string'>&quot;string&quot;</span>.<span class='ident'>to_string</span>(), <span class='self'>self</span>.<span class='ident'>string</span>)];
-        <span class='kw'>for</span> (<span class='ident'>key</span>, <span class='ident'>value</span>) <span class='kw'>in</span> <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>iter</span>() {
+        <span class='kw'>for</span> (<span class='ident'>key</span>, <span class='ident'>value</span>) <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>arguments</span> {
             <span class='ident'>query</span>.<span class='ident'>push</span>((<span class='ident'>key</span>.<span class='ident'>to_owned</span>(), <span class='ident'>value</span>.<span class='ident'>to_owned</span>()));
         }
         (<span class='self'>self</span>.<span class='ident'>command</span>, <span class='ident'>query</span>)
@@ -424,10 +428,11 @@
 }
 
 <span class='macro'>request_cancellable</span><span class='macro'>!</span>(<span class='ident'>NormalizeCommand</span>);
+<span class='macro'>request_timeoutable</span><span class='macro'>!</span>(<span class='ident'>NormalizeCommand</span>);
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>test</span> {
-    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='op'>*</span>;
+    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='op'>*</span>;
     <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
     <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>str</span>::<span class='ident'>FromStr</span>;
     <span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>normalizer_type</span>::<span class='ident'>NormalizerType</span>;
@@ -495,7 +500,7 @@
             <span class='ident'>command</span>: <span class='ident'>Normalize</span>,
             <span class='ident'>normalizer</span>: <span class='ident'>NormalizerType</span>::<span class='ident'>Auto</span>,
             <span class='ident'>string</span>: <span class='string'>&quot;\&quot;element\&quot;&quot;</span>.<span class='ident'>to_string</span>(),
-            <span class='ident'>arguments</span>: <span class='ident'>arg</span>.<span class='ident'>clone</span>(),
+            <span class='ident'>arguments</span>: <span class='ident'>arg</span>.<span class='ident'>to_owned</span>(),
         };
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected</span>, <span class='ident'>normalize</span>);
     }

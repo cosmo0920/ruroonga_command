@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -196,9 +197,12 @@
 <span id="153">153</span>
 <span id="154">154</span>
 <span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
 </pre><pre class='rust '>
-<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
-<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>TableRemove</span>;
+<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
+<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>TableRemove</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
 <span class='kw'>use</span> <span class='ident'>command_query</span>::<span class='ident'>CommandQuery</span>;
 <span class='kw'>use</span> <span class='ident'>queryable</span>::<span class='ident'>Queryable</span>;
@@ -206,6 +210,7 @@
 <span class='kw'>use</span> <span class='ident'>commandable</span>::<span class='ident'>Commandable</span>;
 <span class='kw'>use</span> <span class='ident'>extendable</span>::<span class='ident'>Extendable</span>;
 <span class='kw'>use</span> <span class='ident'>request_cancellable</span>::<span class='ident'>RequestCancellable</span>;
+<span class='kw'>use</span> <span class='ident'>request_timeoutable</span>::<span class='ident'>RequestTimeoutable</span>;
 
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>Debug</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>TableRemoveCommand</span> {
@@ -235,9 +240,10 @@
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>dependent</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>dependent</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>TableRemoveCommand</span> {
-        <span class='kw'>let</span> <span class='ident'>flag</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>dependent</span> {
-            <span class='boolval'>true</span> <span class='op'>=&gt;</span> <span class='string'>&quot;yes&quot;</span>,
-            <span class='boolval'>false</span> <span class='op'>=&gt;</span> <span class='string'>&quot;no&quot;</span>,
+        <span class='kw'>let</span> <span class='ident'>flag</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>dependent</span> {
+            <span class='string'>&quot;yes&quot;</span>
+        } <span class='kw'>else</span> {
+            <span class='string'>&quot;no&quot;</span>
         };
         <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='string'>&quot;dependent&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>flag</span>.<span class='ident'>to_string</span>());
         <span class='self'>self</span>
@@ -245,7 +251,7 @@
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>build</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> (<span class='ident'>Command</span>, <span class='ident'>Query</span>) {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>query</span>: <span class='ident'>Query</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;name&quot;</span>.<span class='ident'>to_string</span>(), <span class='self'>self</span>.<span class='ident'>name</span>)];
-        <span class='kw'>for</span> (<span class='ident'>key</span>, <span class='ident'>value</span>) <span class='kw'>in</span> <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>iter</span>() {
+        <span class='kw'>for</span> (<span class='ident'>key</span>, <span class='ident'>value</span>) <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>arguments</span> {
             <span class='ident'>query</span>.<span class='ident'>push</span>((<span class='ident'>key</span>.<span class='ident'>to_owned</span>(), <span class='ident'>value</span>.<span class='ident'>to_owned</span>()));
         }
         (<span class='ident'>TableRemove</span>, <span class='ident'>query</span>)
@@ -270,10 +276,11 @@
 
 <span class='macro'>extendable</span><span class='macro'>!</span>(<span class='ident'>TableRemoveCommand</span>);
 <span class='macro'>request_cancellable</span><span class='macro'>!</span>(<span class='ident'>TableRemoveCommand</span>);
+<span class='macro'>request_timeoutable</span><span class='macro'>!</span>(<span class='ident'>TableRemoveCommand</span>);
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>test</span> {
-    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='op'>*</span>;
+    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='op'>*</span>;
     <span class='kw'>use</span> <span class='ident'>command</span>::<span class='ident'>Query</span>;
     <span class='kw'>use</span> <span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>TableRemove</span>;
     <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
@@ -294,7 +301,7 @@
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_dependent</span>() {
-        <span class='kw'>let</span> <span class='ident'>dependent_yes</span> <span class='op'>=</span> <span class='ident'>TableRemoveCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Table&quot;</span>.<span class='ident'>to_string</span>()).<span class='ident'>dependent</span>(<span class='boolval'>true</span>);
+        <span class='kw'>let</span> <span class='ident'>dependent_yes</span> <span class='op'>=</span> <span class='ident'>TableRemoveCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Table&quot;</span>.<span class='ident'>to_string</span>()).<span class='ident'>dependent</span>(<span class='boolvalue'>true</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg_yes</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg_yes</span>.<span class='ident'>insert</span>(<span class='string'>&quot;dependent&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;yes&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected_yes</span> <span class='op'>=</span> <span class='ident'>TableRemoveCommand</span> {
@@ -303,7 +310,7 @@
             <span class='ident'>arguments</span>: <span class='ident'>arg_yes</span>,
         };
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected_yes</span>, <span class='ident'>dependent_yes</span>);
-        <span class='kw'>let</span> <span class='ident'>dependent_no</span> <span class='op'>=</span> <span class='ident'>TableRemoveCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Table&quot;</span>.<span class='ident'>to_string</span>()).<span class='ident'>dependent</span>(<span class='boolval'>false</span>);
+        <span class='kw'>let</span> <span class='ident'>dependent_no</span> <span class='op'>=</span> <span class='ident'>TableRemoveCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Table&quot;</span>.<span class='ident'>to_string</span>()).<span class='ident'>dependent</span>(<span class='boolvalue'>false</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg_no</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg_no</span>.<span class='ident'>insert</span>(<span class='string'>&quot;dependent&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;no&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected_no</span> <span class='op'>=</span> <span class='ident'>TableRemoveCommand</span> {
@@ -343,11 +350,11 @@
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>TableRemoveCommand</span> {
             <span class='ident'>command</span>: <span class='ident'>TableRemove</span>,
             <span class='ident'>name</span>: <span class='string'>&quot;Table&quot;</span>.<span class='ident'>to_string</span>(),
-            <span class='ident'>arguments</span>: <span class='ident'>arg</span>.<span class='ident'>clone</span>(),
+            <span class='ident'>arguments</span>: <span class='ident'>arg</span>.<span class='ident'>to_owned</span>(),
         };
         <span class='kw'>let</span> <span class='ident'>query</span> <span class='op'>=</span> <span class='ident'>TableRemoveCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Table&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>unsafe</span> {
-            <span class='kw'>let</span> <span class='ident'>extended</span> <span class='op'>=</span> <span class='ident'>query</span>.<span class='ident'>set_arguments</span>(<span class='ident'>arg</span>.<span class='ident'>clone</span>());
+            <span class='kw'>let</span> <span class='ident'>extended</span> <span class='op'>=</span> <span class='ident'>query</span>.<span class='ident'>set_arguments</span>(<span class='ident'>arg</span>.<span class='ident'>to_owned</span>());
             <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected</span>, <span class='ident'>extended</span>);
         }
     }

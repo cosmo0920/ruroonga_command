@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../../main.css">
+    
 
     
     
@@ -263,12 +264,50 @@
 <span id="220">220</span>
 <span id="221">221</span>
 <span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
 <span class='kw'>use</span> <span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
 <span class='kw'>use</span> <span class='ident'>util</span>;
 <span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>fragmentable</span>::<span class='ident'>Fragmentable</span>;
 <span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>fragmentable</span>::{<span class='ident'>OrderedFragment</span>, <span class='ident'>QueryFragment</span>};
+<span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>pseudo_table</span>::<span class='ident'>PseudoTable</span>;
 <span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>drilldown_calc_type</span>::<span class='ident'>CalcType</span>;
 
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>Debug</span>)]</span>
@@ -296,57 +335,66 @@
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>keys</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>targets</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>LabeledDrilldown</span> {
-        <span class='kw'>let</span> <span class='ident'>key</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>labeled_key</span>(<span class='self'>self</span>.<span class='ident'>label</span>.<span class='ident'>clone</span>(), <span class='string'>&quot;keys&quot;</span>.<span class='ident'>to_string</span>());
+        <span class='kw'>let</span> <span class='ident'>key</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>labeled_key</span>(<span class='self'>self</span>.<span class='ident'>label</span>.<span class='ident'>to_owned</span>(), <span class='string'>&quot;keys&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>string</span> <span class='op'>=</span> <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;\&#39;{}\&#39;&quot;</span>, <span class='ident'>util</span>::<span class='ident'>split_values_vec</span>(<span class='ident'>targets</span>));
-        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>, <span class='ident'>string</span>.<span class='ident'>clone</span>());
+        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>, <span class='ident'>string</span>.<span class='ident'>to_owned</span>());
         <span class='self'>self</span>
     }
 
+    <span class='attribute'>#[<span class='ident'>deprecated</span>]</span>
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>deprecated</span>)]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>sortby</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>targets</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>LabeledDrilldown</span> {
         <span class='kw'>let</span> <span class='ident'>string</span> <span class='op'>=</span> <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;\&#39;{}\&#39;&quot;</span>, <span class='ident'>util</span>::<span class='ident'>split_values_vec</span>(<span class='ident'>targets</span>));
-        <span class='kw'>let</span> <span class='ident'>key</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>labeled_key</span>(<span class='self'>self</span>.<span class='ident'>label</span>.<span class='ident'>clone</span>(), <span class='string'>&quot;sortby&quot;</span>.<span class='ident'>to_string</span>());
-        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>, <span class='ident'>string</span>.<span class='ident'>clone</span>());
+        <span class='kw'>let</span> <span class='ident'>key</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>labeled_key</span>(<span class='self'>self</span>.<span class='ident'>label</span>.<span class='ident'>to_owned</span>(), <span class='string'>&quot;sortby&quot;</span>.<span class='ident'>to_string</span>());
+        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>, <span class='ident'>string</span>.<span class='ident'>to_owned</span>());
+        <span class='self'>self</span>
+    }
+
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>sort_keys</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>targets</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>LabeledDrilldown</span> {
+        <span class='kw'>let</span> <span class='ident'>string</span> <span class='op'>=</span> <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;\&#39;{}\&#39;&quot;</span>, <span class='ident'>util</span>::<span class='ident'>split_values_vec</span>(<span class='ident'>targets</span>));
+        <span class='kw'>let</span> <span class='ident'>key</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>labeled_key</span>(<span class='self'>self</span>.<span class='ident'>label</span>.<span class='ident'>to_owned</span>(), <span class='string'>&quot;sort_keys&quot;</span>.<span class='ident'>to_string</span>());
+        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>, <span class='ident'>string</span>.<span class='ident'>to_owned</span>());
         <span class='self'>self</span>
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>output_columns</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>columns</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>LabeledDrilldown</span> {
         <span class='kw'>let</span> <span class='ident'>string</span> <span class='op'>=</span> <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;\&#39;{}\&#39;&quot;</span>, <span class='ident'>util</span>::<span class='ident'>split_values_vec</span>(<span class='ident'>columns</span>));
-        <span class='kw'>let</span> <span class='ident'>key</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>labeled_key</span>(<span class='self'>self</span>.<span class='ident'>label</span>.<span class='ident'>clone</span>(), <span class='string'>&quot;output_columns&quot;</span>.<span class='ident'>to_string</span>());
+        <span class='kw'>let</span> <span class='ident'>key</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>labeled_key</span>(<span class='self'>self</span>.<span class='ident'>label</span>.<span class='ident'>to_owned</span>(), <span class='string'>&quot;output_columns&quot;</span>.<span class='ident'>to_string</span>());
 
-        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>, <span class='ident'>string</span>.<span class='ident'>clone</span>());
+        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>, <span class='ident'>string</span>.<span class='ident'>to_owned</span>());
         <span class='self'>self</span>
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>offset</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>offset</span>: <span class='ident'>i64</span>) <span class='op'>-&gt;</span> <span class='ident'>LabeledDrilldown</span> {
         <span class='kw'>let</span> <span class='ident'>offset</span> <span class='op'>=</span> <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>offset</span>);
-        <span class='kw'>let</span> <span class='ident'>key</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>labeled_key</span>(<span class='self'>self</span>.<span class='ident'>label</span>.<span class='ident'>clone</span>(), <span class='string'>&quot;offset&quot;</span>.<span class='ident'>to_string</span>());
-        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>, <span class='ident'>offset</span>.<span class='ident'>clone</span>());
+        <span class='kw'>let</span> <span class='ident'>key</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>labeled_key</span>(<span class='self'>self</span>.<span class='ident'>label</span>.<span class='ident'>to_owned</span>(), <span class='string'>&quot;offset&quot;</span>.<span class='ident'>to_string</span>());
+        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>, <span class='ident'>offset</span>.<span class='ident'>to_owned</span>());
         <span class='self'>self</span>
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>limit</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>limit</span>: <span class='ident'>i64</span>) <span class='op'>-&gt;</span> <span class='ident'>LabeledDrilldown</span> {
         <span class='kw'>let</span> <span class='ident'>limit</span> <span class='op'>=</span> <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>limit</span>);
-        <span class='kw'>let</span> <span class='ident'>key</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>labeled_key</span>(<span class='self'>self</span>.<span class='ident'>label</span>.<span class='ident'>clone</span>(), <span class='string'>&quot;limit&quot;</span>.<span class='ident'>to_string</span>());
-        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>, <span class='ident'>limit</span>.<span class='ident'>clone</span>());
+        <span class='kw'>let</span> <span class='ident'>key</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>labeled_key</span>(<span class='self'>self</span>.<span class='ident'>label</span>.<span class='ident'>to_owned</span>(), <span class='string'>&quot;limit&quot;</span>.<span class='ident'>to_string</span>());
+        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>, <span class='ident'>limit</span>.<span class='ident'>to_owned</span>());
         <span class='self'>self</span>
     }
 
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>calc_types</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>calc_types</span>: <span class='ident'>CalcType</span>) <span class='op'>-&gt;</span> <span class='ident'>LabeledDrilldown</span> {
-        <span class='kw'>let</span> <span class='ident'>key</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>labeled_key</span>(<span class='self'>self</span>.<span class='ident'>label</span>.<span class='ident'>clone</span>(), <span class='string'>&quot;calc_types&quot;</span>.<span class='ident'>to_string</span>());
-        <span class='kw'>let</span> <span class='ident'>types</span> <span class='op'>=</span> <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>calc_types</span>);
-        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>, <span class='ident'>types</span>);
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>calc_types</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>calc_types</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>CalcType</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>LabeledDrilldown</span> {
+        <span class='kw'>let</span> <span class='ident'>string</span> <span class='op'>=</span> <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;\&#39;{}\&#39;&quot;</span>, <span class='ident'>util</span>::<span class='ident'>split_flags_vec</span>(<span class='ident'>calc_types</span>));
+        <span class='kw'>let</span> <span class='ident'>key</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>labeled_key</span>(<span class='self'>self</span>.<span class='ident'>label</span>.<span class='ident'>to_owned</span>(), <span class='string'>&quot;calc_types&quot;</span>.<span class='ident'>to_string</span>());
+        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>, <span class='ident'>string</span>.<span class='ident'>to_owned</span>());
         <span class='self'>self</span>
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>calc_target</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>target</span>: <span class='ident'>String</span>) <span class='op'>-&gt;</span> <span class='ident'>LabeledDrilldown</span> {
-        <span class='kw'>let</span> <span class='ident'>key</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>labeled_key</span>(<span class='self'>self</span>.<span class='ident'>label</span>.<span class='ident'>clone</span>(), <span class='string'>&quot;calc_target&quot;</span>.<span class='ident'>to_string</span>());
-        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>, <span class='ident'>target</span>.<span class='ident'>clone</span>());
+        <span class='kw'>let</span> <span class='ident'>key</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>labeled_key</span>(<span class='self'>self</span>.<span class='ident'>label</span>.<span class='ident'>to_owned</span>(), <span class='string'>&quot;calc_target&quot;</span>.<span class='ident'>to_string</span>());
+        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>, <span class='ident'>target</span>.<span class='ident'>to_owned</span>());
         <span class='self'>self</span>
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>build</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Query</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>query</span>: <span class='ident'>Query</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[];
-        <span class='kw'>for</span> (<span class='ident'>key</span>, <span class='ident'>value</span>) <span class='kw'>in</span> <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>iter</span>() {
+        <span class='kw'>for</span> (<span class='ident'>key</span>, <span class='ident'>value</span>) <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>arguments</span> {
             <span class='ident'>query</span>.<span class='ident'>push</span>((<span class='ident'>key</span>.<span class='ident'>to_owned</span>(), <span class='ident'>value</span>.<span class='ident'>to_owned</span>()));
         }
         <span class='ident'>query</span>
@@ -356,13 +404,24 @@
 <span class='kw'>impl</span> <span class='ident'>Fragmentable</span> <span class='kw'>for</span> <span class='ident'>LabeledDrilldown</span> {
     <span class='kw'>fn</span> <span class='ident'>to_fragment</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> (<span class='ident'>Command</span>, <span class='ident'>OrderedFragment</span>, <span class='ident'>QueryFragment</span>) {
         <span class='comment'>// Command::Extension is `Command` type requirement. It should be ignored.</span>
-        (<span class='ident'>Command</span>::<span class='ident'>Extension</span>(<span class='string'>&quot;labeled_drilldown&quot;</span>.<span class='ident'>to_string</span>()), <span class='macro'>vec</span><span class='macro'>!</span>[], <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>clone</span>())
+        (<span class='ident'>Command</span>::<span class='ident'>Extension</span>(<span class='string'>&quot;labeled_drilldown&quot;</span>.<span class='ident'>to_string</span>()), <span class='macro'>vec</span><span class='macro'>!</span>[], <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>to_owned</span>())
+    }
+}
+
+<span class='kw'>impl</span> <span class='ident'>PseudoTable</span> <span class='kw'>for</span> <span class='ident'>LabeledDrilldown</span> {
+    <span class='kw'>type</span> <span class='ident'>Output</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>;
+
+    <span class='kw'>fn</span> <span class='ident'>table</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>table</span>: <span class='ident'>String</span>) <span class='op'>-&gt;</span> <span class='ident'>LabeledDrilldown</span> {
+        <span class='kw'>let</span> <span class='ident'>key</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>labeled_key</span>(<span class='self'>self</span>.<span class='ident'>label</span>.<span class='ident'>to_owned</span>(), <span class='string'>&quot;table&quot;</span>.<span class='ident'>to_string</span>());
+
+        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>, <span class='ident'>table</span>.<span class='ident'>to_owned</span>());
+        <span class='self'>self</span>
     }
 }
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>test</span> {
-    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='op'>*</span>;
+    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='op'>*</span>;
     <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
     <span class='kw'>use</span> <span class='ident'>command</span>::<span class='ident'>Query</span>;
     <span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>drilldown_calc_type</span>::<span class='ident'>CalcType</span>;
@@ -370,9 +429,9 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_new</span>() {
         <span class='kw'>let</span> <span class='ident'>label</span> <span class='op'>=</span> <span class='string'>&quot;label1&quot;</span>.<span class='ident'>to_string</span>();
-        <span class='kw'>let</span> <span class='ident'>vanilla_drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>clone</span>());
+        <span class='kw'>let</span> <span class='ident'>vanilla_drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>to_owned</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span> {
-            <span class='ident'>label</span>: <span class='ident'>label</span>.<span class='ident'>clone</span>(),
+            <span class='ident'>label</span>: <span class='ident'>label</span>.<span class='ident'>to_owned</span>(),
             <span class='ident'>arguments</span>: <span class='ident'>HashMap</span>::<span class='ident'>new</span>(),
         };
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected</span>, <span class='ident'>vanilla_drilldown</span>);
@@ -381,26 +440,42 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_keys</span>() {
         <span class='kw'>let</span> <span class='ident'>label</span> <span class='op'>=</span> <span class='string'>&quot;label1&quot;</span>.<span class='ident'>to_string</span>();
-        <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>clone</span>()).<span class='ident'>keys</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;tag&quot;</span>.<span class='ident'>to_string</span>())]);
+        <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>to_owned</span>()).<span class='ident'>keys</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;tag&quot;</span>.<span class='ident'>to_string</span>())]);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
-        <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;drilldown[{}].keys&quot;</span>, <span class='ident'>label</span>.<span class='ident'>clone</span>()),
+        <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;drilldowns[{}].keys&quot;</span>, <span class='ident'>label</span>.<span class='ident'>to_owned</span>()),
                    <span class='string'>&quot;\&#39;tag\&#39;&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span> {
-            <span class='ident'>label</span>: <span class='ident'>label</span>.<span class='ident'>clone</span>(),
+            <span class='ident'>label</span>: <span class='ident'>label</span>.<span class='ident'>to_owned</span>(),
             <span class='ident'>arguments</span>: <span class='ident'>arg</span>,
         };
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected</span>, <span class='ident'>drilldown</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>deprecated</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>test_sortby</span>() {
         <span class='kw'>let</span> <span class='ident'>label</span> <span class='op'>=</span> <span class='string'>&quot;label1&quot;</span>.<span class='ident'>to_string</span>();
-        <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>clone</span>()).<span class='ident'>sortby</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;tag&quot;</span>.<span class='ident'>to_string</span>())]);
+        <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>to_owned</span>()).<span class='ident'>sortby</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;tag&quot;</span>.<span class='ident'>to_string</span>())]);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
-        <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;drilldown[{}].sortby&quot;</span>, <span class='ident'>label</span>),
+        <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;drilldowns[{}].sortby&quot;</span>, <span class='ident'>label</span>),
                    <span class='string'>&quot;\&#39;tag\&#39;&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span> {
-            <span class='ident'>label</span>: <span class='ident'>label</span>.<span class='ident'>clone</span>(),
+            <span class='ident'>label</span>: <span class='ident'>label</span>.<span class='ident'>to_owned</span>(),
+            <span class='ident'>arguments</span>: <span class='ident'>arg</span>,
+        };
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected</span>, <span class='ident'>drilldown</span>);
+    }
+
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>test_sort_keys</span>() {
+        <span class='kw'>let</span> <span class='ident'>label</span> <span class='op'>=</span> <span class='string'>&quot;label1&quot;</span>.<span class='ident'>to_string</span>();
+        <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>to_owned</span>())
+                            .<span class='ident'>sort_keys</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;tag&quot;</span>.<span class='ident'>to_string</span>())]);
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
+        <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;drilldowns[{}].sort_keys&quot;</span>, <span class='ident'>label</span>),
+                   <span class='string'>&quot;\&#39;tag\&#39;&quot;</span>.<span class='ident'>to_string</span>());
+        <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span> {
+            <span class='ident'>label</span>: <span class='ident'>label</span>.<span class='ident'>to_owned</span>(),
             <span class='ident'>arguments</span>: <span class='ident'>arg</span>,
         };
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected</span>, <span class='ident'>drilldown</span>);
@@ -409,13 +484,13 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_output_columns</span>() {
         <span class='kw'>let</span> <span class='ident'>label</span> <span class='op'>=</span> <span class='string'>&quot;label1&quot;</span>.<span class='ident'>to_string</span>();
-        <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>clone</span>())
+        <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>to_owned</span>())
                             .<span class='ident'>output_columns</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;tag&quot;</span>.<span class='ident'>to_string</span>()), (<span class='string'>&quot;category&quot;</span>.<span class='ident'>to_string</span>())]);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
-        <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;drilldown[{}].output_columns&quot;</span>, <span class='ident'>label</span>.<span class='ident'>clone</span>()),
+        <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;drilldowns[{}].output_columns&quot;</span>, <span class='ident'>label</span>.<span class='ident'>to_owned</span>()),
                    <span class='string'>&quot;\&#39;tag,category\&#39;&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span> {
-            <span class='ident'>label</span>: <span class='ident'>label</span>.<span class='ident'>clone</span>(),
+            <span class='ident'>label</span>: <span class='ident'>label</span>.<span class='ident'>to_owned</span>(),
             <span class='ident'>arguments</span>: <span class='ident'>arg</span>,
         };
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected</span>, <span class='ident'>drilldown</span>);
@@ -424,12 +499,12 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_offset</span>() {
         <span class='kw'>let</span> <span class='ident'>label</span> <span class='op'>=</span> <span class='string'>&quot;label1&quot;</span>.<span class='ident'>to_string</span>();
-        <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>clone</span>()).<span class='ident'>offset</span>(<span class='number'>10</span>);
+        <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>to_owned</span>()).<span class='ident'>offset</span>(<span class='number'>10</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
-        <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;drilldown[{}].offset&quot;</span>, <span class='ident'>label</span>.<span class='ident'>clone</span>()),
+        <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;drilldowns[{}].offset&quot;</span>, <span class='ident'>label</span>.<span class='ident'>to_owned</span>()),
                    <span class='string'>&quot;10&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span> {
-            <span class='ident'>label</span>: <span class='ident'>label</span>.<span class='ident'>clone</span>(),
+            <span class='ident'>label</span>: <span class='ident'>label</span>.<span class='ident'>to_owned</span>(),
             <span class='ident'>arguments</span>: <span class='ident'>arg</span>,
         };
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected</span>, <span class='ident'>drilldown</span>);
@@ -438,12 +513,12 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_limit</span>() {
         <span class='kw'>let</span> <span class='ident'>label</span> <span class='op'>=</span> <span class='string'>&quot;label1&quot;</span>.<span class='ident'>to_string</span>();
-        <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>clone</span>()).<span class='ident'>limit</span>(<span class='number'>30</span>);
+        <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>to_owned</span>()).<span class='ident'>limit</span>(<span class='number'>30</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
-        <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;drilldown[{}].limit&quot;</span>, <span class='ident'>label</span>.<span class='ident'>clone</span>()),
+        <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;drilldowns[{}].limit&quot;</span>, <span class='ident'>label</span>.<span class='ident'>to_owned</span>()),
                    <span class='string'>&quot;30&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span> {
-            <span class='ident'>label</span>: <span class='ident'>label</span>.<span class='ident'>clone</span>(),
+            <span class='ident'>label</span>: <span class='ident'>label</span>.<span class='ident'>to_owned</span>(),
             <span class='ident'>arguments</span>: <span class='ident'>arg</span>,
         };
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected</span>, <span class='ident'>drilldown</span>);
@@ -452,12 +527,12 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_calc_target</span>() {
         <span class='kw'>let</span> <span class='ident'>label</span> <span class='op'>=</span> <span class='string'>&quot;label1&quot;</span>.<span class='ident'>to_string</span>();
-        <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>clone</span>()).<span class='ident'>calc_target</span>(<span class='string'>&quot;target&quot;</span>.<span class='ident'>to_string</span>());
+        <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>to_owned</span>()).<span class='ident'>calc_target</span>(<span class='string'>&quot;target&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
-        <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;drilldown[{}].calc_target&quot;</span>, <span class='ident'>label</span>.<span class='ident'>clone</span>()),
+        <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;drilldowns[{}].calc_target&quot;</span>, <span class='ident'>label</span>.<span class='ident'>to_owned</span>()),
                    <span class='string'>&quot;target&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span> {
-            <span class='ident'>label</span>: <span class='ident'>label</span>.<span class='ident'>clone</span>(),
+            <span class='ident'>label</span>: <span class='ident'>label</span>.<span class='ident'>to_owned</span>(),
             <span class='ident'>arguments</span>: <span class='ident'>arg</span>,
         };
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected</span>, <span class='ident'>drilldown</span>);
@@ -466,12 +541,12 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_calc_types</span>() {
         <span class='kw'>let</span> <span class='ident'>label</span> <span class='op'>=</span> <span class='string'>&quot;label1&quot;</span>.<span class='ident'>to_string</span>();
-        <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>clone</span>()).<span class='ident'>calc_types</span>(<span class='ident'>CalcType</span>::<span class='prelude-val'>None</span>);
+        <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>to_owned</span>()).<span class='ident'>calc_types</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>CalcType</span>::<span class='prelude-val'>None</span>)]);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
-        <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;drilldown[{}].calc_types&quot;</span>, <span class='ident'>label</span>.<span class='ident'>clone</span>()),
-                   <span class='string'>&quot;NONE&quot;</span>.<span class='ident'>to_string</span>());
+        <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;drilldowns[{}].calc_types&quot;</span>, <span class='ident'>label</span>.<span class='ident'>to_owned</span>()),
+                   <span class='string'>&quot;\&#39;NONE\&#39;&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span> {
-            <span class='ident'>label</span>: <span class='ident'>label</span>.<span class='ident'>clone</span>(),
+            <span class='ident'>label</span>: <span class='ident'>label</span>.<span class='ident'>to_owned</span>(),
             <span class='ident'>arguments</span>: <span class='ident'>arg</span>,
         };
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected</span>, <span class='ident'>drilldown</span>);
@@ -480,8 +555,8 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_build</span>() {
         <span class='kw'>let</span> <span class='ident'>label</span> <span class='op'>=</span> <span class='string'>&quot;label1&quot;</span>.<span class='ident'>to_string</span>();
-        <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>clone</span>()).<span class='ident'>limit</span>(<span class='number'>30</span>).<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='ident'>expected</span>: <span class='ident'>Query</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;drilldown[{}].limit&quot;</span>, <span class='ident'>label</span>.<span class='ident'>clone</span>()),
+        <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='ident'>label</span>.<span class='ident'>to_owned</span>()).<span class='ident'>limit</span>(<span class='number'>30</span>).<span class='ident'>build</span>();
+        <span class='kw'>let</span> <span class='ident'>expected</span>: <span class='ident'>Query</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;drilldowns[{}].limit&quot;</span>, <span class='ident'>label</span>.<span class='ident'>to_owned</span>()),
                                     <span class='string'>&quot;30&quot;</span>.<span class='ident'>to_string</span>())];
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected</span>, <span class='ident'>drilldown</span>);
     }

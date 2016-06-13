@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -337,9 +338,11 @@
 <span id="294">294</span>
 <span id="295">295</span>
 <span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
 </pre><pre class='rust '>
-<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
-<span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>Load</span>;
+<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
+<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>Load</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>str</span>::<span class='ident'>FromStr</span>;
@@ -355,6 +358,7 @@
 <span class='kw'>use</span> <span class='ident'>commandable</span>::<span class='ident'>PostCommandable</span>;
 <span class='kw'>use</span> <span class='ident'>commandable</span>::<span class='ident'>DataValues</span>;
 <span class='kw'>use</span> <span class='ident'>request_cancellable</span>::<span class='ident'>RequestCancellable</span>;
+<span class='kw'>use</span> <span class='ident'>request_timeoutable</span>::<span class='ident'>RequestTimeoutable</span>;
 
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>Debug</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>LoadCommand</span> {
@@ -432,22 +436,22 @@
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>columns</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>columns</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>LoadCommand</span> {
         <span class='kw'>let</span> <span class='ident'>string</span> <span class='op'>=</span> <span class='ident'>util</span>::<span class='ident'>split_values_vec</span>(<span class='ident'>columns</span>);
-        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='string'>&quot;columns&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>string</span>.<span class='ident'>clone</span>());
+        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='string'>&quot;columns&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>string</span>.<span class='ident'>to_owned</span>());
         <span class='self'>self</span>
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>input_type</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>input_type</span>: <span class='ident'>InputType</span>) <span class='op'>-&gt;</span> <span class='ident'>LoadCommand</span> {
         <span class='kw'>let</span> <span class='ident'>input_type_str</span> <span class='op'>=</span> <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>input_type</span>);
-        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='string'>&quot;input_type&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>input_type_str</span>.<span class='ident'>clone</span>());
+        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='string'>&quot;input_type&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>input_type_str</span>.<span class='ident'>to_owned</span>());
         <span class='self'>self</span>
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>build</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> (<span class='ident'>Command</span>, <span class='ident'>Query</span>, <span class='ident'>LoadValues</span>) {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>query</span>: <span class='ident'>Query</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;table&quot;</span>.<span class='ident'>to_string</span>(), <span class='self'>self</span>.<span class='ident'>table</span>)];
-        <span class='kw'>for</span> (<span class='ident'>key</span>, <span class='ident'>value</span>) <span class='kw'>in</span> <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>iter</span>() {
+        <span class='kw'>for</span> (<span class='ident'>key</span>, <span class='ident'>value</span>) <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>arguments</span> {
             <span class='ident'>query</span>.<span class='ident'>push</span>((<span class='ident'>key</span>.<span class='ident'>to_owned</span>(), <span class='ident'>value</span>.<span class='ident'>to_owned</span>()));
         }
-        <span class='kw'>let</span> <span class='ident'>values</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>values</span>.<span class='ident'>clone</span>();
+        <span class='kw'>let</span> <span class='ident'>values</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>values</span>.<span class='ident'>to_owned</span>();
         (<span class='ident'>Load</span>, <span class='ident'>query</span>, <span class='ident'>values</span>)
     }
 }
@@ -485,10 +489,11 @@
 }
 
 <span class='macro'>request_cancellable</span><span class='macro'>!</span>(<span class='ident'>LoadCommand</span>);
+<span class='macro'>request_timeoutable</span><span class='macro'>!</span>(<span class='ident'>LoadCommand</span>);
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>test</span> {
-    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='op'>*</span>;
+    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='op'>*</span>;
     <span class='kw'>use</span> <span class='ident'>command</span>::<span class='ident'>Query</span>;
     <span class='kw'>use</span> <span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>Load</span>;
     <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;

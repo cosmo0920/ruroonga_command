@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -272,7 +273,7 @@
     <span class='doccomment'>/// And two or more value pair are concatinate with `&amp;`.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>make_query</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
         <span class='ident'>form_urlencoded</span>::<span class='ident'>Serializer</span>::<span class='ident'>new</span>(<span class='ident'>String</span>::<span class='ident'>new</span>())
-            .<span class='ident'>extend_pairs</span>(<span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>clone</span>())
+            .<span class='ident'>extend_pairs</span>(<span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>to_owned</span>())
             .<span class='ident'>finish</span>()
     }
 
@@ -288,7 +289,7 @@
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>test</span> {
-    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>CommandQuery</span>;
+    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>CommandQuery</span>;
     <span class='kw'>use</span> <span class='ident'>select</span>::<span class='ident'>SelectCommand</span>;
     <span class='kw'>use</span> <span class='ident'>load</span>::{<span class='ident'>LoadCommand</span>, <span class='ident'>InputType</span>};
     <span class='kw'>use</span> <span class='ident'>status</span>::<span class='ident'>StatusCommand</span>;
