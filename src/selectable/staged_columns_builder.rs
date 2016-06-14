@@ -35,6 +35,9 @@ pub struct StagedColumnsBuilder {
 /// let builder = StagedColumnsBuilder::new(select, staged_columns);
 /// let _ = builder.build();
 /// ```
+/// In more practical example, please refer to drilldown_builder examples
+/// in [examples/staged_columns_builder.rs]
+/// (https://github.com/cosmo0920/ruroonga_command/blob/master/examples/staged_columns_builder.rs).
 
 impl StagedColumnsBuilder {
     pub fn new(select: SelectCommand, staged_columns: StagedColumns) -> StagedColumnsBuilder {
