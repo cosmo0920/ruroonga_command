@@ -13,3 +13,4 @@ pub mod fragmentable;
 pub mod pseudo_table;
 pub mod staged_columns;
 pub mod staged_columns_builder;
+pub mod staged_columnable;

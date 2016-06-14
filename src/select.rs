@@ -17,6 +17,9 @@ use selectable::labeled_drilldownable::LabeledDrilldownable;
 use selectable::labeled_drilldown_builder::LabeledDrilldownBuilder;
 use selectable::labeled_drilldown_sequencable::LabeledDrilldownSequencable;
 use selectable::labeled_drilldown_sequence_builder::LabeledDrilldownSequenceBuilder;
+use selectable::staged_columns::StagedColumns;
+use selectable::staged_columns_builder::StagedColumnsBuilder;
+use selectable::staged_columnable::StagedColumnable;
 use std::ops::Add;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
@@ -202,6 +205,14 @@ impl Add<Vec<LabeledDrilldown>> for SelectCommand {
     }
 }
 
+impl Add<StagedColumns> for SelectCommand {
+    type Output = StagedColumnsBuilder;
+
+    fn add(self, rhs: StagedColumns) -> StagedColumnsBuilder {
+        StagedColumnsBuilder::new(self, rhs)
+    }
+}
+
 impl Drilldownable for SelectCommand {
     fn with_drilldown(self, rhs: Drilldown) -> DrilldownBuilder {
         DrilldownBuilder::new(self, rhs)
@@ -220,6 +231,12 @@ impl LabeledDrilldownSequencable for SelectCommand {
                                        rhs: Vec<LabeledDrilldown>)
                                        -> LabeledDrilldownSequenceBuilder {
         LabeledDrilldownSequenceBuilder::new(self, rhs)
+    }
+}
+
+impl StagedColumnable for SelectCommand {
+    fn with_staged_columns(self, rhs: StagedColumns) -> StagedColumnsBuilder {
+        StagedColumnsBuilder::new(self, rhs)
     }
 }
 
