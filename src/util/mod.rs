@@ -30,3 +30,9 @@ pub fn labeled_staged_key(label: String, key: String) -> String {
     let string = format!("columns[{}].{}", label.to_owned(), key.to_owned());
     string.clone()
 }
+
+#[inline]
+pub fn labeled_window_key(label: String, key: String) -> String {
+    let string = format!("columns[{}].window.{}", label.to_owned(), key.to_owned());
+    string.clone()
+}

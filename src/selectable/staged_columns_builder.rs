@@ -22,6 +22,7 @@ pub struct StagedColumnsBuilder {
 /// use ruroonga_command::selectable::staged_columns_builder::StagedColumnsBuilder;
 /// use ruroonga_command::types::data_type::DataType;
 /// use ruroonga_command::types::column_flag_type::ColumnFlagType;
+/// use ruroonga_command::selectable::staged_columns::WindowableColumn::Value;
 /// let label = "label1".to_string();
 /// let stage = "staged".to_string();
 /// let value = "'_id'".to_string();
@@ -30,8 +31,8 @@ pub struct StagedColumnsBuilder {
 /// let staged_columns = StagedColumns::new(label.clone(),
 ///                                         stage.clone(),
 ///                                         DataType::UInt32,
-///                                         vec![(ColumnFlagType::Scalar)],
-///                                         value.clone());
+///                                         Value(value.clone()))
+///                                    .flags(vec![(ColumnFlagType::Scalar)]);
 /// let builder = StagedColumnsBuilder::new(select, staged_columns);
 /// let _ = builder.build();
 /// ```
@@ -89,6 +90,7 @@ mod test {
     use types::data_type::DataType;
     use types::column_flag_type::ColumnFlagType;
     use selectable::staged_columns::StagedColumns;
+    use selectable::staged_columns::WindowableColumn::Value;
 
     #[test]
     #[ignore]
@@ -102,8 +104,8 @@ mod test {
         let staged_columns = StagedColumns::new(label.clone(),
                                                 stage.clone(),
                                                 DataType::UInt32,
-                                                vec![(ColumnFlagType::Scalar)],
-                                                value.clone());
+                                                Value(value.clone()))
+            .flags(vec![(ColumnFlagType::Scalar)]);
         let builder = StagedColumnsBuilder::new(select, staged_columns).to_query();
         let encoded = "/d/select?table=Entries&filter=%27content+%40+%22fast%22%27&columns%5Blabel\
                        1%5D.value=%27_id%27&columns%5Blabel1%5D.type=UInt32&columns%5Blabel1%5D.\
@@ -124,8 +126,8 @@ mod test {
         let staged_columns = StagedColumns::new(label.clone(),
                                                 stage.clone(),
                                                 DataType::UInt32,
-                                                vec![(ColumnFlagType::Scalar)],
-                                                value.clone());
+                                                Value(value.clone()))
+            .flags(vec![(ColumnFlagType::Scalar)]);
         let builder = StagedColumnsBuilder::new(select, staged_columns).to_command();
         let encoded = "select --table Entries --filter \'content @ \"fast\"\' \
                        --columns[label1].value \'_id\' --columns[label1].stage staged \
