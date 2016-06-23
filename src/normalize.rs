@@ -221,8 +221,7 @@ mod test {
     fn test_build() {
         let actual = NormalizeCommand::new(NormalizerType::Auto, "element".to_string()).build();
         let expected = (Normalize,
-                        vec![("normalizer".to_string(),
-                              format!("{}", NormalizerType::Auto)),
+                        vec![("normalizer".to_string(), format!("{}", NormalizerType::Auto)),
                              ("string".to_string(), "\"element\"".to_string())]);
         assert_eq!(expected, actual);
     }

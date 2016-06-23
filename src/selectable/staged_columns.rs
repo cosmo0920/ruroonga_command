@@ -14,14 +14,14 @@ use self::WindowableColumn::{Window, Value};
 #[derive(Clone, PartialEq, PartialOrd, Eq, Ord, Debug, Hash)]
 pub enum WindowableColumn<W, V> {
     Window(W),
-    Value(V)
+    Value(V),
 }
 
 #[derive(Clone, PartialEq, PartialOrd, Eq, Ord, Debug, Hash)]
 pub enum WindowFunction {
     RecordNumber,
     /// For future extensibility.
-    ExtWindowFunction(String)
+    ExtWindowFunction(String),
 }
 
 impl AsRef<str> for WindowFunction {
@@ -152,9 +152,10 @@ mod test {
                                                 stage.clone(),
                                                 DataType::UInt32,
                                                 Value(value.clone()))
-            .flags(vec![(ColumnFlagType::Scalar)]);
+                                 .flags(vec![(ColumnFlagType::Scalar)]);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert(format!("columns[{}].flags", label.clone()), "\'COLUMN_SCALAR\'".to_string());
+        arg.insert(format!("columns[{}].flags", label.clone()),
+                   "\'COLUMN_SCALAR\'".to_string());
         let expected = StagedColumns {
             label: label.to_owned(),
             stage: stage.clone(),
@@ -174,10 +175,11 @@ mod test {
                                                 stage.clone(),
                                                 DataType::UInt32,
                                                 Value(value.clone()))
-            .flags(vec![(ColumnFlagType::Scalar)])
-            .construct();
+                                 .flags(vec![(ColumnFlagType::Scalar)])
+                                 .construct();
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert(format!("columns[{}].flags", label.clone()), "\'COLUMN_SCALAR\'".to_string());
+        arg.insert(format!("columns[{}].flags", label.clone()),
+                   "\'COLUMN_SCALAR\'".to_string());
         assert_eq!(staged_columns.arguments
                                  .get(&format!("columns[{}].stage", label.to_owned()))
                                  .unwrap(),
