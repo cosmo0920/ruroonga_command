@@ -37,13 +37,9 @@ impl AsRef<str> for NormalizerType {
             #[cfg(feature="normalizer_mysql")]
             MySQLUnicode520CI => "NormalizerMySQLUnicode520CI",
             #[cfg(feature="normalizer_mysql")]
-            MySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark => {
-                "NormalizerMySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark"
-            }
+            MySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark => "NormalizerMySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark",
             #[cfg(feature="normalizer_mysql")]
-            MySQLUnicode520CIExceptKanaCIKanaWithVoicedSoundMark => {
-                "NormalizerMySQLUnicode520CIExceptKanaCIKanaWithVoicedSoundMark"
-            }
+            MySQLUnicode520CIExceptKanaCIKanaWithVoicedSoundMark => "NormalizerMySQLUnicode520CIExceptKanaCIKanaWithVoicedSoundMark",
             ExtNormalizerType(ref s) => s.as_ref(),
         }
     }
@@ -62,13 +58,17 @@ impl FromStr for NormalizerType {
         } else {
             Ok(match s {
                 "Auto" | "NormalizerAuto" => Auto,
-                "NFKC51" | "NormalizerNFKC51" => NFKC51,
+                "NFKC51" |
+                "NormalizerNFKC51" => NFKC51,
                 #[cfg(feature="normalizer_mysql")]
-                "MySQLGeneralCI" | "NormalizerMySQLGeneralCI" => MySQLGeneralCI,
+                "MySQLGeneralCI" |
+                "NormalizerMySQLGeneralCI" => MySQLGeneralCI,
                 #[cfg(feature="normalizer_mysql")]
-                "MySQLUnicodeCI" | "NormalizerMySQLUnicodeCI" => MySQLUnicodeCI,
+                "MySQLUnicodeCI" |
+                "NormalizerMySQLUnicodeCI" => MySQLUnicodeCI,
                 #[cfg(feature="normalizer_mysql")]
-                "MySQLUnicode520CI" | "NormalizerMySQLUnicode520CI" => MySQLUnicode520CI,
+                "MySQLUnicode520CI" |
+                "NormalizerMySQLUnicode520CI" => MySQLUnicode520CI,
                 #[cfg(feature="normalizer_mysql")]
                 "MySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark" |
                 "NormalizerMySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark" => {

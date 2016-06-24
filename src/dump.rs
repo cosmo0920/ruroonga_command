@@ -220,8 +220,8 @@ mod test {
     #[test]
     fn test_build() {
         let actual = DumpCommand::new()
-                         .tables(vec!["Books".to_string(), "Categories".to_string()])
-                         .build();
+            .tables(vec!["Books".to_string(), "Categories".to_string()])
+            .build();
         let expected_query: Query = vec![("tables".to_string(), "Books,Categories".to_string())];
         let expected = (Dump, expected_query);
         assert_eq!(expected, actual);
@@ -230,8 +230,8 @@ mod test {
     #[test]
     fn test_queryable() {
         let query = DumpCommand::new()
-                        .tables(vec!["Books".to_string(), "Categories".to_string()])
-                        .to_query();
+            .tables(vec!["Books".to_string(), "Categories".to_string()])
+            .to_query();
         let url_encoded = "/d/dump?tables=Books%2CCategories";
         assert_eq!(url_encoded.to_string(), query);
     }
@@ -239,8 +239,8 @@ mod test {
     #[test]
     fn test_commandable() {
         let query = DumpCommand::new()
-                        .tables(vec!["Books".to_string(), "Categories".to_string()])
-                        .to_command();
+            .tables(vec!["Books".to_string(), "Categories".to_string()])
+            .to_command();
         let cli_encoded = "dump --tables Books,Categories";
         assert_eq!(cli_encoded.to_string(), query);
     }

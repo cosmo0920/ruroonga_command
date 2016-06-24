@@ -82,23 +82,23 @@ mod test {
     #[test]
     fn test_to_query() {
         let select = SelectCommand::new("Entries".to_string())
-                         .filter("content @ \"fast\"".to_string());
+            .filter("content @ \"fast\"".to_string());
         let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
         let builder = DrilldownBuilder::new(select, drilldown).to_query();
         let encoded = "/d/select?table=Entries&filter=%27content+%40+%22fast%22%27&drilldown=%27ta\
                        g%27"
-                          .to_string();
+            .to_string();
         assert_eq!(encoded, builder);
     }
 
     #[test]
     fn test_to_command() {
         let select = SelectCommand::new("Entries".to_string())
-                         .filter("content @ \"fast\"".to_string());
+            .filter("content @ \"fast\"".to_string());
         let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
         let builder = DrilldownBuilder::new(select, drilldown).to_command();
         let encoded = "select --table Entries --filter \'content @ \"fast\"\' --drilldown \'tag\'"
-                          .to_string();
+            .to_string();
         assert_eq!(encoded, builder);
     }
 }

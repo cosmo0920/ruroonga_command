@@ -131,7 +131,7 @@ mod test {
     #[test]
     fn test_output_columns() {
         let drilldown = Drilldown::new()
-                            .output_columns(vec![("tag".to_string()), ("category".to_string())]);
+            .output_columns(vec![("tag".to_string()), ("category".to_string())]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("drilldown_output_columns".to_string(),
                    "\'tag,category\'".to_string());

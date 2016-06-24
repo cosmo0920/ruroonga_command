@@ -114,7 +114,7 @@ mod test {
                                             "element".to_string(),
                                             "NewTest".to_string(),
                                             "new_element".to_string())
-                         .build();
+            .build();
         let expected_query: Query = vec![("from_table".to_string(), "Test".to_string()),
                                          ("from_name".to_string(), "element".to_string()),
                                          ("to_table".to_string(), "NewTest".to_string()),
@@ -129,7 +129,7 @@ mod test {
                                             "element".to_string(),
                                             "NewTest".to_string(),
                                             "new_element".to_string())
-                         .to_query();
+            .to_query();
         let expected = "/d/column_copy?from_table=Test&from_name=element&to_table=NewTest&to_name=\
                         new_element";
         assert_eq!(expected, actual);
@@ -141,7 +141,7 @@ mod test {
                                             "element".to_string(),
                                             "NewTest".to_string(),
                                             "new_element".to_string())
-                         .to_command();
+            .to_command();
         let expected = "column_copy --from_table Test --from_name element --to_table NewTest \
                         --to_name new_element";
         assert_eq!(expected, actual);

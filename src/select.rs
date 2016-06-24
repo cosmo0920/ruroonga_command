@@ -275,7 +275,7 @@ mod test {
     #[test]
     fn test_filter() {
         let select = SelectCommand::new("test".to_string())
-                         .filter("output_column @ \"type_safe\"".to_string());
+            .filter("output_column @ \"type_safe\"".to_string());
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("filter".to_string(),
                    "'output_column @ \"type_safe\"'".to_string());
@@ -290,7 +290,7 @@ mod test {
     #[test]
     fn test_query() {
         let select = SelectCommand::new("test".to_string())
-                         .query("_key:\"http://example.org/\"".to_string());
+            .query("_key:\"http://example.org/\"".to_string());
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("query".to_string(),
                    "\'_key:\"http://example.org/\"\'".to_string());
@@ -319,7 +319,7 @@ mod test {
     #[allow(deprecated)]
     fn test_sortby() {
         let select = SelectCommand::new("test".to_string())
-                         .sortby(vec!["test".to_string(), "piyo".to_string()]);
+            .sortby(vec!["test".to_string(), "piyo".to_string()]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("sortby".to_string(), "\'test,piyo\'".to_string());
         let expected = SelectCommand {
@@ -333,7 +333,7 @@ mod test {
     #[test]
     fn test_sort_keys() {
         let select = SelectCommand::new("test".to_string())
-                         .sort_keys(vec!["test".to_string(), "piyo".to_string()]);
+            .sort_keys(vec!["test".to_string(), "piyo".to_string()]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("sort_keys".to_string(), "\'test,piyo\'".to_string());
         let expected = SelectCommand {
@@ -347,7 +347,7 @@ mod test {
     #[test]
     fn test_adjuster() {
         let select = SelectCommand::new("test".to_string())
-                         .adjuster("content @ \"ruroonga\"".to_string());
+            .adjuster("content @ \"ruroonga\"".to_string());
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("adjuster".to_string(),
                    "\'content @ \"ruroonga\"\'".to_string());
@@ -362,7 +362,7 @@ mod test {
     #[test]
     fn test_match_columns() {
         let select = SelectCommand::new("test".to_string())
-                         .match_columns(vec!["test".to_string(), "piyo".to_string()]);
+            .match_columns(vec!["test".to_string(), "piyo".to_string()]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("match_columns".to_string(), "test,piyo".to_string());
         let expected = SelectCommand {
@@ -376,7 +376,7 @@ mod test {
     #[test]
     fn test_output_columns() {
         let select = SelectCommand::new("test".to_string())
-                         .output_columns(vec!["test".to_string(), "piyo".to_string()]);
+            .output_columns(vec!["test".to_string(), "piyo".to_string()]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("output_columns".to_string(), "test,piyo".to_string());
         let expected = SelectCommand {
@@ -451,8 +451,7 @@ mod test {
     #[test]
     fn test_query_flags() {
         let select = SelectCommand::new("test".to_string())
-                         .query_flags(vec![(QueryFlagsType::AllowColumn),
-                                           (QueryFlagsType::AllowUpdate)]);
+            .query_flags(vec![(QueryFlagsType::AllowColumn), (QueryFlagsType::AllowUpdate)]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("query_flags".to_string(),
                    "ALLOW_COLUMN|ALLOW_UPDATE".to_string());
@@ -467,7 +466,7 @@ mod test {
     #[test]
     fn test_query_expander() {
         let select = SelectCommand::new("test".to_string())
-                         .query_expander(("Terms".to_string(), "synonym".to_string()));
+            .query_expander(("Terms".to_string(), "synonym".to_string()));
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("query_expander".to_string(), "Terms.synonym".to_string());
         let expected = SelectCommand {
@@ -481,8 +480,8 @@ mod test {
     #[test]
     fn test_build() {
         let actual = SelectCommand::new("test".to_string())
-                         .filter("output_column @ \"type_safe\"".to_string())
-                         .build();
+            .filter("output_column @ \"type_safe\"".to_string())
+            .build();
         let expected_query: Query = vec![("table".to_string(), "test".to_string()),
                                          ("filter".to_string(),
                                           "'output_column @ \"type_safe\"'".to_string())];
@@ -493,8 +492,8 @@ mod test {
     #[test]
     fn test_queryable() {
         let query = SelectCommand::new("Test".to_string())
-                        .filter("output_column @ \"type_safe\"".to_string())
-                        .to_query();
+            .filter("output_column @ \"type_safe\"".to_string())
+            .to_query();
         let url_encoded = "/d/select?table=Test&filter=%27output_column+%40+%22type_safe%22%27";
         assert_eq!(url_encoded.to_string(), query);
     }
@@ -502,8 +501,8 @@ mod test {
     #[test]
     fn test_commandable() {
         let query = SelectCommand::new("Test".to_string())
-                        .filter("output_column @ \"type_safe\"".to_string())
-                        .to_command();
+            .filter("output_column @ \"type_safe\"".to_string())
+            .to_command();
         let cli_encoded = "select --table Test --filter \'output_column @ \"type_safe\"\'";
         assert_eq!(cli_encoded.to_string(), query);
     }
@@ -511,47 +510,45 @@ mod test {
     #[test]
     fn test_add_ops_drilldown() {
         let select = SelectCommand::new("Entries".to_string())
-                         .filter("content @ \"fast\"".to_string());
+            .filter("content @ \"fast\"".to_string());
         let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
         let ops_builder = (select.to_owned() + drilldown.to_owned()).build();
         let drilldown_builder = DrilldownBuilder::new(select.to_owned(), drilldown.to_owned())
-                                    .build();
+            .build();
         assert_eq!(ops_builder, drilldown_builder);
     }
 
     #[test]
     fn test_add_ops_labedled_drilldown() {
         let select = SelectCommand::new("Entries".to_string())
-                         .filter("content @ \"fast\"".to_string());
+            .filter("content @ \"fast\"".to_string());
         let drilldown = LabeledDrilldown::new("labeled".to_string())
-                            .keys(vec![("tag".to_string())]);
+            .keys(vec![("tag".to_string())]);
         let ops_builder = (select.to_owned() + drilldown.to_owned()).build();
-        let drilldown_builder = LabeledDrilldownBuilder::new(select.to_owned(),
-                                                             drilldown.to_owned())
-                                    .build();
+        let drilldown_builder =
+            LabeledDrilldownBuilder::new(select.to_owned(), drilldown.to_owned()).build();
         assert_eq!(ops_builder, drilldown_builder);
     }
 
     #[test]
     fn test_with_drilldown() {
         let select = SelectCommand::new("Entries".to_string())
-                         .filter("content @ \"fast\"".to_string());
+            .filter("content @ \"fast\"".to_string());
         let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
         let drilldownable = select.to_owned().with_drilldown(drilldown.to_owned()).build();
         let drilldown_builder = DrilldownBuilder::new(select.to_owned(), drilldown.to_owned())
-                                    .build();
+            .build();
         assert_eq!(drilldownable, drilldown_builder);
     }
 
     #[test]
     fn test_with_labeled_drilldown() {
         let select = SelectCommand::new("Entries".to_string())
-                         .filter("content @ \"fast\"".to_string());
+            .filter("content @ \"fast\"".to_string());
         let drilldown = LabeledDrilldown::new("label".to_string()).keys(vec![("tag".to_string())]);
         let drilldownable = select.to_owned().with_labeled_drilldown(drilldown.to_owned()).build();
-        let drilldown_builder = LabeledDrilldownBuilder::new(select.to_owned(),
-                                                             drilldown.to_owned())
-                                    .build();
+        let drilldown_builder =
+            LabeledDrilldownBuilder::new(select.to_owned(), drilldown.to_owned()).build();
         assert_eq!(drilldownable, drilldown_builder);
     }
 

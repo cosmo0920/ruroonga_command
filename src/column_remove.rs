@@ -103,7 +103,7 @@ mod test {
     #[test]
     fn test_queryable() {
         let query = ColumnRemoveCommand::new("Books".to_string(), "category".to_string())
-                        .to_query();
+            .to_query();
         let url_encoded = "/d/column_remove?table=Books&name=category";
         assert_eq!(url_encoded.to_string(), query);
     }
@@ -111,7 +111,7 @@ mod test {
     #[test]
     fn test_commandable() {
         let query = ColumnRemoveCommand::new("Books".to_string(), "category".to_string())
-                        .to_command();
+            .to_command();
         let cli_encoded = "column_remove --table Books --name category";
         assert_eq!(cli_encoded.to_string(), query);
     }

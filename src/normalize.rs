@@ -76,9 +76,8 @@ impl FromStr for FlagType {
                 "RemoveBlank" | "REMOVE_BLANK" => RemoveBlank,
                 "WithTypes" | "WITH_TYPES" => WithTypes,
                 "WithChecks" | "WITH_CHECKS" => WithChecks,
-                "RemoveTokenizedDelimiter" | "REMOVE_TOKENIZED_DELIMITER" => {
-                    RemoveTokenizedDelimiter
-                }
+                "RemoveTokenizedDelimiter" |
+                "REMOVE_TOKENIZED_DELIMITER" => RemoveTokenizedDelimiter,
                 _ => ExtFlagType(s.to_owned()),
             })
         }
@@ -205,7 +204,7 @@ mod test {
     #[test]
     fn test_flags() {
         let normalize = NormalizeCommand::new(NormalizerType::Auto, "element".to_string())
-                            .flags(vec![(FlagType::RemoveBlank), (FlagType::WithTypes)]);
+            .flags(vec![(FlagType::RemoveBlank), (FlagType::WithTypes)]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("flags".to_string(), "REMOVE_BLANK|WITH_TYPES".to_string());
         let expected = NormalizeCommand {

@@ -33,8 +33,10 @@ impl FromStr for TokenFiltersType {
             Err(TokenFiltersTypeError::Empty)
         } else {
             Ok(match s {
-                "StopWord" | "TokenFilterStopWord" => StopWord,
-                "Stem" | "TokenFilterStem" => Stem,
+                "StopWord" |
+                "TokenFilterStopWord" => StopWord,
+                "Stem" |
+                "TokenFilterStem" => Stem,
                 _ => ExtTokenFiltersType(s.to_owned()),
             })
         }

@@ -67,7 +67,8 @@ impl FromStr for FlagType {
         } else {
             Ok(match s {
                 "None" | "NONE" => None,
-                "EnableTokenDelimiter" | "ENABLE_TOKENIZED_DELIMITER" => EnableTokenizedDelimiter,
+                "EnableTokenDelimiter" |
+                "ENABLE_TOKENIZED_DELIMITER" => EnableTokenizedDelimiter,
                 _ => ExtFlagType(s.to_owned()),
             })
         }
@@ -286,7 +287,7 @@ mod test {
     #[test]
     fn test_normalizer() {
         let column_create = TokenizeCommand::new(TokenizerType::Bigram, "element".to_string())
-                                .normalizer(NormalizerType::Auto);
+            .normalizer(NormalizerType::Auto);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("normalizer".to_string(),
                    format!("{}", NormalizerType::Auto));
@@ -302,7 +303,7 @@ mod test {
     #[test]
     fn test_token_filters() {
         let token_filters = TokenizeCommand::new(TokenizerType::Bigram, "element".to_string())
-                                .token_filters(TokenFiltersType::StopWord);
+            .token_filters(TokenFiltersType::StopWord);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("token_filters".to_string(),
                    format!("{}", TokenFiltersType::StopWord));
@@ -318,7 +319,7 @@ mod test {
     #[test]
     fn test_flags() {
         let tokenize = TokenizeCommand::new(TokenizerType::Bigram, "element".to_string())
-                           .flags(vec![(FlagType::None), (FlagType::EnableTokenizedDelimiter)]);
+            .flags(vec![(FlagType::None), (FlagType::EnableTokenizedDelimiter)]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("flags".to_string(),
                    "NONE|ENABLE_TOKENIZED_DELIMITER".to_string());
@@ -334,7 +335,7 @@ mod test {
     #[test]
     fn test_mode() {
         let tokenize = TokenizeCommand::new(TokenizerType::Bigram, "element".to_string())
-                           .mode(ModeType::Add);
+            .mode(ModeType::Add);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("mode".to_string(), format!("{}", ModeType::Add));
         let expected = TokenizeCommand {

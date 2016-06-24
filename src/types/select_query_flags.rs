@@ -57,7 +57,8 @@ impl FromStr for QueryFlagsType {
                 "AllowPragma" | "ALLOW_PRAGMA" => AllowPragma,
                 "AllowColumn" | "ALLOW_COLUMN" => AllowColumn,
                 "AllowUpdate" | "ALLOW_UDATE" => AllowUpdate,
-                "AllowLeadingNot" | "ALLOW_LEADING_NOT" => AllowLeadingNot,
+                "AllowLeadingNot" |
+                "ALLOW_LEADING_NOT" => AllowLeadingNot,
                 _ => ExtQueryFlagsType(s.to_owned()),
             })
         }

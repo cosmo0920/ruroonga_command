@@ -72,8 +72,8 @@ mod test {
     #[test]
     fn test_select() {
         let (command, query) = SelectCommand::new("Test".to_string())
-                                   .filter("output_column @ \"type_safe\"".to_string())
-                                   .build();
+            .filter("output_column @ \"type_safe\"".to_string())
+            .build();
         let mut command = CommandLine::new(command, query);
         let cli_encoded = "select --table Test --filter \'output_column @ \"type_safe\"\'";
         assert_eq!(cli_encoded.to_string(), command.encode());
@@ -85,8 +85,8 @@ mod test {
 {"_key":"http://example.org/","title":"This is test record 1!"},
 ]"#;
         let (command, query, values) = LoadCommand::new("Test".to_string(), load_data.to_string())
-                                           .input_type(InputType::Json)
-                                           .build();
+            .input_type(InputType::Json)
+            .build();
         let mut command = CommandLine::new(command, query);
         let cli_encoded = "load --table Test --input_type json";
         assert_eq!(cli_encoded.to_string(), command.encode());
@@ -104,8 +104,8 @@ mod test {
     #[test]
     fn test_dump() {
         let (command, query) = DumpCommand::new()
-                                   .tables(vec!["Books".to_string(), "Categories".to_string()])
-                                   .build();
+            .tables(vec!["Books".to_string(), "Categories".to_string()])
+            .build();
         let mut command = CommandLine::new(command, query);
         let cli_encoded = "dump --tables Books,Categories";
         assert_eq!(cli_encoded.to_string(), command.encode());
@@ -114,8 +114,8 @@ mod test {
     #[test]
     fn test_delete() {
         let (command, query) = DeleteCommand::new("Books".to_string())
-                                   .filter("author == unknown".to_string())
-                                   .build();
+            .filter("author == unknown".to_string())
+            .build();
         let mut command = CommandLine::new(command, query);
         let cli_encoded = "delete --table Books --filter \'author == unknown\'";
         assert_eq!(cli_encoded.to_string(), command.encode());
@@ -124,9 +124,8 @@ mod test {
     #[test]
     fn test_table_create() {
         let (command, query) = TableCreateCommand::new("Test".to_string())
-                                   .flags(vec![(TableFlagType::PatKey),
-                                               (TableFlagType::KeyWithSIS)])
-                                   .build();
+            .flags(vec![(TableFlagType::PatKey), (TableFlagType::KeyWithSIS)])
+            .build();
         let mut command = CommandLine::new(command, query);
         let url_encoded = "table_create --name Test --flags TABLE_PAT_KEY|KEY_WITH_SIS";
         assert_eq!(url_encoded.to_string(), command.encode());
@@ -135,8 +134,8 @@ mod test {
     #[test]
     fn test_column_create() {
         let (command, query) = ColumnCreateCommand::new("Test".to_string(), "element".to_string())
-                                   .column_type(DataType::LongText)
-                                   .build();
+            .column_type(DataType::LongText)
+            .build();
         let mut command = CommandLine::new(command, query);
         let cli_encoded = "column_create --table Test --name element --type LongText";
         assert_eq!(cli_encoded.to_string(), command.encode());

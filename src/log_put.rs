@@ -106,7 +106,7 @@ mod test {
     #[test]
     fn test_queryable() {
         let query = LogPutCommand::new(LogLevelType::Notice, "Hi, Ruroonga!".to_string())
-                        .to_query();
+            .to_query();
         let url_encoded = "/d/log_put?level=notice&message=Hi%2C+Ruroonga%21";
         assert_eq!(url_encoded.to_string(), query);
     }
@@ -114,7 +114,7 @@ mod test {
     #[test]
     fn test_commandable() {
         let query = LogPutCommand::new(LogLevelType::Notice, "Hi, Ruroonga!".to_string())
-                        .to_command();
+            .to_command();
         let cli_encoded = "log_put --level notice --message Hi, Ruroonga!";
         assert_eq!(cli_encoded.to_string(), query);
     }

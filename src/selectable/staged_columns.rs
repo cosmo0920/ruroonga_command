@@ -152,7 +152,7 @@ mod test {
                                                 stage.clone(),
                                                 DataType::UInt32,
                                                 Value(value.clone()))
-                                 .flags(vec![(ColumnFlagType::Scalar)]);
+            .flags(vec![(ColumnFlagType::Scalar)]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert(format!("columns[{}].flags", label.clone()),
                    "\'COLUMN_SCALAR\'".to_string());
@@ -175,26 +175,26 @@ mod test {
                                                 stage.clone(),
                                                 DataType::UInt32,
                                                 Value(value.clone()))
-                                 .flags(vec![(ColumnFlagType::Scalar)])
-                                 .construct();
+            .flags(vec![(ColumnFlagType::Scalar)])
+            .construct();
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert(format!("columns[{}].flags", label.clone()),
                    "\'COLUMN_SCALAR\'".to_string());
         assert_eq!(staged_columns.arguments
-                                 .get(&format!("columns[{}].stage", label.to_owned()))
-                                 .unwrap(),
+                       .get(&format!("columns[{}].stage", label.to_owned()))
+                       .unwrap(),
                    &"staged");
         assert_eq!(staged_columns.arguments
-                                 .get(&format!("columns[{}].type", label.to_owned()))
-                                 .unwrap(),
+                       .get(&format!("columns[{}].type", label.to_owned()))
+                       .unwrap(),
                    &"UInt32");
         assert_eq!(staged_columns.arguments
-                                 .get(&format!("columns[{}].flags", label.to_owned()))
-                                 .unwrap(),
+                       .get(&format!("columns[{}].flags", label.to_owned()))
+                       .unwrap(),
                    &"\'COLUMN_SCALAR\'");
         assert_eq!(staged_columns.arguments
-                                 .get(&format!("columns[{}].value", label.to_owned()))
-                                 .unwrap(),
+                       .get(&format!("columns[{}].value", label.to_owned()))
+                       .unwrap(),
                    &"\'_id\'");
     }
 }

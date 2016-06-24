@@ -100,17 +100,17 @@ mod test {
         let stage = "staged".to_string();
         let value = "'_id'".to_string();
         let select = SelectCommand::new("Entries".to_string())
-                         .filter("content @ \"fast\"".to_string());
+            .filter("content @ \"fast\"".to_string());
         let staged_columns = StagedColumns::new(label.clone(),
                                                 stage.clone(),
                                                 DataType::UInt32,
                                                 Value(value.clone()))
-                                 .flags(vec![(ColumnFlagType::Scalar)]);
+            .flags(vec![(ColumnFlagType::Scalar)]);
         let builder = StagedColumnsBuilder::new(select, staged_columns).to_query();
         let encoded = "/d/select?table=Entries&filter=%27content+%40+%22fast%22%27&columns%5Blabel\
                        1%5D.value=%27_id%27&columns%5Blabel1%5D.type=UInt32&columns%5Blabel1%5D.\
                        flags=%27COLUMN_SCALAR%27&columns%5Blabel1%5D.stage=staged"
-                          .to_string();
+            .to_string();
         assert_eq!(encoded, builder);
     }
 
@@ -122,17 +122,17 @@ mod test {
         let stage = "staged".to_string();
         let value = "'_id'".to_string();
         let select = SelectCommand::new("Entries".to_string())
-                         .filter("content @ \"fast\"".to_string());
+            .filter("content @ \"fast\"".to_string());
         let staged_columns = StagedColumns::new(label.clone(),
                                                 stage.clone(),
                                                 DataType::UInt32,
                                                 Value(value.clone()))
-                                 .flags(vec![(ColumnFlagType::Scalar)]);
+            .flags(vec![(ColumnFlagType::Scalar)]);
         let builder = StagedColumnsBuilder::new(select, staged_columns).to_command();
         let encoded = "select --table Entries --filter \'content @ \"fast\"\' \
                        --columns[label1].value \'_id\' --columns[label1].stage staged \
                        --columns[label1].flags \'COLUMN_SCALAR\' --columns[label1].type UInt32"
-                          .to_string();
+            .to_string();
         assert_eq!(encoded, builder);
     }
 }

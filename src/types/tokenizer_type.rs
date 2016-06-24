@@ -62,25 +62,25 @@ impl FromStr for TokenizerType {
         } else {
             Ok(match s {
                 "TokenBigram" | "Bigram" => Bigram,
-                "TokenBigramSplitSymbol" | "BigramSplitSymbol" => BigramSplitSymbol,
-                "TokenBigramSplitSymbolAlpha" | "BigramSplitSymbolAlpha" => BigramSplitSymbolAlpha,
-                "TokenBigramSplitSymbolAlphaDigit" | "BigramSplitSymbolAlphaDigit" => {
-                    BigramSplitSymbolAlphaDigit
-                }
-                "TokenBigramIgnoreBlank" | "BigramIgnoreBlank" => BigramIgnoreBlank,
-                "TokenBigramIgnoreBlankSplitSymbol" | "BigramIgnoreBlankSplitSymbol" => {
-                    BigramIgnoreBlankSplitSymbol
-                }
-                "TokenBigramIgnoreBlankSplitAlpha" | "BigramIgnoreBlankSplitAlpha" => {
-                    BigramIgnoreBlankSplitAlpha
-                }
-                "TokenBigramIgnoreBlankSplitAlphaDigit" | "BigramIgnoreBlankSplitAlphaDigit" => {
-                    BigramIgnoreBlankSplitAlphaDigit
-                }
+                "TokenBigramSplitSymbol" |
+                "BigramSplitSymbol" => BigramSplitSymbol,
+                "TokenBigramSplitSymbolAlpha" |
+                "BigramSplitSymbolAlpha" => BigramSplitSymbolAlpha,
+                "TokenBigramSplitSymbolAlphaDigit" |
+                "BigramSplitSymbolAlphaDigit" => BigramSplitSymbolAlphaDigit,
+                "TokenBigramIgnoreBlank" |
+                "BigramIgnoreBlank" => BigramIgnoreBlank,
+                "TokenBigramIgnoreBlankSplitSymbol" |
+                "BigramIgnoreBlankSplitSymbol" => BigramIgnoreBlankSplitSymbol,
+                "TokenBigramIgnoreBlankSplitAlpha" |
+                "BigramIgnoreBlankSplitAlpha" => BigramIgnoreBlankSplitAlpha,
+                "TokenBigramIgnoreBlankSplitAlphaDigit" |
+                "BigramIgnoreBlankSplitAlphaDigit" => BigramIgnoreBlankSplitAlphaDigit,
                 "TokenUnigram" | "Unigram" => Unigram,
                 "TokenTrigram" | "Trigram" => Trigram,
                 "TokenDelimit" | "Delimit" => Delimit,
-                "TokenDelimitNull" | "DelimitNull" => DelimitNull,
+                "TokenDelimitNull" |
+                "DelimitNull" => DelimitNull,
                 "TokenMecab" | "Mecab" => Mecab,
                 "TokenRegexp" | "Regexp" => Regexp,
                 _ => ExtUserDefined(s.to_owned()),

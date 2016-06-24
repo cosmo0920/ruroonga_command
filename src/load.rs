@@ -205,7 +205,7 @@ mod test {
     #[test]
     fn test_columns() {
         let load = LoadCommand::new("test".to_string(), DATA.to_string())
-                       .columns(vec!["_key".to_string(), "title".to_string()]);
+            .columns(vec!["_key".to_string(), "title".to_string()]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("columns".to_string(), "_key,title".to_string());
         let expected = LoadCommand {
@@ -220,7 +220,7 @@ mod test {
     #[test]
     fn test_input_type() {
         let load = LoadCommand::new("test".to_string(), DATA.to_string())
-                       .input_type(InputType::Json);
+            .input_type(InputType::Json);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("input_type".to_string(), "json".to_string());
         let expected = LoadCommand {
@@ -235,8 +235,8 @@ mod test {
     #[test]
     fn test_build() {
         let load = LoadCommand::new("test".to_string(), DATA.to_string())
-                       .columns(vec!["_key".to_string(), "title".to_string()])
-                       .build();
+            .columns(vec!["_key".to_string(), "title".to_string()])
+            .build();
         let expected_query: Query = vec![("table".to_string(), "test".to_string()),
                                          ("columns".to_string(), "_key,title".to_string())];
         let expected = (Load, expected_query, DATA.to_string());
@@ -249,8 +249,8 @@ mod test {
 {"_key":"http://example.org/","title":"This is test record 1!"},
 ]"#;
         let query = LoadCommand::new("test".to_string(), load_data.to_string())
-                        .input_type(InputType::Json)
-                        .to_query();
+            .input_type(InputType::Json)
+            .to_query();
         let url_encoded = "/d/load?table=test&input_type=json&values=[\n{\"_key\":\"http:\
                            //example.org/\",\"title\":\"This is test record 1!\"},\n]";
         assert_eq!(url_encoded.to_string(), query);
@@ -262,8 +262,8 @@ mod test {
 {"_key":"http://example.org/","title":"This is test record 1!"},
 ]"#;
         let (query, values) = LoadCommand::new("test".to_string(), load_data.to_string())
-                                  .input_type(InputType::Json)
-                                  .to_post_query();
+            .input_type(InputType::Json)
+            .to_post_query();
         let url_encoded = "/d/load?table=test&input_type=json";
         assert_eq!(url_encoded.to_string(), query);
         assert_eq!(load_data.to_string(), values);
@@ -275,8 +275,8 @@ mod test {
 {"_key":"http://example.org/","title":"This is test record 1!"},
 ]"#;
         let query = LoadCommand::new("test".to_string(), load_data.to_string())
-                        .input_type(InputType::Json)
-                        .to_command();
+            .input_type(InputType::Json)
+            .to_command();
         let cli_encoded = "load --table test --input_type \
                            json\n[\n{\"_key\":\"http://example.org/\",\"title\":\"This is test \
                            record 1!\"},\n]";
@@ -289,8 +289,8 @@ mod test {
 {"_key":"http://example.org/","title":"This is test record 1!"},
 ]"#;
         let (query, values) = LoadCommand::new("test".to_string(), load_data.to_string())
-                                  .input_type(InputType::Json)
-                                  .to_post_command();
+            .input_type(InputType::Json)
+            .to_post_command();
         let cli_encoded = "load --table test --input_type json";
         assert_eq!(cli_encoded.to_string(), query);
         assert_eq!(load_data.to_string(), values);

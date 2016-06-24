@@ -166,7 +166,7 @@ mod test {
     fn test_sort_keys() {
         let label = "label1".to_string();
         let drilldown = LabeledDrilldown::new(label.to_owned())
-                            .sort_keys(vec![("tag".to_string())]);
+            .sort_keys(vec![("tag".to_string())]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert(format!("drilldowns[{}].sort_keys", label),
                    "\'tag\'".to_string());
@@ -181,7 +181,7 @@ mod test {
     fn test_output_columns() {
         let label = "label1".to_string();
         let drilldown = LabeledDrilldown::new(label.to_owned())
-                            .output_columns(vec![("tag".to_string()), ("category".to_string())]);
+            .output_columns(vec![("tag".to_string()), ("category".to_string())]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert(format!("drilldowns[{}].output_columns", label.to_owned()),
                    "\'tag,category\'".to_string());

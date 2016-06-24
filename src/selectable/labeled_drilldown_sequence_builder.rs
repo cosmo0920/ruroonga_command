@@ -98,24 +98,24 @@ mod test {
     #[test]
     fn test_to_query() {
         let select = SelectCommand::new("Entries".to_string())
-                         .filter("content @ \"fast\"".to_string());
+            .filter("content @ \"fast\"".to_string());
         let drilldown = LabeledDrilldown::new("label".to_string()).keys(vec![("tag".to_string())]);
         let builder = LabeledDrilldownSequenceBuilder::new(select, vec![(drilldown)]).to_query();
         let encoded = "/d/select?table=Entries&filter=%27content+%40+%22fast%22%27&drilldowns%5Bla\
                        bel%5D.keys=%27tag%27"
-                          .to_string();
+            .to_string();
         assert_eq!(encoded, builder);
     }
 
     #[test]
     fn test_to_command() {
         let select = SelectCommand::new("Entries".to_string())
-                         .filter("content @ \"fast\"".to_string());
+            .filter("content @ \"fast\"".to_string());
         let drilldown = LabeledDrilldown::new("label".to_string()).keys(vec![("tag".to_string())]);
         let builder = LabeledDrilldownSequenceBuilder::new(select, vec![(drilldown)]).to_command();
         let encoded = "select --table Entries --filter \'content @ \"fast\"\' \
                        --drilldowns[label].keys \'tag\'"
-                          .to_string();
+            .to_string();
         assert_eq!(encoded, builder);
     }
 }
