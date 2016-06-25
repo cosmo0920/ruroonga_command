@@ -138,10 +138,40 @@ impl Fragmentable for StagedColumns {
 #[cfg(test)]
 mod test {
     use super::*;
+    use std::str::FromStr;
     use std::collections::HashMap;
     use types::data_type::DataType;
     use types::column_flag_type::ColumnFlagType;
     use super::WindowableColumn::Value;
+
+    #[test]
+    fn test_as_str() {
+        assert_eq!(WindowFunction::RecordNumber.as_ref(), "record_number()");
+        assert_eq!(WindowFunction::ExtWindowFunction("ext_func()".to_owned()).as_ref(),
+                   "ext_func()");
+    }
+
+    #[test]
+    fn test_from_str() {
+        assert_eq!(WindowFunction::RecordNumber, FromStr::from_str("record_number").unwrap());
+        assert_eq!(WindowFunction::RecordNumber, FromStr::from_str("RecordNumber").unwrap());
+        assert_eq!(WindowFunction::ExtWindowFunction("ext_func()".to_owned()),
+                   FromStr::from_str("ext_func()").unwrap());
+        let x: Result<WindowFunction, _> = FromStr::from_str("");
+        if let Err(WindowFunctionError::Empty) = x {
+        } else {
+            panic!("An empty window function is invalid!")
+        }
+    }
+
+    #[test]
+    fn test_fmt() {
+        assert_eq!("record_number()".to_owned(),
+                   format!("{}", WindowFunction::RecordNumber));
+        assert_eq!("ext_func()".to_owned(),
+                   format!("{}",
+                           WindowFunction::ExtWindowFunction("ext_func()".to_owned())));
+    }
 
     #[test]
     fn test_new() {
