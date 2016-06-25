@@ -153,8 +153,10 @@ mod test {
 
     #[test]
     fn test_from_str() {
-        assert_eq!(WindowFunction::RecordNumber, FromStr::from_str("record_number").unwrap());
-        assert_eq!(WindowFunction::RecordNumber, FromStr::from_str("RecordNumber").unwrap());
+        assert_eq!(WindowFunction::RecordNumber,
+                   FromStr::from_str("record_number").unwrap());
+        assert_eq!(WindowFunction::RecordNumber,
+                   FromStr::from_str("RecordNumber").unwrap());
         assert_eq!(WindowFunction::ExtWindowFunction("ext_func()".to_owned()),
                    FromStr::from_str("ext_func()").unwrap());
         let x: Result<WindowFunction, _> = FromStr::from_str("");
