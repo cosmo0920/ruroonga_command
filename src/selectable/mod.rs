@@ -3,6 +3,8 @@
 //! to concatinate `select` and `drilldown` queries.
 //!
 //! Also this module support `pseudo_table` and `staged_columns` manupilation.
+
+pub mod drilldown_type;
 pub mod drilldown;
 pub mod labeled_drilldown;
 pub mod drilldownable;
