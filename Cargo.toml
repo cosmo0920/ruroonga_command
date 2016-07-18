@@ -11,6 +11,7 @@ build = "build.rs"
 [features]
 normalizer_mysql = []
 unstable = []
+sharding = []
 dev = ['clippy']
 
 [build-dependencies.skeptic]

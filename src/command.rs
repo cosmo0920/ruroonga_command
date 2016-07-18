@@ -7,6 +7,8 @@ use self::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delet
                     RequestCancel, Normalize, NormalizerList, ObjectExist, ObjectInspect,
                     ObjectRemove, PluginRegister, PluginUnregister, ThreadLimit, Tokenize,
                     TokenizerList, Truncate, Schema, Shutdown, Extension};
+#[cfg(feature="sharding")]
+use self::Command::LogicalSelect;
 
 #[derive (Debug)]
 pub enum CommandError {
@@ -49,6 +51,8 @@ pub enum Command {
     Truncate,
     Schema,
     Shutdown,
+    #[cfg(feature="sharding")]
+    LogicalSelect,
     /// Method extensions.
     ///
     /// An example would be:
@@ -99,6 +103,8 @@ impl AsRef<str> for Command {
             Truncate => "truncate",
             Schema => "schema",
             Shutdown => "shutdown",
+            #[cfg(feature="sharding")]
+            LogicalSelect => "logical_select",
             Extension(ref s) => s.as_ref(),
         }
     }
@@ -145,6 +151,8 @@ impl FromStr for Command {
                 "request_cancel" => RequestCancel,
                 "schema" => Schema,
                 "shutdown" => Shutdown,
+                #[cfg(feature="sharding")]
+                "logical_select" => LogicalSelect,
                 _ => Extension(s.to_owned()),
             })
         }
@@ -188,6 +196,8 @@ impl fmt::Display for Command {
             Truncate => "truncate",
             Schema => "schema",
             Shutdown => "shutdown",
+            #[cfg(feature="sharding")]
+            LogicalSelect => "logical_select",
             Extension(ref s) => s.as_ref(),
         })
     }
@@ -207,6 +217,8 @@ mod test {
                          ColumnRemove, RequestCancel, ObjectExist, ObjectInspect, ObjectRemove,
                          Normalize, NormalizerList, PluginRegister, PluginUnregister, ThreadLimit,
                          Tokenize, TokenizerList, Truncate, Schema, Shutdown, Extension};
+    #[cfg(feature="sharding")]
+    use super::Command::LogicalSelect;
 
     #[test]
     fn test_from_str() {
@@ -251,6 +263,12 @@ mod test {
         }
     }
 
+    #[cfg(feature="sharding")]
+    #[test]
+    fn test_from_str_with_sharding() {
+        assert_eq!(LogicalSelect, FromStr::from_str("logical_select").unwrap());
+    }
+
     #[test]
     fn test_fmt() {
         assert_eq!("load".to_owned(), format!("{}", Load));
@@ -286,6 +304,12 @@ mod test {
         assert_eq!("shutdown".to_owned(), format!("{}", Shutdown));
         assert_eq!("added-command".to_owned(),
                    format!("{}", Extension("added-command".to_owned())));
+    }
+
+    #[cfg(feature="sharding")]
+    #[test]
+    fn test_fmt_with_sharding() {
+        assert_eq!("logical_select".to_owned(), format!("{}", LogicalSelect));
     }
 
     #[test]
@@ -326,5 +350,11 @@ mod test {
         assert_eq!(Shutdown.as_ref(), "shutdown");
         assert_eq!(Extension("added-command".to_owned()).as_ref(),
                    "added-command");
+    }
+
+    #[cfg(feature="sharding")]
+    #[test]
+    fn test_as_str_with_sharding() {
+        assert_eq!(LogicalSelect.as_ref(), "logical_select");
     }
 }
