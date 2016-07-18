@@ -24,6 +24,7 @@ use std::ops::Add;
 use extendable::Extendable;
 use request_cancellable::RequestCancellable;
 use request_timeoutable::RequestTimeoutable;
+use selectable::drilldown_type::DrilldownUsable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct SelectCommand {
@@ -185,7 +186,7 @@ impl Add<Drilldown> for SelectCommand {
     type Output = DrilldownBuilder;
 
     fn add(self, rhs: Drilldown) -> DrilldownBuilder {
-        DrilldownBuilder::new(self, rhs)
+        DrilldownBuilder::new(DrilldownUsable::Select(self), rhs)
     }
 }
 
@@ -215,7 +216,7 @@ impl Add<StagedColumns> for SelectCommand {
 
 impl Drilldownable for SelectCommand {
     fn with_drilldown(self, rhs: Drilldown) -> DrilldownBuilder {
-        DrilldownBuilder::new(self, rhs)
+        DrilldownBuilder::new(DrilldownUsable::Select(self), rhs)
     }
 }
 
@@ -260,6 +261,7 @@ mod test {
     use selectable::labeled_drilldownable::LabeledDrilldownable;
     use selectable::labeled_drilldown_builder::LabeledDrilldownBuilder;
     use extendable::Extendable;
+    use selectable::drilldown_type::DrilldownUsable;
 
     #[test]
     fn test_new() {
@@ -513,7 +515,7 @@ mod test {
             .filter("content @ \"fast\"".to_string());
         let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
         let ops_builder = (select.to_owned() + drilldown.to_owned()).build();
-        let drilldown_builder = DrilldownBuilder::new(select.to_owned(), drilldown.to_owned())
+        let drilldown_builder = DrilldownBuilder::new(DrilldownUsable::Select(select.to_owned()), drilldown.to_owned())
             .build();
         assert_eq!(ops_builder, drilldown_builder);
     }
@@ -536,7 +538,7 @@ mod test {
             .filter("content @ \"fast\"".to_string());
         let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
         let drilldownable = select.to_owned().with_drilldown(drilldown.to_owned()).build();
-        let drilldown_builder = DrilldownBuilder::new(select.to_owned(), drilldown.to_owned())
+        let drilldown_builder = DrilldownBuilder::new(DrilldownUsable::Select(select.to_owned()), drilldown.to_owned())
             .build();
         assert_eq!(drilldownable, drilldown_builder);
     }
