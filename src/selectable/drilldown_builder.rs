@@ -102,7 +102,8 @@ mod test {
         let select = SelectCommand::new("Entries".to_string())
             .filter("content @ \"fast\"".to_string());
         let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
-        let builder = DrilldownBuilder::new(DrilldownUsable::Select(select), drilldown).to_command();
+        let builder = DrilldownBuilder::new(DrilldownUsable::Select(select), drilldown)
+            .to_command();
         let encoded = "select --table Entries --filter \'content @ \"fast\"\' --drilldown \'tag\'"
             .to_string();
         assert_eq!(encoded, builder);

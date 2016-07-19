@@ -271,7 +271,8 @@ mod test {
 
     #[test]
     fn test_new() {
-        let vanilla_select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string());
+        let vanilla_select = LogicalSelectCommand::new("Entries".to_string(),
+                                                       "created_at".to_string());
         let expected = LogicalSelectCommand {
             command: LogicalSelect,
             logical_table: "Entries".to_string(),
@@ -315,7 +316,8 @@ mod test {
 
     #[test]
     fn test_scorer() {
-        let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string()).scorer("_score := rust".to_string());
+        let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
+            .scorer("_score := rust".to_string());
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("scorer".to_string(), "\'_score := rust\'".to_string());
         let expected = LogicalSelectCommand {
@@ -330,7 +332,8 @@ mod test {
     #[test]
     #[allow(deprecated)]
     fn test_sortby() {
-        let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string()).scorer("_score := rust".to_string())
+        let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
+            .scorer("_score := rust".to_string())
             .sortby(vec!["test".to_string(), "piyo".to_string()]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("sortby".to_string(), "\'test,piyo\'".to_string());
@@ -346,7 +349,8 @@ mod test {
 
     #[test]
     fn test_sort_keys() {
-        let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string()).scorer("_score := rust".to_string())
+        let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
+            .scorer("_score := rust".to_string())
             .sort_keys(vec!["test".to_string(), "piyo".to_string()]);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("sort_keys".to_string(), "\'test,piyo\'".to_string());
@@ -408,7 +412,8 @@ mod test {
 
     #[test]
     fn test_offset() {
-        let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string()).offset(100);
+        let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
+            .offset(100);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("offset".to_string(), "100".to_string());
         let expected = LogicalSelectCommand {
@@ -422,7 +427,8 @@ mod test {
 
     #[test]
     fn test_limit() {
-        let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string()).limit(50);
+        let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
+            .limit(50);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("limit".to_string(), "50".to_string());
         let expected = LogicalSelectCommand {
@@ -436,7 +442,8 @@ mod test {
 
     #[test]
     fn test_cache() {
-        let select_yes = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string()).cache(true);
+        let select_yes = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
+            .cache(true);
         let mut arg_yes: HashMap<String, String> = HashMap::new();
         arg_yes.insert("cache".to_string(), "yes".to_string());
         let expected_yes = LogicalSelectCommand {
@@ -446,7 +453,8 @@ mod test {
             arguments: arg_yes,
         };
         assert_eq!(expected_yes, select_yes);
-        let select_no = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string()).cache(false);
+        let select_no = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
+            .cache(false);
         let mut arg_no: HashMap<String, String> = HashMap::new();
         arg_no.insert("cache".to_string(), "no".to_string());
         let expected_no = LogicalSelectCommand {
@@ -460,7 +468,8 @@ mod test {
 
     #[test]
     fn test_match_escalation_threshold() {
-        let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string()).match_escalation_threshold(-1);
+        let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
+            .match_escalation_threshold(-1);
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("match_escalation_threshold".to_string(), "-1".to_string());
         let expected = LogicalSelectCommand {
@@ -530,7 +539,8 @@ mod test {
         let query = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
             .filter("output_column @ \"type_safe\"".to_string())
             .to_command();
-        let cli_encoded = "logical_select --logical_table Entries --shard_key created_at --filter \'output_column @ \"type_safe\"\'";
+        let cli_encoded = "logical_select --logical_table Entries --shard_key created_at --filter \
+                           \'output_column @ \"type_safe\"\'";
         assert_eq!(cli_encoded.to_string(), query);
     }
 
@@ -540,8 +550,10 @@ mod test {
             .filter("content @ \"fast\"".to_string());
         let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
         let ops_builder = (select.to_owned() + drilldown.to_owned()).build();
-        let drilldown_builder = DrilldownBuilder::new(DrilldownUsable::LogicalSelect(select.to_owned()), drilldown.to_owned())
-            .build();
+        let drilldown_builder =
+            DrilldownBuilder::new(DrilldownUsable::LogicalSelect(select.to_owned()),
+                                  drilldown.to_owned())
+                .build();
         assert_eq!(ops_builder, drilldown_builder);
     }
 
@@ -553,7 +565,9 @@ mod test {
             .keys(vec![("tag".to_string())]);
         let ops_builder = (select.to_owned() + drilldown.to_owned()).build();
         let drilldown_builder =
-            LabeledDrilldownBuilder::new(DrilldownUsable::LogicalSelect(select.to_owned()), drilldown.to_owned()).build();
+            LabeledDrilldownBuilder::new(DrilldownUsable::LogicalSelect(select.to_owned()),
+                                         drilldown.to_owned())
+                .build();
         assert_eq!(ops_builder, drilldown_builder);
     }
 
@@ -563,8 +577,10 @@ mod test {
             .filter("content @ \"fast\"".to_string());
         let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
         let drilldownable = select.to_owned().with_drilldown(drilldown.to_owned()).build();
-        let drilldown_builder = DrilldownBuilder::new(DrilldownUsable::LogicalSelect(select.to_owned()), drilldown.to_owned())
-            .build();
+        let drilldown_builder =
+            DrilldownBuilder::new(DrilldownUsable::LogicalSelect(select.to_owned()),
+                                  drilldown.to_owned())
+                .build();
         assert_eq!(drilldownable, drilldown_builder);
     }
 
@@ -575,7 +591,9 @@ mod test {
         let drilldown = LabeledDrilldown::new("label".to_string()).keys(vec![("tag".to_string())]);
         let drilldownable = select.to_owned().with_labeled_drilldown(drilldown.to_owned()).build();
         let drilldown_builder =
-            LabeledDrilldownBuilder::new(DrilldownUsable::LogicalSelect(select.to_owned()), drilldown.to_owned()).build();
+            LabeledDrilldownBuilder::new(DrilldownUsable::LogicalSelect(select.to_owned()),
+                                         drilldown.to_owned())
+                .build();
         assert_eq!(drilldownable, drilldown_builder);
     }
 
