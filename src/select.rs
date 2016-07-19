@@ -194,7 +194,7 @@ impl Add<LabeledDrilldown> for SelectCommand {
     type Output = LabeledDrilldownBuilder;
 
     fn add(self, rhs: LabeledDrilldown) -> LabeledDrilldownBuilder {
-        LabeledDrilldownBuilder::new(self, rhs)
+        LabeledDrilldownBuilder::new(DrilldownUsable::Select(self), rhs)
     }
 }
 
@@ -202,7 +202,7 @@ impl Add<Vec<LabeledDrilldown>> for SelectCommand {
     type Output = LabeledDrilldownSequenceBuilder;
 
     fn add(self, rhs: Vec<LabeledDrilldown>) -> LabeledDrilldownSequenceBuilder {
-        LabeledDrilldownSequenceBuilder::new(self, rhs)
+        LabeledDrilldownSequenceBuilder::new(DrilldownUsable::Select(self), rhs)
     }
 }
 
@@ -210,7 +210,7 @@ impl Add<StagedColumns> for SelectCommand {
     type Output = StagedColumnsBuilder;
 
     fn add(self, rhs: StagedColumns) -> StagedColumnsBuilder {
-        StagedColumnsBuilder::new(self, rhs)
+        StagedColumnsBuilder::new(DrilldownUsable::Select(self), rhs)
     }
 }
 
@@ -222,7 +222,7 @@ impl Drilldownable for SelectCommand {
 
 impl LabeledDrilldownable for SelectCommand {
     fn with_labeled_drilldown(self, rhs: LabeledDrilldown) -> LabeledDrilldownBuilder {
-        LabeledDrilldownBuilder::new(self, rhs)
+        LabeledDrilldownBuilder::new(DrilldownUsable::Select(self), rhs)
     }
 }
 
@@ -231,13 +231,13 @@ impl LabeledDrilldownSequencable for SelectCommand {
     fn with_labeled_drilldown_sequence(self,
                                        rhs: Vec<LabeledDrilldown>)
                                        -> LabeledDrilldownSequenceBuilder {
-        LabeledDrilldownSequenceBuilder::new(self, rhs)
+        LabeledDrilldownSequenceBuilder::new(DrilldownUsable::Select(self), rhs)
     }
 }
 
 impl StagedColumnable for SelectCommand {
     fn with_staged_columns(self, rhs: StagedColumns) -> StagedColumnsBuilder {
-        StagedColumnsBuilder::new(self, rhs)
+        StagedColumnsBuilder::new(DrilldownUsable::Select(self), rhs)
     }
 }
 
@@ -528,7 +528,7 @@ mod test {
             .keys(vec![("tag".to_string())]);
         let ops_builder = (select.to_owned() + drilldown.to_owned()).build();
         let drilldown_builder =
-            LabeledDrilldownBuilder::new(select.to_owned(), drilldown.to_owned()).build();
+            LabeledDrilldownBuilder::new(DrilldownUsable::Select(select.to_owned()), drilldown.to_owned()).build();
         assert_eq!(ops_builder, drilldown_builder);
     }
 
@@ -550,7 +550,7 @@ mod test {
         let drilldown = LabeledDrilldown::new("label".to_string()).keys(vec![("tag".to_string())]);
         let drilldownable = select.to_owned().with_labeled_drilldown(drilldown.to_owned()).build();
         let drilldown_builder =
-            LabeledDrilldownBuilder::new(select.to_owned(), drilldown.to_owned()).build();
+            LabeledDrilldownBuilder::new(DrilldownUsable::Select(select.to_owned()), drilldown.to_owned()).build();
         assert_eq!(drilldownable, drilldown_builder);
     }
 

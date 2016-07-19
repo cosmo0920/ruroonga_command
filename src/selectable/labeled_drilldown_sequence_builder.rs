@@ -1,4 +1,3 @@
-use select::SelectCommand;
 use super::labeled_drilldown::LabeledDrilldown;
 use command::{Command, Query};
 use selectable::fragmentable::Fragmentable;
@@ -6,9 +5,10 @@ use command_query::CommandQuery;
 use queryable::Queryable;
 use commandable::Commandable;
 use command_line::CommandLine;
+use selectable::drilldown_type::DrilldownUsable;
 
 pub struct LabeledDrilldownSequenceBuilder {
-    select: SelectCommand,
+    select: DrilldownUsable,
     drilldowns: Vec<LabeledDrilldown>,
 }
 
@@ -21,6 +21,7 @@ pub struct LabeledDrilldownSequenceBuilder {
 /// use ruroonga_command::selectable::pseudo_table::PseudoTable;
 /// use ruroonga_command::selectable::labeled_drilldown::LabeledDrilldown;
 /// use ruroonga_command::selectable::labeled_drilldown_sequence_builder as builder;
+/// use ruroonga_command::selectable::drilldown_type::DrilldownUsable;
 /// let select = SelectCommand::new("Memos".to_string());
 /// let drilldown_label1 = LabeledDrilldown::new("label1".to_string())
 ///                  .table("label2".to_string())
@@ -33,7 +34,7 @@ pub struct LabeledDrilldownSequenceBuilder {
 ///                                       ("_nsubrecs".to_string()),
 ///                                       ("category".to_string())]);
 /// let mut builder =
-///     builder::LabeledDrilldownSequenceBuilder::new(select,
+///     builder::LabeledDrilldownSequenceBuilder::new(DrilldownUsable::Select(select),
 ///                                                   vec![(drilldown_label1),
 ///                                                        (drilldown_label2)]);
 /// let _ = builder.build();
@@ -43,7 +44,7 @@ pub struct LabeledDrilldownSequenceBuilder {
 /// (https://github.com/cosmo0920/ruroonga_command/blob/master/examples/advanced_drilldown.rs).
 
 impl LabeledDrilldownSequenceBuilder {
-    pub fn new(select: SelectCommand,
+    pub fn new(select: DrilldownUsable,
                drilldowns: Vec<LabeledDrilldown>)
                -> LabeledDrilldownSequenceBuilder {
         LabeledDrilldownSequenceBuilder {
@@ -54,11 +55,15 @@ impl LabeledDrilldownSequenceBuilder {
 
     pub fn build(self) -> (Command, Query) {
         let mut query: Query = vec![];
-        let (command, ordered_select, select) = self.select.to_fragment();
+        let (command, ordered_select, key_values) = match self.select {
+            DrilldownUsable::Select(s) => s.to_fragment(),
+            #[cfg(feature="sharding")]
+            DrilldownUsable::LogicalSelect(l) => l.to_fragment(),
+        };
         for ordered in &ordered_select {
             query.push(ordered.to_owned());
         }
-        for (key, value) in &select {
+        for (key, value) in &key_values {
             query.push((key.to_owned(), value.to_owned()));
         }
         for drilldown in &self.drilldowns {
@@ -94,13 +99,14 @@ mod test {
     use commandable::Commandable;
     use select::SelectCommand;
     use selectable::labeled_drilldown::LabeledDrilldown;
+    use selectable::drilldown_type::DrilldownUsable;
 
     #[test]
     fn test_to_query() {
         let select = SelectCommand::new("Entries".to_string())
             .filter("content @ \"fast\"".to_string());
         let drilldown = LabeledDrilldown::new("label".to_string()).keys(vec![("tag".to_string())]);
-        let builder = LabeledDrilldownSequenceBuilder::new(select, vec![(drilldown)]).to_query();
+        let builder = LabeledDrilldownSequenceBuilder::new(DrilldownUsable::Select(select), vec![(drilldown)]).to_query();
         let encoded = "/d/select?table=Entries&filter=%27content+%40+%22fast%22%27&drilldowns%5Bla\
                        bel%5D.keys=%27tag%27"
             .to_string();
@@ -112,7 +118,7 @@ mod test {
         let select = SelectCommand::new("Entries".to_string())
             .filter("content @ \"fast\"".to_string());
         let drilldown = LabeledDrilldown::new("label".to_string()).keys(vec![("tag".to_string())]);
-        let builder = LabeledDrilldownSequenceBuilder::new(select, vec![(drilldown)]).to_command();
+        let builder = LabeledDrilldownSequenceBuilder::new(DrilldownUsable::Select(select), vec![(drilldown)]).to_command();
         let encoded = "select --table Entries --filter \'content @ \"fast\"\' \
                        --drilldowns[label].keys \'tag\'"
             .to_string();
