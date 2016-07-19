@@ -96,4 +96,6 @@ pub mod shutdown;
 /// let select = select("Entries".to_string())
 ///                  .filter("content @ \"fast\"".to_string());
 /// ```
+#[cfg(feature="sharding")]
+pub mod logical_select;
 pub mod dsl;
