@@ -87,6 +87,8 @@ pub mod truncate;
 pub mod extension;
 pub mod schema;
 pub mod shutdown;
+#[cfg(feature="sharding")]
+pub mod logical_select;
 /// `dsl` provides its `XXXCommand` returning dsl syntax like this:
 ///
 /// ## DSL Example
@@ -96,6 +98,4 @@ pub mod shutdown;
 /// let select = select("Entries".to_string())
 ///                  .filter("content @ \"fast\"".to_string());
 /// ```
-#[cfg(feature="sharding")]
-pub mod logical_select;
 pub mod dsl;
