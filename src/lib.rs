@@ -89,7 +89,9 @@ pub mod schema;
 pub mod shutdown;
 #[cfg(feature="sharding")]
 pub mod logical_select;
-/// `dsl` provides its `XXXCommand` returning dsl syntax like this:
+/// `dsl` provides its `XXXCommand` returning dsl syntax.
+///
+/// This module is used like this:
 ///
 /// ## DSL Example
 ///
