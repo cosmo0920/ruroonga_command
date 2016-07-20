@@ -62,10 +62,12 @@ impl LogicalSelectCommand {
         self
     }
 
+    #[allow(unused_mut, unused_variables)]
     pub fn query(mut self, query: String) -> LogicalSelectCommand {
-        let encoded = format!("'{}'", query);
-        self.arguments.insert("query".to_string(), encoded.to_owned());
-        self
+        // let encoded = format!("'{}'", query);
+        // self.arguments.insert("query".to_string(), encoded.to_owned());
+        // self
+        unimplemented!()
     }
 
     pub fn scorer(mut self, scorer: String) -> LogicalSelectCommand {
@@ -90,16 +92,20 @@ impl LogicalSelectCommand {
         self
     }
 
+    #[allow(unused_mut, unused_variables)]
     pub fn adjuster(mut self, adjust_expr: String) -> LogicalSelectCommand {
-        let encoded = format!("'{}'", adjust_expr);
-        self.arguments.insert("adjuster".to_string(), encoded.to_owned());
-        self
+        // let encoded = format!("'{}'", adjust_expr);
+        // self.arguments.insert("adjuster".to_string(), encoded.to_owned());
+        // self
+        unimplemented!()
     }
 
+    #[allow(unused_mut, unused_variables)]
     pub fn match_columns(mut self, columns: Vec<String>) -> LogicalSelectCommand {
-        let string = util::split_values_vec(columns);
-        self.arguments.insert("match_columns".to_string(), string.to_owned());
-        self
+        // let string = util::split_values_vec(columns);
+        // self.arguments.insert("match_columns".to_string(), string.to_owned());
+        // self
+        unimplemented!()
     }
 
     pub fn output_columns(mut self, columns: Vec<String>) -> LogicalSelectCommand {
@@ -120,33 +126,41 @@ impl LogicalSelectCommand {
         self
     }
 
+    #[allow(unused_mut, unused_variables)]
     pub fn cache(mut self, cache: bool) -> LogicalSelectCommand {
-        let flag = if cache {
-            "yes"
-        } else {
-            "no"
-        };
-        self.arguments.insert("cache".to_string(), flag.to_string());
-        self
+        // let flag = if cache {
+        //     "yes"
+        // } else {
+        //     "no"
+        // };
+        // self.arguments.insert("cache".to_string(), flag.to_string());
+        // self
+        unimplemented!()
     }
 
+    #[allow(unused_mut, unused_variables)]
     pub fn match_escalation_threshold(mut self, threshold: i64) -> LogicalSelectCommand {
-        let string = format!("{}", threshold);
-        self.arguments.insert("match_escalation_threshold".to_string(), string.to_owned());
-        self
+        // let string = format!("{}", threshold);
+        // self.arguments.insert("match_escalation_threshold".to_string(), string.to_owned());
+        // self
+        unimplemented!()
     }
 
+    #[allow(unused_mut, unused_variables)]
     pub fn query_flags(mut self, flags: Vec<QueryFlagsType>) -> LogicalSelectCommand {
-        let string = util::split_flags_vec(flags);
-        self.arguments.insert("query_flags".to_string(), string.to_owned());
-        self
+        // let string = util::split_flags_vec(flags);
+        // self.arguments.insert("query_flags".to_string(), string.to_owned());
+        // self
+        unimplemented!()
     }
 
+    #[allow(unused_mut, unused_variables)]
     pub fn query_expander(mut self, synonym: (String, String)) -> LogicalSelectCommand {
-        let (table, column) = synonym;
-        let string = format!("{}.{}", table, column);
-        self.arguments.insert("query_expander".to_string(), string.to_owned());
-        self
+        // let (table, column) = synonym;
+        // let string = format!("{}.{}", table, column);
+        // self.arguments.insert("query_expander".to_string(), string.to_owned());
+        // self
+        unimplemented!()
     }
 
     pub fn build(self) -> (Command, Query) {
@@ -299,6 +313,7 @@ mod test {
     }
 
     #[test]
+    #[should_panic]
     fn test_query() {
         let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
             .query("_key:\"http://example.org/\"".to_string());
@@ -365,6 +380,7 @@ mod test {
     }
 
     #[test]
+    #[should_panic]
     fn test_adjuster() {
         let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
             .adjuster("content @ \"ruroonga\"".to_string());
@@ -381,6 +397,7 @@ mod test {
     }
 
     #[test]
+    #[should_panic]
     fn test_match_columns() {
         let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
             .match_columns(vec!["test".to_string(), "piyo".to_string()]);
@@ -441,6 +458,7 @@ mod test {
     }
 
     #[test]
+    #[should_panic]
     fn test_cache() {
         let select_yes = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
             .cache(true);
@@ -467,6 +485,7 @@ mod test {
     }
 
     #[test]
+    #[should_panic]
     fn test_match_escalation_threshold() {
         let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
             .match_escalation_threshold(-1);
@@ -482,6 +501,7 @@ mod test {
     }
 
     #[test]
+    #[should_panic]
     fn test_query_flags() {
         let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
             .query_flags(vec![(QueryFlagsType::AllowColumn), (QueryFlagsType::AllowUpdate)]);
@@ -498,6 +518,7 @@ mod test {
     }
 
     #[test]
+    #[should_panic]
     fn test_query_expander() {
         let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
             .query_expander(("Terms".to_string(), "synonym".to_string()));
