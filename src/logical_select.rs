@@ -25,6 +25,7 @@ use extendable::Extendable;
 use request_cancellable::RequestCancellable;
 use request_timeoutable::RequestTimeoutable;
 use selectable::drilldown_type::DrilldownUsable;
+use types::range_filter_type::RangeFilterType;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct LogicalSelectCommand {
@@ -59,6 +60,30 @@ impl LogicalSelectCommand {
     pub fn filter(mut self, filter: String) -> LogicalSelectCommand {
         let encoded = format!("'{}'", filter);
         self.arguments.insert("filter".to_string(), encoded.to_owned());
+        self
+    }
+
+    pub fn min(mut self, min: String) -> LogicalSelectCommand {
+        let encoded = format!("'{}'", min);
+        self.arguments.insert("min".to_string(), encoded.to_owned());
+        self
+    }
+
+    pub fn min_border(mut self, border: RangeFilterType) -> LogicalSelectCommand {
+        let encoded = format!("'{}'", border);
+        self.arguments.insert("min_border".to_string(), encoded.to_owned());
+        self
+    }
+
+    pub fn max(mut self, max: String) -> LogicalSelectCommand {
+        let encoded = format!("'{}'", max);
+        self.arguments.insert("max".to_string(), encoded.to_owned());
+        self
+    }
+
+    pub fn max_border(mut self, border: RangeFilterType) -> LogicalSelectCommand {
+        let encoded = format!("'{}'", border);
+        self.arguments.insert("max_border".to_string(), encoded.to_owned());
         self
     }
 
@@ -282,6 +307,7 @@ mod test {
     use selectable::labeled_drilldown_builder::LabeledDrilldownBuilder;
     use extendable::Extendable;
     use selectable::drilldown_type::DrilldownUsable;
+    use types::range_filter_type::RangeFilterType::{Include, Exclude};
 
     #[test]
     fn test_new() {
@@ -303,6 +329,76 @@ mod test {
         let mut arg: HashMap<String, String> = HashMap::new();
         arg.insert("filter".to_string(),
                    "'output_column @ \"type_safe\"'".to_string());
+        let expected = LogicalSelectCommand {
+            command: LogicalSelect,
+            logical_table: "Entries".to_string(),
+            shard_key: "created_at".to_string(),
+            arguments: arg,
+        };
+        assert_eq!(expected, select);
+    }
+
+    #[test]
+    fn test_min() {
+        let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
+            .min("2016/07/23 00:00:00".to_string());
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("min".to_string(),
+                   "'2016/07/23 00:00:00'".to_string());
+        let expected = LogicalSelectCommand {
+            command: LogicalSelect,
+            logical_table: "Entries".to_string(),
+            shard_key: "created_at".to_string(),
+            arguments: arg,
+        };
+        assert_eq!(expected, select);
+    }
+
+    #[test]
+    fn test_min_border() {
+        let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
+            .min("2016/07/23 00:00:00".to_string())
+            .min_border(Exclude);
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("min".to_string(),
+                   "'2016/07/23 00:00:00'".to_string());
+        arg.insert("min_border".to_string(),
+                   "'exclude'".to_string());
+        let expected = LogicalSelectCommand {
+            command: LogicalSelect,
+            logical_table: "Entries".to_string(),
+            shard_key: "created_at".to_string(),
+            arguments: arg,
+        };
+        assert_eq!(expected, select);
+    }
+
+    #[test]
+    fn test_max() {
+        let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
+            .max("2016/07/23 00:00:00".to_string());
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("max".to_string(),
+                   "'2016/07/23 00:00:00'".to_string());
+        let expected = LogicalSelectCommand {
+            command: LogicalSelect,
+            logical_table: "Entries".to_string(),
+            shard_key: "created_at".to_string(),
+            arguments: arg,
+        };
+        assert_eq!(expected, select);
+    }
+
+    #[test]
+    fn test_max_border() {
+        let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
+            .min("2016/07/23 00:00:00".to_string())
+            .max_border(Include);
+        let mut arg: HashMap<String, String> = HashMap::new();
+        arg.insert("min".to_string(),
+                   "'2016/07/23 00:00:00'".to_string());
+        arg.insert("max_border".to_string(),
+                   "'include'".to_string());
         let expected = LogicalSelectCommand {
             command: LogicalSelect,
             logical_table: "Entries".to_string(),
