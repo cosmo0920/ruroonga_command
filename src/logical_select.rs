@@ -388,10 +388,10 @@ mod test {
     #[test]
     fn test_max_border() {
         let select = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
-            .min("2016/07/23 00:00:00".to_string())
+            .max("2016/07/23 00:00:00".to_string())
             .max_border(Include);
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert("min".to_string(), "'2016/07/23 00:00:00'".to_string());
+        arg.insert("max".to_string(), "'2016/07/23 00:00:00'".to_string());
         arg.insert("max_border".to_string(), "'include'".to_string());
         let expected = LogicalSelectCommand {
             command: LogicalSelect,
