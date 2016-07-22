@@ -58,12 +58,18 @@ mod test {
 
     #[test]
     fn test_from_str() {
-        assert_eq!(RangeFilterType::Include, FromStr::from_str("include").unwrap());
-        assert_eq!(RangeFilterType::Include, FromStr::from_str("Include").unwrap());
-        assert_eq!(RangeFilterType::Include, FromStr::from_str("INCLUDE").unwrap());
-        assert_eq!(RangeFilterType::Exclude, FromStr::from_str("exclude").unwrap());
-        assert_eq!(RangeFilterType::Exclude, FromStr::from_str("Exclude").unwrap());
-        assert_eq!(RangeFilterType::Exclude, FromStr::from_str("EXCLUDE").unwrap());
+        assert_eq!(RangeFilterType::Include,
+                   FromStr::from_str("include").unwrap());
+        assert_eq!(RangeFilterType::Include,
+                   FromStr::from_str("Include").unwrap());
+        assert_eq!(RangeFilterType::Include,
+                   FromStr::from_str("INCLUDE").unwrap());
+        assert_eq!(RangeFilterType::Exclude,
+                   FromStr::from_str("exclude").unwrap());
+        assert_eq!(RangeFilterType::Exclude,
+                   FromStr::from_str("Exclude").unwrap());
+        assert_eq!(RangeFilterType::Exclude,
+                   FromStr::from_str("EXCLUDE").unwrap());
         assert_eq!(RangeFilterType::ExtRangeFilterType("ADDED_TYPE".to_owned()),
                    FromStr::from_str("ADDED_TYPE").unwrap());
         let x: Result<RangeFilterType, _> = FromStr::from_str("");
@@ -75,9 +81,11 @@ mod test {
 
     #[test]
     fn test_fmt() {
-        assert_eq!("include".to_owned(), format!("{}", RangeFilterType::Include));
+        assert_eq!("include".to_owned(),
+                   format!("{}", RangeFilterType::Include));
         assert_eq!("ADDED_TYPE".to_owned(),
-                   format!("{}", RangeFilterType::ExtRangeFilterType("ADDED_TYPE".to_owned())));
+                   format!("{}",
+                           RangeFilterType::ExtRangeFilterType("ADDED_TYPE".to_owned())));
     }
 
     #[test]
