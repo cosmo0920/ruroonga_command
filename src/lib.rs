@@ -88,6 +88,8 @@ pub mod extension;
 pub mod schema;
 pub mod shutdown;
 #[cfg(feature="sharding")]
+/// `logical_select` provides `logical_select` command query builder.
+/// This module will enabled with `sharding` feature flag.
 pub mod logical_select;
 /// `dsl` provides its `XXXCommand` returning dsl syntax.
 ///
