@@ -8,3 +8,4 @@ rust:
 script:
   - cargo test
   - cargo test --features "normalizer_mysql unstable"
+  - cargo test --features "normalizer_mysql unstable sharding"
