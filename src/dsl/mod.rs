@@ -34,6 +34,8 @@ mod tokenizer_list_dsl;
 mod truncate_dsl;
 #[cfg(feature="sharding")]
 mod logical_select_dsl;
+#[cfg(feature="sharding")]
+mod logical_shard_list_dsl;
 
 pub use self::select_dsl::select;
 pub use self::cache_limit_dsl::cache_limit;
@@ -71,3 +73,5 @@ pub use self::tokenizer_list_dsl::tokenizer_list;
 pub use self::truncate_dsl::truncate;
 #[cfg(feature="sharding")]
 pub use self::logical_select_dsl::logical_select;
+#[cfg(feature="sharding")]
+pub use self::logical_shard_list_dsl::logical_shard_list;

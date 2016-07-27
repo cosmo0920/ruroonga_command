@@ -8,7 +8,7 @@ use self::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delet
                     ObjectRemove, PluginRegister, PluginUnregister, ThreadLimit, Tokenize,
                     TokenizerList, Truncate, Schema, Shutdown, Extension};
 #[cfg(feature="sharding")]
-use self::Command::LogicalSelect;
+use self::Command::{LogicalSelect, LogicalShardList};
 
 #[derive (Debug)]
 pub enum CommandError {
@@ -53,6 +53,8 @@ pub enum Command {
     Shutdown,
     #[cfg(feature="sharding")]
     LogicalSelect,
+    #[cfg(feature="sharding")]
+    LogicalShardList,
     /// Method extensions.
     ///
     /// An example would be:
@@ -105,6 +107,8 @@ impl AsRef<str> for Command {
             Shutdown => "shutdown",
             #[cfg(feature="sharding")]
             LogicalSelect => "logical_select",
+            #[cfg(feature="sharding")]
+            LogicalShardList => "logical_shard_list",
             Extension(ref s) => s.as_ref(),
         }
     }
@@ -153,6 +157,8 @@ impl FromStr for Command {
                 "shutdown" => Shutdown,
                 #[cfg(feature="sharding")]
                 "logical_select" => LogicalSelect,
+                #[cfg(feature="sharding")]
+                "logical_shard_list" => LogicalShardList,
                 _ => Extension(s.to_owned()),
             })
         }
@@ -198,6 +204,8 @@ impl fmt::Display for Command {
             Shutdown => "shutdown",
             #[cfg(feature="sharding")]
             LogicalSelect => "logical_select",
+            #[cfg(feature="sharding")]
+            LogicalShardList => "logical_shard_list",
             Extension(ref s) => s.as_ref(),
         })
     }
@@ -218,7 +226,7 @@ mod test {
                          Normalize, NormalizerList, PluginRegister, PluginUnregister, ThreadLimit,
                          Tokenize, TokenizerList, Truncate, Schema, Shutdown, Extension};
     #[cfg(feature="sharding")]
-    use super::Command::LogicalSelect;
+    use super::Command::{LogicalSelect, LogicalShardList};
 
     #[test]
     fn test_from_str() {
@@ -267,6 +275,7 @@ mod test {
     #[test]
     fn test_from_str_with_sharding() {
         assert_eq!(LogicalSelect, FromStr::from_str("logical_select").unwrap());
+        assert_eq!(LogicalShardList, FromStr::from_str("logical_shard_list").unwrap());
     }
 
     #[test]
@@ -310,6 +319,7 @@ mod test {
     #[test]
     fn test_fmt_with_sharding() {
         assert_eq!("logical_select".to_owned(), format!("{}", LogicalSelect));
+        assert_eq!("logical_shard_list".to_owned(), format!("{}", LogicalShardList));
     }
 
     #[test]
@@ -356,5 +366,6 @@ mod test {
     #[test]
     fn test_as_str_with_sharding() {
         assert_eq!(LogicalSelect.as_ref(), "logical_select");
+        assert_eq!(LogicalShardList.as_ref(), "logical_shard_list");
     }
 }
