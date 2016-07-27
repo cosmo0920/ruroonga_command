@@ -275,7 +275,8 @@ mod test {
     #[test]
     fn test_from_str_with_sharding() {
         assert_eq!(LogicalSelect, FromStr::from_str("logical_select").unwrap());
-        assert_eq!(LogicalShardList, FromStr::from_str("logical_shard_list").unwrap());
+        assert_eq!(LogicalShardList,
+                   FromStr::from_str("logical_shard_list").unwrap());
     }
 
     #[test]
@@ -319,7 +320,8 @@ mod test {
     #[test]
     fn test_fmt_with_sharding() {
         assert_eq!("logical_select".to_owned(), format!("{}", LogicalSelect));
-        assert_eq!("logical_shard_list".to_owned(), format!("{}", LogicalShardList));
+        assert_eq!("logical_shard_list".to_owned(),
+                   format!("{}", LogicalShardList));
     }
 
     #[test]

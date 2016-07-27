@@ -89,7 +89,7 @@ mod test {
     #[test]
     fn test_build() {
         let actual = LogicalShardListCommand::new("Logs".to_string()).build();
-        let expected_query: Query = vec![("logical_table".to_string(),"Logs".to_string())];
+        let expected_query: Query = vec![("logical_table".to_string(), "Logs".to_string())];
         let expected = (LogicalShardList, expected_query);
         assert_eq!(expected, actual);
     }
