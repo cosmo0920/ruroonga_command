@@ -77,13 +77,13 @@ mod test {
 
     #[test]
     fn test_new() {
-        let table_list = LogicalShardListCommand::new("Logs".to_string());
+        let logical_shard_list = LogicalShardListCommand::new("Logs".to_string());
         let expected = LogicalShardListCommand {
             command: LogicalShardList,
             logical_table: "Logs".to_string(),
             arguments: HashMap::new(),
         };
-        assert_eq!(expected, table_list);
+        assert_eq!(expected, logical_shard_list);
     }
 
     #[test]
