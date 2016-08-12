@@ -330,7 +330,7 @@
                                             <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>(),
                                             <span class='string'>&quot;NewTest&quot;</span>.<span class='ident'>to_string</span>(),
                                             <span class='string'>&quot;new_element&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>build</span>();
+            .<span class='ident'>build</span>();
         <span class='kw'>let</span> <span class='ident'>expected_query</span>: <span class='ident'>Query</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;from_table&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>()),
                                          (<span class='string'>&quot;from_name&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>()),
                                          (<span class='string'>&quot;to_table&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;NewTest&quot;</span>.<span class='ident'>to_string</span>()),
@@ -345,7 +345,7 @@
                                             <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>(),
                                             <span class='string'>&quot;NewTest&quot;</span>.<span class='ident'>to_string</span>(),
                                             <span class='string'>&quot;new_element&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>to_query</span>();
+            .<span class='ident'>to_query</span>();
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='string'>&quot;/d/column_copy?from_table=Test&amp;from_name=element&amp;to_table=NewTest&amp;to_name=\
                         new_element&quot;</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected</span>, <span class='ident'>actual</span>);
@@ -357,7 +357,7 @@
                                             <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>(),
                                             <span class='string'>&quot;NewTest&quot;</span>.<span class='ident'>to_string</span>(),
                                             <span class='string'>&quot;new_element&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>to_command</span>();
+            .<span class='ident'>to_command</span>();
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='string'>&quot;column_copy --from_table Test --from_name element --to_table NewTest \
                         --to_name new_element&quot;</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected</span>, <span class='ident'>actual</span>);
@@ -409,6 +409,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

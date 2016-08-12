@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-70' class='srclink' href='../../src/ruroonga_command/src/extendable/mod.rs.html#3-7' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-84' class='srclink' href='../../src/ruroonga_command/src/extendable/mod.rs.html#3-7' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait Extendable {
     type <a href='#associatedtype.Output' class='type'>Output</a>;
     unsafe fn <a href='#tymethod.set_arguments' class='fnname'>set_arguments</a>(self, arguments: <a class='struct' href='https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html' title='std::collections::hash::map::HashMap'>HashMap</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;) -&gt; Self::<a class='trait' href='../../ruroonga_command/extendable/trait.Extendable.html' title='ruroonga_command::extendable::Extendable'>Output</a>;
@@ -88,6 +88,8 @@
 <li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/tokenizer_list/struct.TokenizerListCommand.html' title='ruroonga_command::tokenizer_list::TokenizerListCommand'>TokenizerListCommand</a></code></li>
 <li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/truncate/struct.TruncateCommand.html' title='ruroonga_command::truncate::TruncateCommand'>TruncateCommand</a></code></li>
 <li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/shutdown/struct.ShutdownCommand.html' title='ruroonga_command::shutdown::ShutdownCommand'>ShutdownCommand</a></code></li>
+<li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/logical_select/struct.LogicalSelectCommand.html' title='ruroonga_command::logical_select::LogicalSelectCommand'>LogicalSelectCommand</a></code></li>
+<li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/logical_shard_list/struct.LogicalShardListCommand.html' title='ruroonga_command::logical_shard_list::LogicalShardListCommand'>LogicalShardListCommand</a></code></li>
 </ul><script type="text/javascript" async
                          src="../../implementors/ruroonga_command/extendable/trait.Extendable.js">
                  </script></section>
@@ -113,6 +115,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

@@ -431,6 +431,7 @@
 <span id="387">387</span>
 <span id="388">388</span>
 <span id="389">389</span>
+<span id="390">390</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
 <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>Tokenize</span>;
@@ -501,7 +502,8 @@
         } <span class='kw'>else</span> {
             <span class='prelude-val'>Ok</span>(<span class='kw'>match</span> <span class='ident'>s</span> {
                 <span class='string'>&quot;None&quot;</span> <span class='op'>|</span> <span class='string'>&quot;NONE&quot;</span> <span class='op'>=&gt;</span> <span class='prelude-val'>None</span>,
-                <span class='string'>&quot;EnableTokenDelimiter&quot;</span> <span class='op'>|</span> <span class='string'>&quot;ENABLE_TOKENIZED_DELIMITER&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>EnableTokenizedDelimiter</span>,
+                <span class='string'>&quot;EnableTokenDelimiter&quot;</span> <span class='op'>|</span>
+                <span class='string'>&quot;ENABLE_TOKENIZED_DELIMITER&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>EnableTokenizedDelimiter</span>,
                 _ <span class='op'>=&gt;</span> <span class='ident'>ExtFlagType</span>(<span class='ident'>s</span>.<span class='ident'>to_owned</span>()),
             })
         }
@@ -720,7 +722,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_normalizer</span>() {
         <span class='kw'>let</span> <span class='ident'>column_create</span> <span class='op'>=</span> <span class='ident'>TokenizeCommand</span>::<span class='ident'>new</span>(<span class='ident'>TokenizerType</span>::<span class='ident'>Bigram</span>, <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>())
-                                .<span class='ident'>normalizer</span>(<span class='ident'>NormalizerType</span>::<span class='ident'>Auto</span>);
+            .<span class='ident'>normalizer</span>(<span class='ident'>NormalizerType</span>::<span class='ident'>Auto</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;normalizer&quot;</span>.<span class='ident'>to_string</span>(),
                    <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>NormalizerType</span>::<span class='ident'>Auto</span>));
@@ -736,7 +738,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_token_filters</span>() {
         <span class='kw'>let</span> <span class='ident'>token_filters</span> <span class='op'>=</span> <span class='ident'>TokenizeCommand</span>::<span class='ident'>new</span>(<span class='ident'>TokenizerType</span>::<span class='ident'>Bigram</span>, <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>())
-                                .<span class='ident'>token_filters</span>(<span class='ident'>TokenFiltersType</span>::<span class='ident'>StopWord</span>);
+            .<span class='ident'>token_filters</span>(<span class='ident'>TokenFiltersType</span>::<span class='ident'>StopWord</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;token_filters&quot;</span>.<span class='ident'>to_string</span>(),
                    <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>TokenFiltersType</span>::<span class='ident'>StopWord</span>));
@@ -752,7 +754,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_flags</span>() {
         <span class='kw'>let</span> <span class='ident'>tokenize</span> <span class='op'>=</span> <span class='ident'>TokenizeCommand</span>::<span class='ident'>new</span>(<span class='ident'>TokenizerType</span>::<span class='ident'>Bigram</span>, <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>())
-                           .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>FlagType</span>::<span class='prelude-val'>None</span>), (<span class='ident'>FlagType</span>::<span class='ident'>EnableTokenizedDelimiter</span>)]);
+            .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>FlagType</span>::<span class='prelude-val'>None</span>), (<span class='ident'>FlagType</span>::<span class='ident'>EnableTokenizedDelimiter</span>)]);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;flags&quot;</span>.<span class='ident'>to_string</span>(),
                    <span class='string'>&quot;NONE|ENABLE_TOKENIZED_DELIMITER&quot;</span>.<span class='ident'>to_string</span>());
@@ -768,7 +770,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_mode</span>() {
         <span class='kw'>let</span> <span class='ident'>tokenize</span> <span class='op'>=</span> <span class='ident'>TokenizeCommand</span>::<span class='ident'>new</span>(<span class='ident'>TokenizerType</span>::<span class='ident'>Bigram</span>, <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>())
-                           .<span class='ident'>mode</span>(<span class='ident'>ModeType</span>::<span class='ident'>Add</span>);
+            .<span class='ident'>mode</span>(<span class='ident'>ModeType</span>::<span class='ident'>Add</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;mode&quot;</span>.<span class='ident'>to_string</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>ModeType</span>::<span class='ident'>Add</span>));
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>TokenizeCommand</span> {
@@ -845,6 +847,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

@@ -372,7 +372,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_column_type</span>() {
         <span class='kw'>let</span> <span class='ident'>column_create</span> <span class='op'>=</span> <span class='ident'>ColumnCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>())
-                                .<span class='ident'>column_type</span>(<span class='ident'>DataType</span>::<span class='ident'>ShortText</span>);
+            .<span class='ident'>column_type</span>(<span class='ident'>DataType</span>::<span class='ident'>ShortText</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;type&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;ShortText&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>ColumnCreateCommand</span> {
@@ -387,7 +387,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_flags</span>() {
         <span class='kw'>let</span> <span class='ident'>column_create</span> <span class='op'>=</span> <span class='ident'>ColumnCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>())
-                                .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>ColumnFlagType</span>::<span class='ident'>Scalar</span>)]);
+            .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>ColumnFlagType</span>::<span class='ident'>Scalar</span>)]);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;flags&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;COLUMN_SCALAR&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>ColumnCreateCommand</span> {
@@ -402,7 +402,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_source</span>() {
         <span class='kw'>let</span> <span class='ident'>column_create</span> <span class='op'>=</span> <span class='ident'>ColumnCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>())
-                                .<span class='ident'>source</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;Entry&quot;</span>.<span class='ident'>to_string</span>()), (<span class='string'>&quot;person&quot;</span>.<span class='ident'>to_string</span>())]);
+            .<span class='ident'>source</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;Entry&quot;</span>.<span class='ident'>to_string</span>()), (<span class='string'>&quot;person&quot;</span>.<span class='ident'>to_string</span>())]);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;source&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;Entry,person&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>ColumnCreateCommand</span> {
@@ -417,8 +417,8 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_build</span>() {
         <span class='kw'>let</span> <span class='ident'>actual</span> <span class='op'>=</span> <span class='ident'>ColumnCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>ColumnFlagType</span>::<span class='ident'>Scalar</span>)])
-                         .<span class='ident'>build</span>();
+            .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>ColumnFlagType</span>::<span class='ident'>Scalar</span>)])
+            .<span class='ident'>build</span>();
         <span class='kw'>let</span> <span class='ident'>expected_query</span>: <span class='ident'>Query</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;table&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>()),
                                          (<span class='string'>&quot;name&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>()),
                                          (<span class='string'>&quot;flags&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;COLUMN_SCALAR&quot;</span>.<span class='ident'>to_string</span>())];
@@ -429,8 +429,8 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_queryable</span>() {
         <span class='kw'>let</span> <span class='ident'>actual</span> <span class='op'>=</span> <span class='ident'>ColumnCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>column_type</span>(<span class='ident'>DataType</span>::<span class='ident'>LongText</span>)
-                         .<span class='ident'>to_query</span>();
+            .<span class='ident'>column_type</span>(<span class='ident'>DataType</span>::<span class='ident'>LongText</span>)
+            .<span class='ident'>to_query</span>();
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='string'>&quot;/d/column_create?table=Test&amp;name=element&amp;type=LongText&quot;</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected</span>, <span class='ident'>actual</span>);
     }
@@ -438,8 +438,8 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_commandable</span>() {
         <span class='kw'>let</span> <span class='ident'>actual</span> <span class='op'>=</span> <span class='ident'>ColumnCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>column_type</span>(<span class='ident'>DataType</span>::<span class='ident'>LongText</span>)
-                         .<span class='ident'>to_command</span>();
+            .<span class='ident'>column_type</span>(<span class='ident'>DataType</span>::<span class='ident'>LongText</span>)
+            .<span class='ident'>to_command</span>();
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='string'>&quot;column_create --table Test --name element --type LongText&quot;</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected</span>, <span class='ident'>actual</span>);
     }
@@ -485,6 +485,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

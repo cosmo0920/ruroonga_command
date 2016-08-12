@@ -283,8 +283,6 @@
 <span id="239">239</span>
 <span id="240">240</span>
 <span id="241">241</span>
-<span id="242">242</span>
-<span id="243">243</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
 <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>Normalize</span>;
@@ -364,9 +362,8 @@
                 <span class='string'>&quot;RemoveBlank&quot;</span> <span class='op'>|</span> <span class='string'>&quot;REMOVE_BLANK&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>RemoveBlank</span>,
                 <span class='string'>&quot;WithTypes&quot;</span> <span class='op'>|</span> <span class='string'>&quot;WITH_TYPES&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>WithTypes</span>,
                 <span class='string'>&quot;WithChecks&quot;</span> <span class='op'>|</span> <span class='string'>&quot;WITH_CHECKS&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>WithChecks</span>,
-                <span class='string'>&quot;RemoveTokenizedDelimiter&quot;</span> <span class='op'>|</span> <span class='string'>&quot;REMOVE_TOKENIZED_DELIMITER&quot;</span> <span class='op'>=&gt;</span> {
-                    <span class='ident'>RemoveTokenizedDelimiter</span>
-                }
+                <span class='string'>&quot;RemoveTokenizedDelimiter&quot;</span> <span class='op'>|</span>
+                <span class='string'>&quot;REMOVE_TOKENIZED_DELIMITER&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>RemoveTokenizedDelimiter</span>,
                 _ <span class='op'>=&gt;</span> <span class='ident'>ExtFlagType</span>(<span class='ident'>s</span>.<span class='ident'>to_owned</span>()),
             })
         }
@@ -493,7 +490,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_flags</span>() {
         <span class='kw'>let</span> <span class='ident'>normalize</span> <span class='op'>=</span> <span class='ident'>NormalizeCommand</span>::<span class='ident'>new</span>(<span class='ident'>NormalizerType</span>::<span class='ident'>Auto</span>, <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>())
-                            .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>FlagType</span>::<span class='ident'>RemoveBlank</span>), (<span class='ident'>FlagType</span>::<span class='ident'>WithTypes</span>)]);
+            .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>FlagType</span>::<span class='ident'>RemoveBlank</span>), (<span class='ident'>FlagType</span>::<span class='ident'>WithTypes</span>)]);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;flags&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;REMOVE_BLANK|WITH_TYPES&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>NormalizeCommand</span> {
@@ -509,8 +506,7 @@
     <span class='kw'>fn</span> <span class='ident'>test_build</span>() {
         <span class='kw'>let</span> <span class='ident'>actual</span> <span class='op'>=</span> <span class='ident'>NormalizeCommand</span>::<span class='ident'>new</span>(<span class='ident'>NormalizerType</span>::<span class='ident'>Auto</span>, <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>()).<span class='ident'>build</span>();
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> (<span class='ident'>Normalize</span>,
-                        <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;normalizer&quot;</span>.<span class='ident'>to_string</span>(),
-                              <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>NormalizerType</span>::<span class='ident'>Auto</span>))),
+                        <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;normalizer&quot;</span>.<span class='ident'>to_string</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>NormalizerType</span>::<span class='ident'>Auto</span>)),
                              (<span class='string'>&quot;string&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;\&quot;element\&quot;&quot;</span>.<span class='ident'>to_string</span>())]);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected</span>, <span class='ident'>actual</span>);
     }
@@ -553,6 +549,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

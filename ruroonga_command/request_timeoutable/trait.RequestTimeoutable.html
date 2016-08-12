@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-84' class='srclink' href='../../src/ruroonga_command/src/request_timeoutable/mod.rs.html#1-8' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-98' class='srclink' href='../../src/ruroonga_command/src/request_timeoutable/mod.rs.html#1-8' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait RequestTimeoutable {
     type <a href='#associatedtype.Output' class='type'>Output</a>;
     fn <a href='#tymethod.append_request_timeout' class='fnname'>append_request_timeout</a>(self, timeout: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; Self::<a class='trait' href='../../ruroonga_command/request_timeoutable/trait.RequestTimeoutable.html' title='ruroonga_command::request_timeoutable::RequestTimeoutable'>Output</a>;
@@ -97,6 +97,8 @@
 <li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/truncate/struct.TruncateCommand.html' title='ruroonga_command::truncate::TruncateCommand'>TruncateCommand</a></code></li>
 <li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/schema/struct.SchemaCommand.html' title='ruroonga_command::schema::SchemaCommand'>SchemaCommand</a></code></li>
 <li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/shutdown/struct.ShutdownCommand.html' title='ruroonga_command::shutdown::ShutdownCommand'>ShutdownCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/logical_select/struct.LogicalSelectCommand.html' title='ruroonga_command::logical_select::LogicalSelectCommand'>LogicalSelectCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/logical_shard_list/struct.LogicalShardListCommand.html' title='ruroonga_command::logical_shard_list::LogicalShardListCommand'>LogicalShardListCommand</a></code></li>
 </ul><script type="text/javascript" async
                          src="../../implementors/ruroonga_command/request_timeoutable/trait.RequestTimeoutable.js">
                  </script></section>
@@ -122,6 +124,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

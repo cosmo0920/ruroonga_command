@@ -548,7 +548,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_columns</span>() {
         <span class='kw'>let</span> <span class='ident'>load</span> <span class='op'>=</span> <span class='ident'>LoadCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>DATA</span>.<span class='ident'>to_string</span>())
-                       .<span class='ident'>columns</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;_key&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;title&quot;</span>.<span class='ident'>to_string</span>()]);
+            .<span class='ident'>columns</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;_key&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;title&quot;</span>.<span class='ident'>to_string</span>()]);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;columns&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;_key,title&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>LoadCommand</span> {
@@ -563,7 +563,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_input_type</span>() {
         <span class='kw'>let</span> <span class='ident'>load</span> <span class='op'>=</span> <span class='ident'>LoadCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>DATA</span>.<span class='ident'>to_string</span>())
-                       .<span class='ident'>input_type</span>(<span class='ident'>InputType</span>::<span class='ident'>Json</span>);
+            .<span class='ident'>input_type</span>(<span class='ident'>InputType</span>::<span class='ident'>Json</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;input_type&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;json&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>LoadCommand</span> {
@@ -578,8 +578,8 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_build</span>() {
         <span class='kw'>let</span> <span class='ident'>load</span> <span class='op'>=</span> <span class='ident'>LoadCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>DATA</span>.<span class='ident'>to_string</span>())
-                       .<span class='ident'>columns</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;_key&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;title&quot;</span>.<span class='ident'>to_string</span>()])
-                       .<span class='ident'>build</span>();
+            .<span class='ident'>columns</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;_key&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;title&quot;</span>.<span class='ident'>to_string</span>()])
+            .<span class='ident'>build</span>();
         <span class='kw'>let</span> <span class='ident'>expected_query</span>: <span class='ident'>Query</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;table&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>()),
                                          (<span class='string'>&quot;columns&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;_key,title&quot;</span>.<span class='ident'>to_string</span>())];
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> (<span class='ident'>Load</span>, <span class='ident'>expected_query</span>, <span class='ident'>DATA</span>.<span class='ident'>to_string</span>());
@@ -592,8 +592,8 @@
 {&quot;_key&quot;:&quot;http://example.org/&quot;,&quot;title&quot;:&quot;This is test record 1!&quot;},
 ]&quot;#</span>;
         <span class='kw'>let</span> <span class='ident'>query</span> <span class='op'>=</span> <span class='ident'>LoadCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>load_data</span>.<span class='ident'>to_string</span>())
-                        .<span class='ident'>input_type</span>(<span class='ident'>InputType</span>::<span class='ident'>Json</span>)
-                        .<span class='ident'>to_query</span>();
+            .<span class='ident'>input_type</span>(<span class='ident'>InputType</span>::<span class='ident'>Json</span>)
+            .<span class='ident'>to_query</span>();
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/load?table=test&amp;input_type=json&amp;values=[\n{\&quot;_key\&quot;:\&quot;http:\
                            //example.org/\&quot;,\&quot;title\&quot;:\&quot;This is test record 1!\&quot;},\n]&quot;</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>query</span>);
@@ -605,8 +605,8 @@
 {&quot;_key&quot;:&quot;http://example.org/&quot;,&quot;title&quot;:&quot;This is test record 1!&quot;},
 ]&quot;#</span>;
         <span class='kw'>let</span> (<span class='ident'>query</span>, <span class='ident'>values</span>) <span class='op'>=</span> <span class='ident'>LoadCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>load_data</span>.<span class='ident'>to_string</span>())
-                                  .<span class='ident'>input_type</span>(<span class='ident'>InputType</span>::<span class='ident'>Json</span>)
-                                  .<span class='ident'>to_post_query</span>();
+            .<span class='ident'>input_type</span>(<span class='ident'>InputType</span>::<span class='ident'>Json</span>)
+            .<span class='ident'>to_post_query</span>();
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/load?table=test&amp;input_type=json&quot;</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>query</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>load_data</span>.<span class='ident'>to_string</span>(), <span class='ident'>values</span>);
@@ -618,8 +618,8 @@
 {&quot;_key&quot;:&quot;http://example.org/&quot;,&quot;title&quot;:&quot;This is test record 1!&quot;},
 ]&quot;#</span>;
         <span class='kw'>let</span> <span class='ident'>query</span> <span class='op'>=</span> <span class='ident'>LoadCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>load_data</span>.<span class='ident'>to_string</span>())
-                        .<span class='ident'>input_type</span>(<span class='ident'>InputType</span>::<span class='ident'>Json</span>)
-                        .<span class='ident'>to_command</span>();
+            .<span class='ident'>input_type</span>(<span class='ident'>InputType</span>::<span class='ident'>Json</span>)
+            .<span class='ident'>to_command</span>();
         <span class='kw'>let</span> <span class='ident'>cli_encoded</span> <span class='op'>=</span> <span class='string'>&quot;load --table test --input_type \
                            json\n[\n{\&quot;_key\&quot;:\&quot;http://example.org/\&quot;,\&quot;title\&quot;:\&quot;This is test \
                            record 1!\&quot;},\n]&quot;</span>;
@@ -632,8 +632,8 @@
 {&quot;_key&quot;:&quot;http://example.org/&quot;,&quot;title&quot;:&quot;This is test record 1!&quot;},
 ]&quot;#</span>;
         <span class='kw'>let</span> (<span class='ident'>query</span>, <span class='ident'>values</span>) <span class='op'>=</span> <span class='ident'>LoadCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>load_data</span>.<span class='ident'>to_string</span>())
-                                  .<span class='ident'>input_type</span>(<span class='ident'>InputType</span>::<span class='ident'>Json</span>)
-                                  .<span class='ident'>to_post_command</span>();
+            .<span class='ident'>input_type</span>(<span class='ident'>InputType</span>::<span class='ident'>Json</span>)
+            .<span class='ident'>to_post_command</span>();
         <span class='kw'>let</span> <span class='ident'>cli_encoded</span> <span class='op'>=</span> <span class='string'>&quot;load --table test --input_type json&quot;</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cli_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>query</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>load_data</span>.<span class='ident'>to_string</span>(), <span class='ident'>values</span>);
@@ -663,6 +663,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

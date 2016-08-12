@@ -47,11 +47,13 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-1588' class='srclink' href='../../src/ruroonga_command/src/selectable/mod.rs.html#1-13' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-1690' class='srclink' href='../../src/ruroonga_command/src/selectable/mod.rs.html#1-24' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Provides manupilation way to construct and concatinate drilldown with select query.
 Provides drilldown related procedures.
 This module will be used with <code>SelectCommand</code> type by <code>+</code> operation
 to concatinate <code>select</code> and <code>drilldown</code> queries.</p>
+
+<p>Also this module support <code>pseudo_table</code> and <code>staged_columns</code> manupilation.</p>
 </div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                        <tr class=' module-item'>
@@ -69,6 +71,13 @@ to concatinate <code>select</code> and <code>drilldown</code> queries.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
+                           <td><a class='mod' href='drilldown_type/index.html'
+                                  title='ruroonga_command::selectable::drilldown_type'>drilldown_type</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
                            <td><a class='mod' href='drilldownable/index.html'
                                   title='ruroonga_command::selectable::drilldownable'>drilldownable</a></td>
                            <td class='docblock short'>
@@ -79,7 +88,9 @@ to concatinate <code>select</code> and <code>drilldown</code> queries.</p>
                            <td><a class='mod' href='fragmentable/index.html'
                                   title='ruroonga_command::selectable::fragmentable'>fragmentable</a></td>
                            <td class='docblock short'>
-                                
+                                <p><code>fragmentable</code> module provides making query fragment operation.
+It is useful to make composable query elements.
+It makes <code>select</code> query to be composable against drilldown related query and <code>staged_columns</code> query.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -121,6 +132,27 @@ to concatinate <code>select</code> and <code>drilldown</code> queries.</p>
                            <td><a class='mod' href='pseudo_table/index.html'
                                   title='ruroonga_command::selectable::pseudo_table'>pseudo_table</a></td>
                            <td class='docblock short'>
+                                <p><code>pseudo_table</code> is a trait to be used for tablable state which is appeared in &quot;drilldown in drilldown&quot;.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='staged_columnable/index.html'
+                                  title='ruroonga_command::selectable::staged_columnable'>staged_columnable</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='staged_columns/index.html'
+                                  title='ruroonga_command::selectable::staged_columns'>staged_columns</a></td>
+                           <td class='docblock short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='staged_columns_builder/index.html'
+                                  title='ruroonga_command::selectable::staged_columns_builder'>staged_columns_builder</a></td>
+                           <td class='docblock short'>
                                 
                            </td>
                        </tr></table></section>
@@ -146,6 +178,8 @@ to concatinate <code>select</code> and <code>drilldown</code> queries.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

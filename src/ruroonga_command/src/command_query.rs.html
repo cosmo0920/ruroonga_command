@@ -206,7 +206,6 @@
 <span id="162">162</span>
 <span id="163">163</span>
 <span id="164">164</span>
-<span id="165">165</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>url</span>::<span class='ident'>form_urlencoded</span>;
 <span class='kw'>use</span> <span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
@@ -303,8 +302,8 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_select</span>() {
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>) <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>())
-                                   .<span class='ident'>filter</span>(<span class='string'>&quot;output_column @ \&quot;type_safe\&quot;&quot;</span>.<span class='ident'>to_string</span>())
-                                   .<span class='ident'>build</span>();
+            .<span class='ident'>filter</span>(<span class='string'>&quot;output_column @ \&quot;type_safe\&quot;&quot;</span>.<span class='ident'>to_string</span>())
+            .<span class='ident'>build</span>();
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/select?table=Test&amp;filter=%27output_column+%40+%22type_safe%22%27&quot;</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
@@ -316,8 +315,8 @@
 {&quot;_key&quot;:&quot;http://example.org/&quot;,&quot;title&quot;:&quot;This is test record 1!&quot;},
 ]&quot;#</span>;
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>, <span class='ident'>values</span>) <span class='op'>=</span> <span class='ident'>LoadCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>load_data</span>.<span class='ident'>to_string</span>())
-                                           .<span class='ident'>input_type</span>(<span class='ident'>InputType</span>::<span class='ident'>Json</span>)
-                                           .<span class='ident'>build</span>();
+            .<span class='ident'>input_type</span>(<span class='ident'>InputType</span>::<span class='ident'>Json</span>)
+            .<span class='ident'>build</span>();
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/load?table=test&amp;input_type=json&quot;</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
@@ -335,8 +334,8 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_dump</span>() {
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>) <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>()
-                                   .<span class='ident'>tables</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;Books&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;Categories&quot;</span>.<span class='ident'>to_string</span>()])
-                                   .<span class='ident'>build</span>();
+            .<span class='ident'>tables</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;Books&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;Categories&quot;</span>.<span class='ident'>to_string</span>()])
+            .<span class='ident'>build</span>();
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/dump?tables=Books%2CCategories&quot;</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
@@ -345,8 +344,8 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_delete</span>() {
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>) <span class='op'>=</span> <span class='ident'>DeleteCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Books&quot;</span>.<span class='ident'>to_string</span>())
-                                   .<span class='ident'>filter</span>(<span class='string'>&quot;author == unknown&quot;</span>.<span class='ident'>to_string</span>())
-                                   .<span class='ident'>build</span>();
+            .<span class='ident'>filter</span>(<span class='string'>&quot;author == unknown&quot;</span>.<span class='ident'>to_string</span>())
+            .<span class='ident'>build</span>();
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/delete?table=Books&amp;filter=%27author+%3D%3D+unknown%27&quot;</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
@@ -355,9 +354,8 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_table_create</span>() {
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>) <span class='op'>=</span> <span class='ident'>TableCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>())
-                                   .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>TableFlagType</span>::<span class='ident'>PatKey</span>),
-                                               (<span class='ident'>TableFlagType</span>::<span class='ident'>KeyWithSIS</span>)])
-                                   .<span class='ident'>build</span>();
+            .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>TableFlagType</span>::<span class='ident'>PatKey</span>), (<span class='ident'>TableFlagType</span>::<span class='ident'>KeyWithSIS</span>)])
+            .<span class='ident'>build</span>();
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/table_create?name=Test&amp;flags=TABLE_PAT_KEY%7CKEY_WITH_SIS&quot;</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
@@ -366,8 +364,8 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_column_create</span>() {
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>) <span class='op'>=</span> <span class='ident'>ColumnCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>())
-                                   .<span class='ident'>column_type</span>(<span class='ident'>DataType</span>::<span class='ident'>LongText</span>)
-                                   .<span class='ident'>build</span>();
+            .<span class='ident'>column_type</span>(<span class='ident'>DataType</span>::<span class='ident'>LongText</span>)
+            .<span class='ident'>build</span>();
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/column_create?table=Test&amp;name=element&amp;type=LongText&quot;</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
@@ -397,6 +395,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

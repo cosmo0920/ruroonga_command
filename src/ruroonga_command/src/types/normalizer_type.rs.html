@@ -251,13 +251,9 @@
             <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;normalizer_mysql&quot;</span>)]</span>
             <span class='ident'>MySQLUnicode520CI</span> <span class='op'>=&gt;</span> <span class='string'>&quot;NormalizerMySQLUnicode520CI&quot;</span>,
             <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;normalizer_mysql&quot;</span>)]</span>
-            <span class='ident'>MySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark</span> <span class='op'>=&gt;</span> {
-                <span class='string'>&quot;NormalizerMySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark&quot;</span>
-            }
+            <span class='ident'>MySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark</span> <span class='op'>=&gt;</span> <span class='string'>&quot;NormalizerMySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark&quot;</span>,
             <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;normalizer_mysql&quot;</span>)]</span>
-            <span class='ident'>MySQLUnicode520CIExceptKanaCIKanaWithVoicedSoundMark</span> <span class='op'>=&gt;</span> {
-                <span class='string'>&quot;NormalizerMySQLUnicode520CIExceptKanaCIKanaWithVoicedSoundMark&quot;</span>
-            }
+            <span class='ident'>MySQLUnicode520CIExceptKanaCIKanaWithVoicedSoundMark</span> <span class='op'>=&gt;</span> <span class='string'>&quot;NormalizerMySQLUnicode520CIExceptKanaCIKanaWithVoicedSoundMark&quot;</span>,
             <span class='ident'>ExtNormalizerType</span>(<span class='kw-2'>ref</span> <span class='ident'>s</span>) <span class='op'>=&gt;</span> <span class='ident'>s</span>.<span class='ident'>as_ref</span>(),
         }
     }
@@ -276,13 +272,17 @@
         } <span class='kw'>else</span> {
             <span class='prelude-val'>Ok</span>(<span class='kw'>match</span> <span class='ident'>s</span> {
                 <span class='string'>&quot;Auto&quot;</span> <span class='op'>|</span> <span class='string'>&quot;NormalizerAuto&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>Auto</span>,
-                <span class='string'>&quot;NFKC51&quot;</span> <span class='op'>|</span> <span class='string'>&quot;NormalizerNFKC51&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>NFKC51</span>,
+                <span class='string'>&quot;NFKC51&quot;</span> <span class='op'>|</span>
+                <span class='string'>&quot;NormalizerNFKC51&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>NFKC51</span>,
                 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;normalizer_mysql&quot;</span>)]</span>
-                <span class='string'>&quot;MySQLGeneralCI&quot;</span> <span class='op'>|</span> <span class='string'>&quot;NormalizerMySQLGeneralCI&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>MySQLGeneralCI</span>,
+                <span class='string'>&quot;MySQLGeneralCI&quot;</span> <span class='op'>|</span>
+                <span class='string'>&quot;NormalizerMySQLGeneralCI&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>MySQLGeneralCI</span>,
                 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;normalizer_mysql&quot;</span>)]</span>
-                <span class='string'>&quot;MySQLUnicodeCI&quot;</span> <span class='op'>|</span> <span class='string'>&quot;NormalizerMySQLUnicodeCI&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>MySQLUnicodeCI</span>,
+                <span class='string'>&quot;MySQLUnicodeCI&quot;</span> <span class='op'>|</span>
+                <span class='string'>&quot;NormalizerMySQLUnicodeCI&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>MySQLUnicodeCI</span>,
                 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;normalizer_mysql&quot;</span>)]</span>
-                <span class='string'>&quot;MySQLUnicode520CI&quot;</span> <span class='op'>|</span> <span class='string'>&quot;NormalizerMySQLUnicode520CI&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>MySQLUnicode520CI</span>,
+                <span class='string'>&quot;MySQLUnicode520CI&quot;</span> <span class='op'>|</span>
+                <span class='string'>&quot;NormalizerMySQLUnicode520CI&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>MySQLUnicode520CI</span>,
                 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;normalizer_mysql&quot;</span>)]</span>
                 <span class='string'>&quot;MySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark&quot;</span> <span class='op'>|</span>
                 <span class='string'>&quot;NormalizerMySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark&quot;</span> <span class='op'>=&gt;</span> {
@@ -405,6 +405,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

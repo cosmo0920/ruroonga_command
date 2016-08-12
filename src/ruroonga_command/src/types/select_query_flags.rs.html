@@ -153,6 +153,7 @@
 <span id="109">109</span>
 <span id="110">110</span>
 <span id="111">111</span>
+<span id="112">112</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>str</span>::<span class='ident'>FromStr</span>;
@@ -213,7 +214,8 @@
                 <span class='string'>&quot;AllowPragma&quot;</span> <span class='op'>|</span> <span class='string'>&quot;ALLOW_PRAGMA&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>AllowPragma</span>,
                 <span class='string'>&quot;AllowColumn&quot;</span> <span class='op'>|</span> <span class='string'>&quot;ALLOW_COLUMN&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>AllowColumn</span>,
                 <span class='string'>&quot;AllowUpdate&quot;</span> <span class='op'>|</span> <span class='string'>&quot;ALLOW_UDATE&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>AllowUpdate</span>,
-                <span class='string'>&quot;AllowLeadingNot&quot;</span> <span class='op'>|</span> <span class='string'>&quot;ALLOW_LEADING_NOT&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>AllowLeadingNot</span>,
+                <span class='string'>&quot;AllowLeadingNot&quot;</span> <span class='op'>|</span>
+                <span class='string'>&quot;ALLOW_LEADING_NOT&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>AllowLeadingNot</span>,
                 _ <span class='op'>=&gt;</span> <span class='ident'>ExtQueryFlagsType</span>(<span class='ident'>s</span>.<span class='ident'>to_owned</span>()),
             })
         }
@@ -289,6 +291,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

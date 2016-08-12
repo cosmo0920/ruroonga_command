@@ -255,25 +255,25 @@
         } <span class='kw'>else</span> {
             <span class='prelude-val'>Ok</span>(<span class='kw'>match</span> <span class='ident'>s</span> {
                 <span class='string'>&quot;TokenBigram&quot;</span> <span class='op'>|</span> <span class='string'>&quot;Bigram&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>Bigram</span>,
-                <span class='string'>&quot;TokenBigramSplitSymbol&quot;</span> <span class='op'>|</span> <span class='string'>&quot;BigramSplitSymbol&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>BigramSplitSymbol</span>,
-                <span class='string'>&quot;TokenBigramSplitSymbolAlpha&quot;</span> <span class='op'>|</span> <span class='string'>&quot;BigramSplitSymbolAlpha&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>BigramSplitSymbolAlpha</span>,
-                <span class='string'>&quot;TokenBigramSplitSymbolAlphaDigit&quot;</span> <span class='op'>|</span> <span class='string'>&quot;BigramSplitSymbolAlphaDigit&quot;</span> <span class='op'>=&gt;</span> {
-                    <span class='ident'>BigramSplitSymbolAlphaDigit</span>
-                }
-                <span class='string'>&quot;TokenBigramIgnoreBlank&quot;</span> <span class='op'>|</span> <span class='string'>&quot;BigramIgnoreBlank&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>BigramIgnoreBlank</span>,
-                <span class='string'>&quot;TokenBigramIgnoreBlankSplitSymbol&quot;</span> <span class='op'>|</span> <span class='string'>&quot;BigramIgnoreBlankSplitSymbol&quot;</span> <span class='op'>=&gt;</span> {
-                    <span class='ident'>BigramIgnoreBlankSplitSymbol</span>
-                }
-                <span class='string'>&quot;TokenBigramIgnoreBlankSplitAlpha&quot;</span> <span class='op'>|</span> <span class='string'>&quot;BigramIgnoreBlankSplitAlpha&quot;</span> <span class='op'>=&gt;</span> {
-                    <span class='ident'>BigramIgnoreBlankSplitAlpha</span>
-                }
-                <span class='string'>&quot;TokenBigramIgnoreBlankSplitAlphaDigit&quot;</span> <span class='op'>|</span> <span class='string'>&quot;BigramIgnoreBlankSplitAlphaDigit&quot;</span> <span class='op'>=&gt;</span> {
-                    <span class='ident'>BigramIgnoreBlankSplitAlphaDigit</span>
-                }
+                <span class='string'>&quot;TokenBigramSplitSymbol&quot;</span> <span class='op'>|</span>
+                <span class='string'>&quot;BigramSplitSymbol&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>BigramSplitSymbol</span>,
+                <span class='string'>&quot;TokenBigramSplitSymbolAlpha&quot;</span> <span class='op'>|</span>
+                <span class='string'>&quot;BigramSplitSymbolAlpha&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>BigramSplitSymbolAlpha</span>,
+                <span class='string'>&quot;TokenBigramSplitSymbolAlphaDigit&quot;</span> <span class='op'>|</span>
+                <span class='string'>&quot;BigramSplitSymbolAlphaDigit&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>BigramSplitSymbolAlphaDigit</span>,
+                <span class='string'>&quot;TokenBigramIgnoreBlank&quot;</span> <span class='op'>|</span>
+                <span class='string'>&quot;BigramIgnoreBlank&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>BigramIgnoreBlank</span>,
+                <span class='string'>&quot;TokenBigramIgnoreBlankSplitSymbol&quot;</span> <span class='op'>|</span>
+                <span class='string'>&quot;BigramIgnoreBlankSplitSymbol&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>BigramIgnoreBlankSplitSymbol</span>,
+                <span class='string'>&quot;TokenBigramIgnoreBlankSplitAlpha&quot;</span> <span class='op'>|</span>
+                <span class='string'>&quot;BigramIgnoreBlankSplitAlpha&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>BigramIgnoreBlankSplitAlpha</span>,
+                <span class='string'>&quot;TokenBigramIgnoreBlankSplitAlphaDigit&quot;</span> <span class='op'>|</span>
+                <span class='string'>&quot;BigramIgnoreBlankSplitAlphaDigit&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>BigramIgnoreBlankSplitAlphaDigit</span>,
                 <span class='string'>&quot;TokenUnigram&quot;</span> <span class='op'>|</span> <span class='string'>&quot;Unigram&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>Unigram</span>,
                 <span class='string'>&quot;TokenTrigram&quot;</span> <span class='op'>|</span> <span class='string'>&quot;Trigram&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>Trigram</span>,
                 <span class='string'>&quot;TokenDelimit&quot;</span> <span class='op'>|</span> <span class='string'>&quot;Delimit&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>Delimit</span>,
-                <span class='string'>&quot;TokenDelimitNull&quot;</span> <span class='op'>|</span> <span class='string'>&quot;DelimitNull&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>DelimitNull</span>,
+                <span class='string'>&quot;TokenDelimitNull&quot;</span> <span class='op'>|</span>
+                <span class='string'>&quot;DelimitNull&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>DelimitNull</span>,
                 <span class='string'>&quot;TokenMecab&quot;</span> <span class='op'>|</span> <span class='string'>&quot;Mecab&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>Mecab</span>,
                 <span class='string'>&quot;TokenRegexp&quot;</span> <span class='op'>|</span> <span class='string'>&quot;Regexp&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>Regexp</span>,
                 _ <span class='op'>=&gt;</span> <span class='ident'>ExtUserDefined</span>(<span class='ident'>s</span>.<span class='ident'>to_owned</span>()),
@@ -363,6 +363,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

@@ -372,6 +372,49 @@
 <span id="328">328</span>
 <span id="329">329</span>
 <span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>str</span>::<span class='ident'>FromStr</span>;
@@ -382,6 +425,8 @@
                     <span class='ident'>RequestCancel</span>, <span class='ident'>Normalize</span>, <span class='ident'>NormalizerList</span>, <span class='ident'>ObjectExist</span>, <span class='ident'>ObjectInspect</span>,
                     <span class='ident'>ObjectRemove</span>, <span class='ident'>PluginRegister</span>, <span class='ident'>PluginUnregister</span>, <span class='ident'>ThreadLimit</span>, <span class='ident'>Tokenize</span>,
                     <span class='ident'>TokenizerList</span>, <span class='ident'>Truncate</span>, <span class='ident'>Schema</span>, <span class='ident'>Shutdown</span>, <span class='ident'>Extension</span>};
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+<span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>Command</span>::{<span class='ident'>LogicalSelect</span>, <span class='ident'>LogicalShardList</span>};
 
 <span class='attribute'>#[<span class='ident'>derive</span> (<span class='ident'>Debug</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>CommandError</span> {
@@ -424,6 +469,10 @@
     <span class='ident'>Truncate</span>,
     <span class='ident'>Schema</span>,
     <span class='ident'>Shutdown</span>,
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+    <span class='ident'>LogicalSelect</span>,
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+    <span class='ident'>LogicalShardList</span>,
     <span class='doccomment'>/// Method extensions.</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// An example would be:</span>
@@ -474,6 +523,10 @@
             <span class='ident'>Truncate</span> <span class='op'>=&gt;</span> <span class='string'>&quot;truncate&quot;</span>,
             <span class='ident'>Schema</span> <span class='op'>=&gt;</span> <span class='string'>&quot;schema&quot;</span>,
             <span class='ident'>Shutdown</span> <span class='op'>=&gt;</span> <span class='string'>&quot;shutdown&quot;</span>,
+            <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+            <span class='ident'>LogicalSelect</span> <span class='op'>=&gt;</span> <span class='string'>&quot;logical_select&quot;</span>,
+            <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+            <span class='ident'>LogicalShardList</span> <span class='op'>=&gt;</span> <span class='string'>&quot;logical_shard_list&quot;</span>,
             <span class='ident'>Extension</span>(<span class='kw-2'>ref</span> <span class='ident'>s</span>) <span class='op'>=&gt;</span> <span class='ident'>s</span>.<span class='ident'>as_ref</span>(),
         }
     }
@@ -520,6 +573,10 @@
                 <span class='string'>&quot;request_cancel&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>RequestCancel</span>,
                 <span class='string'>&quot;schema&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>Schema</span>,
                 <span class='string'>&quot;shutdown&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>Shutdown</span>,
+                <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+                <span class='string'>&quot;logical_select&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>LogicalSelect</span>,
+                <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+                <span class='string'>&quot;logical_shard_list&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>LogicalShardList</span>,
                 _ <span class='op'>=&gt;</span> <span class='ident'>Extension</span>(<span class='ident'>s</span>.<span class='ident'>to_owned</span>()),
             })
         }
@@ -563,6 +620,10 @@
             <span class='ident'>Truncate</span> <span class='op'>=&gt;</span> <span class='string'>&quot;truncate&quot;</span>,
             <span class='ident'>Schema</span> <span class='op'>=&gt;</span> <span class='string'>&quot;schema&quot;</span>,
             <span class='ident'>Shutdown</span> <span class='op'>=&gt;</span> <span class='string'>&quot;shutdown&quot;</span>,
+            <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+            <span class='ident'>LogicalSelect</span> <span class='op'>=&gt;</span> <span class='string'>&quot;logical_select&quot;</span>,
+            <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+            <span class='ident'>LogicalShardList</span> <span class='op'>=&gt;</span> <span class='string'>&quot;logical_shard_list&quot;</span>,
             <span class='ident'>Extension</span>(<span class='kw-2'>ref</span> <span class='ident'>s</span>) <span class='op'>=&gt;</span> <span class='ident'>s</span>.<span class='ident'>as_ref</span>(),
         })
     }
@@ -582,6 +643,8 @@
                          <span class='ident'>ColumnRemove</span>, <span class='ident'>RequestCancel</span>, <span class='ident'>ObjectExist</span>, <span class='ident'>ObjectInspect</span>, <span class='ident'>ObjectRemove</span>,
                          <span class='ident'>Normalize</span>, <span class='ident'>NormalizerList</span>, <span class='ident'>PluginRegister</span>, <span class='ident'>PluginUnregister</span>, <span class='ident'>ThreadLimit</span>,
                          <span class='ident'>Tokenize</span>, <span class='ident'>TokenizerList</span>, <span class='ident'>Truncate</span>, <span class='ident'>Schema</span>, <span class='ident'>Shutdown</span>, <span class='ident'>Extension</span>};
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>Command</span>::{<span class='ident'>LogicalSelect</span>, <span class='ident'>LogicalShardList</span>};
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_from_str</span>() {
@@ -626,6 +689,14 @@
         }
     }
 
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>test_from_str_with_sharding</span>() {
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>LogicalSelect</span>, <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;logical_select&quot;</span>).<span class='ident'>unwrap</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>LogicalShardList</span>,
+                   <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;logical_shard_list&quot;</span>).<span class='ident'>unwrap</span>());
+    }
+
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_fmt</span>() {
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;load&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>Load</span>));
@@ -661,6 +732,14 @@
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;shutdown&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>Shutdown</span>));
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;added-command&quot;</span>.<span class='ident'>to_owned</span>(),
                    <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>Extension</span>(<span class='string'>&quot;added-command&quot;</span>.<span class='ident'>to_owned</span>())));
+    }
+
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>test_fmt_with_sharding</span>() {
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;logical_select&quot;</span>.<span class='ident'>to_owned</span>(), <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>LogicalSelect</span>));
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;logical_shard_list&quot;</span>.<span class='ident'>to_owned</span>(),
+                   <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>LogicalShardList</span>));
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -702,6 +781,13 @@
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>Extension</span>(<span class='string'>&quot;added-command&quot;</span>.<span class='ident'>to_owned</span>()).<span class='ident'>as_ref</span>(),
                    <span class='string'>&quot;added-command&quot;</span>);
     }
+
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='kw'>fn</span> <span class='ident'>test_as_str_with_sharding</span>() {
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>LogicalSelect</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;logical_select&quot;</span>);
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>LogicalShardList</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;logical_shard_list&quot;</span>);
+    }
 }
 </pre>
 </section>
@@ -727,6 +813,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

@@ -423,7 +423,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_flags</span>() {
         <span class='kw'>let</span> <span class='ident'>table_create</span> <span class='op'>=</span> <span class='ident'>TableCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>())
-                               .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>TableFlagType</span>::<span class='ident'>PatKey</span>), (<span class='ident'>TableFlagType</span>::<span class='ident'>KeyWithSIS</span>)]);
+            .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>TableFlagType</span>::<span class='ident'>PatKey</span>), (<span class='ident'>TableFlagType</span>::<span class='ident'>KeyWithSIS</span>)]);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;flags&quot;</span>.<span class='ident'>to_string</span>(),
                    <span class='string'>&quot;TABLE_PAT_KEY|KEY_WITH_SIS&quot;</span>.<span class='ident'>to_string</span>());
@@ -438,7 +438,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_key_type</span>() {
         <span class='kw'>let</span> <span class='ident'>table_create</span> <span class='op'>=</span> <span class='ident'>TableCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>())
-                               .<span class='ident'>key_type</span>(<span class='ident'>DataType</span>::<span class='ident'>TokyoGeoPoint</span>);
+            .<span class='ident'>key_type</span>(<span class='ident'>DataType</span>::<span class='ident'>TokyoGeoPoint</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;key_type&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;TokyoGeoPoint&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>TableCreateCommand</span> {
@@ -452,7 +452,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_default_tokenizer</span>() {
         <span class='kw'>let</span> <span class='ident'>table_create</span> <span class='op'>=</span> <span class='ident'>TableCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>())
-                               .<span class='ident'>default_tokenizer</span>(<span class='ident'>TokenizerType</span>::<span class='ident'>BigramSplitSymbolAlpha</span>);
+            .<span class='ident'>default_tokenizer</span>(<span class='ident'>TokenizerType</span>::<span class='ident'>BigramSplitSymbolAlpha</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;default_tokenizer&quot;</span>.<span class='ident'>to_string</span>(),
                    <span class='string'>&quot;TokenBigramSplitSymbolAlpha&quot;</span>.<span class='ident'>to_string</span>());
@@ -467,7 +467,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_normalizer</span>() {
         <span class='kw'>let</span> <span class='ident'>table_create</span> <span class='op'>=</span> <span class='ident'>TableCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>())
-                               .<span class='ident'>normalizer</span>(<span class='ident'>NormalizerType</span>::<span class='ident'>Auto</span>);
+            .<span class='ident'>normalizer</span>(<span class='ident'>NormalizerType</span>::<span class='ident'>Auto</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;normalizer&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;NormalizerAuto&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>TableCreateCommand</span> {
@@ -481,7 +481,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_token_filter</span>() {
         <span class='kw'>let</span> <span class='ident'>table_create</span> <span class='op'>=</span> <span class='ident'>TableCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>())
-                               .<span class='ident'>token_filter</span>(<span class='ident'>TokenFiltersType</span>::<span class='ident'>StopWord</span>);
+            .<span class='ident'>token_filter</span>(<span class='ident'>TokenFiltersType</span>::<span class='ident'>StopWord</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;token_filter&quot;</span>.<span class='ident'>to_string</span>(),
                    <span class='string'>&quot;TokenFilterStopWord&quot;</span>.<span class='ident'>to_string</span>());
@@ -496,8 +496,8 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_build</span>() {
         <span class='kw'>let</span> <span class='ident'>actual</span> <span class='op'>=</span> <span class='ident'>TableCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>TableFlagType</span>::<span class='ident'>PatKey</span>), (<span class='ident'>TableFlagType</span>::<span class='ident'>KeyWithSIS</span>)])
-                         .<span class='ident'>build</span>();
+            .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>TableFlagType</span>::<span class='ident'>PatKey</span>), (<span class='ident'>TableFlagType</span>::<span class='ident'>KeyWithSIS</span>)])
+            .<span class='ident'>build</span>();
         <span class='kw'>let</span> <span class='ident'>expected_query</span>: <span class='ident'>Query</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;name&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>()),
                                          (<span class='string'>&quot;flags&quot;</span>.<span class='ident'>to_string</span>(),
                                           <span class='string'>&quot;TABLE_PAT_KEY|KEY_WITH_SIS&quot;</span>.<span class='ident'>to_string</span>())];
@@ -508,8 +508,8 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_queryable</span>() {
         <span class='kw'>let</span> <span class='ident'>query</span> <span class='op'>=</span> <span class='ident'>TableCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>())
-                        .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>TableFlagType</span>::<span class='ident'>PatKey</span>), (<span class='ident'>TableFlagType</span>::<span class='ident'>KeyWithSIS</span>)])
-                        .<span class='ident'>to_query</span>();
+            .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>TableFlagType</span>::<span class='ident'>PatKey</span>), (<span class='ident'>TableFlagType</span>::<span class='ident'>KeyWithSIS</span>)])
+            .<span class='ident'>to_query</span>();
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/table_create?name=Test&amp;flags=TABLE_PAT_KEY%7CKEY_WITH_SIS&quot;</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>query</span>);
     }
@@ -517,8 +517,8 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_commandable</span>() {
         <span class='kw'>let</span> <span class='ident'>query</span> <span class='op'>=</span> <span class='ident'>TableCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>())
-                        .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>TableFlagType</span>::<span class='ident'>PatKey</span>), (<span class='ident'>TableFlagType</span>::<span class='ident'>KeyWithSIS</span>)])
-                        .<span class='ident'>to_command</span>();
+            .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>TableFlagType</span>::<span class='ident'>PatKey</span>), (<span class='ident'>TableFlagType</span>::<span class='ident'>KeyWithSIS</span>)])
+            .<span class='ident'>to_command</span>();
         <span class='kw'>let</span> <span class='ident'>cli_encoded</span> <span class='op'>=</span> <span class='string'>&quot;table_create --name Test --flags TABLE_PAT_KEY|KEY_WITH_SIS&quot;</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cli_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>query</span>);
     }
@@ -563,6 +563,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

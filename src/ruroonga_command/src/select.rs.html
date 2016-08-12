@@ -598,6 +598,28 @@
 <span id="554">554</span>
 <span id="555">555</span>
 <span id="556">556</span>
+<span id="557">557</span>
+<span id="558">558</span>
+<span id="559">559</span>
+<span id="560">560</span>
+<span id="561">561</span>
+<span id="562">562</span>
+<span id="563">563</span>
+<span id="564">564</span>
+<span id="565">565</span>
+<span id="566">566</span>
+<span id="567">567</span>
+<span id="568">568</span>
+<span id="569">569</span>
+<span id="570">570</span>
+<span id="571">571</span>
+<span id="572">572</span>
+<span id="573">573</span>
+<span id="574">574</span>
+<span id="575">575</span>
+<span id="576">576</span>
+<span id="577">577</span>
+<span id="578">578</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
 <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>Select</span>;
@@ -618,10 +640,14 @@
 <span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>labeled_drilldown_builder</span>::<span class='ident'>LabeledDrilldownBuilder</span>;
 <span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>labeled_drilldown_sequencable</span>::<span class='ident'>LabeledDrilldownSequencable</span>;
 <span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>labeled_drilldown_sequence_builder</span>::<span class='ident'>LabeledDrilldownSequenceBuilder</span>;
+<span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>staged_columns</span>::<span class='ident'>StagedColumns</span>;
+<span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>staged_columns_builder</span>::<span class='ident'>StagedColumnsBuilder</span>;
+<span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>staged_columnable</span>::<span class='ident'>StagedColumnable</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ops</span>::<span class='ident'>Add</span>;
 <span class='kw'>use</span> <span class='ident'>extendable</span>::<span class='ident'>Extendable</span>;
 <span class='kw'>use</span> <span class='ident'>request_cancellable</span>::<span class='ident'>RequestCancellable</span>;
 <span class='kw'>use</span> <span class='ident'>request_timeoutable</span>::<span class='ident'>RequestTimeoutable</span>;
+<span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>drilldown_type</span>::<span class='ident'>DrilldownUsable</span>;
 
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>Debug</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>SelectCommand</span> {
@@ -783,7 +809,7 @@
     <span class='kw'>type</span> <span class='ident'>Output</span> <span class='op'>=</span> <span class='ident'>DrilldownBuilder</span>;
 
     <span class='kw'>fn</span> <span class='ident'>add</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='ident'>Drilldown</span>) <span class='op'>-&gt;</span> <span class='ident'>DrilldownBuilder</span> {
-        <span class='ident'>DrilldownBuilder</span>::<span class='ident'>new</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>)
+        <span class='ident'>DrilldownBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='self'>self</span>), <span class='ident'>rhs</span>)
     }
 }
 
@@ -791,7 +817,7 @@
     <span class='kw'>type</span> <span class='ident'>Output</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldownBuilder</span>;
 
     <span class='kw'>fn</span> <span class='ident'>add</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='ident'>LabeledDrilldown</span>) <span class='op'>-&gt;</span> <span class='ident'>LabeledDrilldownBuilder</span> {
-        <span class='ident'>LabeledDrilldownBuilder</span>::<span class='ident'>new</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>)
+        <span class='ident'>LabeledDrilldownBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='self'>self</span>), <span class='ident'>rhs</span>)
     }
 }
 
@@ -799,19 +825,27 @@
     <span class='kw'>type</span> <span class='ident'>Output</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldownSequenceBuilder</span>;
 
     <span class='kw'>fn</span> <span class='ident'>add</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>LabeledDrilldown</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>LabeledDrilldownSequenceBuilder</span> {
-        <span class='ident'>LabeledDrilldownSequenceBuilder</span>::<span class='ident'>new</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>)
+        <span class='ident'>LabeledDrilldownSequenceBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='self'>self</span>), <span class='ident'>rhs</span>)
+    }
+}
+
+<span class='kw'>impl</span> <span class='ident'>Add</span><span class='op'>&lt;</span><span class='ident'>StagedColumns</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>SelectCommand</span> {
+    <span class='kw'>type</span> <span class='ident'>Output</span> <span class='op'>=</span> <span class='ident'>StagedColumnsBuilder</span>;
+
+    <span class='kw'>fn</span> <span class='ident'>add</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='ident'>StagedColumns</span>) <span class='op'>-&gt;</span> <span class='ident'>StagedColumnsBuilder</span> {
+        <span class='ident'>StagedColumnsBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='self'>self</span>), <span class='ident'>rhs</span>)
     }
 }
 
 <span class='kw'>impl</span> <span class='ident'>Drilldownable</span> <span class='kw'>for</span> <span class='ident'>SelectCommand</span> {
     <span class='kw'>fn</span> <span class='ident'>with_drilldown</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='ident'>Drilldown</span>) <span class='op'>-&gt;</span> <span class='ident'>DrilldownBuilder</span> {
-        <span class='ident'>DrilldownBuilder</span>::<span class='ident'>new</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>)
+        <span class='ident'>DrilldownBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='self'>self</span>), <span class='ident'>rhs</span>)
     }
 }
 
 <span class='kw'>impl</span> <span class='ident'>LabeledDrilldownable</span> <span class='kw'>for</span> <span class='ident'>SelectCommand</span> {
     <span class='kw'>fn</span> <span class='ident'>with_labeled_drilldown</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='ident'>LabeledDrilldown</span>) <span class='op'>-&gt;</span> <span class='ident'>LabeledDrilldownBuilder</span> {
-        <span class='ident'>LabeledDrilldownBuilder</span>::<span class='ident'>new</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>)
+        <span class='ident'>LabeledDrilldownBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='self'>self</span>), <span class='ident'>rhs</span>)
     }
 }
 
@@ -820,7 +854,13 @@
     <span class='kw'>fn</span> <span class='ident'>with_labeled_drilldown_sequence</span>(<span class='self'>self</span>,
                                        <span class='ident'>rhs</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>LabeledDrilldown</span><span class='op'>&gt;</span>)
                                        <span class='op'>-&gt;</span> <span class='ident'>LabeledDrilldownSequenceBuilder</span> {
-        <span class='ident'>LabeledDrilldownSequenceBuilder</span>::<span class='ident'>new</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>)
+        <span class='ident'>LabeledDrilldownSequenceBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='self'>self</span>), <span class='ident'>rhs</span>)
+    }
+}
+
+<span class='kw'>impl</span> <span class='ident'>StagedColumnable</span> <span class='kw'>for</span> <span class='ident'>SelectCommand</span> {
+    <span class='kw'>fn</span> <span class='ident'>with_staged_columns</span>(<span class='self'>self</span>, <span class='ident'>rhs</span>: <span class='ident'>StagedColumns</span>) <span class='op'>-&gt;</span> <span class='ident'>StagedColumnsBuilder</span> {
+        <span class='ident'>StagedColumnsBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='self'>self</span>), <span class='ident'>rhs</span>)
     }
 }
 
@@ -844,6 +884,7 @@
     <span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>labeled_drilldownable</span>::<span class='ident'>LabeledDrilldownable</span>;
     <span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>labeled_drilldown_builder</span>::<span class='ident'>LabeledDrilldownBuilder</span>;
     <span class='kw'>use</span> <span class='ident'>extendable</span>::<span class='ident'>Extendable</span>;
+    <span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>drilldown_type</span>::<span class='ident'>DrilldownUsable</span>;
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_new</span>() {
@@ -859,7 +900,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_filter</span>() {
         <span class='kw'>let</span> <span class='ident'>select</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>filter</span>(<span class='string'>&quot;output_column @ \&quot;type_safe\&quot;&quot;</span>.<span class='ident'>to_string</span>());
+            .<span class='ident'>filter</span>(<span class='string'>&quot;output_column @ \&quot;type_safe\&quot;&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;filter&quot;</span>.<span class='ident'>to_string</span>(),
                    <span class='string'>&quot;&#39;output_column @ \&quot;type_safe\&quot;&#39;&quot;</span>.<span class='ident'>to_string</span>());
@@ -874,7 +915,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_query</span>() {
         <span class='kw'>let</span> <span class='ident'>select</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>query</span>(<span class='string'>&quot;_key:\&quot;http://example.org/\&quot;&quot;</span>.<span class='ident'>to_string</span>());
+            .<span class='ident'>query</span>(<span class='string'>&quot;_key:\&quot;http://example.org/\&quot;&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;query&quot;</span>.<span class='ident'>to_string</span>(),
                    <span class='string'>&quot;\&#39;_key:\&quot;http://example.org/\&quot;\&#39;&quot;</span>.<span class='ident'>to_string</span>());
@@ -903,7 +944,7 @@
     <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>deprecated</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>test_sortby</span>() {
         <span class='kw'>let</span> <span class='ident'>select</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>sortby</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;piyo&quot;</span>.<span class='ident'>to_string</span>()]);
+            .<span class='ident'>sortby</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;piyo&quot;</span>.<span class='ident'>to_string</span>()]);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;sortby&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;\&#39;test,piyo\&#39;&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span> {
@@ -917,7 +958,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_sort_keys</span>() {
         <span class='kw'>let</span> <span class='ident'>select</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>sort_keys</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;piyo&quot;</span>.<span class='ident'>to_string</span>()]);
+            .<span class='ident'>sort_keys</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;piyo&quot;</span>.<span class='ident'>to_string</span>()]);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;sort_keys&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;\&#39;test,piyo\&#39;&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span> {
@@ -931,7 +972,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_adjuster</span>() {
         <span class='kw'>let</span> <span class='ident'>select</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>adjuster</span>(<span class='string'>&quot;content @ \&quot;ruroonga\&quot;&quot;</span>.<span class='ident'>to_string</span>());
+            .<span class='ident'>adjuster</span>(<span class='string'>&quot;content @ \&quot;ruroonga\&quot;&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;adjuster&quot;</span>.<span class='ident'>to_string</span>(),
                    <span class='string'>&quot;\&#39;content @ \&quot;ruroonga\&quot;\&#39;&quot;</span>.<span class='ident'>to_string</span>());
@@ -946,7 +987,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_match_columns</span>() {
         <span class='kw'>let</span> <span class='ident'>select</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>match_columns</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;piyo&quot;</span>.<span class='ident'>to_string</span>()]);
+            .<span class='ident'>match_columns</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;piyo&quot;</span>.<span class='ident'>to_string</span>()]);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;match_columns&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;test,piyo&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span> {
@@ -960,7 +1001,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_output_columns</span>() {
         <span class='kw'>let</span> <span class='ident'>select</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>output_columns</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;piyo&quot;</span>.<span class='ident'>to_string</span>()]);
+            .<span class='ident'>output_columns</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;piyo&quot;</span>.<span class='ident'>to_string</span>()]);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;output_columns&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;test,piyo&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span> {
@@ -1035,8 +1076,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_query_flags</span>() {
         <span class='kw'>let</span> <span class='ident'>select</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>query_flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>QueryFlagsType</span>::<span class='ident'>AllowColumn</span>),
-                                           (<span class='ident'>QueryFlagsType</span>::<span class='ident'>AllowUpdate</span>)]);
+            .<span class='ident'>query_flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>QueryFlagsType</span>::<span class='ident'>AllowColumn</span>), (<span class='ident'>QueryFlagsType</span>::<span class='ident'>AllowUpdate</span>)]);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;query_flags&quot;</span>.<span class='ident'>to_string</span>(),
                    <span class='string'>&quot;ALLOW_COLUMN|ALLOW_UPDATE&quot;</span>.<span class='ident'>to_string</span>());
@@ -1051,7 +1091,7 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_query_expander</span>() {
         <span class='kw'>let</span> <span class='ident'>select</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>query_expander</span>((<span class='string'>&quot;Terms&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;synonym&quot;</span>.<span class='ident'>to_string</span>()));
+            .<span class='ident'>query_expander</span>((<span class='string'>&quot;Terms&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;synonym&quot;</span>.<span class='ident'>to_string</span>()));
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg</span>.<span class='ident'>insert</span>(<span class='string'>&quot;query_expander&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;Terms.synonym&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span> {
@@ -1065,8 +1105,8 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_build</span>() {
         <span class='kw'>let</span> <span class='ident'>actual</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>filter</span>(<span class='string'>&quot;output_column @ \&quot;type_safe\&quot;&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>build</span>();
+            .<span class='ident'>filter</span>(<span class='string'>&quot;output_column @ \&quot;type_safe\&quot;&quot;</span>.<span class='ident'>to_string</span>())
+            .<span class='ident'>build</span>();
         <span class='kw'>let</span> <span class='ident'>expected_query</span>: <span class='ident'>Query</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;table&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>()),
                                          (<span class='string'>&quot;filter&quot;</span>.<span class='ident'>to_string</span>(),
                                           <span class='string'>&quot;&#39;output_column @ \&quot;type_safe\&quot;&#39;&quot;</span>.<span class='ident'>to_string</span>())];
@@ -1077,8 +1117,8 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_queryable</span>() {
         <span class='kw'>let</span> <span class='ident'>query</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>())
-                        .<span class='ident'>filter</span>(<span class='string'>&quot;output_column @ \&quot;type_safe\&quot;&quot;</span>.<span class='ident'>to_string</span>())
-                        .<span class='ident'>to_query</span>();
+            .<span class='ident'>filter</span>(<span class='string'>&quot;output_column @ \&quot;type_safe\&quot;&quot;</span>.<span class='ident'>to_string</span>())
+            .<span class='ident'>to_query</span>();
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/select?table=Test&amp;filter=%27output_column+%40+%22type_safe%22%27&quot;</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>query</span>);
     }
@@ -1086,8 +1126,8 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_commandable</span>() {
         <span class='kw'>let</span> <span class='ident'>query</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>())
-                        .<span class='ident'>filter</span>(<span class='string'>&quot;output_column @ \&quot;type_safe\&quot;&quot;</span>.<span class='ident'>to_string</span>())
-                        .<span class='ident'>to_command</span>();
+            .<span class='ident'>filter</span>(<span class='string'>&quot;output_column @ \&quot;type_safe\&quot;&quot;</span>.<span class='ident'>to_string</span>())
+            .<span class='ident'>to_command</span>();
         <span class='kw'>let</span> <span class='ident'>cli_encoded</span> <span class='op'>=</span> <span class='string'>&quot;select --table Test --filter \&#39;output_column @ \&quot;type_safe\&quot;\&#39;&quot;</span>;
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cli_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>query</span>);
     }
@@ -1095,47 +1135,51 @@
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_add_ops_drilldown</span>() {
         <span class='kw'>let</span> <span class='ident'>select</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Entries&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>filter</span>(<span class='string'>&quot;content @ \&quot;fast\&quot;&quot;</span>.<span class='ident'>to_string</span>());
+            .<span class='ident'>filter</span>(<span class='string'>&quot;content @ \&quot;fast\&quot;&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>Drilldown</span>::<span class='ident'>new</span>().<span class='ident'>drilldown</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;tag&quot;</span>.<span class='ident'>to_string</span>())]);
         <span class='kw'>let</span> <span class='ident'>ops_builder</span> <span class='op'>=</span> (<span class='ident'>select</span>.<span class='ident'>to_owned</span>() <span class='op'>+</span> <span class='ident'>drilldown</span>.<span class='ident'>to_owned</span>()).<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='ident'>drilldown_builder</span> <span class='op'>=</span> <span class='ident'>DrilldownBuilder</span>::<span class='ident'>new</span>(<span class='ident'>select</span>.<span class='ident'>to_owned</span>(), <span class='ident'>drilldown</span>.<span class='ident'>to_owned</span>())
-                                    .<span class='ident'>build</span>();
+        <span class='kw'>let</span> <span class='ident'>drilldown_builder</span> <span class='op'>=</span> <span class='ident'>DrilldownBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='ident'>select</span>.<span class='ident'>to_owned</span>()),
+                                                      <span class='ident'>drilldown</span>.<span class='ident'>to_owned</span>())
+            .<span class='ident'>build</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ops_builder</span>, <span class='ident'>drilldown_builder</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_add_ops_labedled_drilldown</span>() {
         <span class='kw'>let</span> <span class='ident'>select</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Entries&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>filter</span>(<span class='string'>&quot;content @ \&quot;fast\&quot;&quot;</span>.<span class='ident'>to_string</span>());
+            .<span class='ident'>filter</span>(<span class='string'>&quot;content @ \&quot;fast\&quot;&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='string'>&quot;labeled&quot;</span>.<span class='ident'>to_string</span>())
-                            .<span class='ident'>keys</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;tag&quot;</span>.<span class='ident'>to_string</span>())]);
+            .<span class='ident'>keys</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;tag&quot;</span>.<span class='ident'>to_string</span>())]);
         <span class='kw'>let</span> <span class='ident'>ops_builder</span> <span class='op'>=</span> (<span class='ident'>select</span>.<span class='ident'>to_owned</span>() <span class='op'>+</span> <span class='ident'>drilldown</span>.<span class='ident'>to_owned</span>()).<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='ident'>drilldown_builder</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldownBuilder</span>::<span class='ident'>new</span>(<span class='ident'>select</span>.<span class='ident'>to_owned</span>(),
-                                                             <span class='ident'>drilldown</span>.<span class='ident'>to_owned</span>())
-                                    .<span class='ident'>build</span>();
+        <span class='kw'>let</span> <span class='ident'>drilldown_builder</span> <span class='op'>=</span>
+            <span class='ident'>LabeledDrilldownBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='ident'>select</span>.<span class='ident'>to_owned</span>()),
+                                         <span class='ident'>drilldown</span>.<span class='ident'>to_owned</span>())
+                .<span class='ident'>build</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ops_builder</span>, <span class='ident'>drilldown_builder</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_with_drilldown</span>() {
         <span class='kw'>let</span> <span class='ident'>select</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Entries&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>filter</span>(<span class='string'>&quot;content @ \&quot;fast\&quot;&quot;</span>.<span class='ident'>to_string</span>());
+            .<span class='ident'>filter</span>(<span class='string'>&quot;content @ \&quot;fast\&quot;&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>Drilldown</span>::<span class='ident'>new</span>().<span class='ident'>drilldown</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;tag&quot;</span>.<span class='ident'>to_string</span>())]);
         <span class='kw'>let</span> <span class='ident'>drilldownable</span> <span class='op'>=</span> <span class='ident'>select</span>.<span class='ident'>to_owned</span>().<span class='ident'>with_drilldown</span>(<span class='ident'>drilldown</span>.<span class='ident'>to_owned</span>()).<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='ident'>drilldown_builder</span> <span class='op'>=</span> <span class='ident'>DrilldownBuilder</span>::<span class='ident'>new</span>(<span class='ident'>select</span>.<span class='ident'>to_owned</span>(), <span class='ident'>drilldown</span>.<span class='ident'>to_owned</span>())
-                                    .<span class='ident'>build</span>();
+        <span class='kw'>let</span> <span class='ident'>drilldown_builder</span> <span class='op'>=</span> <span class='ident'>DrilldownBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='ident'>select</span>.<span class='ident'>to_owned</span>()),
+                                                      <span class='ident'>drilldown</span>.<span class='ident'>to_owned</span>())
+            .<span class='ident'>build</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>drilldownable</span>, <span class='ident'>drilldown_builder</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_with_labeled_drilldown</span>() {
         <span class='kw'>let</span> <span class='ident'>select</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Entries&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>filter</span>(<span class='string'>&quot;content @ \&quot;fast\&quot;&quot;</span>.<span class='ident'>to_string</span>());
+            .<span class='ident'>filter</span>(<span class='string'>&quot;content @ \&quot;fast\&quot;&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='string'>&quot;label&quot;</span>.<span class='ident'>to_string</span>()).<span class='ident'>keys</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;tag&quot;</span>.<span class='ident'>to_string</span>())]);
         <span class='kw'>let</span> <span class='ident'>drilldownable</span> <span class='op'>=</span> <span class='ident'>select</span>.<span class='ident'>to_owned</span>().<span class='ident'>with_labeled_drilldown</span>(<span class='ident'>drilldown</span>.<span class='ident'>to_owned</span>()).<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='ident'>drilldown_builder</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldownBuilder</span>::<span class='ident'>new</span>(<span class='ident'>select</span>.<span class='ident'>to_owned</span>(),
-                                                             <span class='ident'>drilldown</span>.<span class='ident'>to_owned</span>())
-                                    .<span class='ident'>build</span>();
+        <span class='kw'>let</span> <span class='ident'>drilldown_builder</span> <span class='op'>=</span>
+            <span class='ident'>LabeledDrilldownBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='ident'>select</span>.<span class='ident'>to_owned</span>()),
+                                         <span class='ident'>drilldown</span>.<span class='ident'>to_owned</span>())
+                .<span class='ident'>build</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>drilldownable</span>, <span class='ident'>drilldown_builder</span>);
     }
 
@@ -1179,6 +1223,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

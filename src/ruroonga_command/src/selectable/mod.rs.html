@@ -55,10 +55,25 @@
 <span id="11">11</span>
 <span id="12">12</span>
 <span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Provides drilldown related procedures.</span>
 <span class='doccomment'>//! This module will be used with `SelectCommand` type by `+` operation</span>
 <span class='doccomment'>//! to concatinate `select` and `drilldown` queries.</span>
+<span class='doccomment'>//!</span>
+<span class='doccomment'>//! Also this module support `pseudo_table` and `staged_columns` manupilation.</span>
+
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>drilldown_type</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>drilldown</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>labeled_drilldown</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>drilldownable</span>;
@@ -67,8 +82,15 @@
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>drilldown_builder</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>labeled_drilldown_builder</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>labeled_drilldown_sequence_builder</span>;
+<span class='doccomment'>/// `fragmentable` module provides making query fragment operation.</span>
+<span class='doccomment'>/// It is useful to make composable query elements.</span>
+<span class='doccomment'>/// It makes `select` query to be composable against drilldown related query and `staged_columns` query.</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>fragmentable</span>;
+<span class='doccomment'>/// `pseudo_table` is a trait to be used for tablable state which is appeared in &quot;drilldown in drilldown&quot;.</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>pseudo_table</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>staged_columns</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>staged_columns_builder</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>staged_columnable</span>;
 </pre>
 </section>
     <section id='search' class="content hidden"></section>
@@ -93,6 +115,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

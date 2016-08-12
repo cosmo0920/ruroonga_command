@@ -163,8 +163,17 @@
 <span id="119">119</span>
 <span id="120">120</span>
 <span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
+<span id="126">126</span>
+<span id="127">127</span>
+<span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
 </pre><pre class='rust '>
-<span class='kw'>use</span> <span class='ident'>select</span>::<span class='ident'>SelectCommand</span>;
 <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>labeled_drilldown</span>::<span class='ident'>LabeledDrilldown</span>;
 <span class='kw'>use</span> <span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
 <span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>fragmentable</span>::<span class='ident'>Fragmentable</span>;
@@ -172,9 +181,10 @@
 <span class='kw'>use</span> <span class='ident'>queryable</span>::<span class='ident'>Queryable</span>;
 <span class='kw'>use</span> <span class='ident'>commandable</span>::<span class='ident'>Commandable</span>;
 <span class='kw'>use</span> <span class='ident'>command_line</span>::<span class='ident'>CommandLine</span>;
+<span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>drilldown_type</span>::<span class='ident'>DrilldownUsable</span>;
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>LabeledDrilldownSequenceBuilder</span> {
-    <span class='ident'>select</span>: <span class='ident'>SelectCommand</span>,
+    <span class='ident'>select</span>: <span class='ident'>DrilldownUsable</span>,
     <span class='ident'>drilldowns</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>LabeledDrilldown</span><span class='op'>&gt;</span>,
 }
 
@@ -187,6 +197,7 @@
 <span class='doccomment'>/// use ruroonga_command::selectable::pseudo_table::PseudoTable;</span>
 <span class='doccomment'>/// use ruroonga_command::selectable::labeled_drilldown::LabeledDrilldown;</span>
 <span class='doccomment'>/// use ruroonga_command::selectable::labeled_drilldown_sequence_builder as builder;</span>
+<span class='doccomment'>/// use ruroonga_command::selectable::drilldown_type::DrilldownUsable;</span>
 <span class='doccomment'>/// let select = SelectCommand::new(&quot;Memos&quot;.to_string());</span>
 <span class='doccomment'>/// let drilldown_label1 = LabeledDrilldown::new(&quot;label1&quot;.to_string())</span>
 <span class='doccomment'>///                  .table(&quot;label2&quot;.to_string())</span>
@@ -199,7 +210,7 @@
 <span class='doccomment'>///                                       (&quot;_nsubrecs&quot;.to_string()),</span>
 <span class='doccomment'>///                                       (&quot;category&quot;.to_string())]);</span>
 <span class='doccomment'>/// let mut builder =</span>
-<span class='doccomment'>///     builder::LabeledDrilldownSequenceBuilder::new(select,</span>
+<span class='doccomment'>///     builder::LabeledDrilldownSequenceBuilder::new(DrilldownUsable::Select(select),</span>
 <span class='doccomment'>///                                                   vec![(drilldown_label1),</span>
 <span class='doccomment'>///                                                        (drilldown_label2)]);</span>
 <span class='doccomment'>/// let _ = builder.build();</span>
@@ -209,7 +220,7 @@
 <span class='doccomment'>/// (https://github.com/cosmo0920/ruroonga_command/blob/master/examples/advanced_drilldown.rs).</span>
 
 <span class='kw'>impl</span> <span class='ident'>LabeledDrilldownSequenceBuilder</span> {
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>select</span>: <span class='ident'>SelectCommand</span>,
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>select</span>: <span class='ident'>DrilldownUsable</span>,
                <span class='ident'>drilldowns</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>LabeledDrilldown</span><span class='op'>&gt;</span>)
                <span class='op'>-&gt;</span> <span class='ident'>LabeledDrilldownSequenceBuilder</span> {
         <span class='ident'>LabeledDrilldownSequenceBuilder</span> {
@@ -220,11 +231,15 @@
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>build</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> (<span class='ident'>Command</span>, <span class='ident'>Query</span>) {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>query</span>: <span class='ident'>Query</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[];
-        <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>ordered_select</span>, <span class='ident'>select</span>) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>select</span>.<span class='ident'>to_fragment</span>();
+        <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>ordered_select</span>, <span class='ident'>key_values</span>) <span class='op'>=</span> <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>select</span> {
+            <span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='ident'>s</span>) <span class='op'>=&gt;</span> <span class='ident'>s</span>.<span class='ident'>to_fragment</span>(),
+            <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+            <span class='ident'>DrilldownUsable</span>::<span class='ident'>LogicalSelect</span>(<span class='ident'>l</span>) <span class='op'>=&gt;</span> <span class='ident'>l</span>.<span class='ident'>to_fragment</span>(),
+        };
         <span class='kw'>for</span> <span class='ident'>ordered</span> <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='ident'>ordered_select</span> {
             <span class='ident'>query</span>.<span class='ident'>push</span>(<span class='ident'>ordered</span>.<span class='ident'>to_owned</span>());
         }
-        <span class='kw'>for</span> (<span class='ident'>key</span>, <span class='ident'>value</span>) <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='ident'>select</span> {
+        <span class='kw'>for</span> (<span class='ident'>key</span>, <span class='ident'>value</span>) <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='ident'>key_values</span> {
             <span class='ident'>query</span>.<span class='ident'>push</span>((<span class='ident'>key</span>.<span class='ident'>to_owned</span>(), <span class='ident'>value</span>.<span class='ident'>to_owned</span>()));
         }
         <span class='kw'>for</span> <span class='ident'>drilldown</span> <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>drilldowns</span> {
@@ -260,28 +275,33 @@
     <span class='kw'>use</span> <span class='ident'>commandable</span>::<span class='ident'>Commandable</span>;
     <span class='kw'>use</span> <span class='ident'>select</span>::<span class='ident'>SelectCommand</span>;
     <span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>labeled_drilldown</span>::<span class='ident'>LabeledDrilldown</span>;
+    <span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>drilldown_type</span>::<span class='ident'>DrilldownUsable</span>;
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_to_query</span>() {
         <span class='kw'>let</span> <span class='ident'>select</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Entries&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>filter</span>(<span class='string'>&quot;content @ \&quot;fast\&quot;&quot;</span>.<span class='ident'>to_string</span>());
+            .<span class='ident'>filter</span>(<span class='string'>&quot;content @ \&quot;fast\&quot;&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='string'>&quot;label&quot;</span>.<span class='ident'>to_string</span>()).<span class='ident'>keys</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;tag&quot;</span>.<span class='ident'>to_string</span>())]);
-        <span class='kw'>let</span> <span class='ident'>builder</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldownSequenceBuilder</span>::<span class='ident'>new</span>(<span class='ident'>select</span>, <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>drilldown</span>)]).<span class='ident'>to_query</span>();
+        <span class='kw'>let</span> <span class='ident'>builder</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldownSequenceBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='ident'>select</span>),
+                                                           <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>drilldown</span>)])
+            .<span class='ident'>to_query</span>();
         <span class='kw'>let</span> <span class='ident'>encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/select?table=Entries&amp;filter=%27content+%40+%22fast%22%27&amp;drilldowns%5Bla\
                        bel%5D.keys=%27tag%27&quot;</span>
-                          .<span class='ident'>to_string</span>();
+            .<span class='ident'>to_string</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>encoded</span>, <span class='ident'>builder</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_to_command</span>() {
         <span class='kw'>let</span> <span class='ident'>select</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Entries&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>filter</span>(<span class='string'>&quot;content @ \&quot;fast\&quot;&quot;</span>.<span class='ident'>to_string</span>());
+            .<span class='ident'>filter</span>(<span class='string'>&quot;content @ \&quot;fast\&quot;&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='string'>&quot;label&quot;</span>.<span class='ident'>to_string</span>()).<span class='ident'>keys</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;tag&quot;</span>.<span class='ident'>to_string</span>())]);
-        <span class='kw'>let</span> <span class='ident'>builder</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldownSequenceBuilder</span>::<span class='ident'>new</span>(<span class='ident'>select</span>, <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>drilldown</span>)]).<span class='ident'>to_command</span>();
+        <span class='kw'>let</span> <span class='ident'>builder</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldownSequenceBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='ident'>select</span>),
+                                                           <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>drilldown</span>)])
+            .<span class='ident'>to_command</span>();
         <span class='kw'>let</span> <span class='ident'>encoded</span> <span class='op'>=</span> <span class='string'>&quot;select --table Entries --filter \&#39;content @ \&quot;fast\&quot;\&#39; \
                        --drilldowns[label].keys \&#39;tag\&#39;&quot;</span>
-                          .<span class='ident'>to_string</span>();
+            .<span class='ident'>to_string</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>encoded</span>, <span class='ident'>builder</span>);
     }
 }
@@ -309,6 +329,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

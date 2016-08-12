@@ -146,8 +146,14 @@
 <span id="102">102</span>
 <span id="103">103</span>
 <span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
 </pre><pre class='rust '>
-<span class='kw'>use</span> <span class='ident'>select</span>::<span class='ident'>SelectCommand</span>;
 <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>drilldown</span>::<span class='ident'>Drilldown</span>;
 <span class='kw'>use</span> <span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
 <span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>fragmentable</span>::<span class='ident'>Fragmentable</span>;
@@ -155,9 +161,10 @@
 <span class='kw'>use</span> <span class='ident'>queryable</span>::<span class='ident'>Queryable</span>;
 <span class='kw'>use</span> <span class='ident'>commandable</span>::<span class='ident'>Commandable</span>;
 <span class='kw'>use</span> <span class='ident'>command_line</span>::<span class='ident'>CommandLine</span>;
+<span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>drilldown_type</span>::<span class='ident'>DrilldownUsable</span>;
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>DrilldownBuilder</span> {
-    <span class='ident'>select</span>: <span class='ident'>SelectCommand</span>,
+    <span class='ident'>select</span>: <span class='ident'>DrilldownUsable</span>,
     <span class='ident'>drilldown</span>: <span class='ident'>Drilldown</span>,
 }
 
@@ -169,18 +176,19 @@
 <span class='doccomment'>/// use ruroonga_command::select::SelectCommand;</span>
 <span class='doccomment'>/// use ruroonga_command::selectable::drilldown::Drilldown;</span>
 <span class='doccomment'>/// use ruroonga_command::selectable::drilldown_builder::DrilldownBuilder;</span>
+<span class='doccomment'>/// use ruroonga_command::selectable::drilldown_type::DrilldownUsable;</span>
 <span class='doccomment'>/// let select = SelectCommand::new(&quot;Entries&quot;.to_string())</span>
 <span class='doccomment'>///                  .filter(&quot;content @ \&quot;fast\&quot;&quot;.to_string());</span>
 <span class='doccomment'>/// let drilldown = Drilldown::new()</span>
 <span class='doccomment'>///                  .drilldown(vec![(&quot;tag&quot;.to_string())]);</span>
-<span class='doccomment'>/// let mut builder = DrilldownBuilder::new(select, drilldown);</span>
+<span class='doccomment'>/// let mut builder = DrilldownBuilder::new(DrilldownUsable::Select(select), drilldown);</span>
 <span class='doccomment'>/// let _ = builder.build();</span>
 <span class='doccomment'>/// ```</span>
 <span class='doccomment'>/// In more practical example, please refer to `drilldown_builder` examples</span>
 <span class='doccomment'>/// in [examples/drilldown_builder.rs]</span>
 <span class='doccomment'>/// (https://github.com/cosmo0920/ruroonga_command/blob/master/examples/drilldown_builder.rs).</span>
 <span class='kw'>impl</span> <span class='ident'>DrilldownBuilder</span> {
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>select</span>: <span class='ident'>SelectCommand</span>, <span class='ident'>drilldown</span>: <span class='ident'>Drilldown</span>) <span class='op'>-&gt;</span> <span class='ident'>DrilldownBuilder</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>select</span>: <span class='ident'>DrilldownUsable</span>, <span class='ident'>drilldown</span>: <span class='ident'>Drilldown</span>) <span class='op'>-&gt;</span> <span class='ident'>DrilldownBuilder</span> {
         <span class='ident'>DrilldownBuilder</span> {
             <span class='ident'>select</span>: <span class='ident'>select</span>,
             <span class='ident'>drilldown</span>: <span class='ident'>drilldown</span>,
@@ -189,11 +197,15 @@
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>build</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> (<span class='ident'>Command</span>, <span class='ident'>Query</span>) {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>query</span>: <span class='ident'>Query</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[];
-        <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>ordered_select</span>, <span class='ident'>select</span>) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>select</span>.<span class='ident'>to_fragment</span>();
+        <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>ordered_select</span>, <span class='ident'>key_values</span>) <span class='op'>=</span> <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>select</span> {
+            <span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='ident'>s</span>) <span class='op'>=&gt;</span> <span class='ident'>s</span>.<span class='ident'>to_fragment</span>(),
+            <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+            <span class='ident'>DrilldownUsable</span>::<span class='ident'>LogicalSelect</span>(<span class='ident'>l</span>) <span class='op'>=&gt;</span> <span class='ident'>l</span>.<span class='ident'>to_fragment</span>(),
+        };
         <span class='kw'>for</span> <span class='ident'>ordered</span> <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='ident'>ordered_select</span> {
             <span class='ident'>query</span>.<span class='ident'>push</span>(<span class='ident'>ordered</span>.<span class='ident'>to_owned</span>());
         }
-        <span class='kw'>for</span> (<span class='ident'>key</span>, <span class='ident'>value</span>) <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='ident'>select</span> {
+        <span class='kw'>for</span> (<span class='ident'>key</span>, <span class='ident'>value</span>) <span class='kw'>in</span> <span class='kw-2'>&amp;</span><span class='ident'>key_values</span> {
             <span class='ident'>query</span>.<span class='ident'>push</span>((<span class='ident'>key</span>.<span class='ident'>to_owned</span>(), <span class='ident'>value</span>.<span class='ident'>to_owned</span>()));
         }
         <span class='kw'>let</span> (_, _, <span class='ident'>drilldown</span>) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>drilldown</span>.<span class='ident'>to_fragment</span>();
@@ -227,27 +239,29 @@
     <span class='kw'>use</span> <span class='ident'>commandable</span>::<span class='ident'>Commandable</span>;
     <span class='kw'>use</span> <span class='ident'>select</span>::<span class='ident'>SelectCommand</span>;
     <span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>drilldown</span>::<span class='ident'>Drilldown</span>;
+    <span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>drilldown_type</span>::<span class='ident'>DrilldownUsable</span>;
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_to_query</span>() {
         <span class='kw'>let</span> <span class='ident'>select</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Entries&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>filter</span>(<span class='string'>&quot;content @ \&quot;fast\&quot;&quot;</span>.<span class='ident'>to_string</span>());
+            .<span class='ident'>filter</span>(<span class='string'>&quot;content @ \&quot;fast\&quot;&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>Drilldown</span>::<span class='ident'>new</span>().<span class='ident'>drilldown</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;tag&quot;</span>.<span class='ident'>to_string</span>())]);
-        <span class='kw'>let</span> <span class='ident'>builder</span> <span class='op'>=</span> <span class='ident'>DrilldownBuilder</span>::<span class='ident'>new</span>(<span class='ident'>select</span>, <span class='ident'>drilldown</span>).<span class='ident'>to_query</span>();
+        <span class='kw'>let</span> <span class='ident'>builder</span> <span class='op'>=</span> <span class='ident'>DrilldownBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='ident'>select</span>), <span class='ident'>drilldown</span>).<span class='ident'>to_query</span>();
         <span class='kw'>let</span> <span class='ident'>encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/select?table=Entries&amp;filter=%27content+%40+%22fast%22%27&amp;drilldown=%27ta\
                        g%27&quot;</span>
-                          .<span class='ident'>to_string</span>();
+            .<span class='ident'>to_string</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>encoded</span>, <span class='ident'>builder</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_to_command</span>() {
         <span class='kw'>let</span> <span class='ident'>select</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Entries&quot;</span>.<span class='ident'>to_string</span>())
-                         .<span class='ident'>filter</span>(<span class='string'>&quot;content @ \&quot;fast\&quot;&quot;</span>.<span class='ident'>to_string</span>());
+            .<span class='ident'>filter</span>(<span class='string'>&quot;content @ \&quot;fast\&quot;&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>Drilldown</span>::<span class='ident'>new</span>().<span class='ident'>drilldown</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;tag&quot;</span>.<span class='ident'>to_string</span>())]);
-        <span class='kw'>let</span> <span class='ident'>builder</span> <span class='op'>=</span> <span class='ident'>DrilldownBuilder</span>::<span class='ident'>new</span>(<span class='ident'>select</span>, <span class='ident'>drilldown</span>).<span class='ident'>to_command</span>();
+        <span class='kw'>let</span> <span class='ident'>builder</span> <span class='op'>=</span> <span class='ident'>DrilldownBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='ident'>select</span>), <span class='ident'>drilldown</span>)
+            .<span class='ident'>to_command</span>();
         <span class='kw'>let</span> <span class='ident'>encoded</span> <span class='op'>=</span> <span class='string'>&quot;select --table Entries --filter \&#39;content @ \&quot;fast\&quot;\&#39; --drilldown \&#39;tag\&#39;&quot;</span>
-                          .<span class='ident'>to_string</span>();
+            .<span class='ident'>to_string</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>encoded</span>, <span class='ident'>builder</span>);
     }
 }
@@ -275,6 +289,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 

@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-26' class='srclink' href='../../src/ruroonga_command/src/queryable/mod.rs.html#1-3' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-40' class='srclink' href='../../src/ruroonga_command/src/queryable/mod.rs.html#1-3' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait Queryable {
     fn <a href='#tymethod.to_query' class='fnname'>to_query</a>(self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>;
 }</pre>
@@ -61,6 +61,7 @@
 <li><code>impl Queryable for <a class='struct' href='../../ruroonga_command/selectable/drilldown_builder/struct.DrilldownBuilder.html' title='ruroonga_command::selectable::drilldown_builder::DrilldownBuilder'>DrilldownBuilder</a></code></li>
 <li><code>impl Queryable for <a class='struct' href='../../ruroonga_command/selectable/labeled_drilldown_builder/struct.LabeledDrilldownBuilder.html' title='ruroonga_command::selectable::labeled_drilldown_builder::LabeledDrilldownBuilder'>LabeledDrilldownBuilder</a></code></li>
 <li><code>impl Queryable for <a class='struct' href='../../ruroonga_command/selectable/labeled_drilldown_sequence_builder/struct.LabeledDrilldownSequenceBuilder.html' title='ruroonga_command::selectable::labeled_drilldown_sequence_builder::LabeledDrilldownSequenceBuilder'>LabeledDrilldownSequenceBuilder</a></code></li>
+<li><code>impl Queryable for <a class='struct' href='../../ruroonga_command/selectable/staged_columns_builder/struct.StagedColumnsBuilder.html' title='ruroonga_command::selectable::staged_columns_builder::StagedColumnsBuilder'>StagedColumnsBuilder</a></code></li>
 <li><code>impl Queryable for <a class='struct' href='../../ruroonga_command/load/struct.LoadCommand.html' title='ruroonga_command::load::LoadCommand'>LoadCommand</a></code></li>
 <li><code>impl Queryable for <a class='struct' href='../../ruroonga_command/status/struct.StatusCommand.html' title='ruroonga_command::status::StatusCommand'>StatusCommand</a></code></li>
 <li><code>impl Queryable for <a class='struct' href='../../ruroonga_command/cache_limit/struct.CacheLimitCommand.html' title='ruroonga_command::cache_limit::CacheLimitCommand'>CacheLimitCommand</a></code></li>
@@ -94,6 +95,8 @@
 <li><code>impl Queryable for <a class='struct' href='../../ruroonga_command/extension/struct.ExtensionCommand.html' title='ruroonga_command::extension::ExtensionCommand'>ExtensionCommand</a></code></li>
 <li><code>impl Queryable for <a class='struct' href='../../ruroonga_command/schema/struct.SchemaCommand.html' title='ruroonga_command::schema::SchemaCommand'>SchemaCommand</a></code></li>
 <li><code>impl Queryable for <a class='struct' href='../../ruroonga_command/shutdown/struct.ShutdownCommand.html' title='ruroonga_command::shutdown::ShutdownCommand'>ShutdownCommand</a></code></li>
+<li><code>impl Queryable for <a class='struct' href='../../ruroonga_command/logical_select/struct.LogicalSelectCommand.html' title='ruroonga_command::logical_select::LogicalSelectCommand'>LogicalSelectCommand</a></code></li>
+<li><code>impl Queryable for <a class='struct' href='../../ruroonga_command/logical_shard_list/struct.LogicalShardListCommand.html' title='ruroonga_command::logical_shard_list::LogicalShardListCommand'>LogicalShardListCommand</a></code></li>
 </ul><script type="text/javascript" async
                          src="../../implementors/ruroonga_command/queryable/trait.Queryable.js">
                  </script></section>
@@ -119,6 +122,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
