@@ -1,6 +1,6 @@
 [package]
 name = "ruroonga_command"
-version = "0.2.3"
+version = "0.3.0"
 authors = ["Hiroshi Hatake <cosmo0920.wp@gmail.com>"]
 keywords = ["groonga"]
 description = "A tiny Groonga query builder and generator."
