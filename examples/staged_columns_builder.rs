@@ -29,17 +29,16 @@ fn staged_columns_to_command() {
 fn staged_columns_with_window_function() {
     let label = "nth_record".to_string();
     let stage = "initial".to_string();
-    let select = select("Items".to_string())
-        .output_columns(vec![("_id".to_string()),
-                             ("_key".to_string()),
-                             ("price".to_string()),
-                             ("filtered".to_string())]);
+    let select = select("Items".to_string()).output_columns(vec![("_id".to_string()),
+                                                                 ("_key".to_string()),
+                                                                 ("price".to_string()),
+                                                                 ("filtered".to_string())]);
     let staged_columns = StagedColumns::new(label.clone(),
                                             stage.clone(),
                                             DataType::UInt32,
                                             Window(RecordNumber))
-                                       .flags(vec![(ColumnFlagType::Scalar)])
-                                       .sort_keys(vec![("-price".to_string())]);
+        .flags(vec![(ColumnFlagType::Scalar)])
+        .sort_keys(vec![("-price".to_string())]);
     let builder = (select + staged_columns).to_command();
     println!("staged columns with window function: {}", builder);
 }
