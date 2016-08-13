@@ -65,11 +65,7 @@ impl LogicalTableRemoveCommand {
     }
 
     pub fn dependent(mut self, dependent: bool) -> LogicalTableRemoveCommand {
-        let flag = if dependent {
-            "yes"
-        } else {
-            "no"
-        };
+        let flag = if dependent { "yes" } else { "no" };
         self.arguments.insert("dependent".to_string(), flag.to_string());
         self
     }
@@ -118,7 +114,8 @@ mod test {
 
     #[test]
     fn test_new() {
-        let logical_table_remove = LogicalTableRemoveCommand::new("Logs".to_string(), "timestamp".to_string());
+        let logical_table_remove = LogicalTableRemoveCommand::new("Logs".to_string(),
+                                                                  "timestamp".to_string());
         let expected = LogicalTableRemoveCommand {
             command: LogicalTableRemove,
             logical_table: "Logs".to_string(),
@@ -194,7 +191,8 @@ mod test {
 
     #[test]
     fn test_dependent() {
-        let dependent_yes = LogicalTableRemoveCommand::new("Logs".to_string(), "timestamp".to_string())
+        let dependent_yes = LogicalTableRemoveCommand::new("Logs".to_string(),
+                                                           "timestamp".to_string())
             .dependent(true);
         let mut arg_yes: HashMap<String, String> = HashMap::new();
         arg_yes.insert("dependent".to_string(), "yes".to_string());
@@ -205,7 +203,8 @@ mod test {
             arguments: arg_yes,
         };
         assert_eq!(expected_yes, dependent_yes);
-        let dependent_no = LogicalTableRemoveCommand::new("Logs".to_string(), "timestamp".to_string())
+        let dependent_no = LogicalTableRemoveCommand::new("Logs".to_string(),
+                                                          "timestamp".to_string())
             .dependent(false);
         let mut arg_no: HashMap<String, String> = HashMap::new();
         arg_no.insert("dependent".to_string(), "no".to_string());
@@ -220,7 +219,8 @@ mod test {
 
     #[test]
     fn test_build() {
-        let actual = LogicalTableRemoveCommand::new("Logs".to_string(), "timestamp".to_string()).build();
+        let actual = LogicalTableRemoveCommand::new("Logs".to_string(), "timestamp".to_string())
+            .build();
         let expected_query: Query = vec![("logical_table".to_string(), "Logs".to_string()),
                                          ("shard_key".to_string(), "timestamp".to_string())];
         let expected = (LogicalTableRemove, expected_query);
@@ -229,14 +229,16 @@ mod test {
 
     #[test]
     fn test_queryable() {
-        let query = LogicalTableRemoveCommand::new("Logs".to_string(), "timestamp".to_string()).to_query();
+        let query = LogicalTableRemoveCommand::new("Logs".to_string(), "timestamp".to_string())
+            .to_query();
         let url_encoded = "/d/logical_table_remove?logical_table=Logs&shard_key=timestamp";
         assert_eq!(url_encoded.to_string(), query);
     }
 
     #[test]
     fn test_commandable() {
-        let query = LogicalTableRemoveCommand::new("Logs".to_string(), "timestamp".to_string()).to_command();
+        let query = LogicalTableRemoveCommand::new("Logs".to_string(), "timestamp".to_string())
+            .to_command();
         let cli_encoded = "logical_table_remove --logical_table Logs --shard_key timestamp";
         assert_eq!(cli_encoded.to_string(), query);
     }

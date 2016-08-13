@@ -35,11 +35,7 @@ impl IoFlushCommand {
     }
 
     pub fn recursive(mut self, recursive: bool) -> IoFlushCommand {
-        let flag = if recursive {
-            "yes"
-        } else {
-            "no"
-        };
+        let flag = if recursive { "yes" } else { "no" };
         self.arguments.insert("recursive".to_string(), flag.to_string());
         self
     }

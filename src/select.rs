@@ -118,11 +118,7 @@ impl SelectCommand {
     }
 
     pub fn cache(mut self, cache: bool) -> SelectCommand {
-        let flag = if cache {
-            "yes"
-        } else {
-            "no"
-        };
+        let flag = if cache { "yes" } else { "no" };
         self.arguments.insert("cache".to_string(), flag.to_string());
         self
     }

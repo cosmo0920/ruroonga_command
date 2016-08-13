@@ -12,7 +12,8 @@ mod test {
     #[test]
     fn test_logical_table_remove() {
         let syntax = logical_table_remove("Entries".to_string(), "created_at".to_string());
-        let actual = LogicalTableRemoveCommand::new("Entries".to_string(), "created_at".to_string());
+        let actual = LogicalTableRemoveCommand::new("Entries".to_string(),
+                                                    "created_at".to_string());
         assert_eq!(syntax, actual);
     }
 }
