@@ -36,6 +36,8 @@ mod truncate_dsl;
 mod logical_select_dsl;
 #[cfg(feature="sharding")]
 mod logical_shard_list_dsl;
+#[cfg(feature="sharding")]
+mod logical_table_remove_dsl;
 
 pub use self::select_dsl::select;
 pub use self::cache_limit_dsl::cache_limit;
@@ -75,3 +77,5 @@ pub use self::truncate_dsl::truncate;
 pub use self::logical_select_dsl::logical_select;
 #[cfg(feature="sharding")]
 pub use self::logical_shard_list_dsl::logical_shard_list;
+#[cfg(feature="sharding")]
+pub use self::logical_table_remove_dsl::logical_table_remove;
