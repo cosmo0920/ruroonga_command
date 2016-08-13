@@ -95,6 +95,10 @@ pub mod logical_select;
 /// `logical_shard_list` provides `logical_shard_list` command query builder.
 /// This module will enabled with `sharding` feature flag.
 pub mod logical_shard_list;
+#[cfg(feature="sharding")]
+/// `logical_table_remove` provides `logical_table_remove` command query builder.
+/// This module will enabled with `sharding` feature flag.
+pub mod logical_table_remove;
 /// `dsl` provides its `XXXCommand` returning dsl syntax.
 ///
 /// This module is used like this:
