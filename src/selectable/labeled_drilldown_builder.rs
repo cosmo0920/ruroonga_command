@@ -92,9 +92,10 @@ mod test {
         let drilldown = LabeledDrilldown::new("label".to_string()).keys(vec![("tag".to_string())]);
         let builder = LabeledDrilldownBuilder::new(DrilldownUsable::Select(select), drilldown)
             .to_query();
-        let encoded = "/d/select?table=Entries&filter=%27content+%40+%22fast%22%27&drilldowns%5Bla\
-                       bel%5D.keys=%27tag%27"
-            .to_string();
+        let encoded =
+            "/d/select?table=Entries&filter=%27content+%40+%22fast%22%27&drilldowns%5Blabel%5D.\
+             keys=%27tag%27"
+                .to_string();
         assert_eq!(encoded, builder);
     }
 

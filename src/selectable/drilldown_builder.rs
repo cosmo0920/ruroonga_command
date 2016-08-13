@@ -91,9 +91,9 @@ mod test {
             .filter("content @ \"fast\"".to_string());
         let drilldown = Drilldown::new().drilldown(vec![("tag".to_string())]);
         let builder = DrilldownBuilder::new(DrilldownUsable::Select(select), drilldown).to_query();
-        let encoded = "/d/select?table=Entries&filter=%27content+%40+%22fast%22%27&drilldown=%27ta\
-                       g%27"
-            .to_string();
+        let encoded =
+            "/d/select?table=Entries&filter=%27content+%40+%22fast%22%27&drilldown=%27tag%27"
+                .to_string();
         assert_eq!(encoded, builder);
     }
 

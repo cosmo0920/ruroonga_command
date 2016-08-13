@@ -15,9 +15,11 @@ pub mod labeled_drilldown_builder;
 pub mod labeled_drilldown_sequence_builder;
 /// `fragmentable` module provides making query fragment operation.
 /// It is useful to make composable query elements.
-/// It makes `select` query to be composable against drilldown related query and `staged_columns` query.
+/// It makes `select` query to be composable against drilldown related query
+/// and `staged_columns` query.
 pub mod fragmentable;
-/// `pseudo_table` is a trait to be used for tablable state which is appeared in "drilldown in drilldown".
+/// `pseudo_table` is a trait to be used for tablable state which is appeared in
+/// "drilldown in drilldown".
 pub mod pseudo_table;
 pub mod staged_columns;
 pub mod staged_columns_builder;

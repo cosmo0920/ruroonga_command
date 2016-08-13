@@ -641,7 +641,8 @@ mod test {
         let query = LogicalSelectCommand::new("Entries".to_string(), "created_at".to_string())
             .filter("output_column @ \"type_safe\"".to_string())
             .to_query();
-        let url_encoded = "/d/logical_select?logical_table=Entries&shard_key=created_at&filter=%27output_column+%40+%22type_safe%22%27";
+        let url_encoded = "/d/logical_select?logical_table=Entries&shard_key=\
+                           created_at&filter=%27output_column+%40+%22type_safe%22%27";
         assert_eq!(url_encoded.to_string(), query);
     }
 

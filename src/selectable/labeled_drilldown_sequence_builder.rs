@@ -109,9 +109,10 @@ mod test {
         let builder = LabeledDrilldownSequenceBuilder::new(DrilldownUsable::Select(select),
                                                            vec![(drilldown)])
             .to_query();
-        let encoded = "/d/select?table=Entries&filter=%27content+%40+%22fast%22%27&drilldowns%5Bla\
-                       bel%5D.keys=%27tag%27"
-            .to_string();
+        let encoded =
+            "/d/select?table=Entries&filter=%27content+%40+%22fast%22%27&drilldowns%5Blabel%5D.\
+             keys=%27tag%27"
+                .to_string();
         assert_eq!(encoded, builder);
     }
 

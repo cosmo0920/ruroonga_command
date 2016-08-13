@@ -24,7 +24,7 @@ pub enum NormalizerType {
     ExtNormalizerType(String),
 }
 
-
+#[cfg_attr(rustfmt, rustfmt_skip)]
 impl AsRef<str> for NormalizerType {
     fn as_ref(&self) -> &str {
         match *self {
@@ -37,9 +37,11 @@ impl AsRef<str> for NormalizerType {
             #[cfg(feature="normalizer_mysql")]
             MySQLUnicode520CI => "NormalizerMySQLUnicode520CI",
             #[cfg(feature="normalizer_mysql")]
-            MySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark => "NormalizerMySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark",
+            MySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark =>
+                "NormalizerMySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark",
             #[cfg(feature="normalizer_mysql")]
-            MySQLUnicode520CIExceptKanaCIKanaWithVoicedSoundMark => "NormalizerMySQLUnicode520CIExceptKanaCIKanaWithVoicedSoundMark",
+            MySQLUnicode520CIExceptKanaCIKanaWithVoicedSoundMark =>
+                "NormalizerMySQLUnicode520CIExceptKanaCIKanaWithVoicedSoundMark",
             ExtNormalizerType(ref s) => s.as_ref(),
         }
     }
@@ -97,13 +99,11 @@ impl fmt::Display for NormalizerType {
             #[cfg(feature="normalizer_mysql")]
             MySQLUnicode520CI => "NormalizerMySQLUnicode520CI",
             #[cfg(feature="normalizer_mysql")]
-            MySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark => {
-                "NormalizerMySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark"
-            }
+            MySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark =>
+                "NormalizerMySQLUnicodeCIExceptKanaCIKanaWithVoicedSoundMark",
             #[cfg(feature="normalizer_mysql")]
-            MySQLUnicode520CIExceptKanaCIKanaWithVoicedSoundMark => {
-                "NormalizerMySQLUnicode520CIExceptKanaCIKanaWithVoicedSoundMark"
-            }
+            MySQLUnicode520CIExceptKanaCIKanaWithVoicedSoundMark =>
+                "NormalizerMySQLUnicode520CIExceptKanaCIKanaWithVoicedSoundMark",
             ExtNormalizerType(ref s) => s.as_ref(),
         })
     }
