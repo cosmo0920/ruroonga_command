@@ -4,7 +4,7 @@ use std::convert::AsRef;
 use self::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delete, IoFlush,
                     LogLevel, LogPut, LogReopen, TableCreate, TableRename, TableRemove, TableList,
                     ColumnCopy, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
-                    RequestCancel, Normalize, NormalizerList, ObjectExist, ObjectInspect,
+                    Reindex, RequestCancel, Normalize, NormalizerList, ObjectExist, ObjectInspect,
                     ObjectRemove, PluginRegister, PluginUnregister, ThreadLimit, Tokenize,
                     TokenizerList, Truncate, Schema, Shutdown, Extension};
 #[cfg(feature="sharding")]
@@ -37,6 +37,7 @@ pub enum Command {
     ColumnList,
     ColumnRename,
     ColumnRemove,
+    Reindex,
     RequestCancel,
     Normalize,
     NormalizerList,
@@ -93,6 +94,7 @@ impl AsRef<str> for Command {
             ColumnList => "column_list",
             ColumnRename => "column_rename",
             ColumnRemove => "column_remove",
+            Reindex => "reindex",
             RequestCancel => "request_cancel",
             ObjectExist => "object_exist",
             ObjectInspect => "object_inspect",
@@ -156,6 +158,7 @@ impl FromStr for Command {
                 "tokenize" => Tokenize,
                 "tokenizer_list" => TokenizerList,
                 "truncate" => Truncate,
+                "reindex" => Reindex,
                 "request_cancel" => RequestCancel,
                 "schema" => Schema,
                 "shutdown" => Shutdown,
@@ -194,6 +197,7 @@ impl fmt::Display for Command {
             ColumnList => "column_list",
             ColumnRename => "column_rename",
             ColumnRemove => "column_remove",
+            Reindex => "reindex",
             RequestCancel => "request_cancel",
             ObjectExist => "object_exist",
             ObjectInspect => "object_inspect",
@@ -230,7 +234,7 @@ mod test {
     use super::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delete, IoFlush,
                          LogLevel, LogPut, LogReopen, TableCreate, TableList, TableRemove,
                          TableRename, ColumnCopy, ColumnCreate, ColumnList, ColumnRename,
-                         ColumnRemove, RequestCancel, ObjectExist, ObjectInspect, ObjectRemove,
+                         ColumnRemove, Reindex, RequestCancel, ObjectExist, ObjectInspect, ObjectRemove,
                          Normalize, NormalizerList, PluginRegister, PluginUnregister, ThreadLimit,
                          Tokenize, TokenizerList, Truncate, Schema, Shutdown, Extension};
     #[cfg(feature="sharding")]
@@ -250,6 +254,7 @@ mod test {
         assert_eq!(LogLevel, FromStr::from_str("log_level").unwrap());
         assert_eq!(LogPut, FromStr::from_str("log_put").unwrap());
         assert_eq!(LogReopen, FromStr::from_str("log_reopen").unwrap());
+        assert_eq!(Reindex, FromStr::from_str("reindex").unwrap());
         assert_eq!(RequestCancel, FromStr::from_str("request_cancel").unwrap());
         assert_eq!(TableCreate, FromStr::from_str("table_create").unwrap());
         assert_eq!(TableRename, FromStr::from_str("table_rename").unwrap());
@@ -304,6 +309,7 @@ mod test {
         assert_eq!("log_level".to_owned(), format!("{}", LogLevel));
         assert_eq!("log_put".to_owned(), format!("{}", LogPut));
         assert_eq!("log_reopen".to_owned(), format!("{}", LogReopen));
+        assert_eq!("reindex".to_owned(), format!("{}", Reindex));
         assert_eq!("request_cancel".to_owned(), format!("{}", RequestCancel));
         assert_eq!("table_list".to_owned(), format!("{}", TableList));
         assert_eq!("table_rename".to_owned(), format!("{}", TableRename));
@@ -358,6 +364,7 @@ mod test {
         assert_eq!(ColumnList.as_ref(), "column_list");
         assert_eq!(ColumnRename.as_ref(), "column_rename");
         assert_eq!(ColumnRemove.as_ref(), "column_remove");
+        assert_eq!(Reindex.as_ref(), "reindex");
         assert_eq!(RequestCancel.as_ref(), "request_cancel");
         assert_eq!(ObjectExist.as_ref(), "object_exist");
         assert_eq!(ObjectInspect.as_ref(), "object_inspect");
