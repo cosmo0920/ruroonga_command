@@ -3,8 +3,8 @@ use std::str::FromStr;
 use std::convert::AsRef;
 use self::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delete, IoFlush,
                     LogLevel, LogPut, LogReopen, TableCreate, TableRename, TableRemove, TableList,
-                    ColumnCopy, ColumnCreate, ColumnList, ColumnRename, ColumnRemove,
-                    Reindex, RequestCancel, Normalize, NormalizerList, ObjectExist, ObjectInspect,
+                    ColumnCopy, ColumnCreate, ColumnList, ColumnRename, ColumnRemove, Reindex,
+                    RequestCancel, Normalize, NormalizerList, ObjectExist, ObjectInspect,
                     ObjectRemove, PluginRegister, PluginUnregister, ThreadLimit, Tokenize,
                     TokenizerList, Truncate, Schema, Shutdown, Extension};
 #[cfg(feature="sharding")]
@@ -234,9 +234,10 @@ mod test {
     use super::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delete, IoFlush,
                          LogLevel, LogPut, LogReopen, TableCreate, TableList, TableRemove,
                          TableRename, ColumnCopy, ColumnCreate, ColumnList, ColumnRename,
-                         ColumnRemove, Reindex, RequestCancel, ObjectExist, ObjectInspect, ObjectRemove,
-                         Normalize, NormalizerList, PluginRegister, PluginUnregister, ThreadLimit,
-                         Tokenize, TokenizerList, Truncate, Schema, Shutdown, Extension};
+                         ColumnRemove, Reindex, RequestCancel, ObjectExist, ObjectInspect,
+                         ObjectRemove, Normalize, NormalizerList, PluginRegister,
+                         PluginUnregister, ThreadLimit, Tokenize, TokenizerList, Truncate, Schema,
+                         Shutdown, Extension};
     #[cfg(feature="sharding")]
     use super::Command::{LogicalSelect, LogicalShardList, LogicalTableRemove};
 
