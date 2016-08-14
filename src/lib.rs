@@ -66,6 +66,7 @@ pub mod column_list;
 pub mod column_rename;
 pub mod column_remove;
 pub mod database_unmap;
+pub mod reindex;
 /// Using request cancel mechanism.
 /// If you use this cancel feature,
 /// you should use `request_cancellable` trait to add `request_id` into each request.
