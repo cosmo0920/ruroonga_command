@@ -6,6 +6,7 @@ use queryable::Queryable;
 use command_line::CommandLine;
 use commandable::Commandable;
 use request_cancellable::RequestCancellable;
+use request_timeoutable::RequestTimeoutable;
 
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub struct ExtensionCommand {
@@ -62,6 +63,7 @@ impl Commandable for ExtensionCommand {
 }
 
 request_cancellable!(ExtensionCommand);
+request_timeoutable!(ExtensionCommand);
 
 #[cfg(test)]
 mod test {
