@@ -87,6 +87,7 @@ impl LogicalSelectCommand {
         self
     }
 
+    /// unimplemented!!
     #[allow(unused_mut, unused_variables)]
     pub fn query(mut self, query: String) -> LogicalSelectCommand {
         // let encoded = format!("'{}'", query);
@@ -117,6 +118,7 @@ impl LogicalSelectCommand {
         self
     }
 
+    /// unimplemented!!
     #[allow(unused_mut, unused_variables)]
     pub fn adjuster(mut self, adjust_expr: String) -> LogicalSelectCommand {
         // let encoded = format!("'{}'", adjust_expr);
@@ -125,6 +127,7 @@ impl LogicalSelectCommand {
         unimplemented!()
     }
 
+    /// unimplemented!!
     #[allow(unused_mut, unused_variables)]
     pub fn match_columns(mut self, columns: Vec<String>) -> LogicalSelectCommand {
         // let string = util::split_values_vec(columns);
@@ -151,6 +154,7 @@ impl LogicalSelectCommand {
         self
     }
 
+    /// unimplemented!!
     #[allow(unused_mut, unused_variables)]
     pub fn cache(mut self, cache: bool) -> LogicalSelectCommand {
         // let flag = if cache {
@@ -163,6 +167,7 @@ impl LogicalSelectCommand {
         unimplemented!()
     }
 
+    /// unimplemented!!
     #[allow(unused_mut, unused_variables)]
     pub fn match_escalation_threshold(mut self, threshold: i64) -> LogicalSelectCommand {
         // let string = format!("{}", threshold);
@@ -171,6 +176,7 @@ impl LogicalSelectCommand {
         unimplemented!()
     }
 
+    /// unimplemented!!
     #[allow(unused_mut, unused_variables)]
     pub fn query_flags(mut self, flags: Vec<QueryFlagsType>) -> LogicalSelectCommand {
         // let string = util::split_flags_vec(flags);
@@ -179,6 +185,7 @@ impl LogicalSelectCommand {
         unimplemented!()
     }
 
+    /// unimplemented!!
     #[allow(unused_mut, unused_variables)]
     pub fn query_expander(mut self, synonym: (String, String)) -> LogicalSelectCommand {
         // let (table, column) = synonym;
