@@ -1,4 +1,4 @@
-use super::labeled_drilldown::LabeledDrilldown;
+use selectable::labeled_drilldown::LabeledDrilldown;
 use command::{Command, Query};
 use selectable::fragmentable::Fragmentable;
 use command_query::CommandQuery;
