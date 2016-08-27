@@ -1,5 +1,5 @@
-use super::command::{Command, Query};
-use super::command::Command::LogReopen;
+use command::{Command, Query};
+use command::Command::LogReopen;
 use std::collections::HashMap;
 use command_query::CommandQuery;
 use queryable::Queryable;

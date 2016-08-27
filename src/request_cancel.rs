@@ -1,5 +1,5 @@
-use super::command::{Command, Query};
-use super::command::Command::RequestCancel;
+use command::{Command, Query};
+use command::Command::RequestCancel;
 use std::collections::HashMap;
 use command_query::CommandQuery;
 use queryable::Queryable;

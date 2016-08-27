@@ -1,5 +1,5 @@
-use super::command::{Command, Query};
-use super::command::Command::Dump;
+use command::{Command, Query};
+use command::Command::Dump;
 use std::collections::HashMap;
 use util;
 use command_query::CommandQuery;

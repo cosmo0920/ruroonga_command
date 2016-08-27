@@ -1,5 +1,5 @@
-use super::command::{Command, Query};
-use super::command::Command::TableCreate;
+use command::{Command, Query};
+use command::Command::TableCreate;
 use std::collections::HashMap;
 use types::table_flag_type::TableFlagType;
 use types::data_type::DataType;

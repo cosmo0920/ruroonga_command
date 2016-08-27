@@ -1,5 +1,5 @@
-use super::command::{Command, Query};
-use super::command::Command::Normalize;
+use command::{Command, Query};
+use command::Command::Normalize;
 use std::collections::HashMap;
 use types::normalizer_type::NormalizerType;
 use command_query::CommandQuery;

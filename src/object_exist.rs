@@ -1,5 +1,5 @@
-use super::command::{Command, Query};
-use super::command::Command::ObjectExist;
+use command::{Command, Query};
+use command::Command::ObjectExist;
 use std::collections::HashMap;
 use command_query::CommandQuery;
 use queryable::Queryable;

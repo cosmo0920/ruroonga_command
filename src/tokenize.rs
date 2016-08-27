@@ -1,5 +1,5 @@
-use super::command::{Command, Query};
-use super::command::Command::Tokenize;
+use command::{Command, Query};
+use command::Command::Tokenize;
 use std::collections::HashMap;
 use types::tokenizer_type::TokenizerType;
 use types::token_filters_type::TokenFiltersType;

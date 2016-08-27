@@ -1,5 +1,5 @@
-use super::command::{Command, Query};
-use super::command::Command::LogicalShardList;
+use command::{Command, Query};
+use command::Command::LogicalShardList;
 use std::collections::HashMap;
 use command_query::CommandQuery;
 use queryable::Queryable;

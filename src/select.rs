@@ -1,5 +1,5 @@
-use super::command::{Command, Query};
-use super::command::Command::Select;
+use command::{Command, Query};
+use command::Command::Select;
 use std::collections::HashMap;
 use util;
 use types::select_query_flags::QueryFlagsType;

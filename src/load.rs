@@ -1,5 +1,5 @@
-use super::command::{Command, Query};
-use super::command::Command::Load;
+use command::{Command, Query};
+use command::Command::Load;
 use std::collections::HashMap;
 use std::fmt;
 use std::str::FromStr;

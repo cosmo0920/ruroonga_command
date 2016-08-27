@@ -1,5 +1,5 @@
-use super::command::{Command, Query};
-use super::command::Command::DatabaseUnmap;
+use command::{Command, Query};
+use command::Command::DatabaseUnmap;
 use std::collections::HashMap;
 use command_query::CommandQuery;
 use queryable::Queryable;
@@ -31,7 +31,7 @@ impl DatabaseUnmapCommand {
 
     pub fn build(self) -> (Command, Query) {
         let mut query: Query = vec![];
-        for (key, value) in &self.arguments {
+       for (key, value) in &self.arguments {
             query.push((key.to_owned(), value.to_owned()));
         }
         (DatabaseUnmap, query)
