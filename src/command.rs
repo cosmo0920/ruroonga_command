@@ -8,7 +8,7 @@ use self::Command::{Select, Load, Status, CacheLimit, Dump, DatabaseUnmap, Delet
                     ObjectRemove, PluginRegister, PluginUnregister, ThreadLimit, Tokenize,
                     TokenizerList, Truncate, Schema, Shutdown, Extension};
 #[cfg(feature="sharding")]
-use self::Command::{LogicalSelect, LogicalShardList, LogicalTableRemove};
+use self::Command::{LogicalCount, LogicalSelect, LogicalShardList, LogicalTableRemove};
 
 #[derive (Debug)]
 pub enum CommandError {
@@ -52,6 +52,8 @@ pub enum Command {
     Truncate,
     Schema,
     Shutdown,
+    #[cfg(feature="sharding")]
+    LogicalCount,
     #[cfg(feature="sharding")]
     LogicalSelect,
     #[cfg(feature="sharding")]
@@ -110,6 +112,8 @@ impl AsRef<str> for Command {
             Schema => "schema",
             Shutdown => "shutdown",
             #[cfg(feature="sharding")]
+            LogicalCount => "logical_count",
+            #[cfg(feature="sharding")]
             LogicalSelect => "logical_select",
             #[cfg(feature="sharding")]
             LogicalShardList => "logical_shard_list",
@@ -163,6 +167,8 @@ impl FromStr for Command {
                 "schema" => Schema,
                 "shutdown" => Shutdown,
                 #[cfg(feature="sharding")]
+                "logical_count" => LogicalCount,
+                #[cfg(feature="sharding")]
                 "logical_select" => LogicalSelect,
                 #[cfg(feature="sharding")]
                 "logical_shard_list" => LogicalShardList,
@@ -213,6 +219,8 @@ impl fmt::Display for Command {
             Schema => "schema",
             Shutdown => "shutdown",
             #[cfg(feature="sharding")]
+            LogicalCount => "logical_count",
+            #[cfg(feature="sharding")]
             LogicalSelect => "logical_select",
             #[cfg(feature="sharding")]
             LogicalShardList => "logical_shard_list",
@@ -239,7 +247,7 @@ mod test {
                          PluginUnregister, ThreadLimit, Tokenize, TokenizerList, Truncate, Schema,
                          Shutdown, Extension};
     #[cfg(feature="sharding")]
-    use super::Command::{LogicalSelect, LogicalShardList, LogicalTableRemove};
+    use super::Command::{LogicalCount, LogicalSelect, LogicalShardList, LogicalTableRemove};
 
     #[test]
     fn test_from_str() {
@@ -288,6 +296,7 @@ mod test {
     #[cfg(feature="sharding")]
     #[test]
     fn test_from_str_with_sharding() {
+        assert_eq!(LogicalCount, FromStr::from_str("logical_count").unwrap());
         assert_eq!(LogicalSelect, FromStr::from_str("logical_select").unwrap());
         assert_eq!(LogicalShardList,
                    FromStr::from_str("logical_shard_list").unwrap());
@@ -336,6 +345,7 @@ mod test {
     #[cfg(feature="sharding")]
     #[test]
     fn test_fmt_with_sharding() {
+        assert_eq!("logical_count".to_owned(), format!("{}", LogicalCount));
         assert_eq!("logical_select".to_owned(), format!("{}", LogicalSelect));
         assert_eq!("logical_shard_list".to_owned(),
                    format!("{}", LogicalShardList));
@@ -387,6 +397,7 @@ mod test {
     #[cfg(feature="sharding")]
     #[test]
     fn test_as_str_with_sharding() {
+        assert_eq!(LogicalCount.as_ref(), "logical_count");
         assert_eq!(LogicalSelect.as_ref(), "logical_select");
         assert_eq!(LogicalShardList.as_ref(), "logical_shard_list");
         assert_eq!(LogicalTableRemove.as_ref(), "logical_table_remove");
