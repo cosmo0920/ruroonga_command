@@ -15,11 +15,11 @@ sharding = []
 dev = ['clippy']
 
 [build-dependencies.skeptic]
-version = "~0.4"
+version = "~0.6"
 default-features = false
 
 [dev-dependencies.skeptic]
-version = "~0.4"
+version = "~0.6"
 default-features = false
 
 [dependencies]
