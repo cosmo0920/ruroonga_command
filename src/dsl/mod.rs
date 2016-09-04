@@ -34,6 +34,8 @@ mod tokenize_dsl;
 mod tokenizer_list_dsl;
 mod truncate_dsl;
 #[cfg(feature="sharding")]
+mod logical_count_dsl;
+#[cfg(feature="sharding")]
 mod logical_select_dsl;
 #[cfg(feature="sharding")]
 mod logical_shard_list_dsl;
@@ -75,6 +77,8 @@ pub use dsl::thread_limit_dsl::thread_limit;
 pub use dsl::tokenize_dsl::tokenize;
 pub use dsl::tokenizer_list_dsl::tokenizer_list;
 pub use dsl::truncate_dsl::truncate;
+#[cfg(feature="sharding")]
+pub use dsl::logical_count_dsl::logical_count;
 #[cfg(feature="sharding")]
 pub use dsl::logical_select_dsl::logical_select;
 #[cfg(feature="sharding")]
