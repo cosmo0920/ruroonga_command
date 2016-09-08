@@ -30,12 +30,10 @@ impl Default for TableRenameCommand {
 
 impl TableRenameCommand {
     pub fn new(name: String, new_name: String) -> TableRenameCommand {
-        let default: TableRenameCommand = Default::default();
         TableRenameCommand {
-            command: default.command,
             name: name,
             new_name: new_name,
-            arguments: default.arguments,
+            ..TableRenameCommand::default()
         }
     }
 

@@ -28,11 +28,9 @@ impl Default for ObjectRemoveCommand {
 
 impl ObjectRemoveCommand {
     pub fn new(name: String) -> ObjectRemoveCommand {
-        let default: ObjectRemoveCommand = Default::default();
         ObjectRemoveCommand {
-            command: default.command,
             name: name,
-            arguments: default.arguments,
+            ..ObjectRemoveCommand::default()
         }
     }
 

@@ -38,14 +38,12 @@ impl ColumnCopyCommand {
                to_table: String,
                to_name: String)
                -> ColumnCopyCommand {
-        let default: ColumnCopyCommand = Default::default();
         ColumnCopyCommand {
-            command: default.command,
             from_table: from_table,
             from_name: from_name,
             to_table: to_table,
             to_name: to_name,
-            arguments: default.arguments,
+            ..ColumnCopyCommand::default()
         }
     }
 

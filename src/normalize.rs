@@ -97,12 +97,10 @@ impl Default for NormalizeCommand {
 
 impl NormalizeCommand {
     pub fn new(normalizer: NormalizerType, string: String) -> NormalizeCommand {
-        let default: NormalizeCommand = Default::default();
         NormalizeCommand {
-            command: default.command,
             normalizer: normalizer,
             string: format!("\"{}\"", string),
-            arguments: default.arguments,
+            ..NormalizeCommand::default()
         }
     }
 

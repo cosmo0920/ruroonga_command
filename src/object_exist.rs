@@ -28,11 +28,9 @@ impl Default for ObjectExistCommand {
 
 impl ObjectExistCommand {
     pub fn new(name: String) -> ObjectExistCommand {
-        let default: ObjectExistCommand = Default::default();
         ObjectExistCommand {
-            command: default.command,
             name: name,
-            arguments: default.arguments,
+            ..ObjectExistCommand::default()
         }
     }
 

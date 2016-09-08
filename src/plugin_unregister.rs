@@ -28,11 +28,9 @@ impl Default for PluginUnregisterCommand {
 
 impl PluginUnregisterCommand {
     pub fn new(name: String) -> PluginUnregisterCommand {
-        let default: PluginUnregisterCommand = Default::default();
         PluginUnregisterCommand {
-            command: default.command,
             name: name,
-            arguments: default.arguments,
+            ..PluginUnregisterCommand::default()
         }
     }
 

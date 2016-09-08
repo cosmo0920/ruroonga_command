@@ -45,11 +45,9 @@ impl Default for SelectCommand {
 
 impl SelectCommand {
     pub fn new(table: String) -> SelectCommand {
-        let default: SelectCommand = Default::default();
         SelectCommand {
-            command: default.command,
             table: table,
-            arguments: default.arguments,
+            ..SelectCommand::default()
         }
     }
 

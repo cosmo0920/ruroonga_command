@@ -28,11 +28,9 @@ impl Default for LogicalShardListCommand {
 
 impl LogicalShardListCommand {
     pub fn new(logical_table: String) -> LogicalShardListCommand {
-        let default: LogicalShardListCommand = Default::default();
         LogicalShardListCommand {
-            command: default.command,
             logical_table: logical_table,
-            arguments: default.arguments,
+            ..LogicalShardListCommand::default()
         }
     }
 

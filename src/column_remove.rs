@@ -30,12 +30,10 @@ impl Default for ColumnRemoveCommand {
 
 impl ColumnRemoveCommand {
     pub fn new(table: String, name: String) -> ColumnRemoveCommand {
-        let default: ColumnRemoveCommand = Default::default();
         ColumnRemoveCommand {
-            command: default.command,
             table: table,
             name: name,
-            arguments: default.arguments,
+            ..ColumnRemoveCommand::default()
         }
     }
 

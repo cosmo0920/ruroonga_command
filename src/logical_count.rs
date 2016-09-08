@@ -31,12 +31,10 @@ impl Default for LogicalCountCommand {
 
 impl LogicalCountCommand {
     pub fn new(logical_table: String, shard_key: String) -> LogicalCountCommand {
-        let default: LogicalCountCommand = Default::default();
         LogicalCountCommand {
-            command: default.command,
             logical_table: logical_table,
             shard_key: shard_key,
-            arguments: default.arguments,
+            ..LogicalCountCommand::default()
         }
     }
 

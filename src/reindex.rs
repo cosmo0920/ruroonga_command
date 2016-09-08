@@ -28,11 +28,9 @@ impl Default for ReindexCommand {
 
 impl ReindexCommand {
     pub fn new(target_name: String) -> ReindexCommand {
-        let default: ReindexCommand = Default::default();
         ReindexCommand {
-            command: default.command,
             target_name: target_name,
-            arguments: default.arguments,
+            ..ReindexCommand::default()
         }
     }
 

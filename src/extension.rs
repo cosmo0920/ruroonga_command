@@ -25,10 +25,9 @@ impl Default for ExtensionCommand {
 
 impl ExtensionCommand {
     pub fn new(command: String) -> ExtensionCommand {
-        let default: ExtensionCommand = Default::default();
         ExtensionCommand {
             command: Extension(command),
-            arguments: default.arguments,
+            ..ExtensionCommand::default()
         }
     }
 

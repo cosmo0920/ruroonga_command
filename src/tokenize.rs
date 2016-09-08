@@ -136,12 +136,10 @@ impl Default for TokenizeCommand {
 
 impl TokenizeCommand {
     pub fn new(tokenizer: TokenizerType, string: String) -> TokenizeCommand {
-        let default: TokenizeCommand = Default::default();
         TokenizeCommand {
-            command: default.command,
             tokenizer: tokenizer,
             string: format!("\"{}\"", string),
-            arguments: default.arguments,
+            ..TokenizeCommand::default()
         }
     }
 

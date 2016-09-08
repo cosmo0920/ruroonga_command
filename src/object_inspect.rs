@@ -26,11 +26,7 @@ impl Default for ObjectInspectCommand {
 
 impl ObjectInspectCommand {
     pub fn new() -> ObjectInspectCommand {
-        let default: ObjectInspectCommand = Default::default();
-        ObjectInspectCommand {
-            command: default.command,
-            arguments: default.arguments,
-        }
+        ObjectInspectCommand::default()
     }
 
     pub fn name(mut self, name: String) -> ObjectInspectCommand {

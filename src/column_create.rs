@@ -33,12 +33,10 @@ impl Default for ColumnCreateCommand {
 
 impl ColumnCreateCommand {
     pub fn new(table: String, name: String) -> ColumnCreateCommand {
-        let default: ColumnCreateCommand = Default::default();
         ColumnCreateCommand {
-            command: default.command,
             table: table,
             name: name,
-            arguments: default.arguments,
+            ..ColumnCreateCommand::default()
         }
     }
 

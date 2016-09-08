@@ -31,12 +31,10 @@ impl Default for LogicalTableRemoveCommand {
 
 impl LogicalTableRemoveCommand {
     pub fn new(logical_table: String, shard_key: String) -> LogicalTableRemoveCommand {
-        let default: LogicalTableRemoveCommand = Default::default();
         LogicalTableRemoveCommand {
-            command: default.command,
             logical_table: logical_table,
             shard_key: shard_key,
-            arguments: default.arguments,
+            ..LogicalTableRemoveCommand::default()
         }
     }
 

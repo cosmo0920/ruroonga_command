@@ -29,11 +29,9 @@ impl Default for LogLevelCommand {
 
 impl LogLevelCommand {
     pub fn new(level: LogLevelType) -> LogLevelCommand {
-        let default: LogLevelCommand = Default::default();
         LogLevelCommand {
-            command: default.command,
             level: level,
-            arguments: default.arguments,
+            ..LogLevelCommand::default()
         }
     }
 

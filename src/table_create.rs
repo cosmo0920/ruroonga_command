@@ -34,11 +34,9 @@ impl Default for TableCreateCommand {
 
 impl TableCreateCommand {
     pub fn new(name: String) -> TableCreateCommand {
-        let default: TableCreateCommand = Default::default();
         TableCreateCommand {
-            command: default.command,
             name: name,
-            arguments: default.arguments,
+            ..TableCreateCommand::default()
         }
     }
 

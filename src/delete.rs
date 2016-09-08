@@ -28,11 +28,9 @@ impl Default for DeleteCommand {
 
 impl DeleteCommand {
     pub fn new(table: String) -> DeleteCommand {
-        let default: DeleteCommand = Default::default();
         DeleteCommand {
-            command: default.command,
             table: table,
-            arguments: default.arguments,
+            ..DeleteCommand::default()
         }
     }
 

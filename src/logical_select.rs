@@ -48,12 +48,10 @@ impl Default for LogicalSelectCommand {
 
 impl LogicalSelectCommand {
     pub fn new(logical_table: String, shard_key: String) -> LogicalSelectCommand {
-        let default: LogicalSelectCommand = Default::default();
         LogicalSelectCommand {
-            command: default.command,
             logical_table: logical_table,
             shard_key: shard_key,
-            arguments: default.arguments,
+            ..LogicalSelectCommand::default()
         }
     }
 

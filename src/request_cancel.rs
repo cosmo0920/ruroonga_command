@@ -27,11 +27,9 @@ impl Default for RequestCancelCommand {
 
 impl RequestCancelCommand {
     pub fn new(id: String) -> RequestCancelCommand {
-        let default: RequestCancelCommand = Default::default();
         RequestCancelCommand {
-            command: default.command,
             id: id,
-            arguments: default.arguments,
+            ..RequestCancelCommand::default()
         }
     }
 

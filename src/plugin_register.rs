@@ -28,11 +28,9 @@ impl Default for PluginRegisterCommand {
 
 impl PluginRegisterCommand {
     pub fn new(name: String) -> PluginRegisterCommand {
-        let default: PluginRegisterCommand = Default::default();
         PluginRegisterCommand {
-            command: default.command,
             name: name,
-            arguments: default.arguments,
+            ..PluginRegisterCommand::default()
         }
     }
 

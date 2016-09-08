@@ -30,12 +30,10 @@ impl Default for ColumnRenameCommand {
 
 impl ColumnRenameCommand {
     pub fn new(name: String, new_name: String) -> ColumnRenameCommand {
-        let default: ColumnRenameCommand = Default::default();
         ColumnRenameCommand {
-            command: default.command,
             name: name,
             new_name: new_name,
-            arguments: default.arguments,
+            ..ColumnRenameCommand::default()
         }
     }
 

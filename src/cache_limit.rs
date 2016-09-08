@@ -26,11 +26,7 @@ impl Default for CacheLimitCommand {
 
 impl CacheLimitCommand {
     pub fn new() -> CacheLimitCommand {
-        let default: CacheLimitCommand = Default::default();
-        CacheLimitCommand {
-            command: default.command,
-            arguments: default.arguments,
-        }
+        CacheLimitCommand::default()
     }
 
     pub fn max(mut self, max: u64) -> CacheLimitCommand {

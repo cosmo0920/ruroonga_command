@@ -28,11 +28,9 @@ impl Default for TruncateCommand {
 
 impl TruncateCommand {
     pub fn new(target_name: String) -> TruncateCommand {
-        let default: TruncateCommand = Default::default();
         TruncateCommand {
-            command: default.command,
             target_name: target_name,
-            arguments: default.arguments,
+            ..TruncateCommand::default()
         }
     }
 

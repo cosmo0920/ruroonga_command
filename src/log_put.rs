@@ -31,12 +31,10 @@ impl Default for LogPutCommand {
 
 impl LogPutCommand {
     pub fn new(level: LogLevelType, message: String) -> LogPutCommand {
-        let default: LogPutCommand = Default::default();
         LogPutCommand {
-            command: default.command,
             level: level,
             message: message,
-            arguments: default.arguments,
+            ..LogPutCommand::default()
         }
     }
 

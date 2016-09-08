@@ -28,11 +28,9 @@ impl Default for TableRemoveCommand {
 
 impl TableRemoveCommand {
     pub fn new(name: String) -> TableRemoveCommand {
-        let default: TableRemoveCommand = Default::default();
         TableRemoveCommand {
-            command: default.command,
             name: name,
-            arguments: default.arguments,
+            ..TableRemoveCommand::default()
         }
     }
 

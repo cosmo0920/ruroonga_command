@@ -26,11 +26,7 @@ impl Default for ThreadLimitCommand {
 
 impl ThreadLimitCommand {
     pub fn new() -> ThreadLimitCommand {
-        let default: ThreadLimitCommand = Default::default();
-        ThreadLimitCommand {
-            command: default.command,
-            arguments: default.arguments,
-        }
+        ThreadLimitCommand::default()
     }
 
     pub fn max(mut self, max: u64) -> ThreadLimitCommand {

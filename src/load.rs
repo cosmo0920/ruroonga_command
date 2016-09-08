@@ -82,12 +82,10 @@ impl Default for LoadCommand {
 
 impl LoadCommand {
     pub fn new(table: String, data: String) -> LoadCommand {
-        let default: LoadCommand = Default::default();
         LoadCommand {
-            command: default.command,
             table: table,
-            arguments: default.arguments,
             values: data,
+            ..LoadCommand::default()
         }
     }
 
