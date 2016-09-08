@@ -59,6 +59,7 @@ impl LabeledDrilldownSequenceBuilder {
             DrilldownUsable::Select(s) => s.to_fragment(),
             #[cfg(feature="sharding")]
             DrilldownUsable::LogicalSelect(l) => l.to_fragment(),
+            DrilldownUsable::StagedColumns(_) => unimplemented!(),
         };
         for ordered in &ordered_select {
             query.push(ordered.to_owned());
