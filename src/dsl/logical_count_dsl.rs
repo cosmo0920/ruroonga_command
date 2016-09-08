@@ -12,8 +12,7 @@ mod test {
     #[test]
     fn test_logical_count() {
         let syntax = logical_count("Entries".to_string(), "created_at".to_string());
-        let actual = LogicalCountCommand::new("Entries".to_string(),
-                                              "created_at".to_string());
+        let actual = LogicalCountCommand::new("Entries".to_string(), "created_at".to_string());
         assert_eq!(syntax, actual);
     }
 }

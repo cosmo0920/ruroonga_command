@@ -28,10 +28,7 @@ impl Default for ReindexCommand {
 
 impl ReindexCommand {
     pub fn new(target_name: String) -> ReindexCommand {
-        ReindexCommand {
-            target_name: target_name,
-            ..ReindexCommand::default()
-        }
+        ReindexCommand { target_name: target_name, ..ReindexCommand::default() }
     }
 
     pub fn build(self) -> (Command, Query) {

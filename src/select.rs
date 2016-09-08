@@ -45,10 +45,7 @@ impl Default for SelectCommand {
 
 impl SelectCommand {
     pub fn new(table: String) -> SelectCommand {
-        SelectCommand {
-            table: table,
-            ..SelectCommand::default()
-        }
+        SelectCommand { table: table, ..SelectCommand::default() }
     }
 
     pub fn filter(mut self, filter: String) -> SelectCommand {

@@ -34,10 +34,7 @@ impl Default for TableCreateCommand {
 
 impl TableCreateCommand {
     pub fn new(name: String) -> TableCreateCommand {
-        TableCreateCommand {
-            name: name,
-            ..TableCreateCommand::default()
-        }
+        TableCreateCommand { name: name, ..TableCreateCommand::default() }
     }
 
     pub fn flags(mut self, flags: Vec<TableFlagType>) -> TableCreateCommand {

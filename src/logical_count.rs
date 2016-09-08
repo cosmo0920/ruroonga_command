@@ -111,7 +111,8 @@ mod test {
 
     #[test]
     fn test_new() {
-        let logical_shard_list = LogicalCountCommand::new("Logs".to_string(), "timestamp".to_string());
+        let logical_shard_list = LogicalCountCommand::new("Logs".to_string(),
+                                                          "timestamp".to_string());
         let expected = LogicalCountCommand {
             command: LogicalCount,
             logical_table: "Logs".to_string(),
@@ -205,21 +206,23 @@ mod test {
     fn test_build() {
         let actual = LogicalCountCommand::new("Logs".to_string(), "timestamp".to_string()).build();
         let expected_query: Query = vec![("logical_table".to_string(), "Logs".to_string()),
-                                         ("shard_key".to_string(),"timestamp".to_string())];
+                                         ("shard_key".to_string(), "timestamp".to_string())];
         let expected = (LogicalCount, expected_query);
         assert_eq!(expected, actual);
     }
 
     #[test]
     fn test_queryable() {
-        let query = LogicalCountCommand::new("Logs".to_string(), "timestamp".to_string()).to_query();
+        let query = LogicalCountCommand::new("Logs".to_string(), "timestamp".to_string())
+            .to_query();
         let url_encoded = "/d/logical_count?logical_table=Logs&shard_key=timestamp";
         assert_eq!(url_encoded.to_string(), query);
     }
 
     #[test]
     fn test_commandable() {
-        let query = LogicalCountCommand::new("Logs".to_string(), "timestamp".to_string()).to_command();
+        let query = LogicalCountCommand::new("Logs".to_string(), "timestamp".to_string())
+            .to_command();
         let cli_encoded = "logical_count --logical_table Logs --shard_key timestamp";
         assert_eq!(cli_encoded.to_string(), query);
     }

@@ -28,10 +28,7 @@ impl Default for ObjectRemoveCommand {
 
 impl ObjectRemoveCommand {
     pub fn new(name: String) -> ObjectRemoveCommand {
-        ObjectRemoveCommand {
-            name: name,
-            ..ObjectRemoveCommand::default()
-        }
+        ObjectRemoveCommand { name: name, ..ObjectRemoveCommand::default() }
     }
 
     pub fn force(mut self, force: bool) -> ObjectRemoveCommand {

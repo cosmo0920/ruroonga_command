@@ -25,10 +25,7 @@ impl Default for ExtensionCommand {
 
 impl ExtensionCommand {
     pub fn new(command: String) -> ExtensionCommand {
-        ExtensionCommand {
-            command: Extension(command),
-            ..ExtensionCommand::default()
-        }
+        ExtensionCommand { command: Extension(command), ..ExtensionCommand::default() }
     }
 
     pub fn set_arguments(mut self, arguments: HashMap<String, String>) -> ExtensionCommand {

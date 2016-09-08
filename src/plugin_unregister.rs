@@ -28,10 +28,7 @@ impl Default for PluginUnregisterCommand {
 
 impl PluginUnregisterCommand {
     pub fn new(name: String) -> PluginUnregisterCommand {
-        PluginUnregisterCommand {
-            name: name,
-            ..PluginUnregisterCommand::default()
-        }
+        PluginUnregisterCommand { name: name, ..PluginUnregisterCommand::default() }
     }
 
     pub fn build(self) -> (Command, Query) {

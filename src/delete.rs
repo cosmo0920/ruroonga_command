@@ -28,10 +28,7 @@ impl Default for DeleteCommand {
 
 impl DeleteCommand {
     pub fn new(table: String) -> DeleteCommand {
-        DeleteCommand {
-            table: table,
-            ..DeleteCommand::default()
-        }
+        DeleteCommand { table: table, ..DeleteCommand::default() }
     }
 
     pub fn key(mut self, key: String) -> DeleteCommand {

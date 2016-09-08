@@ -28,10 +28,7 @@ impl Default for TruncateCommand {
 
 impl TruncateCommand {
     pub fn new(target_name: String) -> TruncateCommand {
-        TruncateCommand {
-            target_name: target_name,
-            ..TruncateCommand::default()
-        }
+        TruncateCommand { target_name: target_name, ..TruncateCommand::default() }
     }
 
     pub fn build(self) -> (Command, Query) {

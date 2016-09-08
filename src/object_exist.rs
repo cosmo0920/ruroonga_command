@@ -28,10 +28,7 @@ impl Default for ObjectExistCommand {
 
 impl ObjectExistCommand {
     pub fn new(name: String) -> ObjectExistCommand {
-        ObjectExistCommand {
-            name: name,
-            ..ObjectExistCommand::default()
-        }
+        ObjectExistCommand { name: name, ..ObjectExistCommand::default() }
     }
 
     pub fn build(self) -> (Command, Query) {

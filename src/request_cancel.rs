@@ -27,10 +27,7 @@ impl Default for RequestCancelCommand {
 
 impl RequestCancelCommand {
     pub fn new(id: String) -> RequestCancelCommand {
-        RequestCancelCommand {
-            id: id,
-            ..RequestCancelCommand::default()
-        }
+        RequestCancelCommand { id: id, ..RequestCancelCommand::default() }
     }
 
     pub fn build(self) -> (Command, Query) {

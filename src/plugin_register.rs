@@ -28,10 +28,7 @@ impl Default for PluginRegisterCommand {
 
 impl PluginRegisterCommand {
     pub fn new(name: String) -> PluginRegisterCommand {
-        PluginRegisterCommand {
-            name: name,
-            ..PluginRegisterCommand::default()
-        }
+        PluginRegisterCommand { name: name, ..PluginRegisterCommand::default() }
     }
 
     pub fn build(self) -> (Command, Query) {

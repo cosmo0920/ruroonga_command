@@ -29,10 +29,7 @@ impl Default for LogLevelCommand {
 
 impl LogLevelCommand {
     pub fn new(level: LogLevelType) -> LogLevelCommand {
-        LogLevelCommand {
-            level: level,
-            ..LogLevelCommand::default()
-        }
+        LogLevelCommand { level: level, ..LogLevelCommand::default() }
     }
 
     pub fn build(self) -> (Command, Query) {

@@ -28,10 +28,7 @@ impl Default for TableRemoveCommand {
 
 impl TableRemoveCommand {
     pub fn new(name: String) -> TableRemoveCommand {
-        TableRemoveCommand {
-            name: name,
-            ..TableRemoveCommand::default()
-        }
+        TableRemoveCommand { name: name, ..TableRemoveCommand::default() }
     }
 
     pub fn dependent(mut self, dependent: bool) -> TableRemoveCommand {
