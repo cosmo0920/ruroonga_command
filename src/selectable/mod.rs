@@ -21,6 +21,7 @@ pub mod fragmentable;
 /// `pseudo_table` is a trait to be used for tablable state which is appeared in
 /// "drilldown in drilldown".
 pub mod pseudo_table;
+/// `staged_columns` provides making query which supports window function syntax.
 pub mod staged_columns;
 pub mod staged_columns_builder;
 pub mod staged_columnable;
