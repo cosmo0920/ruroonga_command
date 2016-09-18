@@ -108,7 +108,7 @@ impl StagedColumns {
         let column_type_key = util::labeled_staged_key(self.label.to_owned(), "type".to_string());
         let value_key = util::labeled_staged_key(self.label.to_owned(), "value".to_string());
         let value_str = match self.value.clone() {
-            Window(w) => format!("{}", w.as_ref()),
+            Window(w) => w.as_ref().to_owned(),
             Value(v) => v,
         };
         self.arguments.insert(stage_key, self.stage.clone());
