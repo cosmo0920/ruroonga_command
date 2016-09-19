@@ -51,7 +51,9 @@ impl CommandLine {
     ///
     /// Create Groonga command line style command.
     pub fn encode(&mut self) -> String {
-        format!("{} {}", self.get_command().into_owned(), self.make_command().into_owned())
+        format!("{} {}",
+                self.get_command().into_owned(),
+                self.make_command().into_owned())
             .trim()
             .to_string()
     }
