@@ -1,5 +1,6 @@
 use command::{Command, Query};
 use commandlinable::Escape;
+use std::borrow::Cow;
 
 #[derive(Clone, Debug)]
 pub struct CommandLine {
@@ -16,13 +17,13 @@ impl CommandLine {
     }
 
     /// Get command enum constant to construct command line query.
-    pub fn get_command(&mut self) -> Command {
-        self.command.clone()
+    pub fn get_command(&mut self) -> Cow<Command> {
+        Cow::Borrowed(&self.command)
     }
 
     /// Get vectorize `("key", "value")` pairs to construct command line query.
-    pub fn get_argument(&mut self) -> Query {
-        self.arguments.clone()
+    pub fn get_argument(&mut self) -> Cow<Query> {
+        Cow::Borrowed(&self.arguments)
     }
 
     /// Set vectorize `("key", "value")` pairs to construct command line query.
@@ -34,7 +35,7 @@ impl CommandLine {
     ///
     /// `vec![("key","value")]` interprets to `"--key value"`.
     /// And two or more value pair are concatinate with ` `(a space).
-    pub fn make_command(&mut self) -> String {
+    pub fn make_command<'a>(&mut self) -> Cow<'a, str> {
         let mut output = String::new();
         for query in self.arguments.to_owned() {
             let (key, value) = query;
@@ -44,13 +45,13 @@ impl CommandLine {
             let format_string = format!("--{} {}", &*key, Escape(&*value));
             output.push_str(format_string.as_str());
         }
-        output
+        Cow::Owned(output)
     }
 
     ///
     /// Create Groonga command line style command.
     pub fn encode(&mut self) -> String {
-        format!("{} {}", self.get_command(), self.make_command())
+        format!("{} {}", self.get_command().into_owned(), self.make_command().into_owned())
             .trim()
             .to_string()
     }
