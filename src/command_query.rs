@@ -1,6 +1,7 @@
 use url::form_urlencoded;
 use command::{Command, Query};
 use command::Command::Dump;
+use std::borrow::Cow;
 
 #[derive(Clone, Debug)]
 pub struct CommandQuery {
@@ -30,13 +31,13 @@ impl CommandQuery {
     }
 
     /// Get command enum constant to construct url encoded query.
-    pub fn get_command(&mut self) -> Command {
-        self.command.clone()
+    pub fn get_command(&mut self) -> Cow<Command> {
+        Cow::Borrowed(&self.command)
     }
 
     /// Get vectorize `("key", "value")` pairs to construct url encoded query.
-    pub fn get_argument(&mut self) -> Query {
-        self.arguments.clone()
+    pub fn get_argument(&mut self) -> Cow<Query> {
+        Cow::Borrowed(&self.arguments)
     }
 
     /// Set vectorize `("key", "value")` pairs to construct url encoded query.
@@ -47,8 +48,8 @@ impl CommandQuery {
     #[doc(hidden)]
     // get HTTP URI prefix. default: /d
     // This function is mainly provided for internal usage.
-    pub fn get_prefix(&mut self) -> String {
-        self.prefix.clone()
+    pub fn get_prefix(&mut self) -> Cow<String> {
+        Cow::Borrowed(&self.prefix)
     }
 
     #[doc(hidden)]
@@ -71,8 +72,8 @@ impl CommandQuery {
     /// Create Groonga HTTP server query URL.
     pub fn encode(&mut self) -> String {
         format!("{}/{}?{}",
-                self.get_prefix(),
-                self.get_command(),
+                self.get_prefix().into_owned(),
+                self.get_command().into_owned(),
                 self.make_query())
     }
 }
