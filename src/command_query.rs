@@ -95,9 +95,9 @@ mod test {
         let (command, query) = SelectCommand::new("Test".to_string())
             .filter("output_column @ \"type_safe\"".to_string())
             .build();
-        let mut command = CommandQuery::new(command, query);
+        let command_query = CommandQuery::new(command, query).encode();
         let url_encoded = "/d/select?table=Test&filter=%27output_column+%40+%22type_safe%22%27";
-        assert_eq!(url_encoded.to_string(), command.encode());
+        assert_eq!(url_encoded.to_string(), command_query);
     }
 
     #[test]
@@ -108,18 +108,18 @@ mod test {
         let (command, query, values) = LoadCommand::new("test".to_string(), load_data.to_string())
             .input_type(InputType::Json)
             .build();
-        let mut command = CommandQuery::new(command, query);
+        let command_query = CommandQuery::new(command, query).encode();
         let url_encoded = "/d/load?table=test&input_type=json";
-        assert_eq!(url_encoded.to_string(), command.encode());
+        assert_eq!(url_encoded.to_string(), command_query);
         assert_eq!(load_data.to_string(), values);
     }
 
     #[test]
     fn test_status() {
         let (command, query) = StatusCommand::new().build();
-        let mut command = CommandQuery::new(command, query);
+        let command_query = CommandQuery::new(command, query).encode();
         let url_encoded = "/d/status?";
-        assert_eq!(url_encoded.to_string(), command.encode());
+        assert_eq!(url_encoded.to_string(), command_query);
     }
 
     #[test]
@@ -127,9 +127,9 @@ mod test {
         let (command, query) = DumpCommand::new()
             .tables(vec!["Books".to_string(), "Categories".to_string()])
             .build();
-        let mut command = CommandQuery::new(command, query);
+        let command_query = CommandQuery::new(command, query).encode();
         let url_encoded = "/d/dump?tables=Books%2CCategories";
-        assert_eq!(url_encoded.to_string(), command.encode());
+        assert_eq!(url_encoded.to_string(), command_query);
     }
 
     #[test]
@@ -137,9 +137,9 @@ mod test {
         let (command, query) = DeleteCommand::new("Books".to_string())
             .filter("author == unknown".to_string())
             .build();
-        let mut command = CommandQuery::new(command, query);
+        let command_query = CommandQuery::new(command, query).encode();
         let url_encoded = "/d/delete?table=Books&filter=%27author+%3D%3D+unknown%27";
-        assert_eq!(url_encoded.to_string(), command.encode());
+        assert_eq!(url_encoded.to_string(), command_query);
     }
 
     #[test]
@@ -147,9 +147,9 @@ mod test {
         let (command, query) = TableCreateCommand::new("Test".to_string())
             .flags(vec![(TableFlagType::PatKey), (TableFlagType::KeyWithSIS)])
             .build();
-        let mut command = CommandQuery::new(command, query);
+        let command_query = CommandQuery::new(command, query).encode();
         let url_encoded = "/d/table_create?name=Test&flags=TABLE_PAT_KEY%7CKEY_WITH_SIS";
-        assert_eq!(url_encoded.to_string(), command.encode());
+        assert_eq!(url_encoded.to_string(), command_query);
     }
 
     #[test]
@@ -157,8 +157,8 @@ mod test {
         let (command, query) = ColumnCreateCommand::new("Test".to_string(), "element".to_string())
             .column_type(DataType::LongText)
             .build();
-        let mut command = CommandQuery::new(command, query);
+        let command_query = CommandQuery::new(command, query).encode();
         let url_encoded = "/d/column_create?table=Test&name=element&type=LongText";
-        assert_eq!(url_encoded.to_string(), command.encode());
+        assert_eq!(url_encoded.to_string(), command_query);
     }
 }
