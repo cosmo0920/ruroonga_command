@@ -20,6 +20,12 @@ pub fn split_flags_vec<T>(values: Vec<T>) -> String
 }
 
 #[inline]
+pub fn split_sources_tuple(values: (String, String)) -> String {
+    let (table, column) = values;
+    format!("{} {}", table, column)
+}
+
+#[inline]
 pub fn labeled_key(label: String, key: String) -> String {
     let string = format!("drilldowns[{}].{}", label.to_owned(), key.to_owned());
     string.clone()

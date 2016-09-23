@@ -52,8 +52,11 @@ impl ColumnCreateCommand {
         self
     }
 
-    pub fn source(mut self, source: Vec<String>) -> ColumnCreateCommand {
-        let string = util::split_values_vec(source);
+    /// It should be pass (table_name, column_name) style.
+    ///
+    /// This method does not check that Table column is valid indexed object.
+    pub fn source(mut self, source: (String, String)) -> ColumnCreateCommand {
+        let string = util::split_sources_tuple(source);
         self.arguments.insert("source".to_string(), string.to_owned());
         self
     }
@@ -146,9 +149,9 @@ mod test {
     #[test]
     fn test_source() {
         let column_create = ColumnCreateCommand::new("Test".to_string(), "element".to_string())
-            .source(vec![("Entry".to_string()), ("person".to_string())]);
+            .source(("Entry".to_string(), "person".to_string()));
         let mut arg: HashMap<String, String> = HashMap::new();
-        arg.insert("source".to_string(), "Entry,person".to_string());
+        arg.insert("source".to_string(), "Entry person".to_string());
         let expected = ColumnCreateCommand {
             command: ColumnCreate,
             table: "Test".to_string(),
