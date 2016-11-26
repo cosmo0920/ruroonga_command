@@ -6,6 +6,6 @@ rust:
   - 1.13.0
 
 script:
-  - cargo test
-  - cargo test --features "normalizer_mysql unstable"
+  - cargo test && cargo clean
+  - cargo test --features "normalizer_mysql unstable" && cargo clean
   - cargo test --features "normalizer_mysql unstable sharding"
