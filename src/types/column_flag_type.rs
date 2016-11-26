@@ -5,6 +5,8 @@ use self::ColumnFlagType::{Scalar, Vector, Index, WithSection, WithWeight, WithP
                            ExtColumnFlagType};
 #[cfg(feature="unstable")]
 use self::ColumnFlagType::{CompressZlib, CompressLz4};
+#[cfg(all(feature="unstable", feature="groonga_611"))]
+use self::ColumnFlagType::CompressZstd;
 
 
 #[derive (Clone, PartialEq, Eq, Debug)]
@@ -19,6 +21,8 @@ pub enum ColumnFlagType {
     CompressZlib,
     #[cfg(feature="unstable")]
     CompressLz4,
+    #[cfg(all(feature="unstable", feature="groonga_611"))]
+    CompressZstd,
     /// For future extensibility.
     ExtColumnFlagType(String),
 }
@@ -36,6 +40,8 @@ impl AsRef<str> for ColumnFlagType {
             CompressZlib => "COMPRESS_ZLIB",
             #[cfg(feature="unstable")]
             CompressLz4 => "COMPRESS_LZ4",
+            #[cfg(all(feature="unstable", feature="groonga_611"))]
+            CompressZstd => "COMPRESS_ZSTD",
             ExtColumnFlagType(ref s) => s.as_ref(),
         }
     }
@@ -63,6 +69,8 @@ impl FromStr for ColumnFlagType {
                 "Zlib" | "CompressZlib" | "COMPRESS_ZLIB" => CompressZlib,
                 #[cfg(feature="unstable")]
                 "Lz4" | "CompressLz4" | "COMPRESS_LZ4" => CompressLz4,
+                #[cfg(all(feature="unstable", feature="groonga_611"))]
+                "Zstd" | "CompressZstd" | "COMPRESS_ZSTD" => CompressZstd,
                 _ => ExtColumnFlagType(s.to_owned()),
             })
         }
@@ -82,6 +90,8 @@ impl fmt::Display for ColumnFlagType {
             CompressZlib => "COMPRESS_ZLIB",
             #[cfg(feature="unstable")]
             CompressLz4 => "COMPRESS_LZ4",
+            #[cfg(all(feature="unstable", feature="groonga_611"))]
+            CompressZstd => "COMPRESS_ZSTD",
             ExtColumnFlagType(ref s) => s.as_ref(),
         })
     }
@@ -116,6 +126,13 @@ mod test {
     }
 
     #[test]
+    #[cfg(all(feature="unstable", feature="groonga_611"))]
+    fn test_from_str_unstable_groonga_611() {
+        assert_eq!(ColumnFlagType::CompressZstd,
+                   FromStr::from_str("Zstd").unwrap());
+    }
+
+    #[test]
     fn test_fmt() {
         assert_eq!("COLUMN_VECTOR".to_owned(),
                    format!("{}", ColumnFlagType::Vector));
@@ -132,6 +149,13 @@ mod test {
     }
 
     #[test]
+    #[cfg(all(feature="unstable", feature="groonga_611"))]
+    fn test_from_fmt_unstable_groonga_611() {
+        assert_eq!("COMPRESS_ZSTD".to_owned(),
+                   format!("{}", ColumnFlagType::CompressZstd));
+    }
+
+    #[test]
     fn test_as_str() {
         assert_eq!(ColumnFlagType::Index.as_ref(), "COLUMN_INDEX");
         assert_eq!(ColumnFlagType::ExtColumnFlagType("AddedColumnFlag".to_owned()).as_ref(),
@@ -142,5 +166,11 @@ mod test {
     #[cfg(feature="unstable")]
     fn test_as_str_unstable() {
         assert_eq!(ColumnFlagType::CompressLz4.as_ref(), "COMPRESS_LZ4");
+    }
+
+    #[test]
+    #[cfg(all(feature="unstable", feature="groonga_611"))]
+    fn test_as_str_unstable_groonga_611() {
+        assert_eq!(ColumnFlagType::CompressZstd.as_ref(), "COMPRESS_ZSTD");
     }
 }
