@@ -175,11 +175,9 @@
 <span id="131">131</span>
 <span id="132">132</span>
 <span id="133">133</span>
-<span id="134">134</span>
-<span id="135">135</span>
 </pre><pre class='rust '>
-<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
-<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>TableRename</span>;
+<span class='kw'>use</span> <span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
+<span class='kw'>use</span> <span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>TableRename</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
 <span class='kw'>use</span> <span class='ident'>command_query</span>::<span class='ident'>CommandQuery</span>;
 <span class='kw'>use</span> <span class='ident'>queryable</span>::<span class='ident'>Queryable</span>;
@@ -210,12 +208,10 @@
 
 <span class='kw'>impl</span> <span class='ident'>TableRenameCommand</span> {
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>name</span>: <span class='ident'>String</span>, <span class='ident'>new_name</span>: <span class='ident'>String</span>) <span class='op'>-&gt;</span> <span class='ident'>TableRenameCommand</span> {
-        <span class='kw'>let</span> <span class='ident'>default</span>: <span class='ident'>TableRenameCommand</span> <span class='op'>=</span> <span class='ident'>Default</span>::<span class='ident'>default</span>();
         <span class='ident'>TableRenameCommand</span> {
-            <span class='ident'>command</span>: <span class='ident'>default</span>.<span class='ident'>command</span>,
             <span class='ident'>name</span>: <span class='ident'>name</span>,
             <span class='ident'>new_name</span>: <span class='ident'>new_name</span>,
-            <span class='ident'>arguments</span>: <span class='ident'>default</span>.<span class='ident'>arguments</span>,
+            ..<span class='ident'>TableRenameCommand</span>::<span class='ident'>default</span>()
         }
     }
 

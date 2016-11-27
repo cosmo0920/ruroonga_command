@@ -151,6 +151,15 @@
 <span id="107">107</span>
 <span id="108">108</span>
 <span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
 </pre><pre class='rust '>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;dev&quot;</span>, <span class='ident'>feature</span>(<span class='ident'>plugin</span>))]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>cfg_attr</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;dev&quot;</span>, <span class='ident'>plugin</span>(<span class='ident'>clippy</span>))]</span>
@@ -220,6 +229,7 @@
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>column_rename</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>column_remove</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>database_unmap</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>reindex</span>;
 <span class='doccomment'>/// Using request cancel mechanism.</span>
 <span class='doccomment'>/// If you use this cancel feature,</span>
 <span class='doccomment'>/// you should use `request_cancellable` trait to add `request_id` into each request.</span>
@@ -242,6 +252,10 @@
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>schema</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>shutdown</span>;
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+<span class='doccomment'>/// `logical_count` provides `logical_count` command query builder.</span>
+<span class='doccomment'>/// This module will enabled with `sharding` feature flag.</span>
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>logical_count</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
 <span class='doccomment'>/// `logical_select` provides `logical_select` command query builder.</span>
 <span class='doccomment'>/// This module will enabled with `sharding` feature flag.</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>logical_select</span>;
@@ -249,6 +263,10 @@
 <span class='doccomment'>/// `logical_shard_list` provides `logical_shard_list` command query builder.</span>
 <span class='doccomment'>/// This module will enabled with `sharding` feature flag.</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>logical_shard_list</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+<span class='doccomment'>/// `logical_table_remove` provides `logical_table_remove` command query builder.</span>
+<span class='doccomment'>/// This module will enabled with `sharding` feature flag.</span>
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>logical_table_remove</span>;
 <span class='doccomment'>/// `dsl` provides its `XXXCommand` returning dsl syntax.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// This module is used like this:</span>

@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["object_inspect",""]]});

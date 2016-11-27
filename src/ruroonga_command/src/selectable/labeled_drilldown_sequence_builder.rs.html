@@ -173,8 +173,9 @@
 <span id="129">129</span>
 <span id="130">130</span>
 <span id="131">131</span>
+<span id="132">132</span>
 </pre><pre class='rust '>
-<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>labeled_drilldown</span>::<span class='ident'>LabeledDrilldown</span>;
+<span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>labeled_drilldown</span>::<span class='ident'>LabeledDrilldown</span>;
 <span class='kw'>use</span> <span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
 <span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>fragmentable</span>::<span class='ident'>Fragmentable</span>;
 <span class='kw'>use</span> <span class='ident'>command_query</span>::<span class='ident'>CommandQuery</span>;
@@ -285,9 +286,10 @@
         <span class='kw'>let</span> <span class='ident'>builder</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldownSequenceBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='ident'>select</span>),
                                                            <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>drilldown</span>)])
             .<span class='ident'>to_query</span>();
-        <span class='kw'>let</span> <span class='ident'>encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/select?table=Entries&amp;filter=%27content+%40+%22fast%22%27&amp;drilldowns%5Bla\
-                       bel%5D.keys=%27tag%27&quot;</span>
-            .<span class='ident'>to_string</span>();
+        <span class='kw'>let</span> <span class='ident'>encoded</span> <span class='op'>=</span>
+            <span class='string'>&quot;/d/select?table=Entries&amp;filter=%27content+%40+%22fast%22%27&amp;drilldowns%5Blabel%5D.\
+             keys=%27tag%27&quot;</span>
+                .<span class='ident'>to_string</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>encoded</span>, <span class='ident'>builder</span>);
     }
 

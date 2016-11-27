@@ -188,6 +188,36 @@
 <span id="144">144</span>
 <span id="145">145</span>
 <span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>str</span>::<span class='ident'>FromStr</span>;
@@ -196,6 +226,8 @@
                            <span class='ident'>ExtColumnFlagType</span>};
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;unstable&quot;</span>)]</span>
 <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>ColumnFlagType</span>::{<span class='ident'>CompressZlib</span>, <span class='ident'>CompressLz4</span>};
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>all</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;unstable&quot;</span>, <span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;groonga_611&quot;</span>))]</span>
+<span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>ColumnFlagType</span>::<span class='ident'>CompressZstd</span>;
 
 
 <span class='attribute'>#[<span class='ident'>derive</span> (<span class='ident'>Clone</span>, <span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>Debug</span>)]</span>
@@ -210,6 +242,8 @@
     <span class='ident'>CompressZlib</span>,
     <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;unstable&quot;</span>)]</span>
     <span class='ident'>CompressLz4</span>,
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>all</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;unstable&quot;</span>, <span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;groonga_611&quot;</span>))]</span>
+    <span class='ident'>CompressZstd</span>,
     <span class='doccomment'>/// For future extensibility.</span>
     <span class='ident'>ExtColumnFlagType</span>(<span class='ident'>String</span>),
 }
@@ -227,6 +261,8 @@
             <span class='ident'>CompressZlib</span> <span class='op'>=&gt;</span> <span class='string'>&quot;COMPRESS_ZLIB&quot;</span>,
             <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;unstable&quot;</span>)]</span>
             <span class='ident'>CompressLz4</span> <span class='op'>=&gt;</span> <span class='string'>&quot;COMPRESS_LZ4&quot;</span>,
+            <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>all</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;unstable&quot;</span>, <span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;groonga_611&quot;</span>))]</span>
+            <span class='ident'>CompressZstd</span> <span class='op'>=&gt;</span> <span class='string'>&quot;COMPRESS_ZSTD&quot;</span>,
             <span class='ident'>ExtColumnFlagType</span>(<span class='kw-2'>ref</span> <span class='ident'>s</span>) <span class='op'>=&gt;</span> <span class='ident'>s</span>.<span class='ident'>as_ref</span>(),
         }
     }
@@ -254,6 +290,8 @@
                 <span class='string'>&quot;Zlib&quot;</span> <span class='op'>|</span> <span class='string'>&quot;CompressZlib&quot;</span> <span class='op'>|</span> <span class='string'>&quot;COMPRESS_ZLIB&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>CompressZlib</span>,
                 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;unstable&quot;</span>)]</span>
                 <span class='string'>&quot;Lz4&quot;</span> <span class='op'>|</span> <span class='string'>&quot;CompressLz4&quot;</span> <span class='op'>|</span> <span class='string'>&quot;COMPRESS_LZ4&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>CompressLz4</span>,
+                <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>all</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;unstable&quot;</span>, <span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;groonga_611&quot;</span>))]</span>
+                <span class='string'>&quot;Zstd&quot;</span> <span class='op'>|</span> <span class='string'>&quot;CompressZstd&quot;</span> <span class='op'>|</span> <span class='string'>&quot;COMPRESS_ZSTD&quot;</span> <span class='op'>=&gt;</span> <span class='ident'>CompressZstd</span>,
                 _ <span class='op'>=&gt;</span> <span class='ident'>ExtColumnFlagType</span>(<span class='ident'>s</span>.<span class='ident'>to_owned</span>()),
             })
         }
@@ -273,6 +311,8 @@
             <span class='ident'>CompressZlib</span> <span class='op'>=&gt;</span> <span class='string'>&quot;COMPRESS_ZLIB&quot;</span>,
             <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;unstable&quot;</span>)]</span>
             <span class='ident'>CompressLz4</span> <span class='op'>=&gt;</span> <span class='string'>&quot;COMPRESS_LZ4&quot;</span>,
+            <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>all</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;unstable&quot;</span>, <span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;groonga_611&quot;</span>))]</span>
+            <span class='ident'>CompressZstd</span> <span class='op'>=&gt;</span> <span class='string'>&quot;COMPRESS_ZSTD&quot;</span>,
             <span class='ident'>ExtColumnFlagType</span>(<span class='kw-2'>ref</span> <span class='ident'>s</span>) <span class='op'>=&gt;</span> <span class='ident'>s</span>.<span class='ident'>as_ref</span>(),
         })
     }
@@ -307,6 +347,13 @@
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>all</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;unstable&quot;</span>, <span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;groonga_611&quot;</span>))]</span>
+    <span class='kw'>fn</span> <span class='ident'>test_from_str_unstable_groonga_611</span>() {
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ColumnFlagType</span>::<span class='ident'>CompressZstd</span>,
+                   <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;Zstd&quot;</span>).<span class='ident'>unwrap</span>());
+    }
+
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_fmt</span>() {
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;COLUMN_VECTOR&quot;</span>.<span class='ident'>to_owned</span>(),
                    <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>ColumnFlagType</span>::<span class='ident'>Vector</span>));
@@ -323,6 +370,13 @@
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>all</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;unstable&quot;</span>, <span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;groonga_611&quot;</span>))]</span>
+    <span class='kw'>fn</span> <span class='ident'>test_from_fmt_unstable_groonga_611</span>() {
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='string'>&quot;COMPRESS_ZSTD&quot;</span>.<span class='ident'>to_owned</span>(),
+                   <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>ColumnFlagType</span>::<span class='ident'>CompressZstd</span>));
+    }
+
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_as_str</span>() {
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ColumnFlagType</span>::<span class='ident'>Index</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;COLUMN_INDEX&quot;</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ColumnFlagType</span>::<span class='ident'>ExtColumnFlagType</span>(<span class='string'>&quot;AddedColumnFlag&quot;</span>.<span class='ident'>to_owned</span>()).<span class='ident'>as_ref</span>(),
@@ -333,6 +387,12 @@
     <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;unstable&quot;</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>test_as_str_unstable</span>() {
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ColumnFlagType</span>::<span class='ident'>CompressLz4</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;COMPRESS_LZ4&quot;</span>);
+    }
+
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>all</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;unstable&quot;</span>, <span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;groonga_611&quot;</span>))]</span>
+    <span class='kw'>fn</span> <span class='ident'>test_as_str_unstable_groonga_611</span>() {
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ColumnFlagType</span>::<span class='ident'>CompressZstd</span>.<span class='ident'>as_ref</span>(), <span class='string'>&quot;COMPRESS_ZSTD&quot;</span>);
     }
 }
 </pre>

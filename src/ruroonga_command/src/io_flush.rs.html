@@ -202,13 +202,9 @@
 <span id="158">158</span>
 <span id="159">159</span>
 <span id="160">160</span>
-<span id="161">161</span>
-<span id="162">162</span>
-<span id="163">163</span>
-<span id="164">164</span>
 </pre><pre class='rust '>
-<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
-<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>IoFlush</span>;
+<span class='kw'>use</span> <span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
+<span class='kw'>use</span> <span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>IoFlush</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
 <span class='kw'>use</span> <span class='ident'>command_query</span>::<span class='ident'>CommandQuery</span>;
 <span class='kw'>use</span> <span class='ident'>queryable</span>::<span class='ident'>Queryable</span>;
@@ -244,11 +240,7 @@
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>recursive</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>recursive</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>IoFlushCommand</span> {
-        <span class='kw'>let</span> <span class='ident'>flag</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>recursive</span> {
-            <span class='string'>&quot;yes&quot;</span>
-        } <span class='kw'>else</span> {
-            <span class='string'>&quot;no&quot;</span>
-        };
+        <span class='kw'>let</span> <span class='ident'>flag</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>recursive</span> { <span class='string'>&quot;yes&quot;</span> } <span class='kw'>else</span> { <span class='string'>&quot;no&quot;</span> };
         <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='string'>&quot;recursive&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>flag</span>.<span class='ident'>to_string</span>());
         <span class='self'>self</span>
     }
@@ -316,7 +308,7 @@
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_recursive</span>() {
-        <span class='kw'>let</span> <span class='ident'>recursive_yes</span> <span class='op'>=</span> <span class='ident'>IoFlushCommand</span>::<span class='ident'>new</span>().<span class='ident'>recursive</span>(<span class='boolvalue'>true</span>);
+        <span class='kw'>let</span> <span class='ident'>recursive_yes</span> <span class='op'>=</span> <span class='ident'>IoFlushCommand</span>::<span class='ident'>new</span>().<span class='ident'>recursive</span>(<span class='bool-val'>true</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg_yes</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg_yes</span>.<span class='ident'>insert</span>(<span class='string'>&quot;recursive&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;yes&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected_yes</span> <span class='op'>=</span> <span class='ident'>IoFlushCommand</span> {
@@ -324,7 +316,7 @@
             <span class='ident'>arguments</span>: <span class='ident'>arg_yes</span>,
         };
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected_yes</span>, <span class='ident'>recursive_yes</span>);
-        <span class='kw'>let</span> <span class='ident'>recursive_no</span> <span class='op'>=</span> <span class='ident'>IoFlushCommand</span>::<span class='ident'>new</span>().<span class='ident'>recursive</span>(<span class='boolvalue'>false</span>);
+        <span class='kw'>let</span> <span class='ident'>recursive_no</span> <span class='op'>=</span> <span class='ident'>IoFlushCommand</span>::<span class='ident'>new</span>().<span class='ident'>recursive</span>(<span class='bool-val'>false</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg_no</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg_no</span>.<span class='ident'>insert</span>(<span class='string'>&quot;recursive&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;no&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected_no</span> <span class='op'>=</span> <span class='ident'>IoFlushCommand</span> {

@@ -47,17 +47,17 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-84' class='srclink' href='../../src/ruroonga_command/src/extendable/mod.rs.html#3-7' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-86' class='srclink' href='../../src/ruroonga_command/src/extendable/mod.rs.html#3-7' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait Extendable {
     type <a href='#associatedtype.Output' class='type'>Output</a>;
-    unsafe fn <a href='#tymethod.set_arguments' class='fnname'>set_arguments</a>(self, arguments: <a class='struct' href='https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html' title='std::collections::hash::map::HashMap'>HashMap</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;) -&gt; Self::<a class='trait' href='../../ruroonga_command/extendable/trait.Extendable.html' title='ruroonga_command::extendable::Extendable'>Output</a>;
+    unsafe fn <a href='#tymethod.set_arguments' class='fnname'>set_arguments</a>(self, arguments: <a class='struct' href='https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html' title='std::collections::hash::map::HashMap'>HashMap</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>,&nbsp;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;) -&gt; Self::Output;
 }</pre>
             <h2 id='associated-types'>Associated Types</h2>
             <div class='methods'>
-        <h3 id='associatedtype.Output' class='method stab '><code>type <a href='#associatedtype.Output' class='type'>Output</a></code></h3></div>
+        <h3 id='associatedtype.Output' class='method stab '><span id='Output.t' class='invisible'><code>type <a href='#associatedtype.Output' class='type'>Output</a></code></span></h3></div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.set_arguments' class='method stab '><code>unsafe fn <a href='#tymethod.set_arguments' class='fnname'>set_arguments</a>(self, arguments: <a class='struct' href='https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html' title='std::collections::hash::map::HashMap'>HashMap</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;) -&gt; Self::<a class='trait' href='../../ruroonga_command/extendable/trait.Extendable.html' title='ruroonga_command::extendable::Extendable'>Output</a></code></h3></div>
+        <h3 id='tymethod.set_arguments' class='method stab '><span id='set_arguments.v' class='invisible'><code>unsafe fn <a href='#tymethod.set_arguments' class='fnname'>set_arguments</a>(self, arguments: <a class='struct' href='https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html' title='std::collections::hash::map::HashMap'>HashMap</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>,&nbsp;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;) -&gt; Self::Output</code></span></h3></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
     <li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/dump/struct.DumpCommand.html' title='ruroonga_command::dump::DumpCommand'>DumpCommand</a></code></li>
@@ -77,6 +77,7 @@
 <li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/column_rename/struct.ColumnRenameCommand.html' title='ruroonga_command::column_rename::ColumnRenameCommand'>ColumnRenameCommand</a></code></li>
 <li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/column_remove/struct.ColumnRemoveCommand.html' title='ruroonga_command::column_remove::ColumnRemoveCommand'>ColumnRemoveCommand</a></code></li>
 <li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/database_unmap/struct.DatabaseUnmapCommand.html' title='ruroonga_command::database_unmap::DatabaseUnmapCommand'>DatabaseUnmapCommand</a></code></li>
+<li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/reindex/struct.ReindexCommand.html' title='ruroonga_command::reindex::ReindexCommand'>ReindexCommand</a></code></li>
 <li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/object_exist/struct.ObjectExistCommand.html' title='ruroonga_command::object_exist::ObjectExistCommand'>ObjectExistCommand</a></code></li>
 <li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/object_inspect/struct.ObjectInspectCommand.html' title='ruroonga_command::object_inspect::ObjectInspectCommand'>ObjectInspectCommand</a></code></li>
 <li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/object_remove/struct.ObjectRemoveCommand.html' title='ruroonga_command::object_remove::ObjectRemoveCommand'>ObjectRemoveCommand</a></code></li>
@@ -88,8 +89,6 @@
 <li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/tokenizer_list/struct.TokenizerListCommand.html' title='ruroonga_command::tokenizer_list::TokenizerListCommand'>TokenizerListCommand</a></code></li>
 <li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/truncate/struct.TruncateCommand.html' title='ruroonga_command::truncate::TruncateCommand'>TruncateCommand</a></code></li>
 <li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/shutdown/struct.ShutdownCommand.html' title='ruroonga_command::shutdown::ShutdownCommand'>ShutdownCommand</a></code></li>
-<li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/logical_select/struct.LogicalSelectCommand.html' title='ruroonga_command::logical_select::LogicalSelectCommand'>LogicalSelectCommand</a></code></li>
-<li><code>impl Extendable for <a class='struct' href='../../ruroonga_command/logical_shard_list/struct.LogicalShardListCommand.html' title='ruroonga_command::logical_shard_list::LogicalShardListCommand'>LogicalShardListCommand</a></code></li>
 </ul><script type="text/javascript" async
                          src="../../implementors/ruroonga_command/extendable/trait.Extendable.js">
                  </script></section>

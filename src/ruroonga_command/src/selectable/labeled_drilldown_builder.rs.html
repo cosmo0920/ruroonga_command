@@ -155,8 +155,9 @@
 <span id="111">111</span>
 <span id="112">112</span>
 <span id="113">113</span>
+<span id="114">114</span>
 </pre><pre class='rust '>
-<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>labeled_drilldown</span>::<span class='ident'>LabeledDrilldown</span>;
+<span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>labeled_drilldown</span>::<span class='ident'>LabeledDrilldown</span>;
 <span class='kw'>use</span> <span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
 <span class='kw'>use</span> <span class='ident'>selectable</span>::<span class='ident'>fragmentable</span>::<span class='ident'>Fragmentable</span>;
 <span class='kw'>use</span> <span class='ident'>command_query</span>::<span class='ident'>CommandQuery</span>;
@@ -186,7 +187,7 @@
 <span class='doccomment'>/// let mut builder = LabeledDrilldownBuilder::new(DrilldownUsable::Select(select), drilldown);</span>
 <span class='doccomment'>/// let _ = builder.build();</span>
 <span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// In more practical example, please refer to drilldown_builder examples</span>
+<span class='doccomment'>/// In more practical example, please refer to `drilldown_builder` examples</span>
 <span class='doccomment'>/// in [examples/drilldown_builder.rs]</span>
 <span class='doccomment'>/// (https://github.com/cosmo0920/ruroonga_command/blob/master/examples/drilldown_builder.rs).</span>
 <span class='kw'>impl</span> <span class='ident'>LabeledDrilldownBuilder</span> {
@@ -250,9 +251,10 @@
         <span class='kw'>let</span> <span class='ident'>drilldown</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldown</span>::<span class='ident'>new</span>(<span class='string'>&quot;label&quot;</span>.<span class='ident'>to_string</span>()).<span class='ident'>keys</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;tag&quot;</span>.<span class='ident'>to_string</span>())]);
         <span class='kw'>let</span> <span class='ident'>builder</span> <span class='op'>=</span> <span class='ident'>LabeledDrilldownBuilder</span>::<span class='ident'>new</span>(<span class='ident'>DrilldownUsable</span>::<span class='ident'>Select</span>(<span class='ident'>select</span>), <span class='ident'>drilldown</span>)
             .<span class='ident'>to_query</span>();
-        <span class='kw'>let</span> <span class='ident'>encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/select?table=Entries&amp;filter=%27content+%40+%22fast%22%27&amp;drilldowns%5Bla\
-                       bel%5D.keys=%27tag%27&quot;</span>
-            .<span class='ident'>to_string</span>();
+        <span class='kw'>let</span> <span class='ident'>encoded</span> <span class='op'>=</span>
+            <span class='string'>&quot;/d/select?table=Entries&amp;filter=%27content+%40+%22fast%22%27&amp;drilldowns%5Blabel%5D.\
+             keys=%27tag%27&quot;</span>
+                .<span class='ident'>to_string</span>();
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>encoded</span>, <span class='ident'>builder</span>);
     }
 

@@ -211,11 +211,9 @@
 <span id="167">167</span>
 <span id="168">168</span>
 <span id="169">169</span>
-<span id="170">170</span>
-<span id="171">171</span>
 </pre><pre class='rust '>
-<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
-<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>ColumnCopy</span>;
+<span class='kw'>use</span> <span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
+<span class='kw'>use</span> <span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>ColumnCopy</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
 <span class='kw'>use</span> <span class='ident'>command_query</span>::<span class='ident'>CommandQuery</span>;
 <span class='kw'>use</span> <span class='ident'>queryable</span>::<span class='ident'>Queryable</span>;
@@ -254,14 +252,12 @@
                <span class='ident'>to_table</span>: <span class='ident'>String</span>,
                <span class='ident'>to_name</span>: <span class='ident'>String</span>)
                <span class='op'>-&gt;</span> <span class='ident'>ColumnCopyCommand</span> {
-        <span class='kw'>let</span> <span class='ident'>default</span>: <span class='ident'>ColumnCopyCommand</span> <span class='op'>=</span> <span class='ident'>Default</span>::<span class='ident'>default</span>();
         <span class='ident'>ColumnCopyCommand</span> {
-            <span class='ident'>command</span>: <span class='ident'>default</span>.<span class='ident'>command</span>,
             <span class='ident'>from_table</span>: <span class='ident'>from_table</span>,
             <span class='ident'>from_name</span>: <span class='ident'>from_name</span>,
             <span class='ident'>to_table</span>: <span class='ident'>to_table</span>,
             <span class='ident'>to_name</span>: <span class='ident'>to_name</span>,
-            <span class='ident'>arguments</span>: <span class='ident'>default</span>.<span class='ident'>arguments</span>,
+            ..<span class='ident'>ColumnCopyCommand</span>::<span class='ident'>default</span>()
         }
     }
 

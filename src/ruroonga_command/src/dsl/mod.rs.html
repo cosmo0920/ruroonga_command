@@ -119,6 +119,16 @@
 <span id="75">75</span>
 <span id="76">76</span>
 <span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
 </pre><pre class='rust '>
 <span class='kw'>mod</span> <span class='ident'>select_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>cache_limit_dsl</span>;
@@ -140,6 +150,7 @@
 <span class='kw'>mod</span> <span class='ident'>column_list_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>column_rename_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>column_remove_dsl</span>;
+<span class='kw'>mod</span> <span class='ident'>reindex_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>request_cancel_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>schema_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>shutdown_dsl</span>;
@@ -155,48 +166,57 @@
 <span class='kw'>mod</span> <span class='ident'>tokenizer_list_dsl</span>;
 <span class='kw'>mod</span> <span class='ident'>truncate_dsl</span>;
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+<span class='kw'>mod</span> <span class='ident'>logical_count_dsl</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>logical_select_dsl</span>;
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>logical_shard_list_dsl</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+<span class='kw'>mod</span> <span class='ident'>logical_table_remove_dsl</span>;
 
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>select_dsl</span>::<span class='ident'>select</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>cache_limit_dsl</span>::<span class='ident'>cache_limit</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>dump_dsl</span>::<span class='ident'>dump</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>database_unmap_dsl</span>::<span class='ident'>database_unmap</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>load_dsl</span>::<span class='ident'>load</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>status_dsl</span>::<span class='ident'>status</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>delete_dsl</span>::<span class='ident'>delete</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>io_flush_dsl</span>::<span class='ident'>io_flush</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>log_level_dsl</span>::<span class='ident'>log_level</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>log_put_dsl</span>::<span class='ident'>log_put</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>log_reopen_dsl</span>::<span class='ident'>log_reopen</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>table_create_dsl</span>::<span class='ident'>table_create</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>table_list_dsl</span>::<span class='ident'>table_list</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>table_rename_dsl</span>::<span class='ident'>table_rename</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>table_remove_dsl</span>::<span class='ident'>table_remove</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>column_copy_dsl</span>::<span class='ident'>column_copy</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>column_create_dsl</span>::<span class='ident'>column_create</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>column_list_dsl</span>::<span class='ident'>column_list</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>column_rename_dsl</span>::<span class='ident'>column_rename</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>column_remove_dsl</span>::<span class='ident'>column_remove</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>request_cancel_dsl</span>::<span class='ident'>request_cancel</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>schema_dsl</span>::<span class='ident'>schema</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>shutdown_dsl</span>::<span class='ident'>shutdown</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>object_exist_dsl</span>::<span class='ident'>object_exist</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>object_inspect_dsl</span>::<span class='ident'>object_inspect</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>object_remove_dsl</span>::<span class='ident'>object_remove</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>normalize_dsl</span>::<span class='ident'>normalize</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>normalizer_list_dsl</span>::<span class='ident'>normalizer_list</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>plugin_register_dsl</span>::<span class='ident'>plugin_register</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>plugin_unregister_dsl</span>::<span class='ident'>plugin_unregister</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>thread_limit_dsl</span>::<span class='ident'>thread_limit</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>tokenize_dsl</span>::<span class='ident'>tokenize</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>tokenizer_list_dsl</span>::<span class='ident'>tokenizer_list</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>truncate_dsl</span>::<span class='ident'>truncate</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>select_dsl</span>::<span class='ident'>select</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>cache_limit_dsl</span>::<span class='ident'>cache_limit</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>dump_dsl</span>::<span class='ident'>dump</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>database_unmap_dsl</span>::<span class='ident'>database_unmap</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>load_dsl</span>::<span class='ident'>load</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>status_dsl</span>::<span class='ident'>status</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>delete_dsl</span>::<span class='ident'>delete</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>io_flush_dsl</span>::<span class='ident'>io_flush</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>log_level_dsl</span>::<span class='ident'>log_level</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>log_put_dsl</span>::<span class='ident'>log_put</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>log_reopen_dsl</span>::<span class='ident'>log_reopen</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>table_create_dsl</span>::<span class='ident'>table_create</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>table_list_dsl</span>::<span class='ident'>table_list</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>table_rename_dsl</span>::<span class='ident'>table_rename</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>table_remove_dsl</span>::<span class='ident'>table_remove</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>column_copy_dsl</span>::<span class='ident'>column_copy</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>column_create_dsl</span>::<span class='ident'>column_create</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>column_list_dsl</span>::<span class='ident'>column_list</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>column_rename_dsl</span>::<span class='ident'>column_rename</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>column_remove_dsl</span>::<span class='ident'>column_remove</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>reindex_dsl</span>::<span class='ident'>reindex</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>request_cancel_dsl</span>::<span class='ident'>request_cancel</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>schema_dsl</span>::<span class='ident'>schema</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>shutdown_dsl</span>::<span class='ident'>shutdown</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>object_exist_dsl</span>::<span class='ident'>object_exist</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>object_inspect_dsl</span>::<span class='ident'>object_inspect</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>object_remove_dsl</span>::<span class='ident'>object_remove</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>normalize_dsl</span>::<span class='ident'>normalize</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>normalizer_list_dsl</span>::<span class='ident'>normalizer_list</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>plugin_register_dsl</span>::<span class='ident'>plugin_register</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>plugin_unregister_dsl</span>::<span class='ident'>plugin_unregister</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>thread_limit_dsl</span>::<span class='ident'>thread_limit</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>tokenize_dsl</span>::<span class='ident'>tokenize</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>tokenizer_list_dsl</span>::<span class='ident'>tokenizer_list</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>truncate_dsl</span>::<span class='ident'>truncate</span>;
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>logical_select_dsl</span>::<span class='ident'>logical_select</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>logical_count_dsl</span>::<span class='ident'>logical_count</span>;
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>logical_shard_list_dsl</span>::<span class='ident'>logical_shard_list</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>logical_select_dsl</span>::<span class='ident'>logical_select</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>logical_shard_list_dsl</span>::<span class='ident'>logical_shard_list</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span><span class='op'>=</span><span class='string'>&quot;sharding&quot;</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>dsl</span>::<span class='ident'>logical_table_remove_dsl</span>::<span class='ident'>logical_table_remove</span>;
 </pre>
 </section>
     <section id='search' class="content hidden"></section>

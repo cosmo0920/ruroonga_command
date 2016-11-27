@@ -206,10 +206,12 @@
 <span id="162">162</span>
 <span id="163">163</span>
 <span id="164">164</span>
+<span id="165">165</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>url</span>::<span class='ident'>form_urlencoded</span>;
 <span class='kw'>use</span> <span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
 <span class='kw'>use</span> <span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>Dump</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>borrow</span>::<span class='ident'>Cow</span>;
 
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Debug</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>CommandQuery</span> {
@@ -239,13 +241,13 @@
     }
 
     <span class='doccomment'>/// Get command enum constant to construct url encoded query.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_command</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Command</span> {
-        <span class='self'>self</span>.<span class='ident'>command</span>.<span class='ident'>clone</span>()
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_command</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Cow</span><span class='op'>&lt;</span><span class='ident'>Command</span><span class='op'>&gt;</span> {
+        <span class='ident'>Cow</span>::<span class='ident'>Borrowed</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>command</span>)
     }
 
     <span class='doccomment'>/// Get vectorize `(&quot;key&quot;, &quot;value&quot;)` pairs to construct url encoded query.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_argument</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Query</span> {
-        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>clone</span>()
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_argument</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Cow</span><span class='op'>&lt;</span><span class='ident'>Query</span><span class='op'>&gt;</span> {
+        <span class='ident'>Cow</span>::<span class='ident'>Borrowed</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>arguments</span>)
     }
 
     <span class='doccomment'>/// Set vectorize `(&quot;key&quot;, &quot;value&quot;)` pairs to construct url encoded query.</span>
@@ -256,8 +258,8 @@
     <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
     <span class='comment'>// get HTTP URI prefix. default: /d</span>
     <span class='comment'>// This function is mainly provided for internal usage.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_prefix</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
-        <span class='self'>self</span>.<span class='ident'>prefix</span>.<span class='ident'>clone</span>()
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_prefix</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Cow</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span> {
+        <span class='ident'>Cow</span>::<span class='ident'>Borrowed</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>prefix</span>)
     }
 
     <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
@@ -280,8 +282,8 @@
     <span class='doccomment'>/// Create Groonga HTTP server query URL.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>encode</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
         <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}/{}?{}&quot;</span>,
-                <span class='self'>self</span>.<span class='ident'>get_prefix</span>(),
-                <span class='self'>self</span>.<span class='ident'>get_command</span>(),
+                <span class='self'>self</span>.<span class='ident'>get_prefix</span>().<span class='ident'>into_owned</span>(),
+                <span class='self'>self</span>.<span class='ident'>get_command</span>().<span class='ident'>into_owned</span>(),
                 <span class='self'>self</span>.<span class='ident'>make_query</span>())
     }
 }
@@ -304,9 +306,9 @@
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>) <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>())
             .<span class='ident'>filter</span>(<span class='string'>&quot;output_column @ \&quot;type_safe\&quot;&quot;</span>.<span class='ident'>to_string</span>())
             .<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
+        <span class='kw'>let</span> <span class='ident'>command_query</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>).<span class='ident'>encode</span>();
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/select?table=Test&amp;filter=%27output_column+%40+%22type_safe%22%27&quot;</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command_query</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -317,18 +319,18 @@
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>, <span class='ident'>values</span>) <span class='op'>=</span> <span class='ident'>LoadCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>load_data</span>.<span class='ident'>to_string</span>())
             .<span class='ident'>input_type</span>(<span class='ident'>InputType</span>::<span class='ident'>Json</span>)
             .<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
+        <span class='kw'>let</span> <span class='ident'>command_query</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>).<span class='ident'>encode</span>();
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/load?table=test&amp;input_type=json&quot;</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command_query</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>load_data</span>.<span class='ident'>to_string</span>(), <span class='ident'>values</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_status</span>() {
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>) <span class='op'>=</span> <span class='ident'>StatusCommand</span>::<span class='ident'>new</span>().<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
+        <span class='kw'>let</span> <span class='ident'>command_query</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>).<span class='ident'>encode</span>();
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/status?&quot;</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command_query</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -336,9 +338,9 @@
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>) <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>()
             .<span class='ident'>tables</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;Books&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;Categories&quot;</span>.<span class='ident'>to_string</span>()])
             .<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
+        <span class='kw'>let</span> <span class='ident'>command_query</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>).<span class='ident'>encode</span>();
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/dump?tables=Books%2CCategories&quot;</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command_query</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -346,9 +348,9 @@
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>) <span class='op'>=</span> <span class='ident'>DeleteCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Books&quot;</span>.<span class='ident'>to_string</span>())
             .<span class='ident'>filter</span>(<span class='string'>&quot;author == unknown&quot;</span>.<span class='ident'>to_string</span>())
             .<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
+        <span class='kw'>let</span> <span class='ident'>command_query</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>).<span class='ident'>encode</span>();
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/delete?table=Books&amp;filter=%27author+%3D%3D+unknown%27&quot;</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command_query</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -356,9 +358,9 @@
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>) <span class='op'>=</span> <span class='ident'>TableCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>())
             .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>TableFlagType</span>::<span class='ident'>PatKey</span>), (<span class='ident'>TableFlagType</span>::<span class='ident'>KeyWithSIS</span>)])
             .<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
+        <span class='kw'>let</span> <span class='ident'>command_query</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>).<span class='ident'>encode</span>();
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/table_create?name=Test&amp;flags=TABLE_PAT_KEY%7CKEY_WITH_SIS&quot;</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command_query</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -366,9 +368,9 @@
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>) <span class='op'>=</span> <span class='ident'>ColumnCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>())
             .<span class='ident'>column_type</span>(<span class='ident'>DataType</span>::<span class='ident'>LongText</span>)
             .<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
+        <span class='kw'>let</span> <span class='ident'>command_query</span> <span class='op'>=</span> <span class='ident'>CommandQuery</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>).<span class='ident'>encode</span>();
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;/d/column_create?table=Test&amp;name=element&amp;type=LongText&quot;</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command_query</span>);
     }
 }
 </pre>

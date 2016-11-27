@@ -178,11 +178,9 @@
 <span id="134">134</span>
 <span id="135">135</span>
 <span id="136">136</span>
-<span id="137">137</span>
-<span id="138">138</span>
 </pre><pre class='rust '>
-<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
-<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>LogPut</span>;
+<span class='kw'>use</span> <span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
+<span class='kw'>use</span> <span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>LogPut</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
 <span class='kw'>use</span> <span class='ident'>command_query</span>::<span class='ident'>CommandQuery</span>;
 <span class='kw'>use</span> <span class='ident'>queryable</span>::<span class='ident'>Queryable</span>;
@@ -214,12 +212,10 @@
 
 <span class='kw'>impl</span> <span class='ident'>LogPutCommand</span> {
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>level</span>: <span class='ident'>LogLevelType</span>, <span class='ident'>message</span>: <span class='ident'>String</span>) <span class='op'>-&gt;</span> <span class='ident'>LogPutCommand</span> {
-        <span class='kw'>let</span> <span class='ident'>default</span>: <span class='ident'>LogPutCommand</span> <span class='op'>=</span> <span class='ident'>Default</span>::<span class='ident'>default</span>();
         <span class='ident'>LogPutCommand</span> {
-            <span class='ident'>command</span>: <span class='ident'>default</span>.<span class='ident'>command</span>,
             <span class='ident'>level</span>: <span class='ident'>level</span>,
             <span class='ident'>message</span>: <span class='ident'>message</span>,
-            <span class='ident'>arguments</span>: <span class='ident'>default</span>.<span class='ident'>arguments</span>,
+            ..<span class='ident'>LogPutCommand</span>::<span class='ident'>default</span>()
         }
     }
 

@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["column_copy",""]]});

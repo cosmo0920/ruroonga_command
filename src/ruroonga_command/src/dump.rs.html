@@ -288,25 +288,9 @@
 <span id="244">244</span>
 <span id="245">245</span>
 <span id="246">246</span>
-<span id="247">247</span>
-<span id="248">248</span>
-<span id="249">249</span>
-<span id="250">250</span>
-<span id="251">251</span>
-<span id="252">252</span>
-<span id="253">253</span>
-<span id="254">254</span>
-<span id="255">255</span>
-<span id="256">256</span>
-<span id="257">257</span>
-<span id="258">258</span>
-<span id="259">259</span>
-<span id="260">260</span>
-<span id="261">261</span>
-<span id="262">262</span>
 </pre><pre class='rust '>
-<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
-<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>Dump</span>;
+<span class='kw'>use</span> <span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
+<span class='kw'>use</span> <span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>Dump</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
 <span class='kw'>use</span> <span class='ident'>util</span>;
 <span class='kw'>use</span> <span class='ident'>command_query</span>::<span class='ident'>CommandQuery</span>;
@@ -344,41 +328,25 @@
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>dump_plugins</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>include</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>DumpCommand</span> {
-        <span class='kw'>let</span> <span class='ident'>flag</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>include</span> {
-            <span class='string'>&quot;yes&quot;</span>
-        } <span class='kw'>else</span> {
-            <span class='string'>&quot;no&quot;</span>
-        };
+        <span class='kw'>let</span> <span class='ident'>flag</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>include</span> { <span class='string'>&quot;yes&quot;</span> } <span class='kw'>else</span> { <span class='string'>&quot;no&quot;</span> };
         <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='string'>&quot;dump_plugins&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>flag</span>.<span class='ident'>to_string</span>());
         <span class='self'>self</span>
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>dump_schema</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>include</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>DumpCommand</span> {
-        <span class='kw'>let</span> <span class='ident'>flag</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>include</span> {
-            <span class='string'>&quot;yes&quot;</span>
-        } <span class='kw'>else</span> {
-            <span class='string'>&quot;no&quot;</span>
-        };
+        <span class='kw'>let</span> <span class='ident'>flag</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>include</span> { <span class='string'>&quot;yes&quot;</span> } <span class='kw'>else</span> { <span class='string'>&quot;no&quot;</span> };
         <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='string'>&quot;dump_schema&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>flag</span>.<span class='ident'>to_string</span>());
         <span class='self'>self</span>
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>dump_records</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>include</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>DumpCommand</span> {
-        <span class='kw'>let</span> <span class='ident'>flag</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>include</span> {
-            <span class='string'>&quot;yes&quot;</span>
-        } <span class='kw'>else</span> {
-            <span class='string'>&quot;no&quot;</span>
-        };
+        <span class='kw'>let</span> <span class='ident'>flag</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>include</span> { <span class='string'>&quot;yes&quot;</span> } <span class='kw'>else</span> { <span class='string'>&quot;no&quot;</span> };
         <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='string'>&quot;dump_records&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>flag</span>.<span class='ident'>to_string</span>());
         <span class='self'>self</span>
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>dump_indexes</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>include</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>DumpCommand</span> {
-        <span class='kw'>let</span> <span class='ident'>flag</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>include</span> {
-            <span class='string'>&quot;yes&quot;</span>
-        } <span class='kw'>else</span> {
-            <span class='string'>&quot;no&quot;</span>
-        };
+        <span class='kw'>let</span> <span class='ident'>flag</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>include</span> { <span class='string'>&quot;yes&quot;</span> } <span class='kw'>else</span> { <span class='string'>&quot;no&quot;</span> };
         <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='string'>&quot;dump_indexes&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>flag</span>.<span class='ident'>to_string</span>());
         <span class='self'>self</span>
     }
@@ -446,7 +414,7 @@
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_dump_plugins</span>() {
-        <span class='kw'>let</span> <span class='ident'>dump_yes</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>().<span class='ident'>dump_plugins</span>(<span class='boolvalue'>true</span>);
+        <span class='kw'>let</span> <span class='ident'>dump_yes</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>().<span class='ident'>dump_plugins</span>(<span class='bool-val'>true</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg_yes</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg_yes</span>.<span class='ident'>insert</span>(<span class='string'>&quot;dump_plugins&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;yes&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected_yes</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span> {
@@ -454,7 +422,7 @@
             <span class='ident'>arguments</span>: <span class='ident'>arg_yes</span>,
         };
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected_yes</span>, <span class='ident'>dump_yes</span>);
-        <span class='kw'>let</span> <span class='ident'>dump_no</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>().<span class='ident'>dump_plugins</span>(<span class='boolvalue'>false</span>);
+        <span class='kw'>let</span> <span class='ident'>dump_no</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>().<span class='ident'>dump_plugins</span>(<span class='bool-val'>false</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg_no</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg_no</span>.<span class='ident'>insert</span>(<span class='string'>&quot;dump_plugins&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;no&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected_no</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span> {
@@ -466,7 +434,7 @@
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_dump_schemas</span>() {
-        <span class='kw'>let</span> <span class='ident'>dump_yes</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>().<span class='ident'>dump_schema</span>(<span class='boolvalue'>true</span>);
+        <span class='kw'>let</span> <span class='ident'>dump_yes</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>().<span class='ident'>dump_schema</span>(<span class='bool-val'>true</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg_yes</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg_yes</span>.<span class='ident'>insert</span>(<span class='string'>&quot;dump_schema&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;yes&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected_yes</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span> {
@@ -474,7 +442,7 @@
             <span class='ident'>arguments</span>: <span class='ident'>arg_yes</span>,
         };
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected_yes</span>, <span class='ident'>dump_yes</span>);
-        <span class='kw'>let</span> <span class='ident'>dump_no</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>().<span class='ident'>dump_schema</span>(<span class='boolvalue'>false</span>);
+        <span class='kw'>let</span> <span class='ident'>dump_no</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>().<span class='ident'>dump_schema</span>(<span class='bool-val'>false</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg_no</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg_no</span>.<span class='ident'>insert</span>(<span class='string'>&quot;dump_schema&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;no&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected_no</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span> {
@@ -486,7 +454,7 @@
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_dump_records</span>() {
-        <span class='kw'>let</span> <span class='ident'>dump_yes</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>().<span class='ident'>dump_records</span>(<span class='boolvalue'>true</span>);
+        <span class='kw'>let</span> <span class='ident'>dump_yes</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>().<span class='ident'>dump_records</span>(<span class='bool-val'>true</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg_yes</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg_yes</span>.<span class='ident'>insert</span>(<span class='string'>&quot;dump_records&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;yes&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected_yes</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span> {
@@ -494,7 +462,7 @@
             <span class='ident'>arguments</span>: <span class='ident'>arg_yes</span>,
         };
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected_yes</span>, <span class='ident'>dump_yes</span>);
-        <span class='kw'>let</span> <span class='ident'>dump_no</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>().<span class='ident'>dump_records</span>(<span class='boolvalue'>false</span>);
+        <span class='kw'>let</span> <span class='ident'>dump_no</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>().<span class='ident'>dump_records</span>(<span class='bool-val'>false</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg_no</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg_no</span>.<span class='ident'>insert</span>(<span class='string'>&quot;dump_records&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;no&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected_no</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span> {
@@ -506,7 +474,7 @@
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_dump_indexes</span>() {
-        <span class='kw'>let</span> <span class='ident'>dump_yes</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>().<span class='ident'>dump_indexes</span>(<span class='boolvalue'>true</span>);
+        <span class='kw'>let</span> <span class='ident'>dump_yes</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>().<span class='ident'>dump_indexes</span>(<span class='bool-val'>true</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg_yes</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg_yes</span>.<span class='ident'>insert</span>(<span class='string'>&quot;dump_indexes&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;yes&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected_yes</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span> {
@@ -514,7 +482,7 @@
             <span class='ident'>arguments</span>: <span class='ident'>arg_yes</span>,
         };
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected_yes</span>, <span class='ident'>dump_yes</span>);
-        <span class='kw'>let</span> <span class='ident'>dump_no</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>().<span class='ident'>dump_indexes</span>(<span class='boolvalue'>false</span>);
+        <span class='kw'>let</span> <span class='ident'>dump_no</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>().<span class='ident'>dump_indexes</span>(<span class='bool-val'>false</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg_no</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg_no</span>.<span class='ident'>insert</span>(<span class='string'>&quot;dump_indexes&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;no&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected_no</span> <span class='op'>=</span> <span class='ident'>DumpCommand</span> {

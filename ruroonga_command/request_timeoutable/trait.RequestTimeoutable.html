@@ -50,14 +50,14 @@
                </span><a id='src-98' class='srclink' href='../../src/ruroonga_command/src/request_timeoutable/mod.rs.html#1-8' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait RequestTimeoutable {
     type <a href='#associatedtype.Output' class='type'>Output</a>;
-    fn <a href='#tymethod.append_request_timeout' class='fnname'>append_request_timeout</a>(self, timeout: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; Self::<a class='trait' href='../../ruroonga_command/request_timeoutable/trait.RequestTimeoutable.html' title='ruroonga_command::request_timeoutable::RequestTimeoutable'>Output</a>;
+    fn <a href='#tymethod.append_request_timeout' class='fnname'>append_request_timeout</a>(self, timeout: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; Self::Output;
 }</pre>
             <h2 id='associated-types'>Associated Types</h2>
             <div class='methods'>
-        <h3 id='associatedtype.Output' class='method stab '><code>type <a href='#associatedtype.Output' class='type'>Output</a></code></h3></div>
+        <h3 id='associatedtype.Output' class='method stab '><span id='Output.t' class='invisible'><code>type <a href='#associatedtype.Output' class='type'>Output</a></code></span></h3></div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.append_request_timeout' class='method stab '><code>fn <a href='#tymethod.append_request_timeout' class='fnname'>append_request_timeout</a>(self, timeout: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; Self::<a class='trait' href='../../ruroonga_command/request_timeoutable/trait.RequestTimeoutable.html' title='ruroonga_command::request_timeoutable::RequestTimeoutable'>Output</a></code></h3><div class='docblock'><p>Specify <code>timeout</code> value. Unit: <code>seconds</code></p>
+        <h3 id='tymethod.append_request_timeout' class='method stab '><span id='append_request_timeout.v' class='invisible'><code>fn <a href='#tymethod.append_request_timeout' class='fnname'>append_request_timeout</a>(self, timeout: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f64.html'>f64</a>) -&gt; Self::Output</code></span></h3><div class='docblock'><p>Specify <code>timeout</code> value. Unit: <code>seconds</code></p>
 
 <p>Panics if specified negative float value.</p>
 </div></div>
@@ -83,6 +83,7 @@
 <li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/column_rename/struct.ColumnRenameCommand.html' title='ruroonga_command::column_rename::ColumnRenameCommand'>ColumnRenameCommand</a></code></li>
 <li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/column_remove/struct.ColumnRemoveCommand.html' title='ruroonga_command::column_remove::ColumnRemoveCommand'>ColumnRemoveCommand</a></code></li>
 <li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/database_unmap/struct.DatabaseUnmapCommand.html' title='ruroonga_command::database_unmap::DatabaseUnmapCommand'>DatabaseUnmapCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/reindex/struct.ReindexCommand.html' title='ruroonga_command::reindex::ReindexCommand'>ReindexCommand</a></code></li>
 <li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/request_cancel/struct.RequestCancelCommand.html' title='ruroonga_command::request_cancel::RequestCancelCommand'>RequestCancelCommand</a></code></li>
 <li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/object_exist/struct.ObjectExistCommand.html' title='ruroonga_command::object_exist::ObjectExistCommand'>ObjectExistCommand</a></code></li>
 <li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/object_inspect/struct.ObjectInspectCommand.html' title='ruroonga_command::object_inspect::ObjectInspectCommand'>ObjectInspectCommand</a></code></li>
@@ -95,10 +96,9 @@
 <li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/tokenize/struct.TokenizeCommand.html' title='ruroonga_command::tokenize::TokenizeCommand'>TokenizeCommand</a></code></li>
 <li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/tokenizer_list/struct.TokenizerListCommand.html' title='ruroonga_command::tokenizer_list::TokenizerListCommand'>TokenizerListCommand</a></code></li>
 <li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/truncate/struct.TruncateCommand.html' title='ruroonga_command::truncate::TruncateCommand'>TruncateCommand</a></code></li>
+<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/extension/struct.ExtensionCommand.html' title='ruroonga_command::extension::ExtensionCommand'>ExtensionCommand</a></code></li>
 <li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/schema/struct.SchemaCommand.html' title='ruroonga_command::schema::SchemaCommand'>SchemaCommand</a></code></li>
 <li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/shutdown/struct.ShutdownCommand.html' title='ruroonga_command::shutdown::ShutdownCommand'>ShutdownCommand</a></code></li>
-<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/logical_select/struct.LogicalSelectCommand.html' title='ruroonga_command::logical_select::LogicalSelectCommand'>LogicalSelectCommand</a></code></li>
-<li><code>impl RequestTimeoutable for <a class='struct' href='../../ruroonga_command/logical_shard_list/struct.LogicalShardListCommand.html' title='ruroonga_command::logical_shard_list::LogicalShardListCommand'>LogicalShardListCommand</a></code></li>
 </ul><script type="text/javascript" async
                          src="../../implementors/ruroonga_command/request_timeoutable/trait.RequestTimeoutable.js">
                  </script></section>

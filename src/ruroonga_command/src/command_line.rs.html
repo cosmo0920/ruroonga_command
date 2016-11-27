@@ -185,9 +185,13 @@
 <span id="141">141</span>
 <span id="142">142</span>
 <span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
 <span class='kw'>use</span> <span class='ident'>commandlinable</span>::<span class='ident'>Escape</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>borrow</span>::<span class='ident'>Cow</span>;
 
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Debug</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>CommandLine</span> {
@@ -204,13 +208,13 @@
     }
 
     <span class='doccomment'>/// Get command enum constant to construct command line query.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_command</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Command</span> {
-        <span class='self'>self</span>.<span class='ident'>command</span>.<span class='ident'>clone</span>()
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_command</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Cow</span><span class='op'>&lt;</span><span class='ident'>Command</span><span class='op'>&gt;</span> {
+        <span class='ident'>Cow</span>::<span class='ident'>Borrowed</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>command</span>)
     }
 
     <span class='doccomment'>/// Get vectorize `(&quot;key&quot;, &quot;value&quot;)` pairs to construct command line query.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_argument</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Query</span> {
-        <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>clone</span>()
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_argument</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Cow</span><span class='op'>&lt;</span><span class='ident'>Query</span><span class='op'>&gt;</span> {
+        <span class='ident'>Cow</span>::<span class='ident'>Borrowed</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>arguments</span>)
     }
 
     <span class='doccomment'>/// Set vectorize `(&quot;key&quot;, &quot;value&quot;)` pairs to construct command line query.</span>
@@ -222,7 +226,7 @@
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// `vec![(&quot;key&quot;,&quot;value&quot;)]` interprets to `&quot;--key value&quot;`.</span>
     <span class='doccomment'>/// And two or more value pair are concatinate with ` `(a space).</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>make_command</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>make_command</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Cow</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>str</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>output</span> <span class='op'>=</span> <span class='ident'>String</span>::<span class='ident'>new</span>();
         <span class='kw'>for</span> <span class='ident'>query</span> <span class='kw'>in</span> <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>to_owned</span>() {
             <span class='kw'>let</span> (<span class='ident'>key</span>, <span class='ident'>value</span>) <span class='op'>=</span> <span class='ident'>query</span>;
@@ -232,13 +236,15 @@
             <span class='kw'>let</span> <span class='ident'>format_string</span> <span class='op'>=</span> <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;--{} {}&quot;</span>, <span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>key</span>, <span class='ident'>Escape</span>(<span class='kw-2'>&amp;</span><span class='op'>*</span><span class='ident'>value</span>));
             <span class='ident'>output</span>.<span class='ident'>push_str</span>(<span class='ident'>format_string</span>.<span class='ident'>as_str</span>());
         }
-        <span class='ident'>output</span>
+        <span class='ident'>Cow</span>::<span class='ident'>Owned</span>(<span class='ident'>output</span>)
     }
 
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// Create Groonga command line style command.</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>encode</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
-        <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{} {}&quot;</span>, <span class='self'>self</span>.<span class='ident'>get_command</span>(), <span class='self'>self</span>.<span class='ident'>make_command</span>())
+        <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{} {}&quot;</span>,
+                <span class='self'>self</span>.<span class='ident'>get_command</span>().<span class='ident'>into_owned</span>(),
+                <span class='self'>self</span>.<span class='ident'>make_command</span>().<span class='ident'>into_owned</span>())
             .<span class='ident'>trim</span>()
             .<span class='ident'>to_string</span>()
     }
@@ -262,9 +268,9 @@
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>) <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>())
             .<span class='ident'>filter</span>(<span class='string'>&quot;output_column @ \&quot;type_safe\&quot;&quot;</span>.<span class='ident'>to_string</span>())
             .<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandLine</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
+        <span class='kw'>let</span> <span class='ident'>command_line</span> <span class='op'>=</span> <span class='ident'>CommandLine</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>).<span class='ident'>encode</span>();
         <span class='kw'>let</span> <span class='ident'>cli_encoded</span> <span class='op'>=</span> <span class='string'>&quot;select --table Test --filter \&#39;output_column @ \&quot;type_safe\&quot;\&#39;&quot;</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cli_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cli_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command_line</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -275,18 +281,18 @@
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>, <span class='ident'>values</span>) <span class='op'>=</span> <span class='ident'>LoadCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>load_data</span>.<span class='ident'>to_string</span>())
             .<span class='ident'>input_type</span>(<span class='ident'>InputType</span>::<span class='ident'>Json</span>)
             .<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandLine</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
+        <span class='kw'>let</span> <span class='ident'>command_line</span> <span class='op'>=</span> <span class='ident'>CommandLine</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>).<span class='ident'>encode</span>();
         <span class='kw'>let</span> <span class='ident'>cli_encoded</span> <span class='op'>=</span> <span class='string'>&quot;load --table Test --input_type json&quot;</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cli_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cli_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command_line</span>);
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>load_data</span>.<span class='ident'>to_string</span>(), <span class='ident'>values</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_status</span>() {
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>) <span class='op'>=</span> <span class='ident'>StatusCommand</span>::<span class='ident'>new</span>().<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandLine</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
+        <span class='kw'>let</span> <span class='ident'>command_line</span> <span class='op'>=</span> <span class='ident'>CommandLine</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>).<span class='ident'>encode</span>();
         <span class='kw'>let</span> <span class='ident'>cli_encoded</span> <span class='op'>=</span> <span class='string'>&quot;status&quot;</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cli_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cli_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command_line</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -294,9 +300,9 @@
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>) <span class='op'>=</span> <span class='ident'>DumpCommand</span>::<span class='ident'>new</span>()
             .<span class='ident'>tables</span>(<span class='macro'>vec</span><span class='macro'>!</span>[<span class='string'>&quot;Books&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;Categories&quot;</span>.<span class='ident'>to_string</span>()])
             .<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandLine</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
+        <span class='kw'>let</span> <span class='ident'>command_line</span> <span class='op'>=</span> <span class='ident'>CommandLine</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>).<span class='ident'>encode</span>();
         <span class='kw'>let</span> <span class='ident'>cli_encoded</span> <span class='op'>=</span> <span class='string'>&quot;dump --tables Books,Categories&quot;</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cli_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cli_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command_line</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -304,9 +310,9 @@
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>) <span class='op'>=</span> <span class='ident'>DeleteCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Books&quot;</span>.<span class='ident'>to_string</span>())
             .<span class='ident'>filter</span>(<span class='string'>&quot;author == unknown&quot;</span>.<span class='ident'>to_string</span>())
             .<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandLine</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
+        <span class='kw'>let</span> <span class='ident'>command_line</span> <span class='op'>=</span> <span class='ident'>CommandLine</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>).<span class='ident'>encode</span>();
         <span class='kw'>let</span> <span class='ident'>cli_encoded</span> <span class='op'>=</span> <span class='string'>&quot;delete --table Books --filter \&#39;author == unknown\&#39;&quot;</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cli_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cli_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command_line</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -314,9 +320,9 @@
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>) <span class='op'>=</span> <span class='ident'>TableCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>())
             .<span class='ident'>flags</span>(<span class='macro'>vec</span><span class='macro'>!</span>[(<span class='ident'>TableFlagType</span>::<span class='ident'>PatKey</span>), (<span class='ident'>TableFlagType</span>::<span class='ident'>KeyWithSIS</span>)])
             .<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandLine</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
+        <span class='kw'>let</span> <span class='ident'>command_line</span> <span class='op'>=</span> <span class='ident'>CommandLine</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>).<span class='ident'>encode</span>();
         <span class='kw'>let</span> <span class='ident'>url_encoded</span> <span class='op'>=</span> <span class='string'>&quot;table_create --name Test --flags TABLE_PAT_KEY|KEY_WITH_SIS&quot;</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>url_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command_line</span>);
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
@@ -324,9 +330,9 @@
         <span class='kw'>let</span> (<span class='ident'>command</span>, <span class='ident'>query</span>) <span class='op'>=</span> <span class='ident'>ColumnCreateCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;Test&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;element&quot;</span>.<span class='ident'>to_string</span>())
             .<span class='ident'>column_type</span>(<span class='ident'>DataType</span>::<span class='ident'>LongText</span>)
             .<span class='ident'>build</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>command</span> <span class='op'>=</span> <span class='ident'>CommandLine</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>);
+        <span class='kw'>let</span> <span class='ident'>command_line</span> <span class='op'>=</span> <span class='ident'>CommandLine</span>::<span class='ident'>new</span>(<span class='ident'>command</span>, <span class='ident'>query</span>).<span class='ident'>encode</span>();
         <span class='kw'>let</span> <span class='ident'>cli_encoded</span> <span class='op'>=</span> <span class='string'>&quot;column_create --table Test --name element --type LongText&quot;</span>;
-        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cli_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command</span>.<span class='ident'>encode</span>());
+        <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>cli_encoded</span>.<span class='ident'>to_string</span>(), <span class='ident'>command_line</span>);
     }
 }
 </pre>

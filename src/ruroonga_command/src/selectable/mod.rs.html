@@ -66,6 +66,9 @@
 <span id="22">22</span>
 <span id="23">23</span>
 <span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Provides drilldown related procedures.</span>
 <span class='doccomment'>//! This module will be used with `SelectCommand` type by `+` operation</span>
@@ -84,10 +87,13 @@
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>labeled_drilldown_sequence_builder</span>;
 <span class='doccomment'>/// `fragmentable` module provides making query fragment operation.</span>
 <span class='doccomment'>/// It is useful to make composable query elements.</span>
-<span class='doccomment'>/// It makes `select` query to be composable against drilldown related query and `staged_columns` query.</span>
+<span class='doccomment'>/// It makes `select` query to be composable against drilldown related query</span>
+<span class='doccomment'>/// and `staged_columns` query.</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>fragmentable</span>;
-<span class='doccomment'>/// `pseudo_table` is a trait to be used for tablable state which is appeared in &quot;drilldown in drilldown&quot;.</span>
+<span class='doccomment'>/// `pseudo_table` is a trait to be used for tablable state which is appeared in</span>
+<span class='doccomment'>/// &quot;drilldown in drilldown&quot;.</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>pseudo_table</span>;
+<span class='doccomment'>/// `staged_columns` provides making query which supports window function syntax.</span>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>staged_columns</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>staged_columns_builder</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>staged_columnable</span>;

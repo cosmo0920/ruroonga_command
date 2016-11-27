@@ -611,18 +611,9 @@
 <span id="567">567</span>
 <span id="568">568</span>
 <span id="569">569</span>
-<span id="570">570</span>
-<span id="571">571</span>
-<span id="572">572</span>
-<span id="573">573</span>
-<span id="574">574</span>
-<span id="575">575</span>
-<span id="576">576</span>
-<span id="577">577</span>
-<span id="578">578</span>
 </pre><pre class='rust '>
-<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
-<span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>Select</span>;
+<span class='kw'>use</span> <span class='ident'>command</span>::{<span class='ident'>Command</span>, <span class='ident'>Query</span>};
+<span class='kw'>use</span> <span class='ident'>command</span>::<span class='ident'>Command</span>::<span class='ident'>Select</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
 <span class='kw'>use</span> <span class='ident'>util</span>;
 <span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>select_query_flags</span>::<span class='ident'>QueryFlagsType</span>;
@@ -668,12 +659,7 @@
 
 <span class='kw'>impl</span> <span class='ident'>SelectCommand</span> {
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>table</span>: <span class='ident'>String</span>) <span class='op'>-&gt;</span> <span class='ident'>SelectCommand</span> {
-        <span class='kw'>let</span> <span class='ident'>default</span>: <span class='ident'>SelectCommand</span> <span class='op'>=</span> <span class='ident'>Default</span>::<span class='ident'>default</span>();
-        <span class='ident'>SelectCommand</span> {
-            <span class='ident'>command</span>: <span class='ident'>default</span>.<span class='ident'>command</span>,
-            <span class='ident'>table</span>: <span class='ident'>table</span>,
-            <span class='ident'>arguments</span>: <span class='ident'>default</span>.<span class='ident'>arguments</span>,
-        }
+        <span class='ident'>SelectCommand</span> { <span class='ident'>table</span>: <span class='ident'>table</span>, ..<span class='ident'>SelectCommand</span>::<span class='ident'>default</span>() }
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>filter</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>filter</span>: <span class='ident'>String</span>) <span class='op'>-&gt;</span> <span class='ident'>SelectCommand</span> {
@@ -741,11 +727,7 @@
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>cache</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>cache</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>SelectCommand</span> {
-        <span class='kw'>let</span> <span class='ident'>flag</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>cache</span> {
-            <span class='string'>&quot;yes&quot;</span>
-        } <span class='kw'>else</span> {
-            <span class='string'>&quot;no&quot;</span>
-        };
+        <span class='kw'>let</span> <span class='ident'>flag</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>cache</span> { <span class='string'>&quot;yes&quot;</span> } <span class='kw'>else</span> { <span class='string'>&quot;no&quot;</span> };
         <span class='self'>self</span>.<span class='ident'>arguments</span>.<span class='ident'>insert</span>(<span class='string'>&quot;cache&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>flag</span>.<span class='ident'>to_string</span>());
         <span class='self'>self</span>
     }
@@ -1040,7 +1022,7 @@
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_cache</span>() {
-        <span class='kw'>let</span> <span class='ident'>select_yes</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>()).<span class='ident'>cache</span>(<span class='boolvalue'>true</span>);
+        <span class='kw'>let</span> <span class='ident'>select_yes</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>()).<span class='ident'>cache</span>(<span class='bool-val'>true</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg_yes</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg_yes</span>.<span class='ident'>insert</span>(<span class='string'>&quot;cache&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;yes&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected_yes</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span> {
@@ -1049,7 +1031,7 @@
             <span class='ident'>arguments</span>: <span class='ident'>arg_yes</span>,
         };
         <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>expected_yes</span>, <span class='ident'>select_yes</span>);
-        <span class='kw'>let</span> <span class='ident'>select_no</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>()).<span class='ident'>cache</span>(<span class='boolvalue'>false</span>);
+        <span class='kw'>let</span> <span class='ident'>select_no</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span>::<span class='ident'>new</span>(<span class='string'>&quot;test&quot;</span>.<span class='ident'>to_string</span>()).<span class='ident'>cache</span>(<span class='bool-val'>false</span>);
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>arg_no</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>arg_no</span>.<span class='ident'>insert</span>(<span class='string'>&quot;cache&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;no&quot;</span>.<span class='ident'>to_string</span>());
         <span class='kw'>let</span> <span class='ident'>expected_no</span> <span class='op'>=</span> <span class='ident'>SelectCommand</span> {
