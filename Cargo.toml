@@ -13,6 +13,7 @@ normalizer_mysql = []
 unstable = []
 sharding = []
 dev = ['clippy']
+groonga_611 = []
 
 [build-dependencies.skeptic]
 version = "~0.6"
