@@ -3,7 +3,7 @@ language: rust
 rust:
   - nightly
   - beta
-  - 1.13.0
+  - 1.15.1
 
 script:
   - cargo test && cargo clean
