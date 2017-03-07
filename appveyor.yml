@@ -5,7 +5,7 @@ environment:
   matrix:
     - TARGET: x86_64-pc-windows-msvc
       BITS: 64
-      RUSTVER: 1.13.0
+      RUSTVER: 1.15.1
 install:
   - ps: Start-FileDownload "https://static.rust-lang.org/dist/rust-${env:RUSTVER}-${env:TARGET}.exe"
   - rust-%RUSTVER%-%TARGET%.exe /VERYSILENT /NORESTART /DIR="C:\Program Files (x86)\Rust"
@@ -18,5 +18,7 @@ build: false
 
 test_script:
   - cargo test
+  - cargo clean
   - cargo test --features "normalizer_mysql unstable"
+  - cargo clean
   - cargo test --features "normalizer_mysql unstable sharding"
